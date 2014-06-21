@@ -1,0 +1,105 @@
+# tr_TR translation, by Toltol-PlanetTRCraft Team
+
+item.ItemToolThermometer.name=Termometre
+item.ItemToolDigitalThermometer.name=Dijital Termometre
+item.ItemRemoteSensorKit.name=Uzak Sensör Kiti
+item.ItemEnergySensorKit.name=Enerji Sensör Kiti
+item.ItemCounterSensorKit.name=Counter Sensor Kit
+item.ItemLiquidSensorKit.name=Sıvı Sensör Kiti
+item.ItemSensorLocationCard.name=Reaktör Sensör Kartı
+item.ItemEnergySensorLocationCard.name=Enerji Sensör Kartı
+item.ItemCounterSensorLocationCard.name=Counter Sensör Yer Kartı
+item.ItemLiquidSensorLocationCard.name=Sıvı Sensör Yer Kartı
+item.ItemEnergyArrayLocationCard.name=Enerji Array Yer Kartı
+item.ItemRangeUpgrade.name=Uzaklık Yükseltmesi
+item.ItemColorUpgrade.name=Renk Yükseltmesi
+item.ItemWebUpgrade.name=Web Yükseltmesi
+item.ItemTimeCard.name=Zaman Kartı
+item.ItemTextCard.name=Yazı Kartı
+
+tile.blockThermalMonitor.name=Termal Monitör
+tile.blockIndustrialAlarm.name=Endüstriyel Alarm
+tile.blockHowlerAlarm.name=Güçlü Alarm
+tile.blockRemoteThermo.name=Uzak Termal Monitör
+tile.blockInfoPanel.name=Endüstriyel Bilgi Paneli
+tile.blockInfoPanelExtender.name=Extender Bilgi Paneli
+tile.blockAdvancedInfoPanel.name=Gelişmiş Bilgi Paneli
+tile.blockAdvancedInfoPanelExtender.name=Extender Gelişmiş Panel
+
+tile.blockEnergyCounter.name=Enerji Counter
+tile.blockAverageCounter.name=Average Counter
+tile.blockRangeTrigger.name=Range Trigger
+
+msg.nc.HowlerAlarmSoundRange=Ses Seviyesi: %s
+msg.nc.HowlerAlarmSound=Ses
+msg.nc.ThermalMonitorSave=Ayarları Kaydet
+msg.nc.ThermalMonitorSignalAt=Sinyal %s sıcaklık
+msg.nc.Thermo=Şu anda sıcaklığı: %s
+msg.nc.ThermoDigital=Şu anda sıcaklığı: %s (Su Buharlaşması: %s / Çekirdek Erimesi: %s)
+msg.nc.SensorKit=Sensör kartı makinanın yerini tespit etti
+
+msg.nc.InfoPanelOutOfRange=Çok Uzakta
+msg.nc.InfoPanelInvalidCard=Bozuk Kart
+msg.nc.InfoPanelNoTarget=Böyle Bir Şey Bulunamadı
+
+msg.nc.InfoPanelOn=Açık
+msg.nc.InfoPanelOff=Kapalı
+msg.nc.InfoPanelHeat=Sıcaklık: %s
+msg.nc.InfoPanelMaxHeat=EnYüksekSıcaklık: %s
+msg.nc.InfoPanelMelting=ÇekirdekErimesi: %s
+msg.nc.InfoPanelOutput=ÇıkışGücü: %sEU/t
+msg.nc.InfoPanelOutputMJ=ÇıkışGücü: %sMJ/t
+msg.nc.InfoPanelOutputSteam=ÇıkışGücü: %smB/t
+msg.nc.InfoPanelTimeRemaining=ÇalışmaSüresi: %s
+
+msg.nc.InfoPanelEnergyCounter=Enerji: %sEU
+msg.nc.InfoPanelEnergyCounterMJ=Enerji: %sMJ
+
+msg.nc.InfoPanelEnergy=Enerji: %s
+msg.nc.InfoPanelEnergyFree=Boş: %s
+msg.nc.InfoPanelEnergyStorage=Depolanan: %s
+msg.nc.InfoPanelEnergyPercentage=Kullanılan: %s%%
+
+msg.nc.cbInfoPanelLiquidName=Sıvı adı
+msg.nc.cbInfoPanelLiquidAmount=Miktarı
+msg.nc.cbInfoPanelLiquidCapacity=Kapasitesi
+msg.nc.cbInfoPanelLiquidFree=Boş
+msg.nc.cbInfoPanelLiquidPercentage=Kullanım oranı
+
+msg.nc.InfoPanelLiquidName=Adı: %s
+msg.nc.InfoPanelLiquidAmount=Miktarı: %s
+msg.nc.InfoPanelLiquidCapacity=Kapasitesi: %s
+msg.nc.InfoPanelLiquidFree=Boş: %s
+msg.nc.InfoPanelLiquidPercentage=Kullanılan: %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d Bulunamadı
+msg.nc.InfoPanelOutOfRangeN=#%d Çok uzakta
+msg.nc.InfoPanelEnergyN=#%d Enerji: %s
+msg.nc.InfoPanelEnergyFreeN=#%d Boş: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Kapasitesi: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d Kullanılan: %s%%
+
+msg.nc.InfoPanelTime=Zaman: %s
+
+msg.nc.cbInfoPanelOnOff=Açık/Kapalı statüsü
+msg.nc.cbInfoPanelHeat=Sıcaklığı
+msg.nc.cbInfoPanelMaxHeat=En yüksek sıcaklığı
+msg.nc.cbInfoPanelMelting=Çekirdek Erime Sıcaklığı
+msg.nc.cbInfoPanelOutput=Çıkış gücü (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=Zamanla biticek
+
+msg.nc.cb24h=24 saat
+
+msg.nc.cbInfoPanelEnergyCurrent=Enerji
+msg.nc.cbInfoPanelEnergyStorage=Depolanan
+msg.nc.cbInfoPanelEnergyFree=Boş
+msg.nc.cbInfoPanelEnergyEach=Kart Bilgisi
+msg.nc.cbInfoPanelEnergyTotal=Özet
+msg.nc.cbInfoPanelEnergyPercentage=Doldurun
+msg.nc.EnergyCardQuantity=Kartların miktarı: %d
+msg.nc.AverageCounterPeriod=Süre: %ssaniye
+
+msg.nc.Reset=Reset
+msg.nc.ScreenColor=Ekran Rengi
+msg.nc.TextColor=Yazı Rengi
+msg.nc.None=N/A

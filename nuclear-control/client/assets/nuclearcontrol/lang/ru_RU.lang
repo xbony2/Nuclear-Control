@@ -1,0 +1,103 @@
+item.ItemToolThermometer.name=Термометр
+item.ItemToolDigitalThermometer.name=Цифровой термометр
+item.ItemRemoteSensorKit.name=Набор с дистанционным датчиком
+item.ItemEnergySensorKit.name=Набор для энергетического хранилища
+item.ItemCounterSensorKit.name=Набор для счётчика энергии
+item.ItemLiquidSensorKit.name=Набор для жидкостного хранилища
+item.ItemSensorLocationCard.name=Карта-датчик расположения реактора
+item.ItemEnergySensorLocationCard.name=Карта-датчик расположения энергии
+item.ItemCounterSensorLocationCard.name=Карта-датчик расположения счётчика
+item.ItemLiquidSensorLocationCard.name=Карта-датчик расположения жидкости
+item.ItemEnergyArrayLocationCard.name=Карта-датчик расположения массива с энергией
+item.ItemRangeUpgrade.name=Улучшение "усиление сигнала"
+item.ItemColorUpgrade.name=Улучшение "цветность"
+item.ItemWebUpgrade.name=Улучшение "сеть"
+item.ItemTimeCard.name=Карта со временем
+item.ItemTextCard.name=Текстовая карта
+
+tile.blockThermalMonitor.name=Датчик температуры
+tile.blockIndustrialAlarm.name=Промышленная сирена
+tile.blockHowlerAlarm.name=Сирена "Ревун"
+tile.blockRemoteThermo.name=Дистанционный датчик температуры
+tile.blockInfoPanel.name=Промышленная информационная панель
+tile.blockInfoPanelExtender.name=Расширитель информационной панели
+tile.blockAdvancedInfoPanel.name=Продвинутая информационная панель
+tile.blockAdvancedInfoPanelExtender.name=Расширитель продвинутой информационной панели
+
+tile.blockEnergyCounter.name=Энергосчётчик
+tile.blockAverageCounter.name=Стационарный энергосчётчик
+tile.blockRangeTrigger.name=Дистанционный триггер
+
+msg.nc.HowlerAlarmSoundRange=Дальность звука: %s
+msg.nc.HowlerAlarmSound=Звук
+msg.nc.ThermalMonitorSave=Сохранить настройки
+msg.nc.ThermalMonitorSignalAt=Сигнал на %s тепла
+msg.nc.Thermo=Темп. корпуса: %s
+msg.nc.ThermoDigital=Темп. корпуса: %s (Вода испаряется при: %s / плавится: %s)
+msg.nc.SensorKit=Дистанционный датчик установлен, карта-датчик получена
+
+msg.nc.InfoPanelOutOfRange=Вне диапазона
+msg.nc.InfoPanelInvalidCard=Недействительная карта
+msg.nc.InfoPanelNoTarget=Цель не найдена
+
+msg.nc.InfoPanelOn=Включена
+msg.nc.InfoPanelOff=Выключена
+msg.nc.InfoPanelHeat=Т: %s
+msg.nc.InfoPanelMaxHeat=Макс. нагрев: %s
+msg.nc.InfoPanelMelting=Плавление: %s
+msg.nc.InfoPanelOutput=Выход: %sеЭ/т
+msg.nc.InfoPanelOutputMJ=Выход: %sМЖ/т
+msg.nc.InfoPanelOutputSteam=Выход: %sмВ/т
+msg.nc.InfoPanelTimeRemaining=Осталось: %s
+
+msg.nc.InfoPanelEnergyCounter=Энергия: %sеЭ
+msg.nc.InfoPanelEnergyCounterMJ=Энергия: %sМЖ
+
+msg.nc.InfoPanelEnergy=Энергия: %s
+msg.nc.InfoPanelEnergyFree=Свободно: %s
+msg.nc.InfoPanelEnergyStorage=Хранится: %s
+msg.nc.InfoPanelEnergyPercentage=Заполнено: %s%%
+
+msg.nc.cbInfoPanelLiquidName=Название жидкости
+msg.nc.cbInfoPanelLiquidAmount=Количество
+msg.nc.cbInfoPanelLiquidCapacity=Объём
+msg.nc.cbInfoPanelLiquidFree=Свободно
+msg.nc.cbInfoPanelLiquidPercentage=Процент заполнения
+
+msg.nc.InfoPanelLiquidName=Название: %s
+msg.nc.InfoPanelLiquidAmount=Количество: %s
+msg.nc.InfoPanelLiquidCapacity=Объём: %s
+msg.nc.InfoPanelLiquidFree=Свободно: %s
+msg.nc.InfoPanelLiquidPercentage=Заполнено: %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d не найдено
+msg.nc.InfoPanelOutOfRangeN=#%d вне диапазона
+msg.nc.InfoPanelEnergyN=#%d энергия: %s
+msg.nc.InfoPanelEnergyFreeN=#%d свободно: %s
+msg.nc.InfoPanelEnergyStorageN=#%d хранится: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d заполнено: %s%%
+
+msg.nc.InfoPanelTime=Время: %s
+
+msg.nc.cbInfoPanelOnOff=Вкл./Выкл. состояние
+msg.nc.cbInfoPanelHeat=Уровень нагрева
+msg.nc.cbInfoPanelMaxHeat=Макс. нагрев
+msg.nc.cbInfoPanelMelting=Температура плавления
+msg.nc.cbInfoPanelOutput=Выход (еЭ/т)
+msg.nc.cbInfoPanelTimeRemaining=Время до окончания цикла
+
+msg.nc.cb24h=24h mode
+
+msg.nc.cbInfoPanelEnergyCurrent=Энергия
+msg.nc.cbInfoPanelEnergyStorage=Хранилище
+msg.nc.cbInfoPanelEnergyFree=Свободно
+msg.nc.cbInfoPanelEnergyEach=Информация по каждой карте
+msg.nc.cbInfoPanelEnergyTotal=Суммарно
+msg.nc.cbInfoPanelEnergyPercentage=Процент заполнения
+msg.nc.EnergyCardQuantity=Количество карт: %d
+msg.nc.AverageCounterPeriod=Период: %sсек.
+
+msg.nc.Reset=Сброс
+msg.nc.ScreenColor=Цветной экран
+msg.nc.TextColor=Цветной текст
+msg.nc.None=Н/А

@@ -1,0 +1,103 @@
+item.ItemToolThermometer.name=Thermometer
+item.ItemToolDigitalThermometer.name=Digitales Thermometer
+item.ItemRemoteSensorKit.name=Fernsensor-Bausatz
+item.ItemEnergySensorKit.name=Energiesensor-Bausatz
+item.ItemCounterSensorKit.name=Zählsensor-Bausatz
+item.ItemLiquidSensorKit.name=Flüssigkeitssensor-Bausatz
+item.ItemSensorLocationCard.name=Reaktorsensor-Ortungskarte
+item.ItemEnergySensorLocationCard.name=Energiesensor-Ortungskarte
+item.ItemCounterSensorLocationCard.name=Zählsensor-Ortungskarte
+item.ItemLiquidSensorLocationCard.name=Flüssigkeitssensor-Ortungskarte
+item.ItemEnergyArrayLocationCard.name=Energiebereichs-Ortungskarte
+item.ItemRangeUpgrade.name=Reichweitenupgrade
+item.ItemColorUpgrade.name=Farbupgrade
+item.ItemWebUpgrade.name=Netzupgrade
+item.ItemTimeCard.name=Zeitkarte
+item.ItemTextCard.name=Textkarte
+
+tile.blockThermalMonitor.name=Thermalmonitor
+tile.blockIndustrialAlarm.name=Industriealarm
+tile.blockHowlerAlarm.name=Heulalarm
+tile.blockRemoteThermo.name=Fern-Thermalmonitor
+tile.blockInfoPanel.name=Industrielle Informationstafel
+tile.blockInfoPanelExtender.name=Informationstafelerweiterung
+tile.blockAdvancedInfoPanel.name=Fortgeschrittene Informationstafel
+tile.blockAdvancedInfoPanelExtender.name=Fortgeschrittene Tafelerweiterung
+
+tile.blockEnergyCounter.name=Energiezähler
+tile.blockAverageCounter.name=Durchschnittszähler
+tile.blockRangeTrigger.name=Reichweitentrigger
+
+msg.nc.HowlerAlarmSoundRange=Tonreichweite: %s
+msg.nc.HowlerAlarmSound=Ton
+msg.nc.ThermalMonitorSave=Speicher Einstellung
+msg.nc.ThermalMonitorSignalAt=Signal bei %s Hitze
+msg.nc.Thermo=Hüllenhitze: %s
+msg.nc.ThermoDigital=Hüllenhitze: %s (Wasser verdampft: %s / Schmelze: %s)
+msg.nc.SensorKit=Fernsensor befestigt, Sensor-Ortskarte empfangen
+
+msg.nc.InfoPanelOutOfRange=Außer Reichweite
+msg.nc.InfoPanelInvalidCard=Ungültige Karte
+msg.nc.InfoPanelNoTarget=Ziel nicht gefunden
+
+msg.nc.InfoPanelOn=An
+msg.nc.InfoPanelOff=Aus
+msg.nc.InfoPanelHeat=T: %s
+msg.nc.InfoPanelMaxHeat=MaxHitze: %s
+msg.nc.InfoPanelMelting=Schmelze: %s
+msg.nc.InfoPanelOutput=Leistung: %sEU/t
+msg.nc.InfoPanelOutputMJ=Leistung: %sMJ/t
+msg.nc.InfoPanelOutputSteam=Leistung: %smB/t
+msg.nc.InfoPanelTimeRemaining=Verbleibend: %s
+
+msg.nc.InfoPanelEnergyCounter=Energie: %sEU
+msg.nc.InfoPanelEnergyCounterMJ=Energie: %sMJ
+
+msg.nc.InfoPanelEnergy=Energie: %s
+msg.nc.InfoPanelEnergyFree=Frei: %s
+msg.nc.InfoPanelEnergyStorage=Speicher: %s
+msg.nc.InfoPanelEnergyPercentage=Gefüllt: %s%%
+
+msg.nc.cbInfoPanelLiquidName=Flüssigkeitsname
+msg.nc.cbInfoPanelLiquidAmount=Menge
+msg.nc.cbInfoPanelLiquidCapacity=Kapazität
+msg.nc.cbInfoPanelLiquidFree=Frei
+msg.nc.cbInfoPanelLiquidPercentage=Füllstand
+
+msg.nc.InfoPanelLiquidName=Name: %s
+msg.nc.InfoPanelLiquidAmount=Menge: %s
+msg.nc.InfoPanelLiquidCapacity=Kapazität: %s
+msg.nc.InfoPanelLiquidFree=Frei: %s
+msg.nc.InfoPanelLiquidPercentage=Gefüllt: %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d Nicht gefunden
+msg.nc.InfoPanelOutOfRangeN=#%d Außer Reichweite
+msg.nc.InfoPanelEnergyN=#%d Energie: %s
+msg.nc.InfoPanelEnergyFreeN=#%d Frei: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Speicher: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d Gefüllt: %s%%
+
+msg.nc.InfoPanelTime=Zeit: %s
+
+msg.nc.cbInfoPanelOnOff=An/Aus Status
+msg.nc.cbInfoPanelHeat=Hitzelevel
+msg.nc.cbInfoPanelMaxHeat=Maximale Hitze
+msg.nc.cbInfoPanelMelting=Schmelztemp
+msg.nc.cbInfoPanelOutput=Leistung (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=Zeit bis Durchlaufende
+
+msg.nc.cb24h=24h-Modus
+
+msg.nc.cbInfoPanelEnergyCurrent=Energie
+msg.nc.cbInfoPanelEnergyStorage=Speicher
+msg.nc.cbInfoPanelEnergyFree=Frei
+msg.nc.cbInfoPanelEnergyEach=Info jeder Karte
+msg.nc.cbInfoPanelEnergyTotal=Zusammenfassung
+msg.nc.cbInfoPanelEnergyPercentage=Füllstand
+msg.nc.EnergyCardQuantity=Kartenanzahl: %d
+msg.nc.AverageCounterPeriod=Periode: %ssec
+
+msg.nc.Reset=Reset
+msg.nc.ScreenColor=Bildschirmfarbe
+msg.nc.TextColor=Textfarbe
+msg.nc.None=N/A
