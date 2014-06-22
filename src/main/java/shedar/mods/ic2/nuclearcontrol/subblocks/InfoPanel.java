@@ -10,8 +10,7 @@ import shedar.mods.ic2.nuclearcontrol.gui.GuiInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 
-public class InfoPanel extends Subblock
-{
+public class InfoPanel extends Subblock{
     private static final int DAMAGE = Damages.DAMAGE_INFO_PANEL;
     private static final float[] BOUNDS = {0, 0, 0, 1, 1, 1};
 
@@ -26,8 +25,7 @@ public class InfoPanel extends Subblock
     public static final byte I_COLORS_OFFSET = 6;
     public static final int I_COLOR_DEFAULT = I_COLORS_OFFSET + 16*3 - 1; 
     
-    private static final byte[][] mapping =
-    {
+    private static final byte[][] mapping = {
         {I_PANEL_BACK, I_COLOR_DEFAULT, I_PANEL_SIDE, I_PANEL_SIDE, I_PANEL_SIDE, I_PANEL_SIDE},
         {I_COLOR_DEFAULT, I_PANEL_BACK, I_PANEL_SIDE, I_PANEL_SIDE, I_PANEL_SIDE, I_PANEL_SIDE},
         {I_PANEL_SIDE, I_PANEL_SIDE, I_PANEL_BACK, I_COLOR_DEFAULT, I_PANEL_SIDE, I_PANEL_SIDE},
@@ -72,8 +70,7 @@ public class InfoPanel extends Subblock
     }
 
     @Override
-    public Object getClientGuiElement(TileEntity tileEntity, EntityPlayer player)
-    {
+    public Object getClientGuiElement(TileEntity tileEntity, EntityPlayer player){
         ContainerInfoPanel containerPanel = new ContainerInfoPanel(player, (TileEntityInfoPanel)tileEntity);
         return new GuiInfoPanel(containerPanel);
     }
@@ -84,8 +81,7 @@ public class InfoPanel extends Subblock
     }
 
     @Override
-    protected byte[][] getMapping()
-    {
+    protected byte[][] getMapping(){
         return mapping;
     }
 

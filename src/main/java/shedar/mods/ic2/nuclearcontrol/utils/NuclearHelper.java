@@ -17,7 +17,7 @@ public class NuclearHelper {
 	{
 	    if(world == null)
 	        return null;
-		TileEntity entity = world.getBlockTileEntity(x, y, z);
+		TileEntity entity = world.getTileEntity(x, y, z);
 		if(entity instanceof IReactor)
 		    return (IReactor)entity;
 		return null;
@@ -39,7 +39,7 @@ public class NuclearHelper {
 	{
         if(world == null)
             return null;
-		TileEntity entity = world.getBlockTileEntity(x, y, z);
+		TileEntity entity = world.getTileEntity(x, y, z);
 		if(entity instanceof IReactorChamber)
 		{
 			return (IReactorChamber)entity;

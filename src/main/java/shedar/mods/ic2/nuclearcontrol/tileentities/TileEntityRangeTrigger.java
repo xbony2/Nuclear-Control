@@ -37,8 +37,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public class TileEntityRangeTrigger extends TileEntity implements 
     ISlotItemFilter, INetworkDataProvider, INetworkUpdateListener, 
     IWrenchable, ITextureHelper,/* ISidedInventory, */IRotation, IInventory, 
-    INetworkClientTileEntityEventListener
-{
+    INetworkClientTileEntityEventListener{
 
     public static final int SLOT_CARD = 0;
     public static final int SLOT_UPGRADE = 1;
@@ -95,7 +94,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
         invertRedstone = value;
         if(prevInvertRedstone !=value)
         {
-            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
             NetworkHelper.updateTileEntityField(this, "invertRedstone");
         }
         prevInvertRedstone = value;
@@ -139,13 +138,13 @@ public class TileEntityRangeTrigger extends TileEntity implements
         else if (field.equals("onFire") && prevOnFire != onFire)
         {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
             prevOnFire = onFire;
         }
         else if (field.equals("invertRedstone") && prevInvertRedstone != invertRedstone)
         {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
             prevInvertRedstone = invertRedstone;
         }
         
@@ -241,7 +240,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
     {
         if(!worldObj.isRemote)
         {
-            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
         }
         init = true;
     }
@@ -264,8 +263,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound)
-    {
+    public void readFromNBT(NBTTagCompound nbttagcompound){
         super.readFromNBT(nbttagcompound);
         prevRotation = rotation = nbttagcompound.getInteger("rotation");
         prevFacing = facing =  nbttagcompound.getShort("facing");
@@ -273,18 +271,15 @@ public class TileEntityRangeTrigger extends TileEntity implements
         levelStart = nbttagcompound.getLong("levelStart");
         levelEnd = nbttagcompound.getLong("levelEnd");
 
-        NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
+        NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
         inventory = new ItemStack[getSizeInventory()];
-        for (int i = 0; i < nbttaglist.tagCount(); i++)
-        {
-            NBTTagCompound compound = (NBTTagCompound)nbttaglist.tagAt(i);
+        for (int i = 0; i < nbttaglist.tagCount(); i++){
+            NBTTagCompound compound = (NBTTagCompound)nbttaglist.getCompoundTagAt(i);
             byte slotNum = compound.getByte("Slot");
 
-            if (slotNum >= 0 && slotNum < inventory.length)
-            {
+            if (slotNum >= 0 && slotNum < inventory.length){
                 inventory[slotNum] = ItemStack.loadItemStackFromNBT(compound);
-                if(slotNum == SLOT_CARD)
-                {
+                if(slotNum == SLOT_CARD){
                     card = inventory[slotNum];
                 }
             }
@@ -293,14 +288,12 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }
 
     @Override
-    public void invalidate()
-    {
+    public void invalidate(){
         super.invalidate();
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound)
-    {
+    public void writeToNBT(NBTTagCompound nbttagcompound){
         super.writeToNBT(nbttagcompound);
         nbttagcompound.setShort("facing", facing);
         nbttagcompound.setInteger("rotation", rotation);
@@ -309,10 +302,8 @@ public class TileEntityRangeTrigger extends TileEntity implements
         nbttagcompound.setLong("levelEnd", levelEnd);
 
         NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < inventory.length; i++)
-        {
-            if (inventory[i] != null)
-            {
+        for (int i = 0; i < inventory.length; i++){
+            if (inventory[i] != null){
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setByte("Slot", (byte)i);
                 inventory[i].writeToNBT(compound);
@@ -323,24 +314,19 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }
 
     @Override
-    public int getSizeInventory()
-    {
+    public int getSizeInventory(){
         return inventory.length;
     }
 
     @Override
-    public ItemStack getStackInSlot(int slotNum)
-    {
+    public ItemStack getStackInSlot(int slotNum){
         return inventory[slotNum];
     }
 
     @Override
-    public ItemStack decrStackSize(int slotNum, int amount)
-    {
-        if(inventory[slotNum]!=null)
-        {
-            if (inventory[slotNum].stackSize <= amount)
-            {
+    public ItemStack decrStackSize(int slotNum, int amount){
+        if(inventory[slotNum]!=null){
+            if (inventory[slotNum].stackSize <= amount){
                 ItemStack itemStack = inventory[slotNum];
                 inventory[slotNum] = null;
                 if(slotNum == SLOT_CARD)
@@ -349,8 +335,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
             }
             
             ItemStack taken = inventory[slotNum].splitStack(amount);
-            if (inventory[slotNum].stackSize == 0)
-            {
+            if (inventory[slotNum].stackSize == 0){
                 inventory[slotNum] = null;
                 if(slotNum == SLOT_CARD)
                     setCard(null);
@@ -361,148 +346,116 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int var1)
-    {
+    public ItemStack getStackInSlotOnClosing(int var1){
         return null;
     }
     
     @Override
-    public void setInventorySlotContents(int slotNum, ItemStack itemStack)
-    {
+    public void setInventorySlotContents(int slotNum, ItemStack itemStack){
         inventory[slotNum] = itemStack;
         if(slotNum == SLOT_CARD)
             setCard(itemStack);
 
-        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit())
-        {
+        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()){
             itemStack.stackSize = getInventoryStackLimit();
         }
     }
 
     @Override
-    public String getInvName()
-    {
+    public String getInventoryName(){
         return "block.RangeTrigger";
     }
 
     @Override
-    public int getInventoryStackLimit()
-    {
+    public int getInventoryStackLimit(){
         return 64;
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player)
-    {
-        return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this &&
+    public boolean isUseableByPlayer(EntityPlayer player){
+        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this &&
                 player.getDistanceSq((double)xCoord + 0.5D, (double)yCoord + 0.5D, (double)zCoord + 0.5D) <= 64D;
     }
 
     @Override
-    public void openChest()
-    {
+    public void openInventory(){
     }
 
     @Override
-    public void closeChest()
-    {
+    public void closeInventory(){
     }
     
     @Override
-    public void onInventoryChanged() 
-    {
+    public void onInventoryChanged() {
         super.onInventoryChanged();
-        if(worldObj!= null && FMLCommonHandler.instance().getEffectiveSide().isServer())
-        {
+        if(worldObj!= null && FMLCommonHandler.instance().getEffectiveSide().isServer()){
             int upgradeCountRange = 0;
             ItemStack itemStack = inventory[SLOT_UPGRADE];
-            if(itemStack != null && itemStack.getItem() instanceof ItemUpgrade && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE)
-            {
+            if(itemStack != null && itemStack.getItem() instanceof ItemUpgrade && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE){
                 upgradeCountRange = itemStack.stackSize;
             }
             ItemStack card = inventory[SLOT_CARD];
             int fire = STATE_UNKNOWN;
-            if(card != null)
-            {
+            if(card != null){
                 Item item = card.getItem();
-                if(item instanceof IPanelDataSource)
-                {
+                if(item instanceof IPanelDataSource){
                     boolean needUpdate = true;
                     if(upgradeCountRange > 7)
                         upgradeCountRange = 7;
                     int range = LOCATION_RANGE * (int)Math.pow(2, upgradeCountRange);
                     CardWrapperImpl cardHelper = new CardWrapperImpl(card, SLOT_CARD);
-                    if(item instanceof IRemoteSensor)
-                    {
+                    if(item instanceof IRemoteSensor){
                         ChunkCoordinates target = cardHelper.getTarget();
-                        if(target == null)
-                        {
+                        if(target == null){
                             needUpdate = false;
                             cardHelper.setState(CardState.INVALID_CARD);
-                        }
-                        else
-                        {
+                        }else{
                             int dx = target.posX - xCoord;
                             int dy = target.posY - yCoord;
                             int dz = target.posZ - zCoord;
                             if (Math.abs(dx) > range || 
                                 Math.abs(dy) > range || 
-                                Math.abs(dz) > range)
-                            {
+                                Math.abs(dz) > range){
                                 needUpdate = false;
                                 cardHelper.setState(CardState.OUT_OF_RANGE);
                                 fire = STATE_UNKNOWN;
                             }
                         }
                     }
-                    if(needUpdate)
-                    {
+                    if(needUpdate){
                         CardState state = ((IPanelDataSource) item).update(this, cardHelper, range);
                         cardHelper.setState(state);
-                        if(state == CardState.OK)
-                        {
+                        if(state == CardState.OK){
                             long minV = Math.min(levelStart, levelEnd);
                             long maxV = Math.max(levelStart, levelEnd);
                             long cur = cardHelper.getLong("energyL");
-                            if(cur>=maxV)
-                            {
+                            if(cur>=maxV){
                                 fire = STATE_ACTIVE;
-                            }
-                            else if(cur < minV)
-                            {
+                            }else if(cur < minV){
                                 fire = STATE_PASSIVE;
-                            }
-                            else if(onFire == STATE_UNKNOWN)
-                            {
+                            }else if(onFire == STATE_UNKNOWN){
                                 fire = STATE_PASSIVE;
-                            }
-                            else
-                            {
+                            }else{
                                 fire = onFire;
                             }
-                        }
-                        else
-                        {
+                        }else{
                             fire = STATE_UNKNOWN;
                         }
                         
                     }
                 }
             }
-            if(fire != getOnFire())
-            {
+            if(fire != getOnFire()){
                 setOnFire(fire);
-                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
             }
             
         }
     };
 
     @Override
-    public boolean isItemValid(int slotIndex, ItemStack itemstack)
-    {
-        switch (slotIndex)
-        {
+    public boolean isItemValid(int slotIndex, ItemStack itemstack){
+        switch (slotIndex){
             case SLOT_CARD:
                 return itemstack.getItem() instanceof ItemCardEnergySensorLocation || 
                        itemstack.getItem() instanceof ItemCardEnergyArrayLocation;
@@ -518,23 +471,19 @@ public class TileEntityRangeTrigger extends TileEntity implements
     };
 
     @Override
-    public float getWrenchDropRate()
-    {
+    public float getWrenchDropRate(){
         return 1;
     }
 
     @Override
-    public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-    {
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer){
         return !entityPlayer.isSneaking();
     }
 
-    private int modifyTextureIndex(int texture, int x, int y, int z)
-    {
+    private int modifyTextureIndex(int texture, int x, int y, int z){
         if(texture!=RangeTrigger.I_FACE_GRAY)
             return texture;
-        switch (getOnFire())
-        {
+        switch (getOnFire()){
             case STATE_ACTIVE:
                 texture = RangeTrigger.I_FACE_RED;
                 break;
@@ -547,14 +496,12 @@ public class TileEntityRangeTrigger extends TileEntity implements
     
     
     @Override
-    public int modifyTextureIndex(int texture)
-    {
+    public int modifyTextureIndex(int texture){
         return modifyTextureIndex(texture, xCoord, yCoord, zCoord);
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode(){
         final int prime = 31;
         int result = 1;
         result = prime * result + xCoord;
@@ -564,8 +511,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj){
         if (this == obj)
             return true;
         if (obj == null)
@@ -605,11 +551,9 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }*/
 
     @Override
-    public void rotate()
-    {
+    public void rotate(){
         int r;
-        switch (rotation)
-        {
+        switch (rotation){
             case 0:
                 r = 1;
                 break;
@@ -630,37 +574,31 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }
 
     @Override
-    public int getRotation()
-    {
+    public int getRotation(){
         return rotation;
     }
 
     @Override
-    public void setRotation(int value)
-    {
+    public void setRotation(int value){
         rotation = value;
-        if(rotation!=prevRotation)
-        {
+        if(rotation!=prevRotation){
             NetworkHelper.updateTileEntityField(this, "rotation");
         }
         prevRotation = rotation;
     }
     
     @Override
-    public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-    {
-        return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain.blockID, 1, Damages.DAMAGE_RANGE_TRIGGER);
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer){
+        return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain, 1, Damages.DAMAGE_RANGE_TRIGGER);
     }
 
     @Override
-    public boolean isInvNameLocalized()
-    {
+    public boolean hasCustomInventoryName(){
         return false;
     }
 
     @Override
-    public boolean isItemValidForSlot(int slot, ItemStack itemstack)
-    {
+    public boolean isItemValidForSlot(int slot, ItemStack itemstack){
         return isItemValid(slot, itemstack);
     }
 }

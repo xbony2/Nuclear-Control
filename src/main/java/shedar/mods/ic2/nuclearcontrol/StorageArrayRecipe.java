@@ -1,7 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol;
 
 
-import ic2.api.item.Items;
+import ic2.api.item.IC2Items;
 
 import java.util.Vector;
 
@@ -14,68 +14,51 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 
-public class StorageArrayRecipe implements IRecipe
-{
+public class StorageArrayRecipe implements IRecipe{
 
     @Override
-    public boolean matches(InventoryCrafting inventory, World world)
-    {
+    public boolean matches(InventoryCrafting inventory, World world){
         return getCraftingResult(inventory) != null;
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inventory)
-    {
+    public ItemStack getCraftingResult(InventoryCrafting inventory){
         int inventoryLength = inventory.getSizeInventory();
         boolean fail = false;
         int cardCount = 0;
         int arrayCount = 0;
         ItemStack array = null;
         Vector<ItemStack> cards = new Vector<ItemStack>();
-        for(int i=0; i<inventoryLength; i++)
-        {
+        for(int i=0; i<inventoryLength; i++){
             ItemStack itemStack = inventory.getStackInSlot(i);
             if(itemStack == null)
                 continue;
-            if(itemStack.getItem() instanceof ItemCardEnergySensorLocation)
-            {
+            if(itemStack.getItem() instanceof ItemCardEnergySensorLocation){
                 cards.add(itemStack);
                 cardCount++;
-            }
-            else if(itemStack.getItem() instanceof ItemCardEnergyArrayLocation)
-            {
+            }else if(itemStack.getItem() instanceof ItemCardEnergyArrayLocation){
                 array = itemStack;
                 arrayCount++;
-            }
-            else
-            {
+            }else{
                 fail = true;
                 break;
             }
         }
-        if(fail)
-        {
+        if(fail){
             return null;
         }
-        if(cardCount >= 2 && cardCount <= 6 && arrayCount == 0)
-        {
+        if(cardCount >= 2 && cardCount <= 6 && arrayCount == 0){
             ItemStack itemStack = new ItemStack(IC2NuclearControl.instance.itemEnergyArrayLocationCard, 1, 0);
             ItemCardEnergyArrayLocation.initArray(new CardWrapperImpl(itemStack, -1), cards);
             return itemStack;
-        }
-        else if(cardCount == 0 && arrayCount == 1)
-        {
+        }else if(cardCount == 0 && arrayCount == 1){
             int cnt = ItemCardEnergyArrayLocation.getCardCount(new CardWrapperImpl(array, -1));
-            if(cnt > 0)
-            {
-                return new ItemStack(Items.getItem("electronicCircuit").getItem(), 2*cnt, 0);
+            if(cnt > 0){
+                return new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2*cnt, 0);
             }
-        }
-        else if(arrayCount == 1 && cardCount > 0)
-        {
+        } else if(arrayCount == 1 && cardCount > 0){
             int cnt = ItemCardEnergyArrayLocation.getCardCount(new CardWrapperImpl(array, -1));
-            if(cnt + cardCount <= 6)
-            {
+            if(cnt + cardCount <= 6){
                 ItemStack itemStack = new ItemStack(IC2NuclearControl.instance.itemEnergyArrayLocationCard, 1, 0);
                 itemStack.setTagCompound((NBTTagCompound)array.getTagCompound().copy());
                 ItemCardEnergyArrayLocation.initArray(new CardWrapperImpl(itemStack, -1), cards);
@@ -86,14 +69,12 @@ public class StorageArrayRecipe implements IRecipe
     }
 
     @Override
-    public int getRecipeSize()
-    {
+    public int getRecipeSize(){
         return 2;
     }
 
     @Override
-    public ItemStack getRecipeOutput()
-    {
+    public ItemStack getRecipeOutput(){
         return null;
     }
 

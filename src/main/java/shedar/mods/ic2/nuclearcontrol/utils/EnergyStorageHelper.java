@@ -12,7 +12,7 @@ public class EnergyStorageHelper {
     {
         if(world == null)
             return null;
-        TileEntity entity = world.getBlockTileEntity(x, y, z);
+        TileEntity entity = world.getTileEntity(x, y, z);
         switch (type)
         {
         case EnergyStorageData.TARGET_TYPE_IC2:

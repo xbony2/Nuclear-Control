@@ -48,21 +48,15 @@ public class AdvancedInfoPanel extends InfoPanel{
         if(tileEntity == null)
             return BOUNDS;
         float[] bounds = BOUNDS.clone();
-        if(tileEntity!=null)
-        {
+        if(tileEntity!=null){
             Screen screen = ((IScreenPart)tileEntity).getScreen();
-            if(screen!=null)
-            {
+            if(screen!=null){
                 TileEntityAdvancedInfoPanel core = (TileEntityAdvancedInfoPanel)screen.getCore(tileEntity.worldObj);
-                if(core!=null)
-                {
+                if(core!=null){
                     int thickness = core.thickness;
-                    if(thickness!=16)
-                    {
+                    if(thickness!=16){
                         bounds[4] = Math.max(thickness,1)/16F;
-                    }
-                    else
-                    {
+                    }else{
                         bounds[4] = 0.98F;
                     }
                 }
@@ -81,11 +75,11 @@ public class AdvancedInfoPanel extends InfoPanel{
         ContainerAdvancedInfoPanel containerAdvancedPanel = new ContainerAdvancedInfoPanel(player, (TileEntityAdvancedInfoPanel)tileEntity);
         return new GuiAdvancedInfoPanel(containerAdvancedPanel);
     }
-    /*
+    
     @Override
-    public void registerBlockIcons(IIconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         super.registerIcons(iconRegister);
-    }*/
+    }
 
     @Override
     protected byte[][] getMapping(){

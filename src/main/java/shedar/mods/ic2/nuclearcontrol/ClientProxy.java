@@ -46,43 +46,34 @@ import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class ClientProxy extends CommonProxy
-{
+public class ClientProxy extends CommonProxy{
     @Override
-    public String playAlarm(double x, double y, double z, String name, float volume)
-    {
+    public String playAlarm(double x, double y, double z, String name, float volume){
         return SoundHelper.playAlarm(x, y, z, name, volume);
     }
     
     @Override
-    public void stopAlarm(String soundId)
-    {
+    public void stopAlarm(String soundId){
         SoundHelper.stopAlarm(soundId);
     }
     
     @Override
-    public boolean isPlaying(String soundId)
-    {
+    public boolean isPlaying(String soundId){
         return SoundHelper.isPlaying(soundId);
     }
     
     @ForgeSubscribe
-    public void importSound(SoundLoadEvent event)
-    {
+    public void importSound(SoundLoadEvent event){
         ModContainer container = Loader.instance().getIndexedModList().get("IC2NuclearControl");
         IC2NuclearControl ncInstance = IC2NuclearControl.instance; 
-        ncInstance.availableAlarms = new ArrayList<String>();
-        ;
-        try
-        {
+        ncInstance.availableAlarms = new ArrayList<String>();;
+        try{
             ZipFile zipfile = new ZipFile(container.getSource());
             Enumeration<?> resources = zipfile.entries();
-            while (resources.hasMoreElements())
-            {
+            while (resources.hasMoreElements()){
                 ZipEntry zipentry = (ZipEntry)resources.nextElement();
                 String fileName = zipentry.getName();
-                if(fileName.startsWith("assets/nuclearcontrol/sound/alarm-") && fileName.endsWith(".ogg"))
-                {
+                if(fileName.startsWith("assets/nuclearcontrol/sound/alarm-") && fileName.endsWith(".ogg")){
                     fileName = fileName.substring(34, fileName.length()-4);
                     ncInstance.availableAlarms.add(fileName);
                     event.manager.addSound("nuclearcontrol:alarm-"+fileName+".ogg");
@@ -90,22 +81,18 @@ public class ClientProxy extends CommonProxy
                 
             }
             zipfile.close();
-        } catch (ZipException e)
-        {
+        } catch (ZipException e){
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e)
-        {
+        } catch (IOException e){
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
         ncInstance.serverAllowedAlarms = new ArrayList<String>();
     }    
     
     @Override
-    public void registerTileEntities()
-    {
+    public void registerTileEntities(){
         TileEntityIC2ThermoRenderer renderThermalMonitor = new TileEntityIC2ThermoRenderer();
         TileEntityRemoteThermoRenderer renderRemoteThermo = new TileEntityRemoteThermoRenderer();
         TileEntityInfoPanelRenderer renderInfoPanel = new TileEntityInfoPanelRenderer(); 
@@ -127,19 +114,16 @@ public class ClientProxy extends CommonProxy
     }
     
     @Override
-    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player)
-    {
+    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player){
         super.onPacketData(manager, packet, player);
-        if (!(player instanceof EntityPlayerMP))
-        {
+        if (!(player instanceof EntityPlayerMP)){
             World world;
             int x,y,z;
             TileEntity ent;
             TileEntityInfoPanel panel;
             ByteArrayDataInput dat = ByteStreams.newDataInput(packet.data);
             short packetType = dat.readShort();
-            switch (packetType)
-            {
+            switch (packetType){
                 case PacketHandler.PACKET_CHAT:
                     String message = dat.readUTF();
                     String[] chunks = message.split(":");
@@ -162,26 +146,22 @@ public class ClientProxy extends CommonProxy
                     x = dat.readInt();
                     y = dat.readInt();
                     z = dat.readInt();
-                    ent = world.getBlockTileEntity(x, y, z);
-                    if(ent == null || !(ent instanceof TileEntityInfoPanel))
-                    {
+                    ent = world.getTileEntity(x, y, z);
+                    if(ent == null || !(ent instanceof TileEntityInfoPanel)){
                         return;
                     }
                     panel = (TileEntityInfoPanel)ent;
                     byte slot =  dat.readByte();
                     ItemStack stack = panel.getStackInSlot(slot);
-                    if(stack == null || !(stack.getItem() instanceof IPanelDataSource))
-                    {
+                    if(stack == null || !(stack.getItem() instanceof IPanelDataSource)){
                         return;
                     }
                     CardWrapperImpl helper = new CardWrapperImpl(stack, slot);
                     int fieldCount =  dat.readShort();
-                    for(int i=0; i<fieldCount; i++)
-                    {
+                    for(int i=0; i<fieldCount; i++){
                         String name = dat.readUTF();
                         byte type = dat.readByte();
-                        switch (type)
-                        {
+                        switch (type){
                         case NuclearNetworkHelper.FIELD_INT:
                             helper.setInt(name, dat.readInt());
                             break;
@@ -196,12 +176,10 @@ public class ClientProxy extends CommonProxy
                             break;
                         case NuclearNetworkHelper.FIELD_TAG:
                             NBTTagCompound tag;
-                            try
-                            {
+                            try{
                                 tag = (NBTTagCompound)NBTTagCompound.readNamedTag(dat);
                                 helper.setTag(name, tag);
-                            } catch (IOException e)
-                            {
+                            } catch (IOException e){
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
@@ -221,16 +199,14 @@ public class ClientProxy extends CommonProxy
                     x = dat.readInt();
                     y = dat.readInt();
                     z = dat.readInt();
-                    ent = world.getBlockTileEntity(x, y, z);
-                    if(ent == null || !(ent instanceof TileEntityInfoPanel))
-                    {
+                    ent = world.getTileEntity(x, y, z);
+                    if(ent == null || !(ent instanceof TileEntityInfoPanel)){
                         return;
                     }
                     panel = (TileEntityInfoPanel)ent;
                     slot = dat.readByte();
                     ItemStack itemStack = panel.getStackInSlot(slot);
-                    if(itemStack == null || !(itemStack.getItem() instanceof IPanelDataSource))
-                    {
+                    if(itemStack == null || !(itemStack.getItem() instanceof IPanelDataSource)){
                         return;
                     }
                     new CardWrapperImpl(itemStack, slot).setTitle(dat.readUTF());
@@ -241,9 +217,8 @@ public class ClientProxy extends CommonProxy
                     x = dat.readInt();
                     y = dat.readInt();
                     z = dat.readInt();
-                    ent = world.getBlockTileEntity(x, y, z);
-                    if(ent == null || !(ent instanceof TileEntityEnergyCounter))
-                    {
+                    ent = world.getTileEntity(x, y, z);
+                    if(ent == null || !(ent instanceof TileEntityEnergyCounter)){
                         return;
                     }
                     TileEntityEnergyCounter counter = (TileEntityEnergyCounter)ent;
@@ -254,9 +229,8 @@ public class ClientProxy extends CommonProxy
                     x = dat.readInt();
                     y = dat.readInt();
                     z = dat.readInt();
-                    ent = world.getBlockTileEntity(x, y, z);
-                    if(ent == null || !(ent instanceof TileEntityAverageCounter))
-                    {
+                    ent = world.getTileEntity(x, y, z);
+                    if(ent == null || !(ent instanceof TileEntityAverageCounter)){
                         return;
                     }
                     TileEntityAverageCounter avgCounter = (TileEntityAverageCounter)ent;
@@ -267,20 +241,17 @@ public class ClientProxy extends CommonProxy
                     x = dat.readInt();
                     y = dat.readInt();
                     z = dat.readInt();
-                    ent = world.getBlockTileEntity(x, y, z);
-                    if(ent == null || !(ent instanceof TileEntityInfoPanel))
-                    {
+                    ent = world.getTileEntity(x, y, z);
+                    if(ent == null || !(ent instanceof TileEntityInfoPanel)){
                         return;
                     }
                     panel = (TileEntityInfoPanel)ent;
                     byte count = dat.readByte();
-                    for(int i=0; i<count; i++)
-                    {
+                    for(int i=0; i<count; i++){
                         slot = dat.readByte();
                         short dCount = dat.readShort();
                         Map<UUID, Integer> settings = panel.getDisplaySettingsForSlot(slot);
-                        for(int j=0; j<dCount; j++)
-                        {
+                        for(int j=0; j<dCount; j++){
                             long most = dat.readLong();
                             long least = dat.readLong();
                             settings.put(new UUID(most, least), dat.readInt()); 
@@ -294,9 +265,8 @@ public class ClientProxy extends CommonProxy
                     y = dat.readInt();
                     z = dat.readInt();
                     slot = dat.readByte();
-                    ent = world.getBlockTileEntity(x, y, z);
-                    if(ent == null || !(ent instanceof TileEntityInfoPanel))
-                    {
+                    ent = world.getTileEntity(x, y, z);
+                    if(ent == null || !(ent instanceof TileEntityInfoPanel)){
                         return;
                     }
                     long most = dat.readLong();
@@ -314,9 +284,8 @@ public class ClientProxy extends CommonProxy
     }
     
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
-        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
         Subblock block = IC2NuclearControl.instance.blockNuclearControlMain.getSubblock(ID);
         if(block == null)
             return null;

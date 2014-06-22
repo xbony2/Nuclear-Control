@@ -65,7 +65,7 @@ public class HowlerAlarm extends Subblock{
     }
 
     @Override
-    public Icon getIcon(int index){
+    public IIcon getIcon(int index){
         return icons[index];
     }
 

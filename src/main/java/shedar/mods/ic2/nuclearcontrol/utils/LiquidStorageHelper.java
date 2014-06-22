@@ -2,7 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.utils;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
@@ -13,7 +13,7 @@ public class LiquidStorageHelper {
     {
         if(world == null)
             return null;
-        TileEntity entity = world.getBlockTileEntity(x, y, z);
+        TileEntity entity = world.getTileEntity(x, y, z);
         if (entity!=null && entity instanceof IFluidHandler)
         {
             FluidTankInfo[] tanks = ((IFluidHandler)entity).getTankInfo(ForgeDirection.UNKNOWN);

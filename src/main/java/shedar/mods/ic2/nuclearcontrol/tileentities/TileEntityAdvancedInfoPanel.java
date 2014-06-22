@@ -12,8 +12,7 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 
-public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
-{
+public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
     private byte prevPowerMode;
     public byte powerMode;
 
@@ -45,26 +44,22 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
     public static final int OFFSET_ROTATE_VERT = 300;
 
     
-    public TileEntityAdvancedInfoPanel()
-    {
+    public TileEntityAdvancedInfoPanel(){
         super(4);//3 cards + range/web upgrade
         colored = true;
         thickness = 16;
     }
     
     @Override
-    public int getCardSlotsCount()
-    {
+    public int getCardSlotsCount(){
         return 3;
     }
 
-    public byte getPowerMode()
-    {
+    public byte getPowerMode(){
         return powerMode;
     }
 
-    public void setPowerMode(byte p)
-    {
+    public void setPowerMode(byte p){
         powerMode = p;
         if (prevPowerMode != p)
         {
@@ -74,8 +69,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
         prevPowerMode = powerMode;
     }
     
-    public void setThickness(byte p)
-    {
+    public void setThickness(byte p){
         thickness = p;
         if (prevThickness != p)
         {
@@ -85,8 +79,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
         prevThickness = thickness;
     }
     
-    public void setRotateHor(byte p)
-    {
+    public void setRotateHor(byte p){
         rotateHor = p;
         if (prevRotateHor != p)
         {
@@ -96,8 +89,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
         prevRotateHor = rotateHor;
     }
     
-    public void setRotateVert(byte p)
-    {
+    public void setRotateVert(byte p){
         rotateVert = p;
         if (prevRotateVert != p)
         {
@@ -108,8 +100,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
     }
     
     @Override
-    public List<String> getNetworkedFields()
-    {
+    public List<String> getNetworkedFields(){
         List<String> list = super.getNetworkedFields();
         list.add("card2");
         list.add("card3");
@@ -121,8 +112,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
     }
 
     @Override
-    public void onNetworkUpdate(String field)
-    {
+    public void onNetworkUpdate(String field){
         super.onNetworkUpdate(field);
         if (field.equals("card2"))
         {
@@ -153,10 +143,8 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
     }
     
     @Override
-    public boolean isItemValid(int slotIndex, ItemStack itemstack)
-    {
-        switch (slotIndex)
-        {
+    public boolean isItemValid(int slotIndex, ItemStack itemstack){
+        switch (slotIndex){
             case SLOT_CARD1:
             case SLOT_CARD2:
             case SLOT_CARD3:
@@ -165,8 +153,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
                 return itemstack.getItem() instanceof ItemUpgrade && 
                         (itemstack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE ||
                         itemstack.getItemDamage() == ItemUpgrade.DAMAGE_WEB); 
-            default:
-                return false;
+            default: return false;
         }
     }
     

@@ -2,6 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.utils;
 
 import shedar.mods.ic2.nuclearcontrol.IRedstoneConsumer;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -10,8 +11,8 @@ public class RedstoneHelper
 
     private static boolean isPoweredWire(World world, int x, int y, int z)
     {
-        return world.getBlockId(x, y, z) == Block.redstoneWire.blockID &&
-                Block.blocksList[Block.redstoneWire.blockID].isProvidingStrongPower(world, x, y, z, 1)>0;
+        return world.getBlock(x, y, z) == Blocks.redstone_wire &&
+                Block.blocksList[Blocks.redstone_wire].isProvidingStrongPower(world, x, y, z, 1)>0;
     }
     
     public static void checkPowered(World world, TileEntity tileentity)

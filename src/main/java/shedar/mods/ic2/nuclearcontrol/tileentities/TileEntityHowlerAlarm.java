@@ -22,8 +22,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 
 public class TileEntityHowlerAlarm extends TileEntity implements 
-    INetworkDataProvider, INetworkUpdateListener, IWrenchable, IRedstoneConsumer, INetworkClientTileEntityEventListener
-{
+    INetworkDataProvider, INetworkUpdateListener, IWrenchable, IRedstoneConsumer, INetworkClientTileEntityEventListener{
     private static final String DEFAULT_SOUND_NAME = "default";
     private static final float BASE_SOUND_RANGE = 16F;
     private static final String SOUND_PREFIX = "nuclearcontrol:alarm-";
@@ -47,8 +46,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
     protected int tickRate;
     private String soundId;
     
-    public TileEntityHowlerAlarm()
-    {
+    public TileEntityHowlerAlarm(){
         facing = 0;
         prevFacing = 0;
         init = false;
@@ -61,20 +59,17 @@ public class TileEntityHowlerAlarm extends TileEntity implements
         soundReceived = false;
     }
 
-    private void initData()
-    {
+    private void initData(){
         if(!worldObj.isRemote){
             RedstoneHelper.checkPowered(worldObj, this);
         }
-        if(FMLCommonHandler.instance().getEffectiveSide().isServer() && "".equals(soundName))
-        {
+        if(FMLCommonHandler.instance().getEffectiveSide().isServer() && "".equals(soundName)){
             setSoundName(DEFAULT_SOUND_NAME);
         }
         init = true;
     }
     
-    public int getRange()
-    {
+    public int getRange(){
         return range;
     }
     
@@ -320,6 +315,6 @@ public class TileEntityHowlerAlarm extends TileEntity implements
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
     {
-        return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain.blockID, 1, Damages.DAMAGE_HOWLER_ALARM);
+        return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain, 1, Damages.DAMAGE_HOWLER_ALARM);
     }
 }

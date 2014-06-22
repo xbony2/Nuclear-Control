@@ -4,7 +4,7 @@ import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyConductor;
-import ic2.api.item.Items;
+import ic2.api.item.IC2Items;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
@@ -15,13 +15,14 @@ import java.util.List;
 import java.util.Vector;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
@@ -31,8 +32,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEntityAverageCounter extends TileEntity implements 
     IEnergyConductor, IWrenchable, INetworkClientTileEntityEventListener,
-    IInventory, ISlotItemFilter, INetworkDataProvider, INetworkUpdateListener 
-{
+    IInventory, ISlotItemFilter, INetworkDataProvider, INetworkUpdateListener{
     private static final int BASE_PACKET_SIZE = 32;
     private static final int DATA_POINTS = 11;
     
@@ -63,8 +63,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 
     private boolean addedToEnergyNet;
 
-    public TileEntityAverageCounter()
-    {
+    public TileEntityAverageCounter(){
         super();
         inventory = new ItemStack[1];//transformers upgrade
         addedToEnergyNet = false;
@@ -78,37 +77,31 @@ public class TileEntityAverageCounter extends TileEntity implements
         powerType = POWER_TYPE_EU;
     }
 
-    protected void initData()
-    {
+    protected void initData(){
         init = true;
     }
     
     @Override
-    public short getFacing()
-    {
+    public short getFacing(){
         return (short)Facing.oppositeSide[facing];
     }
     
     @Override
-    public void setFacing(short f)
-    {
-        if (addedToEnergyNet)
-        {
+    public void setFacing(short f){
+        if (addedToEnergyNet){
             EnergyTileUnloadEvent event = new EnergyTileUnloadEvent(this);
             MinecraftForge.EVENT_BUS.post(event);
         }
         setSide((short)Facing.oppositeSide[f]);
         addedToEnergyNet = false;
-        if(FMLCommonHandler.instance().getEffectiveSide().isServer())
-        {
+        if(FMLCommonHandler.instance().getEffectiveSide().isServer()){
             EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
             MinecraftForge.EVENT_BUS.post(event);
             addedToEnergyNet = true;
         }
     }
     
-    private void setSide(short f)
-    {
+    private void setSide(short f){
         facing = f;
 
         if (prevFacing != f)
@@ -119,8 +112,7 @@ public class TileEntityAverageCounter extends TileEntity implements
         prevFacing = f;
     }
     
-    private void setPeriod(short p)
-    {
+    private void setPeriod(short p){
         period = p;
 
         if (prevPeriod != p)
@@ -131,8 +123,7 @@ public class TileEntityAverageCounter extends TileEntity implements
         prevPeriod = p;
     }
     
-    public void setPowerType(byte p)
-    {
+    public void setPowerType(byte p){
         powerType = p;
 
         if (prevPowerType != p)
@@ -144,40 +135,31 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
     
     @Override
-    public void updateEntity()
-    {
-        if (!init)
-        {
+    public void updateEntity(){
+        if (!init){
             initData();
             onInventoryChanged();
         }
         if(FMLCommonHandler.instance().getEffectiveSide().isClient())
             return;
-        if (!worldObj.isRemote)
-        {
-            if (!addedToEnergyNet)
-            {
+        if (!worldObj.isRemote){
+            if (!addedToEnergyNet){
                 EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
                 MinecraftForge.EVENT_BUS.post(event);
                 prevTotal = EnergyNet.instance.getTotalEnergyEmitted(this);
                 addedToEnergyNet = true;
             }
-            if (updateTicker-- == 0)
-            {
+            if (updateTicker-- == 0){
                 updateTicker = tickRate-1;
                 index = (index+1) % DATA_POINTS;
                 data[index] = 0;
                 getAverage();
                 long total = EnergyNet.instance.getTotalEnergyEmitted(this);
-                if(total > 0)
-                {
-                    if(prevTotal!=-1)
-                    {
+                if(total > 0){
+                    if(prevTotal!=-1){
                         total = total - prevTotal;
                         prevTotal += total;
-                    }
-                    else
-                    {
+                    }else{
                         prevTotal = total;
                     }
                     if(total>0)
@@ -190,8 +172,7 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound)
-    {
+    public void readFromNBT(NBTTagCompound nbttagcompound){
         super.readFromNBT(nbttagcompound);
         facing = nbttagcompound.getShort("facing");
         index = nbttagcompound.getInteger("dataIndex");
@@ -202,15 +183,13 @@ public class TileEntityAverageCounter extends TileEntity implements
         for(int i=0;i<DATA_POINTS;i++)
             data[i] = nbttagcompound.getLong("point-"+i);
         
-        NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
+        NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
         inventory = new ItemStack[getSizeInventory()];
-        for (int i = 0; i < nbttaglist.tagCount(); i++)
-        {
-            NBTTagCompound compound = (NBTTagCompound)nbttaglist.tagAt(i);
+        for (int i = 0; i < nbttaglist.tagCount(); i++){
+            NBTTagCompound compound = (NBTTagCompound)nbttaglist.getCompoundTagAt(i);
             byte slotNum = compound.getByte("Slot");
 
-            if (slotNum >= 0 && slotNum < inventory.length)
-            {
+            if (slotNum >= 0 && slotNum < inventory.length){
                 inventory[slotNum] = ItemStack.loadItemStackFromNBT(compound);
             }
         }
@@ -218,20 +197,16 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
     
     @Override
-    public void onNetworkUpdate(String field)
-    {
-        if (field.equals("facing") && prevFacing != facing)
-        {
+    public void onNetworkUpdate(String field){
+        if (field.equals("facing") && prevFacing != facing){
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             prevFacing = facing;
         }
     }    
 
     @Override
-    public void invalidate()
-    {
-        if (!worldObj.isRemote && addedToEnergyNet)
-        {
+    public void invalidate(){
+        if (!worldObj.isRemote && addedToEnergyNet){
             EnergyTileUnloadEvent event = new EnergyTileUnloadEvent(this);
             MinecraftForge.EVENT_BUS.post(event);
             addedToEnergyNet = false;
@@ -241,8 +216,7 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound)
-    {
+    public void writeToNBT(NBTTagCompound nbttagcompound){
         super.writeToNBT(nbttagcompound);
         nbttagcompound.setShort("facing", facing);
         nbttagcompound.setInteger("dataIndex", index);
@@ -254,10 +228,8 @@ public class TileEntityAverageCounter extends TileEntity implements
             nbttagcompound.setLong("point-"+i, (long)data[i]);
         
         NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < inventory.length; i++)
-        {
-            if (inventory[i] != null)
-            {
+        for (int i = 0; i < inventory.length; i++){
+            if (inventory[i] != null){
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setByte("Slot", (byte)i);
                 inventory[i].writeToNBT(compound);
@@ -268,24 +240,19 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
 
     @Override
-    public int getSizeInventory()
-    {
+    public int getSizeInventory(){
         return inventory.length;
     }
 
     @Override
-    public ItemStack getStackInSlot(int slotNum)
-    {
+    public ItemStack getStackInSlot(int slotNum){
         return inventory[slotNum];
     }
 
     @Override
-    public ItemStack decrStackSize(int slotNum, int amount)
-    {
-        if(inventory[slotNum]!=null)
-        {
-            if (inventory[slotNum].stackSize <= amount)
-            {
+    public ItemStack decrStackSize(int slotNum, int amount){
+        if(inventory[slotNum]!=null){
+            if (inventory[slotNum].stackSize <= amount){
                 ItemStack itemStack = inventory[slotNum];
                 inventory[slotNum] = null;
                 onInventoryChanged();
@@ -293,8 +260,7 @@ public class TileEntityAverageCounter extends TileEntity implements
             }
             
             ItemStack taken = inventory[slotNum].splitStack(amount);
-            if (inventory[slotNum].stackSize == 0)
-            {
+            if (inventory[slotNum].stackSize == 0){
                 inventory[slotNum] = null;
             }
             onInventoryChanged();
@@ -304,69 +270,57 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int var1)
-    {
+    public ItemStack getStackInSlotOnClosing(int var1){
         return null;
     }
     
     @Override
-    public void setInventorySlotContents(int slotNum, ItemStack itemStack)
-    {
+    public void setInventorySlotContents(int slotNum, ItemStack itemStack){
         inventory[slotNum] = itemStack;
 
-        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit())
-        {
+        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()){
             itemStack.stackSize = getInventoryStackLimit();
         }
         onInventoryChanged();
     }
     
     @Override
-    public String getInvName()
-    {
+    public String getInventoryName(){
         return "block.RemoteThermo";
     }
 
     @Override
-    public int getInventoryStackLimit()
-    {
+    public int getInventoryStackLimit(){
         return 64;
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player)
-    {
-        return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this &&
+    public boolean isUseableByPlayer(EntityPlayer player){
+        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this &&
                 player.getDistanceSq((double)xCoord + 0.5D, (double)yCoord + 0.5D, (double)zCoord + 0.5D) <= 64D;
     }
 
     @Override
-    public void openChest()
-    {
+    public void openInventory(){
     }
 
     @Override
-    public void closeChest()
-    {
+    public void closeInventory(){
     }
     
     @Override
-    public void onInventoryChanged() 
-    {
+    public void onInventoryChanged() {
         super.onInventoryChanged();
         int upgradeCountTransormer = 0;
         ItemStack itemStack = inventory[0];
-        if (itemStack!=null && itemStack.isItemEqual(Items.getItem("transformerUpgrade")))
-        {
+        if (itemStack!=null && itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))){
             upgradeCountTransormer = itemStack.stackSize;
         }
         upgradeCountTransormer = Math.min(upgradeCountTransormer, 4);
-        if(worldObj!=null && !worldObj.isRemote)
-        {
+        if(worldObj!=null && !worldObj.isRemote){
             packetSize = BASE_PACKET_SIZE * (int)Math.pow(4D, upgradeCountTransormer);
             
-            if (addedToEnergyNet)
-            {
+            if (addedToEnergyNet){
                 EnergyTileUnloadEvent event = new EnergyTileUnloadEvent(this);
                 MinecraftForge.EVENT_BUS.post(event);
             }
@@ -378,21 +332,18 @@ public class TileEntityAverageCounter extends TileEntity implements
     };
 
     @Override
-    public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction)
-    {
+    public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction){
         return direction.ordinal() == getFacing();
     }
 
     @Override
-    public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction)
-    {
+    public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction){
         return direction.ordinal() != getFacing();
     }
 
     @Override
-    public boolean isItemValid(int slotIndex, ItemStack itemstack)
-    {
-        return  itemstack.isItemEqual(Items.getItem("transformerUpgrade")); 
+    public boolean isItemValid(int slotIndex, ItemStack itemstack){
+        return  itemstack.isItemEqual(IC2Items.getItem("transformerUpgrade")); 
     }
     
     @Override
@@ -401,20 +352,17 @@ public class TileEntityAverageCounter extends TileEntity implements
     };
 
     @Override
-    public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-    {
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer){
         return true;
     }
 
     @Override
-    public float getWrenchDropRate()
-    {
+    public float getWrenchDropRate(){
         return 1;
     }
 
     @Override
-    public List<String> getNetworkedFields()
-    {
+    public List<String> getNetworkedFields(){
         Vector<String> vector = new Vector<String>(3);
         vector.add("facing");
         vector.add("period");
@@ -422,20 +370,17 @@ public class TileEntityAverageCounter extends TileEntity implements
         return vector;    
     }
 
-    public void setClientAverage(int value)
-    {
+    public void setClientAverage(int value){
         clientAverage = value;
     }
     
-    public int getClientAverage()
-    {
+    public int getClientAverage(){
         if(clientAverage == -1)
             return getAverage();
         return clientAverage;
     }
     
-    private int getAverage()
-    {
+    private int getAverage(){
         int start = DATA_POINTS + index - period;
         long sum = 0;
         for(int i=0;i<period;i++)
@@ -447,75 +392,62 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
 
     @Override
-    public void onNetworkEvent(EntityPlayer player, int event)
-    {
-        if(event == 0)
-        {
-            for(int i=0;i<DATA_POINTS;i++)
-            {
+    public void onNetworkEvent(EntityPlayer player, int event){
+        if(event == 0){
+            for(int i=0;i<DATA_POINTS;i++){
                 data[i]=0;
             }
             updateTicker = tickRate;
             index = 0;
-        }
-        else
-        {
+        }else{
             setPeriod((short)event);
         }
     }
     
     @Override
-    public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-    {
-        return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain.blockID, 1, Damages.DAMAGE_AVERAGE_COUNTER);
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer){
+        return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain, 1, Damages.DAMAGE_AVERAGE_COUNTER);
     }
 
     @Override
-    public double getConductionLoss()
-    {
+    public double getConductionLoss(){
         return 0.025D;
     }
 
     @Override
-    public int getInsulationEnergyAbsorption()
-    {
+    public int getInsulationEnergyAbsorption(){
         return 16384;
     }
 
     @Override
-    public int getInsulationBreakdownEnergy()
-    {
+    public int getInsulationBreakdownEnergy(){
         return packetSize+1;
     }
 
     @Override
-    public int getConductorBreakdownEnergy()
-    {
+    public int getConductorBreakdownEnergy(){
         return packetSize+1;
     }
 
     @Override
-    public void removeInsulation()
-    {
+    public void removeInsulation(){
     }
 
     @Override
-    public void removeConductor()
-    {
-        worldObj.setBlock(xCoord, yCoord, zCoord, 0, 0, 3);
+    public void removeConductor(){
+        worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air, 0, 3);
         worldObj.createExplosion(null, xCoord, yCoord, zCoord, 0.8F, false);
     }
 
     @Override
-    public boolean isInvNameLocalized()
-    {
+    public boolean hasCustomInventoryName(){
         return false;
     }
 
     @Override
-    public boolean isItemValidForSlot(int slot, ItemStack itemstack)
-    {
+    public boolean isItemValidForSlot(int slot, ItemStack itemstack){
         return isItemValid(slot, itemstack);
     }
+
 
 }

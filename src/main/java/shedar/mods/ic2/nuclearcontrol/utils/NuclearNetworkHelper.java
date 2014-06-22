@@ -28,8 +28,7 @@ import com.google.common.io.ByteStreams;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-public class NuclearNetworkHelper
-{
+public class NuclearNetworkHelper{
     public static final int FIELD_LONG = 1;
     public static final int FIELD_INT = 2;
     public static final int FIELD_STRING = 3;
@@ -38,8 +37,7 @@ public class NuclearNetworkHelper
     public static final int FIELD_NULL = 6;
     
     //server
-    public static void sendEnergyCounterValue(TileEntityEnergyCounter counter, ICrafting crafter)
-    {
+    public static void sendEnergyCounterValue(TileEntityEnergyCounter counter, ICrafting crafter){
         if(counter==null || !(crafter instanceof EntityPlayerMP))
             return;
         Packet250CustomPayload packet = new Packet250CustomPayload();
@@ -59,8 +57,7 @@ public class NuclearNetworkHelper
     }
 
     //server
-    public static void sendAverageCounterValue(TileEntityAverageCounter counter, ICrafting crafter, int average)
-    {
+    public static void sendAverageCounterValue(TileEntityAverageCounter counter, ICrafting crafter, int average){
         if(counter==null || !(crafter instanceof EntityPlayerMP))
             return;
         Packet250CustomPayload packet = new Packet250CustomPayload();
@@ -80,18 +77,15 @@ public class NuclearNetworkHelper
     }
     
     //server
-    private static void sendPacketToAllAround(int x, int y, int z, int dist, World world, Packet packet)
-    {
+    private static void sendPacketToAllAround(int x, int y, int z, int dist, World world, Packet packet){
         @SuppressWarnings("unchecked")
         List<EntityPlayerMP> players = world.playerEntities;
-        for (EntityPlayerMP player : players)
-        {
+        for (EntityPlayerMP player : players){
             double dx = x - player.posX;
             double dy = y - player.posY;
             double dz = z - player.posZ;
 
-            if (dx*dx + dy*dy + dz*dz < dist * dist)
-            {
+            if (dx*dx + dy*dy + dz*dz < dist * dist){
                 player.playerNetServerHandler.sendPacketToPlayer(packet);
             }        
         }
@@ -99,8 +93,7 @@ public class NuclearNetworkHelper
     }
     
     //server
-    public static void setSensorCardField(TileEntity panel, byte slot, Map<String, Object> fields)
-    {
+    public static void setSensorCardField(TileEntity panel, byte slot, Map<String, Object> fields){
         if(fields==null || fields.isEmpty() || panel==null || !(panel instanceof TileEntityInfoPanel) || slot == -1)
             return;
             
@@ -115,44 +108,30 @@ public class NuclearNetworkHelper
         output.writeInt(panel.zCoord);
         output.writeByte(slot);
         output.writeShort(fields.size());
-        for (Map.Entry<String, Object> entry : fields.entrySet())
-        {
+        for (Map.Entry<String, Object> entry : fields.entrySet()){
             output.writeUTF(entry.getKey());
             Object value = entry.getValue();
-            if(value instanceof Long)
-            {
+            if(value instanceof Long){
                 output.writeByte(FIELD_LONG);
                 output.writeLong((Long)value);
-            }
-            else if(value instanceof Integer)
-            {
+            }else if(value instanceof Integer){
                 output.writeByte(FIELD_INT);
                 output.writeInt((Integer)value);
-            }
-            else if(value instanceof String)
-            {
+            }else if(value instanceof String){
                 output.writeByte(FIELD_STRING);
                 output.writeUTF((String)value);
-            }
-            else if(value instanceof Boolean)
-            {
+            }else if(value instanceof Boolean){
                 output.writeByte(FIELD_BOOLEAN);
                 output.writeBoolean((Boolean)value);
-            }
-            else if(value instanceof NBTTagCompound)
-            {
+            }else if(value instanceof NBTTagCompound){
                 output.writeByte(FIELD_TAG);
-                try
-                {
+                try{
                     NBTTagCompound.writeNamedTag((NBTTagCompound)value, output);
-                } catch (IOException e)
-                {
+                } catch (IOException e){
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-            }
-            else if ( value == null)
-            {
+            }else if ( value == null){
                 output.writeByte(FIELD_NULL);
             }
         }
@@ -164,8 +143,7 @@ public class NuclearNetworkHelper
     }
     
     //client
-    public static void setDisplaySettings(TileEntityInfoPanel panel, byte slot, int settings)
-    {
+    public static void setDisplaySettings(TileEntityInfoPanel panel, byte slot, int settings){
         if(panel==null)
             return;
             
@@ -189,8 +167,7 @@ public class NuclearNetworkHelper
     }
     
     //client
-    public static void setCardSettings(ItemStack card, TileEntity panelTE, Map<String, Object> fields, int slot)
-    {
+    public static void setCardSettings(ItemStack card, TileEntity panelTE, Map<String, Object> fields, int slot){
         if(card == null || fields==null || fields.isEmpty() || panelTE==null || !(panelTE instanceof TileEntityInfoPanel))
             return;
             
@@ -206,27 +183,19 @@ public class NuclearNetworkHelper
         output.writeByte(slot);
         output.writeUTF(card.getItem().getClass().getName());
         output.writeShort(fields.size());
-        for (Map.Entry<String, Object> entry : fields.entrySet())
-        {
+        for (Map.Entry<String, Object> entry : fields.entrySet()){
             output.writeUTF(entry.getKey());
             Object value = entry.getValue();
-            if(value instanceof Long)
-            {
+            if(value instanceof Long){
                 output.writeByte(FIELD_LONG);
                 output.writeLong((Long)value);
-            }
-            else if(value instanceof Integer)
-            {
+            }else if(value instanceof Integer){
                 output.writeByte(FIELD_INT);
                 output.writeInt((Integer)value);
-            }
-            else if(value instanceof String)
-            {
+            }else if(value instanceof String){
                 output.writeByte(FIELD_STRING);
                 output.writeUTF((String)value);
-            }
-            else if(value instanceof Boolean)
-            {
+            }else if(value instanceof Boolean){
                 output.writeByte(FIELD_BOOLEAN);
                 output.writeBoolean((Boolean)value);
             }
@@ -239,8 +208,7 @@ public class NuclearNetworkHelper
     }
     
     //server
-    public static void setSensorCardTitle(TileEntityInfoPanel panel, byte slot, String title)
-    {
+    public static void setSensorCardTitle(TileEntityInfoPanel panel, byte slot, String title){
         if(title==null || panel==null)
             return;
         Packet250CustomPayload packet = new Packet250CustomPayload();
@@ -259,10 +227,8 @@ public class NuclearNetworkHelper
         sendPacketToAllAround(panel.xCoord, panel.yCoord, panel.zCoord, 64, panel.worldObj, packet);
     }
     
-    public static void chatMessage(EntityPlayer player, String message)
-    {
-        if(player instanceof EntityPlayerMP)
-        {
+    public static void chatMessage(EntityPlayer player, String message){
+        if(player instanceof EntityPlayerMP){
             Packet250CustomPayload packet = new Packet250CustomPayload();
             ByteArrayDataOutput output = ByteStreams.newDataOutput();
             output.writeShort(PacketHandler.PACKET_CHAT);
@@ -276,8 +242,7 @@ public class NuclearNetworkHelper
     }
     
     //client
-    public static void setNewAlarmSound(int x, int y, int z, byte slot, String soundName)
-    {
+    public static void setNewAlarmSound(int x, int y, int z, byte slot, String soundName){
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeByte(PacketHandler.PACKET_CLIENT_SOUND);
         output.writeInt(x);
@@ -296,8 +261,7 @@ public class NuclearNetworkHelper
     }
     
     //client
-    public static void setRangeTrigger(int x, int y, int z, long value, boolean isEnd)
-    {
+    public static void setRangeTrigger(int x, int y, int z, long value, boolean isEnd){
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeByte(PacketHandler.PACKET_CLIENT_RANGE_TRIGGER);
         output.writeInt(x);
@@ -314,8 +278,7 @@ public class NuclearNetworkHelper
     }
     
     //client
-    public static void setScreenColor(int x, int y, int z, int back, int text)
-    {
+    public static void setScreenColor(int x, int y, int z, int back, int text){
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeByte(PacketHandler.PACKET_CLIENT_COLOR);
         output.writeInt(x);
@@ -331,8 +294,7 @@ public class NuclearNetworkHelper
     }
     
     //client
-    public static void requestDisplaySettings(TileEntityInfoPanel panel)
-    {
+    public static void requestDisplaySettings(TileEntityInfoPanel panel){
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeByte(PacketHandler.PACKET_CLIENT_REQUEST);
         output.writeInt(panel.xCoord);
@@ -347,8 +309,7 @@ public class NuclearNetworkHelper
     }
     
     //server
-    public static void sendDisplaySettingsToPlayer(int x, int y, int z, EntityPlayerMP player)
-    {
+    public static void sendDisplaySettingsToPlayer(int x, int y, int z, EntityPlayerMP player){
         TileEntity tileEntity = player.worldObj.getBlockTileEntity(x, y, z);
         if(!(tileEntity instanceof TileEntityInfoPanel))
             return;
@@ -362,12 +323,10 @@ public class NuclearNetworkHelper
         output.writeInt(y);
         output.writeInt(z);
         output.writeByte(settings.size());
-        for (Map.Entry<Byte, Map<UUID, Integer>> slotData : settings.entrySet())
-        {
+        for (Map.Entry<Byte, Map<UUID, Integer>> slotData : settings.entrySet()){
             output.writeByte(slotData.getKey());
             output.writeShort(slotData.getValue().size());
-            for(Map.Entry<UUID, Integer> item: slotData.getValue().entrySet())
-            {
+            for(Map.Entry<UUID, Integer> item: slotData.getValue().entrySet()){
                 UUID key = item.getKey(); 
                 if(key == null)
                     continue;
@@ -384,8 +343,7 @@ public class NuclearNetworkHelper
     }
     
     //server
-    public static void sendDisplaySettingsUpdate(TileEntityInfoPanel panel, byte slot, UUID key, int value)
-    {
+    public static void sendDisplaySettingsUpdate(TileEntityInfoPanel panel, byte slot, UUID key, int value){
         Packet250CustomPayload packet = new Packet250CustomPayload();
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeShort(PacketHandler.PACKET_DISP_SETTINGS_UPDATE);
