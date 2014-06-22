@@ -7,24 +7,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Facing;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.subblocks.AdvancedInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.subblocks.AdvancedInfoPanelExtender;
 import shedar.mods.ic2.nuclearcontrol.subblocks.AverageCounter;
@@ -70,45 +73,38 @@ public class BlockNuclearControlMain extends BlockContainer{
         register(new AdvancedInfoPanelExtender());
     }
     
-    public void register(Subblock block)
-    {
+    public void register(Subblock block){
         subblocks.put(block.getDamage(), block);
     }
 
     @Override
-    public int getRenderType()
-    {
+    public int getRenderType(){
         return IC2NuclearControl.instance.modelId;
     }
     
     @Override
-    public boolean isBlockNormalCube(World world, int x, int y, int z)
-    {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z){
+        return false;
+    }//I think this is right :D
+
+    @Override
+    public boolean renderAsNormalBlock(){
         return false;
     }
 
     @Override
-    public boolean renderAsNormalBlock()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube(){
         return false;
     }
     
-    private boolean isSolidBlockRequired(int metadata)
-    {
+    private boolean isSolidBlockRequired(int metadata){
         return subblocks.containsKey(metadata) && subblocks.get(metadata).isSolidBlockRequired();
     }
     
     /**
      * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
      */
-    public boolean canPlaceBlockAtlocal(World world, int x, int y, int z)
-    {
+    public boolean canPlaceBlockAtlocal(World world, int x, int y, int z){
     	for (int face = 0; face < 6; face++){
     		int side = Facing.oppositeSide[face];
     		if(world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], 
@@ -123,8 +119,7 @@ public class BlockNuclearControlMain extends BlockContainer{
      * called before onBlockPlacedBy by ItemBlock and ItemReed
      */
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
-    {
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata){
         super.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, metadata);
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         ForgeDirection oposite = dir.getOpposite();
@@ -140,41 +135,31 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
     
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item)
-    {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item){
         int metadata = item.getItemDamage();
         onBlockPlacedBy(world, x, y, z, player, item, metadata);
     }
     
     
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item, int metadata)
-    {
-        TileEntity block = world.getBlockTileEntity(x, y, z);
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item, int metadata){
+        TileEntity block = world.getTileEntity(x, y, z);
         int side = metadata >> 8;
         metadata = metadata & 0xff;
-        if(metadata > Damages.DAMAGE_MAX)
-        {
+        if(metadata > Damages.DAMAGE_MAX){
             metadata = 0;
         }
-        if(block instanceof IWrenchable)
-        {
+        
+        if(block instanceof IWrenchable){
             IWrenchable wrenchable = (IWrenchable)block;
             wrenchable.setFacing((short)side);
-            if (player != null && !isSolidBlockRequired(metadata)) 
-            {
+            if (player != null && !isSolidBlockRequired(metadata)){
                 int rotationSegment = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-                if (player.rotationPitch >= 65) 
-                {
+                if (player.rotationPitch >= 65){
                     wrenchable.setFacing((short)1);
-                } 
-                else if (player.rotationPitch <= -65) 
-                {
+                }else if (player.rotationPitch <= -65){
                     wrenchable.setFacing((short)0);
-                } 
-                else 
-                {
-                    switch (rotationSegment) 
-                    {
+                }else{
+                    switch (rotationSegment){
                     case 0: wrenchable.setFacing((short)2); break;
                     case 1: wrenchable.setFacing((short)5); break;
                     case 2: wrenchable.setFacing((short)3); break;
@@ -191,24 +176,18 @@ public class BlockNuclearControlMain extends BlockContainer{
      * Called whenever the block is added into the world.
      */
     @Override
-    public void onBlockAdded(World world, int x, int y, int z)
-    {
+    public void onBlockAdded(World world, int x, int y, int z){
         super.onBlockAdded(world, x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);
-        if(metadata > Damages.DAMAGE_MAX)
-        {
+        if(metadata > Damages.DAMAGE_MAX){
             metadata = 0;
         }
         if(isSolidBlockRequired(metadata))
     	for (int face = 0; face < 6; face++){
     		int side = Facing.oppositeSide[face];
-    		if(world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], 
-    									y + Facing.offsetsYForSide[side], 
-    									z + Facing.offsetsZForSide[side],  ForgeDirection.getOrientation(face)))
-    		{
-                TileEntity tileentity = world.getBlockTileEntity(x, y, z);
-                if(tileentity instanceof IWrenchable)
-                {
+    		if(world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], ForgeDirection.getOrientation(face))){
+                TileEntity tileentity = world.getTileEntity(x, y, z);
+                if(tileentity instanceof IWrenchable){
                 	((IWrenchable)tileentity).setFacing((short)face);
                 }
                 break;
@@ -218,15 +197,12 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
 
     @Override
-    public void breakBlock(World world, int x, int y, int z, int i1, int i2)
-    {
-        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-        if(tileEntity instanceof TileEntityHowlerAlarm)
-        {
+    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metadata){
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+        if(tileEntity instanceof TileEntityHowlerAlarm){
             ((TileEntityHowlerAlarm)tileEntity).setPowered(false);
         }
-        if (!world.isRemote && tileEntity instanceof IInventory)
-        {
+        if (!world.isRemote && tileEntity instanceof IInventory){
             IInventory inventory = (IInventory)tileEntity;
             float range = 0.7F;
 
@@ -246,42 +222,32 @@ public class BlockNuclearControlMain extends BlockContainer{
                 }
             }
         }
-        super.breakBlock(world, x, y, z, i1, i2);
+        super.breakBlock(world, x, y, z, this, metadata);
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int neighbor)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor){
         int side = 0;
-        TileEntity tileentity = world.getBlockTileEntity(x, y, z);
-        if(tileentity instanceof IWrenchable)
-        {
+        TileEntity tileentity = world.getTileEntity(x, y, z);
+        if(tileentity instanceof IWrenchable){
         	side = Facing.oppositeSide[((IWrenchable)tileentity).getFacing()];
         }
         int metadata = world.getBlockMetadata(x, y, z);
         
-		if( isSolidBlockRequired(metadata) && 
-	        !world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], 
-				y + Facing.offsetsYForSide[side], 
-				z + Facing.offsetsZForSide[side],  ForgeDirection.getOrientation(side).getOpposite()))
-		{
+		if(isSolidBlockRequired(metadata) && !world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side],  ForgeDirection.getOrientation(side).getOpposite())){
 			if(!world.isRemote){
 				dropBlockAsItem(world, x, y, z, metadata, 0);
 			}
-            world.setBlock(x, y, z, 0, 0, 3);
-		}
-		else
-		{
+            world.setBlock(x, y, z, Blocks.air, 0, 3);
+		}else{
 		    RedstoneHelper.checkPowered(world, tileentity);
 		}
 		super.onNeighborBlockChange(world, x, y, z, neighbor);
     }
     
-    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side, int metadata)
-    {
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side, int metadata){
         ForgeDirection dir = ForgeDirection.getOrientation(side);
-        if(!isSolidBlockRequired(metadata))
-        {
+        if(!isSolidBlockRequired(metadata)){
             return true;
         }
         return (dir == ForgeDirection.DOWN  && world.isBlockSolidOnSide(x, y + 1, z, ForgeDirection.DOWN )) ||
@@ -296,32 +262,24 @@ public class BlockNuclearControlMain extends BlockContainer{
      * Tests if the block can remain at its current location and will drop as an item if it is unable to stay. Returns
      * True if it can stay and False if it drops. Args: world, x, y, z
      */
-    private boolean dropBlockIfCantStay(World world, int x, int y, int z)
-    {
+    private boolean dropBlockIfCantStay(World world, int x, int y, int z){
         int metadata = world.getBlockMetadata(x, y, z);
-        if(!isSolidBlockRequired(metadata))
-        {
+        if(!isSolidBlockRequired(metadata)){
             return true;
         }
-        if (!canPlaceBlockAtlocal(world, x, y, z))
-        {
-            if (world.getBlockId(x, y, z) == blockID)
-            {
+        if (!canPlaceBlockAtlocal(world, x, y, z)){
+            if (world.getBlock(x, y, z) == blockId){
                 dropBlockAsItem(world, x, y, z, metadata, 0);
-                world.setBlock(x, y, z, 0, 0, 3);
+                world.setBlock(x, y, z, Blocks.air, 0, 3);
             }
             return false;
-        }
-        else
-        {
+        }else{
             return true;
         }
     }
     
-    public float[] getBlockBounds(int damage)
-    {
-        if(subblocks.containsKey(damage))
-        {
+    public float[] getBlockBounds(int damage){
+        if(subblocks.containsKey(damage)){
             return subblocks.get(damage).getBlockBounds(null);
         }
         return new float[]{0, 0, 0, 1, 1, 1};
@@ -331,8 +289,7 @@ public class BlockNuclearControlMain extends BlockContainer{
      * Updates the blocks bounds based on its current state.
      */
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z){
         int blockType = blockAccess.getBlockMetadata(x, y, z);
         
         float baseX1 = 0;
@@ -343,7 +300,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         float baseY2 = 1;
         float baseZ2 = 1; 
 
-        TileEntity tileentity = blockAccess.getBlockTileEntity(x, y, z);
+        TileEntity tileentity = blockAccess.getTileEntity(x, y, z);
 
         if(subblocks.containsKey(blockType))
         {
@@ -415,32 +372,26 @@ public class BlockNuclearControlMain extends BlockContainer{
         				Math.max(baseX1, baseX2), Math.max(baseY1, baseY2), Math.max(baseZ1, baseZ2) );
     }
 
-    public String getInvName()
-    {
+    public String getInvName(){
         return "IC2 Thermo";
     }
 
-    public boolean canProvidePower()
-    {
+    public boolean canProvidePower(){
         return true;
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f1, float f2, float f3)
-    {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f1, float f2, float f3){
         int blockType = world.getBlockMetadata(x, y, z);
-        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
         
-        if(WrenchHelper.isWrenchClicked(tileEntity, player, side))
-        {
+        if(WrenchHelper.isWrenchClicked(tileEntity, player, side)){
             return true;
         }
-        if (player!=null && player.isSneaking())
-        {
+        if (player!=null && player.isSneaking()){
             return false;
         }
-        if(subblocks.containsKey(blockType) && subblocks.get(blockType).hasGui())
-        {
+        if(subblocks.containsKey(blockType) && subblocks.get(blockType).hasGui()){
             if(player instanceof EntityPlayerMP)
                 player.openGui(IC2NuclearControl.instance, blockType, world, x, y, z);
             return true;
@@ -448,8 +399,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         return false;
     }
 
-    public boolean isIndirectlyPoweringTo(World world, int i, int j, int k, int l)
-    {
+    public boolean isIndirectlyPoweringTo(World world, int i, int j, int k, int l){
         return false;
     }
 
@@ -458,22 +408,19 @@ public class BlockNuclearControlMain extends BlockContainer{
      * cleared to be reused)
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z){
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     @Override
-    public int isProvidingWeakPower(IBlockAccess iblockaccess, int x, int y, int z, int direction)
-    {
+    public int isProvidingWeakPower(IBlockAccess iblockaccess, int x, int y, int z, int direction){
         return isProvidingStrongPower(iblockaccess, x, y, z, direction);
     }
     
     @Override
-    public int isProvidingStrongPower(IBlockAccess iblockaccess, int x, int y, int z, int direction)
-    {
-        TileEntity tileentity = iblockaccess.getBlockTileEntity(x, y, z);
+    public int isProvidingStrongPower(IBlockAccess iblockaccess, int x, int y, int z, int direction){
+        TileEntity tileentity = iblockaccess.getTileEntity(x, y, z);
         if(!(tileentity instanceof TileEntityIC2Thermo) && !(tileentity instanceof TileEntityRangeTrigger))
             return 0;
         
@@ -500,15 +447,13 @@ public class BlockNuclearControlMain extends BlockContainer{
 			targetX--;
 			break;
 		}
-        TileEntity targetEntity = iblockaccess.getBlockTileEntity(targetX, targetY, targetZ);
+        TileEntity targetEntity = iblockaccess.getTileEntity(targetX, targetY, targetZ);
         if (tileentity instanceof TileEntityIC2Thermo && targetEntity!=null && 
             (NuclearHelper.getReactorAt(tileentity.worldObj, targetX, targetY, targetZ)!=null || 
-    		NuclearHelper.getReactorChamberAt(tileentity.worldObj, targetX, targetY, targetZ)!=null))
-        {
+    		NuclearHelper.getReactorChamberAt(tileentity.worldObj, targetX, targetY, targetZ)!=null)){
             return 0;
         }
-        if(tileentity instanceof TileEntityRemoteThermo)
-        {
+        if(tileentity instanceof TileEntityRemoteThermo){
             TileEntityRemoteThermo thermo = (TileEntityRemoteThermo)tileentity;
             return thermo.getOnFire() >= thermo.getHeatLevel() ^ thermo.isInvertRedstone()?15:0;
         }
@@ -518,16 +463,14 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
 
     @Override
-    public Icon getIcon(int side, int metadata)
-    {
+    public IIcon getIcon(int side, int metadata){
         if(subblocks.containsKey(metadata))
             return subblocks.get(metadata).getBlockTextureFromSide(side);
 		return null;
     }
     
     @Override
-    public Icon getBlockTexture(IBlockAccess blockaccess, int x, int y, int z, int side)
-    {
+    public IIcon getBlockTexture(IBlockAccess blockaccess, int x, int y, int z, int side){
         int blockType = blockaccess.getBlockMetadata(x, y, z);
         if(subblocks.containsKey(blockType))
             return subblocks.get(blockType).getBlockTexture(blockaccess, x, y, z, side);
@@ -535,24 +478,20 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
     
     @Override
-    public void registerIcons(IconRegister iconRegister)
-    {
-        for (Subblock subblock : subblocks.values())
-        {
+    public void registerBlockIcons(IIconRegister iconRegister){
+        for (Subblock subblock : subblocks.values()){
             subblock.registerIcons(iconRegister);
         }
     }
     
-    public Subblock getSubblock(int metadata)
-    {
+    public Subblock getSubblock(int metadata){
         if(subblocks.containsKey(metadata))
             return subblocks.get(metadata);
         return null;
     }
 
     @Override
-    public int damageDropped(int i)
-    {
+    public int damageDropped(int i){
         if(i > 0 && i <= Damages.DAMAGE_MAX)
             return i;
         else
@@ -560,33 +499,26 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
     
     @Override
-    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) 
-    {
+    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
         int metadata = world.getBlockMetadata(x, y, z);
-        return !isSolidBlockRequired(metadata);
-        
+        return !isSolidBlockRequired(metadata); 
     }
     
     @Override
-    public int getLightValue(IBlockAccess world, int x, int y, int z) 
-    {
-        TileEntity entity = world.getBlockTileEntity(x, y, z);
-        if(entity instanceof TileEntityIndustrialAlarm)
-        {
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        TileEntity entity = world.getTileEntity(x, y, z);
+        if(entity instanceof TileEntityIndustrialAlarm){
             return ((TileEntityIndustrialAlarm)entity).lightLevel;
         }
-        else if(entity instanceof TileEntityInfoPanel)
-        {
+        else if(entity instanceof TileEntityInfoPanel){
             if(((TileEntityInfoPanel)entity).getPowered())
                 return 7;
             else
                 return 0;
         }
-        else if(entity instanceof TileEntityInfoPanelExtender)
-        {
+        else if(entity instanceof TileEntityInfoPanelExtender){
             TileEntityInfoPanelExtender extender = (TileEntityInfoPanelExtender)entity; 
-            if(extender.getScreen()!=null)
-            {
+            if(extender.getScreen()!=null){
                 TileEntityInfoPanel core = extender.getScreen().getCore(extender.worldObj); 
                 if(core!=null && core.getPowered())
                     return 7;
@@ -599,23 +531,19 @@ public class BlockNuclearControlMain extends BlockContainer{
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void getSubBlocks(int id, CreativeTabs tab, List itemList)
-    {
-        for(int i=0;i<=Damages.DAMAGE_MAX;i++)
-        {
+    public void getSubBlocks(Item item, CreativeTabs tab, List itemList){
+        for(int i=0;i<=Damages.DAMAGE_MAX;i++){
             itemList.add(new ItemStack(this, 1, i));
         }
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world)
-    {
+    public TileEntity createNewTileEntity(World world, int metadata){
         return null;
     }
 
     @Override
-    public TileEntity createTileEntity(World world, int metadata)
-    {
+    public TileEntity createTileEntity(World world, int metadata){
         if(subblocks.containsKey(metadata))
             return subblocks.get(metadata).getTileEntity();
         return null;

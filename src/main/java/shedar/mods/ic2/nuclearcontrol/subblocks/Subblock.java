@@ -1,12 +1,12 @@
 package shedar.mods.ic2.nuclearcontrol.subblocks;
 
 import ic2.api.tile.IWrenchable;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 
@@ -31,14 +31,12 @@ public abstract class Subblock
         return name;
     }
 
-    public Icon getBlockTextureFromSide(int side)
-    {
+    public IIcon getBlockTextureFromSide(int side){
         return getIcon(getMapping()[0][side]);
     }    
     
-    public Icon getBlockTexture(IBlockAccess blockaccess, int x, int y, int z, int side)
-    {
-        TileEntity tileentity = blockaccess.getBlockTileEntity(x, y, z);
+    public IIcon getBlockTexture(IBlockAccess blockaccess, int x, int y, int z, int side){
+        TileEntity tileentity = blockaccess.getTileEntity(x, y, z);
         int metaSide = 0;
         if(tileentity instanceof IWrenchable)
         {
@@ -53,9 +51,9 @@ public abstract class Subblock
         return getIcon(texture);
     }
     
-    public abstract Icon getIcon(int index);
+    public abstract IIcon getIcon(int index);
     protected abstract byte[][] getMapping();
-    public abstract void registerIcons(IconRegister iconRegister);
+    public abstract void registerIcons(IIconRegister iconRegister);
     public abstract TileEntity getTileEntity();
     public abstract boolean isSolidBlockRequired();
     public abstract boolean hasGui();

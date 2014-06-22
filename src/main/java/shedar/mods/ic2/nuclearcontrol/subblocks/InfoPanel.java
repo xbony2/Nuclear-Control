@@ -1,10 +1,10 @@
 package shedar.mods.ic2.nuclearcontrol.subblocks;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
@@ -36,45 +36,38 @@ public class InfoPanel extends Subblock
         {I_PANEL_SIDE, I_PANEL_SIDE, I_PANEL_SIDE, I_PANEL_SIDE, I_COLOR_DEFAULT, I_PANEL_BACK}
     };
     
-    protected Icon[] icons = new Icon[486];
+    protected IIcon[] icons = new IIcon[486];
     
-    public InfoPanel()
-    {
+    public InfoPanel(){
         super(DAMAGE, "tile.blockInfoPanel");
     }
     
-    public InfoPanel(int damage, String name)
-    {
+    public InfoPanel(int damage, String name){
         super(damage, name);
     }
     
     @Override
-    public TileEntity getTileEntity()
-    {
+    public TileEntity getTileEntity(){
         return new TileEntityInfoPanel();
     }
 
     @Override
-    public boolean isSolidBlockRequired()
-    {
+    public boolean isSolidBlockRequired(){
         return false;
     }
 
     @Override
-    public boolean hasGui()
-    {
+    public boolean hasGui(){
         return true;
     }
 
     @Override
-    public float[] getBlockBounds(TileEntity tileEntity)
-    {
+    public float[] getBlockBounds(TileEntity tileEntity){
         return BOUNDS;
     }
 
     @Override
-    public Container getServerGuiElement(TileEntity tileEntity, EntityPlayer player)
-    {
+    public Container getServerGuiElement(TileEntity tileEntity, EntityPlayer player){
         return new ContainerInfoPanel(player, (TileEntityInfoPanel)tileEntity);
     }
 
@@ -86,8 +79,7 @@ public class InfoPanel extends Subblock
     }
 
     @Override
-    public Icon getIcon(int index)
-    {
+    public IIcon getIcon(int index){
         return icons[index];
     }
 
@@ -98,8 +90,7 @@ public class InfoPanel extends Subblock
     }
 
     @Override
-    public void registerIcons(IconRegister iconRegister)
-    {
+    public void registerIcons(IIconRegister iconRegister){
         icons[I_PANEL_BACK] = iconRegister.registerIcon("nuclearcontrol:infoPanel/panelBack");
         icons[I_PANEL_SIDE] = iconRegister.registerIcon("nuclearcontrol:infoPanel/panelSide");
         icons[I_PANEL_ADV_SIDE] = iconRegister.registerIcon("nuclearcontrol:infoPanel/panelAdvancedSide");
@@ -108,18 +99,14 @@ public class InfoPanel extends Subblock
         icons[I_EXTENDER_SIDE] = iconRegister.registerIcon("nuclearcontrol:infoPanel/extenderSide");
         icons[I_EXTENDER_ADV_SIDE] = iconRegister.registerIcon("nuclearcontrol:infoPanel/extenderAdvancedSide");
         
-        for(int i=0;i<=14;i++)
-        {
-            for(int j=0;j<=15;j++)
-            {
+        for(int i=0;i<=14;i++){
+            for(int j=0;j<=15;j++){
                 icons[i*16+j+I_COLORS_OFFSET] = iconRegister.registerIcon("nuclearcontrol:infoPanel/off/"+i+"/"+j);
             }
         }
         
-        for(int i=0;i<=14;i++)
-        {
-            for(int j=0;j<=15;j++)
-            {
+        for(int i=0;i<=14;i++){
+            for(int j=0;j<=15;j++){
                 icons[i*16+j+I_COLORS_OFFSET+240] = iconRegister.registerIcon("nuclearcontrol:infoPanel/on/"+i+"/"+j);
             }
         }

@@ -14,8 +14,7 @@ public class AdvancedInfoPanelExtender extends InfoPanel
     private static final int DAMAGE = Damages.DAMAGE_ADVANCED_EXTENDER;
     private static final float[] BOUNDS = {0, 0, 0, 1, 1, 1};
     
-    private static final byte[][] mapping =
-        {
+    private static final byte[][] mapping = {
         {I_EXTENDER_ADV_SIDE, I_COLOR_DEFAULT, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE},
         {I_COLOR_DEFAULT, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE},
         {I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_COLOR_DEFAULT, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE},
@@ -24,32 +23,27 @@ public class AdvancedInfoPanelExtender extends InfoPanel
         {I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_EXTENDER_ADV_SIDE, I_COLOR_DEFAULT, I_EXTENDER_ADV_SIDE}
     };
 
-    public AdvancedInfoPanelExtender()
-    {
+    public AdvancedInfoPanelExtender(){
         super(DAMAGE, "tile.blockAdvancedInfoPanelExtender");
     }
 
     @Override
-    public TileEntity getTileEntity()
-    {
+    public TileEntity getTileEntity(){
         return new TileEntityAdvancedInfoPanelExtender();
     }
 
     @Override
-    public boolean isSolidBlockRequired()
-    {
+    public boolean isSolidBlockRequired(){
         return false;
     }
 
     @Override
-    public boolean hasGui()
-    {
+    public boolean hasGui(){
         return false;
     }
 
     @Override
-    public float[] getBlockBounds(TileEntity tileEntity)
-    {
+    public float[] getBlockBounds(TileEntity tileEntity){
         if(tileEntity == null)
             return BOUNDS;
         float[] bounds = BOUNDS.clone();
