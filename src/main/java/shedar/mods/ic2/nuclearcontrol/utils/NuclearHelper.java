@@ -61,7 +61,7 @@ public class NuclearHelper {
 		IReactor ent = null;
 		for(int i=0;i<6 && ent == null;i++){
 			ChunkPosition delta = around[i]; 
-			ent = getReactorAt(world, x+delta.x, y+delta.y, z+delta.z);
+			ent = getReactorAt(world, x+delta.chunkPosX, y+delta.chunkPosY, z+delta.chunkPosZ);
 		}
 		return ent;
 	}
@@ -81,7 +81,7 @@ public class NuclearHelper {
 		IReactorChamber ent = null;
 		for(int i=0;i<6 && ent == null;i++){
 			ChunkPosition delta = around[i]; 
-			ent = getReactorChamberAt(world, x+delta.x, y+delta.y, z+delta.z);
+			ent = getReactorChamberAt(world, x+delta.chunkPosX, y+delta.chunkPosY, z+delta.chunkPosZ);
 		}
 		return ent;
 	}

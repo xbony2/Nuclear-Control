@@ -97,7 +97,7 @@ public class NuclearNetworkHelper{
         if(fields==null || fields.isEmpty() || panel==null || !(panel instanceof TileEntityInfoPanel) || slot == -1)
             return;
             
-        if(panel.worldObj.isRemote)
+        if(panel.getWorldObj().isRemote)
             return;
 
         Packet250CustomPayload packet = new Packet250CustomPayload();
@@ -139,7 +139,7 @@ public class NuclearNetworkHelper{
         packet.isChunkDataPacket = false;
         packet.data = output.toByteArray();
         packet.length = packet.data.length;
-        sendPacketToAllAround(panel.xCoord, panel.yCoord, panel.zCoord, 64, panel.worldObj, packet);
+        sendPacketToAllAround(panel.xCoord, panel.yCoord, panel.zCoord, 64, panel.getWorldObj(), packet);
     }
     
     //client
@@ -310,7 +310,7 @@ public class NuclearNetworkHelper{
     
     //server
     public static void sendDisplaySettingsToPlayer(int x, int y, int z, EntityPlayerMP player){
-        TileEntity tileEntity = player.worldObj.getBlockTileEntity(x, y, z);
+        TileEntity tileEntity = player.worldObj.getTileEntity(x, y, z);
         if(!(tileEntity instanceof TileEntityInfoPanel))
             return;
         Map<Byte, Map<UUID, Integer>> settings = ((TileEntityInfoPanel)tileEntity).getDisplaySettings();
@@ -358,6 +358,6 @@ public class NuclearNetworkHelper{
         packet.isChunkDataPacket = false;
         packet.data = output.toByteArray();
         packet.length = packet.data.length;
-        sendPacketToAllAround(panel.xCoord, panel.yCoord, panel.zCoord, 64, panel.worldObj, packet);
+        sendPacketToAllAround(panel.xCoord, panel.yCoord, panel.zCoord, 64, panel.getWorldObj(), packet);
     }
 }

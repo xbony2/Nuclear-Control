@@ -121,8 +121,6 @@ public class IC2NuclearControl{
     public CrossGregTech crossGregTech;
     public CrossRailcraft crossRailcraft;
     
-    
-    
     @SuppressWarnings("unchecked")
     protected void addRecipes(){
         
@@ -326,7 +324,7 @@ public class IC2NuclearControl{
     
     @EventHandler
     public void modsLoaded(FMLPostInitializationEvent evt){
-        addRecipes();
+       addRecipes();
     }    
 
     public void registerBlocks(){
@@ -335,11 +333,11 @@ public class IC2NuclearControl{
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
-        configFile = event.getSuggestedConfigurationFile();
-        configDir = event.getModConfigurationDirectory();
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(proxy);
-       //TickRegistry.registerScheduledTickHandler(proxy, Side.SERVER);
+       configFile = event.getSuggestedConfigurationFile();
+       configDir = event.getModConfigurationDirectory();
+       MinecraftForge.EVENT_BUS.register(this);
+       MinecraftForge.EVENT_BUS.register(proxy);
+       TickRegistry.registerScheduledTickHandler(proxy, Side.SERVER);
     }
 
     @EventHandler
@@ -367,8 +365,8 @@ public class IC2NuclearControl{
         screenRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "infoPanelRefreshPeriod", 20).getInt();
         rangeTriggerRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "rangeTriggerRefreshPeriod", 20).getInt();
         SMPMaxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "SMPMaxAlarmRange", 256).getInt();
-        isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
-        httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
+        //isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
+        //httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
         proxy.registerTileEntities();
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
         configuration.save();

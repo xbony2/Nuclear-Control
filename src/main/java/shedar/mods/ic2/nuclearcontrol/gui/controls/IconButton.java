@@ -26,7 +26,7 @@ public class IconButton extends GuiButton
     @Override
     public void drawButton(Minecraft par1Minecraft, int mouseX, int mouseY){
         if (this.visible){
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, par1Minecraft.renderEngine.getTexture(textureLocation).func_110552_b());
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, par1Minecraft.renderEngine.getTexture(textureLocation).getGlTextureId());
             boolean isHover = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             if (isHover){
                 drawGradientRect(xPosition, yPosition, xPosition + width, yPosition + height, 0x80FFFFFF, 0x80FFFFFF);

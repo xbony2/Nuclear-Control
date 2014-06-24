@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -352,7 +352,7 @@ public class ModelInfoPanel
                 midpoint[offsetV] = p[offsetV]+dv/2;
                 midpoint[offsetD] = p[offsetD]+(ddh+ddv)/2;
 
-                Icon texture = block.getBlockTexture(panel.worldObj, (int)Math.floor(midpoint[0]), (int)Math.floor(midpoint[1]), (int)Math.floor(midpoint[2]), facing);
+                IIcon texture = block.getBlockTexture(panel.getWorldObj(), (int)Math.floor(midpoint[0]), (int)Math.floor(midpoint[1]), (int)Math.floor(midpoint[2]), facing);
 
                 double u1 = texture.getMinU();
                 double u2 = texture.getMaxU();
@@ -393,14 +393,14 @@ public class ModelInfoPanel
         
         int facing = panel.getFacing();
         
-        Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(panel.worldObj, panel.xCoord, panel.yCoord, panel.zCoord));
+        Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
         Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
         drawFacing(facing, panel.getRotation(), screen, panel, block);
 
         Tessellator.instance.draw();
         Tessellator.instance.startDrawingQuads();
-        renderer.minecraftRB.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
-        Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(panel.worldObj, panel.xCoord, panel.yCoord, panel.zCoord));
+        renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
+        Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
         Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
         
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

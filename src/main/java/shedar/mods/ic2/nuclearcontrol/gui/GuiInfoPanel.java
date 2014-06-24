@@ -60,7 +60,7 @@ public class GuiInfoPanel extends GuiContainer{
     }
     
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") 
     protected void drawItemStackTooltip(ItemStack itemStack, int par2, int par3){
         @SuppressWarnings("rawtypes")
         List list = itemStack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);

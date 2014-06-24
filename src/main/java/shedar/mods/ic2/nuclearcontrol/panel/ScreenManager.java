@@ -17,8 +17,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-public class ScreenManager
-{
+public class ScreenManager{
     
     private final Map<Integer,List<Screen>> screens; 
     private final Map<Integer,List<TileEntityInfoPanel>> unusedPanels;
@@ -47,9 +46,9 @@ public class ScreenManager
     
     private boolean isValidExtender(World world, int x, int y, int z, int facing, boolean advanced)
     {
-        if(world.getBlockId(x, y, z) != IC2NuclearControl.instance.blockNuclearControlMain.blockID)
+        if(world.getBlock(x, y, z) != IC2NuclearControl.instance.blockNuclearControlMain)
             return false;
-        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
         if(!(tileEntity instanceof TileEntityInfoPanelExtender))
             return false;
         if(advanced ^ (tileEntity instanceof TileEntityAdvancedInfoPanelExtender))
@@ -137,7 +136,7 @@ public class ScreenManager
 
             if(FMLCommonHandler.instance().getEffectiveSide().isServer())
             {
-                Integer key = getWorldKey(panel.worldObj);
+                Integer key = getWorldKey(panel.getWorldObj());
                 if(!screens.containsKey(key))
                     screens.put(key, new ArrayList<Screen>());
                 if(!unusedPanels.containsKey(key))
@@ -154,7 +153,7 @@ public class ScreenManager
     
     public Screen loadScreen(World world, int coreX, int coreY, int coreZ)
     {
-        TileEntity core = world.getBlockTileEntity(coreX, coreY, coreZ);
+        TileEntity core = world.getTileEntity(coreX, coreY, coreZ);
         if(core != null && core instanceof TileEntityInfoPanel)
             return loadScreen((TileEntityInfoPanel)core);
         return null;
@@ -171,13 +170,13 @@ public class ScreenManager
         int dx = Facing.offsetsXForSide[panel.facing]!=0?0:-1;
         int dy = Facing.offsetsYForSide[panel.facing]!=0?0:-1;
         int dz = Facing.offsetsZForSide[panel.facing]!=0?0:-1;
-        updateScreenBound(screen, dx, 0, 0, panel.worldObj, advanced);
-        updateScreenBound(screen, -dx, 0, 0, panel.worldObj, advanced);
-        updateScreenBound(screen, 0, dy, 0, panel.worldObj, advanced);
-        updateScreenBound(screen, 0, -dy, 0, panel.worldObj, advanced);
-        updateScreenBound(screen, 0, 0, dz, panel.worldObj, advanced);
-        updateScreenBound(screen, 0, 0, -dz, panel.worldObj, advanced);
-        screen.init(false, panel.worldObj);
+        updateScreenBound(screen, dx, 0, 0, panel.getWorldObj(), advanced);
+        updateScreenBound(screen, -dx, 0, 0, panel.getWorldObj(), advanced);
+        updateScreenBound(screen, 0, dy, 0, panel.getWorldObj(), advanced);
+        updateScreenBound(screen, 0, -dy, 0, panel.getWorldObj(), advanced);
+        updateScreenBound(screen, 0, 0, dz, panel.getWorldObj(), advanced);
+        updateScreenBound(screen, 0, 0, -dz, panel.getWorldObj(), advanced);
+        screen.init(false, panel.getWorldObj());
         panel.updateData();
         return screen;
     }
@@ -192,9 +191,9 @@ public class ScreenManager
     {
         if(FMLCommonHandler.instance().getEffectiveSide().isClient())
             return;
-        if(!screens.containsKey(getWorldKey(part.worldObj)))
+        if(!screens.containsKey(getWorldKey(part.getWorldObj())))
             return;
-        if(!unusedPanels.containsKey(getWorldKey(part.worldObj)))
+        if(!unusedPanels.containsKey(getWorldKey(part.getWorldObj())))
             return;
         if(!(part instanceof IScreenPart))
             return;
@@ -203,20 +202,20 @@ public class ScreenManager
         if(screen==null)
         {
             if(part instanceof TileEntityInfoPanel &&
-               unusedPanels.get(getWorldKey(part.worldObj)).contains(part))
-                unusedPanels.get(getWorldKey(part.worldObj)).remove(part);
+               unusedPanels.get(getWorldKey(part.getWorldObj())).contains(part))
+                unusedPanels.get(getWorldKey(part.getWorldObj())).remove(part);
             return;
         }
-        TileEntityInfoPanel core = screen.getCore(part.worldObj);
-        destroyScreen(screen, part.worldObj);
+        TileEntityInfoPanel core = screen.getCore(part.getWorldObj());
+        destroyScreen(screen, part.getWorldObj());
         boolean isCoreDestroyed = part instanceof TileEntityInfoPanel;
         if(!isCoreDestroyed && core != null)
         {
             Screen newScreen = tryBuildFromPanel(core);
             if(newScreen == null)
-                unusedPanels.get(getWorldKey(core.worldObj)).add(core);
+                unusedPanels.get(getWorldKey(core.getWorldObj())).add(core);
             else
-                screens.get(getWorldKey(core.worldObj)).add(newScreen);
+                screens.get(getWorldKey(core.getWorldObj())).add(newScreen);
         }
         
     }
@@ -225,43 +224,38 @@ public class ScreenManager
     {
         if(FMLCommonHandler.instance().getEffectiveSide().isClient())
             return;
-        if(!screens.containsKey(getWorldKey(panel.worldObj)))
-            screens.put(getWorldKey(panel.worldObj), new ArrayList<Screen>());
-        if(!unusedPanels.containsKey(getWorldKey(panel.worldObj)))
-            unusedPanels.put(getWorldKey(panel.worldObj), new ArrayList<TileEntityInfoPanel>());
-        for (Screen screen : screens.get(getWorldKey(panel.worldObj)))
-        {
-            if(screen.isBlockPartOf(panel))
-            {
+        if(!screens.containsKey(getWorldKey(panel.getWorldObj())))
+            screens.put(getWorldKey(panel.getWorldObj()), new ArrayList<Screen>());
+        if(!unusedPanels.containsKey(getWorldKey(panel.getWorldObj())))
+            unusedPanels.put(getWorldKey(panel.getWorldObj()), new ArrayList<TileEntityInfoPanel>());
+        for (Screen screen : screens.get(getWorldKey(panel.getWorldObj()))){
+            if(screen.isBlockPartOf(panel)){
                 //occurs on chunk unloading/loading
-                destroyScreen(screen, panel.worldObj);
+                destroyScreen(screen, panel.getWorldObj());
                 break;
             }
         }        
         Screen screen = tryBuildFromPanel(panel);
         if(screen!=null)
-            screens.get(getWorldKey(panel.worldObj)).add(screen);
+            screens.get(getWorldKey(panel.getWorldObj())).add(screen);
         else
-            unusedPanels.get(getWorldKey(panel.worldObj)).add(panel);
+            unusedPanels.get(getWorldKey(panel.getWorldObj())).add(panel);
     }
     
-    public void registerInfoPanelExtender(TileEntityInfoPanelExtender extender)
-    {
+    public void registerInfoPanelExtender(TileEntityInfoPanelExtender extender){
         if(FMLCommonHandler.instance().getEffectiveSide().isClient())
             return;
-        if(!screens.containsKey(getWorldKey(extender.worldObj)))
-            screens.put(getWorldKey(extender.worldObj), new ArrayList<Screen>());
-        if(!unusedPanels.containsKey(getWorldKey(extender.worldObj)))
-            unusedPanels.put(getWorldKey(extender.worldObj), new ArrayList<TileEntityInfoPanel>());
+        if(!screens.containsKey(getWorldKey(extender.getWorldObj())))
+            screens.put(getWorldKey(extender.getWorldObj()), new ArrayList<Screen>());
+        if(!unusedPanels.containsKey(getWorldKey(extender.getWorldObj())))
+            unusedPanels.put(getWorldKey(extender.getWorldObj()), new ArrayList<TileEntityInfoPanel>());
         
         List<TileEntityInfoPanel> rebuildPanels = new ArrayList<TileEntityInfoPanel>();
         List<Screen> screensToDestroy = new ArrayList<Screen>();
 
-        for (Screen screen : screens.get(getWorldKey(extender.worldObj)))
-        {
-            TileEntityInfoPanel core = screen.getCore(extender.worldObj);
-            if(screen.isBlockNearby(extender) && core!=null && extender.facing == core.facing)
-            {
+        for (Screen screen : screens.get(getWorldKey(extender.getWorldObj()))){
+            TileEntityInfoPanel core = screen.getCore(extender.getWorldObj());
+            if(screen.isBlockNearby(extender) && core!=null && extender.facing == core.facing){
                 rebuildPanels.add(core);
                 screensToDestroy.add(screen);
             }
@@ -272,12 +266,10 @@ public class ScreenManager
                 return;
             }
         }
-        for(Screen screen : screensToDestroy)
-        {
-            destroyScreen(screen, extender.worldObj);
+        for(Screen screen : screensToDestroy){
+            destroyScreen(screen, extender.getWorldObj());
         }
-        for (TileEntityInfoPanel panel : unusedPanels.get(getWorldKey(extender.worldObj)))
-        {
+        for (TileEntityInfoPanel panel : unusedPanels.get(getWorldKey(extender.getWorldObj()))){
             if(((panel.xCoord == extender.xCoord && panel.yCoord  == extender.yCoord && (panel.zCoord == extender.zCoord+1 || panel.zCoord == extender.zCoord-1)) ||
                 (panel.xCoord == extender.xCoord && (panel.yCoord  == extender.yCoord+1 || panel.yCoord  == extender.yCoord-1) && panel.zCoord == extender.zCoord) ||
                 ((panel.xCoord == extender.xCoord+1 || panel.xCoord == extender.xCoord-1) && panel.yCoord  == extender.yCoord && panel.zCoord == extender.zCoord)) &&
@@ -287,27 +279,21 @@ public class ScreenManager
                 rebuildPanels.add(panel);
             }
         }
-        for (TileEntityInfoPanel panel : rebuildPanels)
-        {
+        for (TileEntityInfoPanel panel : rebuildPanels){
             Screen screen = tryBuildFromPanel(panel);
-            if(screen!=null)
-            {
-                screens.get(getWorldKey(extender.worldObj)).add(screen);
-                if(unusedPanels.get(getWorldKey(extender.worldObj)).contains(panel))
-                    unusedPanels.get(getWorldKey(extender.worldObj)).remove(panel);
-            }
-            else
-            {
-                if(!unusedPanels.get(getWorldKey(extender.worldObj)).contains(panel))
-                    unusedPanels.get(getWorldKey(extender.worldObj)).add(panel);
+            if(screen!=null){
+                screens.get(getWorldKey(extender.getWorldObj())).add(screen);
+                if(unusedPanels.get(getWorldKey(extender.getWorldObj())).contains(panel))
+                    unusedPanels.get(getWorldKey(extender.getWorldObj())).remove(panel);
+            }else{
+                if(!unusedPanels.get(getWorldKey(extender.getWorldObj())).contains(panel))
+                    unusedPanels.get(getWorldKey(extender.getWorldObj())).add(panel);
             }
         }
     }
     
-    public void clearWorld(World world)
-    {
-        if(screens.containsKey(getWorldKey(world)))
-        {
+    public void clearWorld(World world){
+        if(screens.containsKey(getWorldKey(world))){
             screens.get(getWorldKey(world)).clear();
         }
     }

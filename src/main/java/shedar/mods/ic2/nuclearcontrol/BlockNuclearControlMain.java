@@ -107,9 +107,7 @@ public class BlockNuclearControlMain extends BlockContainer{
     public boolean canPlaceBlockAtlocal(World world, int x, int y, int z){
     	for (int face = 0; face < 6; face++){
     		int side = Facing.oppositeSide[face];
-    		if(world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], 
-    									y + Facing.offsetsYForSide[side], 
-    									z + Facing.offsetsZForSide[side], ForgeDirection.getOrientation(face)))
+    		if(world.isSideSolid(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], ForgeDirection.getOrientation(face)))
     			return true;
     	}
     	return false;
@@ -127,7 +125,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         {
             metadata = 0;
         }
-        if(isSolidBlockRequired(metadata) && !world.isBlockSolidOnSide(x + oposite.offsetX, y + oposite.offsetY, z + oposite.offsetZ, dir))
+        if(isSolidBlockRequired(metadata) && !world.isSideSolid(x + oposite.offsetX, y + oposite.offsetY, z + oposite.offsetZ, dir))
         {
             side = 1;
         }
@@ -185,7 +183,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         if(isSolidBlockRequired(metadata))
     	for (int face = 0; face < 6; face++){
     		int side = Facing.oppositeSide[face];
-    		if(world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], ForgeDirection.getOrientation(face))){
+    		if(world.isSideSolid(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], ForgeDirection.getOrientation(face))){
                 TileEntity tileentity = world.getTileEntity(x, y, z);
                 if(tileentity instanceof IWrenchable){
                 	((IWrenchable)tileentity).setFacing((short)face);
@@ -234,7 +232,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         }
         int metadata = world.getBlockMetadata(x, y, z);
         
-		if(isSolidBlockRequired(metadata) && !world.isBlockSolidOnSide(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side],  ForgeDirection.getOrientation(side).getOpposite())){
+		if(isSolidBlockRequired(metadata) && !world.isSideSolid(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side],  ForgeDirection.getOrientation(side).getOpposite())){
 			if(!world.isRemote){
 				dropBlockAsItem(world, x, y, z, metadata, 0);
 			}
@@ -250,12 +248,12 @@ public class BlockNuclearControlMain extends BlockContainer{
         if(!isSolidBlockRequired(metadata)){
             return true;
         }
-        return (dir == ForgeDirection.DOWN  && world.isBlockSolidOnSide(x, y + 1, z, ForgeDirection.DOWN )) ||
-                (dir == ForgeDirection.UP    && world.isBlockSolidOnSide(x, y - 1, z, ForgeDirection.UP   )) ||
-                (dir == ForgeDirection.NORTH && world.isBlockSolidOnSide(x, y, z + 1, ForgeDirection.NORTH)) ||
-                (dir == ForgeDirection.SOUTH && world.isBlockSolidOnSide(x, y, z - 1, ForgeDirection.SOUTH)) ||
-                (dir == ForgeDirection.WEST  && world.isBlockSolidOnSide(x + 1, y, z, ForgeDirection.WEST )) ||
-                (dir == ForgeDirection.EAST  && world.isBlockSolidOnSide(x - 1, y, z, ForgeDirection.EAST ));
+        return (dir == ForgeDirection.DOWN  && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN )) ||
+                (dir == ForgeDirection.UP    && world.isSideSolid(x, y - 1, z, ForgeDirection.UP   )) ||
+                (dir == ForgeDirection.NORTH && world.isSideSolid(x, y, z + 1, ForgeDirection.NORTH)) ||
+                (dir == ForgeDirection.SOUTH && world.isSideSolid(x, y, z - 1, ForgeDirection.SOUTH)) ||
+                (dir == ForgeDirection.WEST  && world.isSideSolid(x + 1, y, z, ForgeDirection.WEST )) ||
+                (dir == ForgeDirection.EAST  && world.isSideSolid(x - 1, y, z, ForgeDirection.EAST ));
     }
 
     /**
@@ -497,12 +495,12 @@ public class BlockNuclearControlMain extends BlockContainer{
         else
             return 0;
     }
-    
+    /*
     @Override
-    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
+    public boolean isSideSolid(World world, int x, int y, int z, ForgeDirection side){
         int metadata = world.getBlockMetadata(x, y, z);
         return !isSolidBlockRequired(metadata); 
-    }
+    }*/
     
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {

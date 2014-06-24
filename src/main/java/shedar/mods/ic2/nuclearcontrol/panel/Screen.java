@@ -22,7 +22,7 @@ public class Screen
 
     public TileEntityInfoPanel getCore(IBlockAccess world)
     {
-        TileEntity tileEntity = world.getBlockTileEntity(coreX, coreY, coreZ);
+        TileEntity tileEntity = world.getTileEntity(coreX, coreY, coreZ);
         if(tileEntity == null || !(tileEntity instanceof TileEntityInfoPanel))
             return null;
         return (TileEntityInfoPanel)tileEntity;
@@ -67,7 +67,7 @@ public class Screen
             {
                 for(int z = minZ; z<=maxZ; z++)
                 {
-                    TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+                    TileEntity tileEntity = world.getTileEntity(x, y, z);
                     if(tileEntity == null || !(tileEntity instanceof IScreenPart))
                         continue;
                     ((IScreenPart)tileEntity).setScreen(this); 
@@ -90,7 +90,7 @@ public class Screen
             {
                 for(int z = minZ; z<=maxZ; z++)
                 {
-                    TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+                    TileEntity tileEntity = world.getTileEntity(x, y, z);
                     if(tileEntity == null || !(tileEntity instanceof IScreenPart))
                         continue;
                     IScreenPart part = (IScreenPart)tileEntity;

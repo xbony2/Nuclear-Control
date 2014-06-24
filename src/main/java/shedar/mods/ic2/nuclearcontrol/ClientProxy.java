@@ -43,6 +43,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -62,7 +63,7 @@ public class ClientProxy extends CommonProxy{
         return SoundHelper.isPlaying(soundId);
     }
     
-    @ForgeSubscribe
+    @SubscribeEvent
     public void importSound(SoundLoadEvent event){
         ModContainer container = Loader.instance().getIndexedModList().get("IC2NuclearControl");
         IC2NuclearControl ncInstance = IC2NuclearControl.instance; 

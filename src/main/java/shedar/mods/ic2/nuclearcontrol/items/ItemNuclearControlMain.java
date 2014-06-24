@@ -12,11 +12,9 @@ import shedar.mods.ic2.nuclearcontrol.subblocks.Subblock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemNuclearControlMain extends ItemBlock
-{
-    public ItemNuclearControlMain()
-    {
-        super(field_150939_a);
+public class ItemNuclearControlMain extends ItemBlock{
+    public ItemNuclearControlMain(){
+        super();
         setMaxDamage(0);
         setHasSubtypes(true);
     }
@@ -31,8 +29,7 @@ public class ItemNuclearControlMain extends ItemBlock
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack item)
-    {
+    public String getUnlocalizedName(ItemStack item){
         Subblock subblock = IC2NuclearControl.instance.blockNuclearControlMain.getSubblock(item.getItemDamage());
         if(subblock == null)
             return "";
@@ -40,67 +37,56 @@ public class ItemNuclearControlMain extends ItemBlock
     }
     
     @Override
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
-    {
-       if (!world.setBlock(x, y, z, getBlockId(), metadata & 0xff, 3))
-       {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata){
+       if (!world.setBlock(x, y, z, getBlock, metadata & 0xff, 3)){
                return false;
        }
 
-       if (world.getBlockId(x, y, z) == getBlockID())
-       {
-           if(Block.blocksList[getBlockID()] instanceof BlockNuclearControlMain)
-               ((BlockNuclearControlMain)Block.blocksList[getBlockID()]).onBlockPlacedBy(world, x, y, z, player, stack, metadata);
+       if (world.getBlock(x, y, z) == getBlock())
+       { 
+           if(getBlock() instanceof BlockNuclearControlMain)
+               ((BlockNuclearControlMain)getBlock()).onBlockPlacedBy(world, x, y, z, player, stack, metadata);
            else
-               Block.blocksList[getBlockID()].onBlockPlacedBy(world, x, y, z, player, stack);
-           Block.blocksList[getBlockID()].onPostBlockPlaced(world, x, y, z, metadata);
+               getBlock().onBlockPlacedBy(world, x, y, z, player, stack);
+           getBlock().onPostBlockPlaced(world, x, y, z, metadata);
        }
 
        return true;
     }
 
-
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
     /**
      * Returns true if the given ItemBlock can be placed on the given side of the given block position.
      */
     @Override
-    public boolean canPlaceItemBlockOnSide(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack item){
+    public boolean func_150936_a(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack item){
         Block var8 = world.getBlock(x, y, z);
 
         if (var8 == Blocks.snow){
             side = 1;
-        }
-        else if (var8 != Blocks.vine && var8 != Blocks.tallgrass && var8 != Blocks.deadbush
-                && (Block.blocksList[var8] == null || !Block.blocksList[var8].isBlockReplaceable(world, x, y, z)))
-        {
-            if (side == 0)
-            {
+        }else if (var8 != Blocks.vine && var8 != Blocks.tallgrass && var8 != Blocks.deadbush
+                && (var8 == null || !var8.isReplaceable(world, x, y, z))){
+            if (side == 0) {
                 --y;
             }
 
-            if (side == 1)
-            {
+            if (side == 1){
                 ++y;
             }
 
-            if (side == 2)
-            {
+            if (side == 2){
                 --z;
             }
 
-            if (side == 3)
-            {
+            if (side == 3){
                 ++z;
             }
 
-            if (side == 4)
-            {
+            if (side == 4){
                 --x;
             }
 
-            if (side == 5)
-            {
+            if (side == 5){
                 ++x;
             }
         }

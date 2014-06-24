@@ -10,6 +10,7 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
@@ -28,7 +29,7 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
         setMaxDamage(101);
         tier = k;
         ratio = l;
-        transfer = i1;
+        //transfer = i1;
         
     }
 
@@ -64,16 +65,6 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
 	}
 
 	@Override
-	public int getChargedItemId(ItemStack itemStack) {
-		return itemID;
-	}
-
-	@Override
-	public int getEmptyItemId(ItemStack itemStack) {
-		return itemID;
-	}
-
-	@Override
 	public int getMaxCharge(ItemStack itemStack) {
 		return 12000;
 	}
@@ -94,11 +85,20 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(int id, CreativeTabs tab, List itemList)
-    {
+    public void getSubItems(Item item, CreativeTabs tab, List itemList){
         ItemStack itemstack = new ItemStack(this, 1);
         ElectricItem.manager.charge(itemstack, 0x7fffffff, 0x7fffffff, true, false);
         itemList.add(itemstack);
         itemList.add(new ItemStack(this, 1, getMaxDamage()));
     }
+
+	@Override
+	public Item getChargedItem(ItemStack itemStack) {
+		return this;
+	}
+
+	@Override
+	public Item getEmptyItem(ItemStack itemStack) {
+		return this;
+	}
 }

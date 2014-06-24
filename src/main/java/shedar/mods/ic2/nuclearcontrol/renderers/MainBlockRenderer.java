@@ -18,12 +18,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class MainBlockRenderer implements ISimpleBlockRenderingHandler
-{
+public class MainBlockRenderer implements ISimpleBlockRenderingHandler{
     private int modelId;
 
-    public MainBlockRenderer(int modelId)
-    {
+    public MainBlockRenderer(int modelId){
         this.modelId = modelId;
     }
     
@@ -70,7 +68,7 @@ public class MainBlockRenderer implements ISimpleBlockRenderingHandler
     {
         if(model == modelId)
         {
-            TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+            TileEntity tileEntity = world.getTileEntity(x, y, z);
             if(tileEntity instanceof IRotation)
             {
                 switch(((IRotation) tileEntity).getFacing())
@@ -127,15 +125,14 @@ public class MainBlockRenderer implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory()
-    {
-        return true;
-    }
-
-    @Override
     public int getRenderId()
     {
         return IC2NuclearControl.instance.modelId;
     }
+
+	@Override
+	public boolean shouldRender3DInInventory(int modelId) {
+		return true;
+	}
 
 }

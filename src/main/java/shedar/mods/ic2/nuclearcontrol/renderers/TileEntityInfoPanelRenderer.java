@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
@@ -54,7 +55,7 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
             Screen scr = ((IScreenPart)tileEntity).getScreen();
             if(scr!=null)
             {
-                TileEntity core = scr.getCore(tileEntity.worldObj);
+                TileEntity core = scr.getCore(tileEntity.getWorldObj());
                 if(core!=null)
                 {
                     x += core.xCoord - tileEntity.xCoord;
@@ -281,10 +282,9 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
                 offsetX = (realWidth - maxWidth) / 2 + 2;
                 offsetY = 0;
             }
-            Block block = Block.blocksList[panel.worldObj.getBlockId(panel.xCoord, panel.yCoord, panel.zCoord)];
-            if(block==null)
-            {
-                block = Block.stone;
+            Block block = panel.getWorldObj().getBlock(panel.xCoord, panel.yCoord, panel.zCoord);
+            if(block==null){
+                block = Blocks.stone;
             }
             
             GL11.glDisable(GL11.GL_LIGHTING);

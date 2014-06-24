@@ -4,7 +4,7 @@ import ic2.api.Direction;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 import buildcraft.api.power.IPowerEmitter;
 import buildcraft.api.power.IPowerReceptor;
@@ -51,14 +51,14 @@ public class TileEntityAverageCounterBC extends TileEntityAverageCounter impleme
             int x = direction.offsetX + xCoord;
             int y = direction.offsetY + yCoord;
             int z = direction.offsetZ + zCoord;
-            TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+            TileEntity tile = worldObj.getTileEntity(x, y, z);
             if (tile!=null && tile instanceof IPowerReceptor && ((IPowerReceptor)tile).getPowerReceiver(direction.getOpposite())!=null) 
             {
                 PowerReceiver receptor = ((IPowerReceptor) tile).getPowerReceiver(direction.getOpposite());
                 if(powerHandler.getEnergyStored() >= receptor.getMinEnergyReceived() && MAX_SEND >= receptor.getMinEnergyReceived())
                 {
-                    float toSend = Math.min(powerHandler.getEnergyStored(), receptor.getMaxEnergyReceived());
-                    float needed = receptor.receiveEnergy(PowerHandler.Type.MACHINE, toSend, direction.getOpposite());
+                    double toSend = Math.min(powerHandler.getEnergyStored(), receptor.getMaxEnergyReceived());
+                    double needed = receptor.receiveEnergy(PowerHandler.Type.MACHINE, toSend, direction.getOpposite());
                     powerHandler.useEnergy(1, needed, true);
                     data[index] += needed;
                 }

@@ -5,31 +5,31 @@ import java.util.List;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import codechicken.nei.forge.IContainerTooltipHandler;
+import codechicken.nei.guihook.IContainerTooltipHandler;
 
-public class TooltipHandler implements IContainerTooltipHandler
-{
-
+public class TooltipHandler implements IContainerTooltipHandler{
+	//PS: I don't know what any of this means
     @Override
-    public List<String> handleTooltipFirst(GuiContainer gui, int mousex, int mousey, List<String> currenttip)
-    {
+    public List<String> handleTooltip(GuiContainer gui, int mousex, int mousey, List<String> currenttip){
         return currenttip;
     }
 
-    @Override
-    public List<String> handleItemTooltip(GuiContainer gui, ItemStack itemstack, List<String> currenttip)
-    {
-        if(itemstack!=null && itemstack.hasTagCompound())
-        {
+	@Override
+	public List<String> handleItemDisplayName(GuiContainer gui, ItemStack itemstack, List<String> arg2) {
+		if(itemstack!=null && itemstack.hasTagCompound()){
             NBTTagCompound tags = itemstack.getTagCompound();
             if(tags.hasKey("_webSensorId")){
                 long id = tags.getLong("_webSensorId");
                 if(id>0)
-                    currenttip.add("Web Id: "+id);
+                    arg2.add("Web Id: "+id);
             }
         }
-        return currenttip;
-    }
+		return arg2;
+	}
 
+	@Override
+	public List<String> handleItemTooltip(GuiContainer arg0, ItemStack arg1, int arg2, int arg3, List<String> arg4) {
+		return arg4;
+	}
 
 }
