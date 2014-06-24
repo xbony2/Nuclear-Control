@@ -11,23 +11,19 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class CompactButton extends GuiButton
-{
+public class CompactButton extends GuiButton{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIThermalMonitor.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
-    public CompactButton(int par1, int par2, int par3, int par4, int par5, String par6Str)
-    {
+    public CompactButton(int par1, int par2, int par3, int par4, int par5, String par6Str){
         super(par1, par2, par3, par4, par5, par6Str);
     }
 
     @Override
-    public void drawButton(Minecraft minecraft, int par2, int par3)
-    {
-        if (this.drawButton)
-        {
+    public void drawButton(Minecraft minecraft, int par2, int par3){
+        if (this.visible){
             FontRenderer fontRenderer = minecraft.fontRenderer;
-            minecraft.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+            minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             boolean var5 = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
             int var6 = this.getHoverState(var5);

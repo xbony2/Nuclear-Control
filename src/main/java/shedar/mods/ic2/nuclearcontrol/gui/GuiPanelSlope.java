@@ -9,8 +9,7 @@ import org.lwjgl.opengl.GL11;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAdvancedInfoPanel;
 import cpw.mods.fml.client.FMLClientHandler;
 
-public class GuiPanelSlope  extends GuiScreen
-{
+public class GuiPanelSlope  extends GuiScreen{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUISlope.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
@@ -22,43 +21,34 @@ public class GuiPanelSlope  extends GuiScreen
     private GuiInfoPanel parentGui;
     private TileEntityAdvancedInfoPanel panel;
 
-    public GuiPanelSlope(GuiInfoPanel parentGui, TileEntityAdvancedInfoPanel panel)
-    {
+    public GuiPanelSlope(GuiInfoPanel parentGui, TileEntityAdvancedInfoPanel panel){
         this.parentGui = parentGui;
         this.panel = panel;
     }
     
     
     @Override
-    public boolean doesGuiPauseGame() 
-    {
+    public boolean doesGuiPauseGame() {
         return false;
     }
     
     @Override
-    protected void mouseClicked(int x, int y, int par3)
-    {
+    protected void mouseClicked(int x, int y, int par3){
         super.mouseClicked(x, y, par3);
         x-=guiLeft;
         y-=guiTop;
-        if(y>=23 && y<=89)
-        {
+        if(y>=23 && y<=89){
             int amount = (87-y+2)/4;
             int offset = 0;
-            if(x>=21 && x<=34)
-            {
+            if(x>=21 && x<=34){
                 offset = TileEntityAdvancedInfoPanel.OFFSET_THICKNESS;
                 if(amount<1)
                     amount = 1;
-            }
-            else if(x>=79 && x<=92)
-            {
+            }else if(x>=79 && x<=92){
                 offset = TileEntityAdvancedInfoPanel.OFFSET_ROTATE_HOR;
                 if(amount<0)
                     amount = 0;
-            }
-            else if(x>=137 && x<=150)
-            {
+            }else if(x>=137 && x<=150){
                 offset = TileEntityAdvancedInfoPanel.OFFSET_ROTATE_VERT;
                 if(amount<0)
                     amount = 0;
@@ -68,10 +58,9 @@ public class GuiPanelSlope  extends GuiScreen
     }
     
     @Override
-    public void drawScreen(int par1, int par2, float par3)
-    {
+    public void drawScreen(int par1, int par2, float par3){
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+        mc.renderEngine.bindTexture(TEXTURE_LOCATION);
         int left = (width - xSize) / 2;
         int top = (height - ySize) / 2;
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
@@ -85,21 +74,16 @@ public class GuiPanelSlope  extends GuiScreen
     }
     
     @Override
-    protected void keyTyped(char par1, int par2)
-    {
-        if (par2 == 1)
-        {
+    protected void keyTyped(char par1, int par2){
+        if (par2 == 1){
             FMLClientHandler.instance().getClient().displayGuiScreen(parentGui);
-        }
-        else
-        {
+        }else{
             super.keyTyped(par1, par2);
         }
     }
 
     @Override
-    public void initGui() 
-    {
+    public void initGui() {
         super.initGui();
         guiLeft = (width - xSize) / 2;
         guiTop = (height - ySize) / 2;

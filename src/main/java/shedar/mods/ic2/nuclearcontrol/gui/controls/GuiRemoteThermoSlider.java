@@ -15,8 +15,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiRemoteThermoSlider extends GuiButton
-{
+public class GuiRemoteThermoSlider extends GuiButton{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIRemoteThermo.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
@@ -31,8 +30,7 @@ public class GuiRemoteThermoSlider extends GuiButton
     private float effectiveWidth;
     private double sliderValueStep;
     
-    public GuiRemoteThermoSlider(int id, int x, int y, String label, TileEntityIC2Thermo thermo)
-    {
+    public GuiRemoteThermoSlider(int id, int x, int y, String label, TileEntityIC2Thermo thermo){
         super(id, x, y, 181, 16, label);
         this.thermo = thermo;
         dragging = false;
@@ -43,53 +41,38 @@ public class GuiRemoteThermoSlider extends GuiButton
         sliderValueStep = HEAT_STEP/TEMP_RANGE;
     }
     
-    public void checkMouseWheel(int mouseX, int mouseY)
-    {
+    public void checkMouseWheel(int mouseX, int mouseY){
         boolean isHover = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-        if(isHover)
-        {
+        if(isHover){
             int delta = Mouse.getEventDWheel();
-            if (delta != 0)
-            {
+            if (delta != 0){
                 int multiplier = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)?1:3;
-                if (delta > 0)
-                {
+                if (delta > 0){
                     setSliderPos(xPosition + 1, multiplier);
-                }
-                else
-                {
+                }else{
                     setSliderPos(xPosition + width - 1, multiplier);
                 }
             }
         }
     }
     
-    private int getNormalizedHeatLevel()
-    {
+    private int getNormalizedHeatLevel(){
         return ((int)Math.floor(TEMP_RANGE * sliderValue))/100*100;
     }
 
-    private void setSliderPos(int targetX, int multiplier)
-    {
-        if(targetX < xPosition + ARROW_WIDTH)//left arrow
-        {
+    private void setSliderPos(int targetX, int multiplier){
+        if(targetX < xPosition + ARROW_WIDTH){//left arrow{
             sliderValue -= sliderValueStep*multiplier;
-        }
-        else if(targetX > xPosition + width - ARROW_WIDTH)// right arrow
-        {
+        }else if(targetX > xPosition + width - ARROW_WIDTH){// right arrow
             sliderValue += sliderValueStep*multiplier;
-        }
-        else
-        {
+        }else{
             sliderValue = (float) (targetX - (xPosition + 4 + ARROW_WIDTH)) / effectiveWidth;
         }
         
-        if (sliderValue < 0.0F)
-        {
+        if (sliderValue < 0.0F){
             sliderValue = 0.0F;
         }
-        if (sliderValue > 1.0F)
-        {
+        if (sliderValue > 1.0F){
             sliderValue = 1.0F;
         }
         int newHeatLevel = getNormalizedHeatLevel(); 
@@ -102,9 +85,8 @@ public class GuiRemoteThermoSlider extends GuiButton
     
     @Override
     public void drawButton(Minecraft minecraft, int targetX, int targetY) {
-        if (drawButton)
-        {
-            minecraft.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+        if (visible){
+            minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             if (dragging && (targetX >= xPosition + ARROW_WIDTH) && (targetX <= xPosition + width - ARROW_WIDTH))
             {
@@ -116,23 +98,18 @@ public class GuiRemoteThermoSlider extends GuiButton
     }
 
     @Override
-    public boolean mousePressed(Minecraft minecraft, int targetX, int j)
-    {
-        if (super.mousePressed(minecraft, targetX, j))
-        {
+    public boolean mousePressed(Minecraft minecraft, int targetX, int j){
+        if (super.mousePressed(minecraft, targetX, j)){
             setSliderPos(targetX, 1);
             dragging = true;
             return true;
-        }
-        else
-        {
+        }else{
             return false;
         }
     }
 
     @Override
-    public void mouseReleased(int i, int j)
-    {
+    public void mouseReleased(int i, int j){
         super.mouseReleased(i, j);
         dragging = false;
     }

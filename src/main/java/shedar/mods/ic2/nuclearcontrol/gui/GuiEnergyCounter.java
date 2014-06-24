@@ -45,42 +45,36 @@ public class GuiEnergyCounter extends GuiContainer
     };
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
-    {
-        fontRenderer.drawString(name, (xSize - fontRenderer.getStringWidth(name)) / 2, 6, 0x404040);
-        fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
+    protected void drawGuiContainerForegroundLayer(int par1, int par2){
+        fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
+        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
         String value = StringUtils.getFormatted("", container.energyCounter.counter, false);
-        fontRenderer.drawString(value, (xSize - fontRenderer.getStringWidth(value)) / 2, 22, 0x404040);
+        fontRendererObj.drawString(value, (xSize - fontRendererObj.getStringWidth(value)) / 2, 22, 0x404040);
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
-    {
+    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3){
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+        mc.renderEngine.bindTexture(TEXTURE_LOCATION);
         int left = (width - xSize) / 2;
         int top = (height - ySize) / 2;
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
     }
     
     @Override
-    protected void mouseMovedOrUp(int mouseX, int mouseY, int which)
-    {
+    protected void mouseMovedOrUp(int mouseX, int mouseY, int which){
         super.mouseMovedOrUp(mouseX, mouseY, which);
     }
 
     @Override
-    public void updateScreen()
-    {
+    public void updateScreen(){
         super.updateScreen();
         initControls();
     }
     
     @Override
-    protected void actionPerformed(GuiButton guiButton)
-    {
-        if (guiButton.id == 0)
-        {
+    protected void actionPerformed(GuiButton guiButton){
+        if (guiButton.id == 0){
             NetworkHelper.initiateClientTileEntityEvent(container.energyCounter, 0);
         }
     }

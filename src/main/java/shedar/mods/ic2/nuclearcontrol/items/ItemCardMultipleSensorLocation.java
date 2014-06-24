@@ -95,7 +95,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     public CardState updateLiquid(TileEntity panel, ICardWrapper card, int range)
     {
         ChunkCoordinates target = card.getTarget();
-        FluidTankInfo storage = LiquidStorageHelper.getStorageAt(panel.worldObj, target.posX, target.posY, target.posZ);
+        FluidTankInfo storage = LiquidStorageHelper.getStorageAt(panel.getWorldObj(), target.posX, target.posY, target.posZ);
         if(storage != null)
         {
             int capacity = storage.capacity;
@@ -126,7 +126,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     public CardState updateCounter(TileEntity panel, ICardWrapper card, int range)
     {
         ChunkCoordinates target = card.getTarget();
-        TileEntity tileEntity = panel.worldObj.getBlockTileEntity(target.posX, target.posY, target.posZ);
+        TileEntity tileEntity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
         if(tileEntity != null && tileEntity instanceof TileEntityEnergyCounter)
         {
             TileEntityEnergyCounter counter  = (TileEntityEnergyCounter)tileEntity;
@@ -265,10 +265,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     }
     
     @Override
-    public Icon getIconFromDamage(int damage)
-    {
-        switch (damage)
-        {
+    public IIcon getIconFromDamage(int damage){
+        switch (damage){
         case ItemKitMultipleSensor.TYPE_COUNTER:
             return iconCounter;
         case ItemKitMultipleSensor.TYPE_LIQUID:
@@ -278,15 +276,13 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     }
     
 
-    public List<PanelSetting> getSettingsListCounter()
-    {
+    public List<PanelSetting> getSettingsListCounter(){
         List<PanelSetting> result = new ArrayList<PanelSetting>(3);
         result.add(new PanelSetting(LanguageHelper.translate("msg.nc.cbInfoPanelEnergyCurrent"), DISPLAY_ENERGY, CARD_TYPE_COUNTER));
         return result;
     }
 
-    public List<PanelSetting> getSettingsListLiquid()
-    {
+    public List<PanelSetting> getSettingsListLiquid(){
         List<PanelSetting> result = new ArrayList<PanelSetting>(3);
         result.add(new PanelSetting(LanguageHelper.translate("msg.nc.cbInfoPanelLiquidName"), DISPLAY_LIQUID_NAME, CARD_TYPE_LIQUID));
         result.add(new PanelSetting(LanguageHelper.translate("msg.nc.cbInfoPanelLiquidAmount"), DISPLAY_LIQUID_AMOUNT, CARD_TYPE_LIQUID));
@@ -299,15 +295,12 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean advanced) 
-    {
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean advanced) {
         CardWrapperImpl helper = new CardWrapperImpl(itemStack, -1);
         ChunkCoordinates target = helper.getTarget();
-        if(target != null)
-        {
+        if(target != null){
             String title = helper.getTitle();
-            if(title != null && !title.isEmpty())
-            {
+            if(title != null && !title.isEmpty()){
                 info.add(title);
             }
             String hint = String.format(HINT_TEMPLATE, target.posX, target.posY, target.posZ);
@@ -329,8 +322,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
+    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List){
         par3List.add(new ItemStack(par1, 1, ItemKitMultipleSensor.TYPE_COUNTER));
         par3List.add(new ItemStack(par1, 1, ItemKitMultipleSensor.TYPE_LIQUID));
     }

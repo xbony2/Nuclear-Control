@@ -14,8 +14,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiInfoPanelCheckBox extends GuiButton
-{
+public class GuiInfoPanelCheckBox extends GuiButton{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIInfoPanel.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
@@ -36,12 +35,10 @@ public class GuiInfoPanelCheckBox extends GuiButton
     }
 
     @Override
-    public void drawButton(Minecraft minecraft, int par2, int par3)
-    {
-        if (this.drawButton)
-        {
+    public void drawButton(Minecraft minecraft, int par2, int par3){
+        if (this.visible){
             checked = (panel.getDisplaySettingsForCardInSlot(slot) & setting.displayBit) > 0;
-            minecraft.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+            minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             int delta = checked?6:0;
             drawTexturedModalRect(xPosition, yPosition+1, 176, delta, 6, 6);
@@ -50,16 +47,13 @@ public class GuiInfoPanelCheckBox extends GuiButton
     }
 
     @Override
-    protected int getHoverState(boolean flag)
-    {
+    protected int getHoverState(boolean flag){
         return 0;
     }
 
     @Override
-    public boolean mousePressed(Minecraft minecraft, int mouseX, int mouseY)
-    {
-        if (super.mousePressed(minecraft, mouseX, mouseY))
-        {
+    public boolean mousePressed(Minecraft minecraft, int mouseX, int mouseY){
+        if (super.mousePressed(minecraft, mouseX, mouseY)){
             checked = !checked;
             int value; 
             if(checked)
@@ -69,9 +63,7 @@ public class GuiInfoPanelCheckBox extends GuiButton
             NuclearNetworkHelper.setDisplaySettings(panel, slot, value);
             panel.setDisplaySettings(slot, value);
             return true;
-        }
-        else    
-        {
+        }else{
             return false;
         }
     }

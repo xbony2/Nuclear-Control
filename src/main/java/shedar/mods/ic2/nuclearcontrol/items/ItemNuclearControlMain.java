@@ -2,6 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -13,9 +14,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemNuclearControlMain extends ItemBlock
 {
-    public ItemNuclearControlMain(int blockId)
+    public ItemNuclearControlMain()
     {
-        super(blockId);
+        super(field_150939_a);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
@@ -41,7 +42,7 @@ public class ItemNuclearControlMain extends ItemBlock
     @Override
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
     {
-       if (!world.setBlock(x, y, z, getBlockID(), metadata & 0xff, 3))
+       if (!world.setBlock(x, y, z, getBlockId(), metadata & 0xff, 3))
        {
                return false;
        }
@@ -64,15 +65,13 @@ public class ItemNuclearControlMain extends ItemBlock
      * Returns true if the given ItemBlock can be placed on the given side of the given block position.
      */
     @Override
-    public boolean canPlaceItemBlockOnSide(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack item)
-    {
-        int var8 = world.getBlockId(x, y, z);
+    public boolean canPlaceItemBlockOnSide(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack item){
+        Block var8 = world.getBlock(x, y, z);
 
-        if (var8 == Block.snow.blockID)
-        {
+        if (var8 == Blocks.snow){
             side = 1;
         }
-        else if (var8 != Block.vine.blockID && var8 != Block.tallGrass.blockID && var8 != Block.deadBush.blockID
+        else if (var8 != Blocks.vine && var8 != Blocks.tallgrass && var8 != Blocks.deadbush
                 && (Block.blocksList[var8] == null || !Block.blocksList[var8].isBlockReplaceable(world, x, y, z)))
         {
             if (side == 0)

@@ -38,8 +38,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiInfoPanel extends GuiContainer
-{
+public class GuiInfoPanel extends GuiContainer{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIInfoPanel.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
@@ -50,8 +49,7 @@ public class GuiInfoPanel extends GuiContainer
     protected boolean modified;
     public boolean isColored;
 
-    public GuiInfoPanel(Container container)
-    {
+    public GuiInfoPanel(Container container){
         super(container);
         ySize = 190;
         this.container = (ContainerInfoPanel)container; 
@@ -63,8 +61,7 @@ public class GuiInfoPanel extends GuiContainer
     
     @Override
     @SuppressWarnings("unchecked")
-    protected void drawItemStackTooltip(ItemStack itemStack, int par2, int par3)
-    {
+    protected void drawItemStackTooltip(ItemStack itemStack, int par2, int par3){
         @SuppressWarnings("rawtypes")
         List list = itemStack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
         
@@ -78,27 +75,21 @@ public class GuiInfoPanel extends GuiContainer
             }
         }
 
-        for (int k = 0; k < list.size(); ++k)
-        {
-            if (k == 0)
-            {
+        for (int k = 0; k < list.size(); ++k){
+            if (k == 0){
                 list.set(k, "\u00a7" + Integer.toHexString(itemStack.getRarity().rarityColor) + (String)list.get(k));
-            }
-            else
-            {
+            }else{
                 list.set(k, EnumChatFormatting.GRAY + (String)list.get(k));
             }
         }
 
         FontRenderer font = itemStack.getItem().getFontRenderer(itemStack);
-        drawHoveringText(list, par2, par3, (font == null ? fontRenderer : font));
+        drawHoveringText(list, par2, par3, (font == null ? fontRendererObj : font));
     }
     
     @Override
-    protected void drawHoveringText(List par1List, int par2, int par3, FontRenderer font)
-    {
-        if (!par1List.isEmpty())
-        {
+    protected void drawHoveringText(List par1List, int par2, int par3, FontRenderer font){
+        if (!par1List.isEmpty()){
             GL11.glDisable(GL12.GL_RESCALE_NORMAL);
             RenderHelper.disableStandardItemLighting();
             GL11.glDisable(GL11.GL_LIGHTING);
@@ -106,13 +97,11 @@ public class GuiInfoPanel extends GuiContainer
             int k = 0;
             Iterator iterator = par1List.iterator();
 
-            while (iterator.hasNext())
-            {
+            while (iterator.hasNext()){
                 String s = (String)iterator.next();
                 int l = font.getStringWidth(s);
 
-                if (l > k)
-                {
+                if (l > k){
                     k = l;
                 }
             }
@@ -121,23 +110,20 @@ public class GuiInfoPanel extends GuiContainer
             int j1 = par3 - 12;
             int k1 = 8;
 
-            if (par1List.size() > 1)
-            {
+            if (par1List.size() > 1){
                 k1 += 2 + (par1List.size() - 1) * 10;
             }
 
-            if (i1 + k > this.width)
-            {
+            if (i1 + k > this.width){
                 i1 -= 28 + k;
             }
 
-            if (j1 + k1 + 6 > this.height)
-            {
+            if (j1 + k1 + 6 > this.height){
                 j1 = this.height - k1 - 6;
             }
 
             this.zLevel = 300.0F;
-            itemRenderer.zLevel = 300.0F;
+            itemRender.zLevel = 300.0F;
             int l1 = -267386864;
             this.drawGradientRect(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
             this.drawGradientRect(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
@@ -165,7 +151,7 @@ public class GuiInfoPanel extends GuiContainer
             }
 
             this.zLevel = 0.0F;
-            itemRenderer.zLevel = 0.0F;
+            itemRender.zLevel = 0.0F;
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_DEPTH_TEST);
             RenderHelper.enableStandardItemLighting();
@@ -175,156 +161,129 @@ public class GuiInfoPanel extends GuiContainer
 
     
     @SuppressWarnings("unchecked")
-    protected void initControls()
-    {
+    protected void initControls(){
         ItemStack card = container.panel.getCards().get(0); 
         if(((card == null && prevCard == null) || (card!=null  && card.equals(prevCard))) && this.container.panel.getColored() == isColored)
             return;
-        int h = fontRenderer.FONT_HEIGHT + 1;
+        int h = fontRendererObj.FONT_HEIGHT + 1;
         buttonList.clear();
         prevCard = card;
         isColored = container.panel.getColored();
         buttonList.add(new GuiInfoPanelShowLabels(0, guiLeft + xSize - 25, guiTop + 42, container.panel));
         int delta = 0;
-        if(isColored)
-        {
+        if(isColored){
             buttonList.add(new CompactButton(112, guiLeft + xSize - 25, guiTop + 55, 18, 12, "T"));
             delta = 15; 
         }
-        if(card!=null && card.getItem() instanceof IPanelDataSource)
-        {
+        if(card!=null && card.getItem() instanceof IPanelDataSource){
             byte slot = container.panel.getIndexOfCard(card);
             IPanelDataSource source = (IPanelDataSource)card.getItem();
-            if(source instanceof IAdvancedCardSettings)
-            {
+            if(source instanceof IAdvancedCardSettings){
                 buttonList.add(new CompactButton(111, guiLeft + xSize - 25, guiTop + 55 + delta, 18, 12, "..."));
             }
             int row = 0;
             List<PanelSetting> settingsList = null;
-            if(card.getItem() instanceof IPanelMultiCard)
-            {
+            if(card.getItem() instanceof IPanelMultiCard){
                 settingsList = ((IPanelMultiCard)source).getSettingsList(new CardWrapperImpl(card, (byte)0));
-            }
-            else
-            {
+            }else{
                 settingsList = source.getSettingsList();
             }
             
             if(settingsList!=null)
-            for (PanelSetting panelSetting : settingsList)
-            {
-                buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32, guiTop + 40 + h*row, panelSetting, container.panel, slot, fontRenderer));
+            for (PanelSetting panelSetting : settingsList){
+                buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32, guiTop + 40 + h*row, panelSetting, container.panel, slot, fontRendererObj));
                 row++;
             }
-            if(!modified)
-            {
-                textboxTitle = new GuiTextField(fontRenderer, 7, 16, 162, 18);
+            if(!modified){
+                textboxTitle = new GuiTextField(fontRendererObj, 7, 16, 162, 18);
                 textboxTitle.setFocused(true);
                 textboxTitle.setText(new CardWrapperImpl(card, 0).getTitle());
             }
-        }
-        else
-        {
+        }else{
             modified = false;
             textboxTitle = null;
         }
     }
     
     @Override
-    public void initGui() 
-    {
+    public void initGui() {
         super.initGui();
         initControls();
     };
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
-    {
-        fontRenderer.drawString(name, (xSize - fontRenderer.getStringWidth(name)) / 2, 6, 0x404040);
-        fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
+    protected void drawGuiContainerForegroundLayer(int par1, int par2){
+        fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
+        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
         if(textboxTitle != null)
             textboxTitle.drawTextBox();
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
-    {
+    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3){
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+        mc.renderEngine.bindTexture(TEXTURE_LOCATION);
         int left = (width - xSize) / 2;
         int top = (height - ySize) / 2;
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
     }
     
     @Override
-    protected void mouseClicked(int x, int y, int par3)
-    {
+    protected void mouseClicked(int x, int y, int par3){
         super.mouseClicked(x, y, par3);
         if(textboxTitle!=null)
             textboxTitle.mouseClicked(x-guiLeft, y-guiTop, par3);
     }
     
     @Override
-    protected void mouseMovedOrUp(int mouseX, int mouseY, int which)
-    {
+    protected void mouseMovedOrUp(int mouseX, int mouseY, int which){
         super.mouseMovedOrUp(mouseX, mouseY, which);
     }
 
     @Override
-    public void updateScreen()
-    {
+    public void updateScreen(){
         super.updateScreen();
         if(textboxTitle!=null)
             textboxTitle.updateCursorCounter();
         initControls();
     }
     
-    protected ItemStack getActiveCard()
-    {
+    protected ItemStack getActiveCard(){
         return container.panel.getCards().get(0);
     }
     
-    protected void updateTitle()
-    {
+    protected void updateTitle(){
         if(textboxTitle == null)
             return;
         ItemStack card = getActiveCard();
-        if(container.panel.worldObj.isRemote)
-        {
+        if(container.panel.getWorldObj().isRemote){
             NuclearNetworkHelper.setNewAlarmSound(container.panel.xCoord, container.panel.yCoord, container.panel.zCoord, container.panel.getIndexOfCard(card), textboxTitle.getText());
         }
-        if(card!=null && card.getItem() instanceof IPanelDataSource)
-        {
+        if(card!=null && card.getItem() instanceof IPanelDataSource){
             new CardWrapperImpl(card, 0).setTitle(textboxTitle.getText());
         }
     }
     
     @Override
-    public void onGuiClosed()
-    {
+    public void onGuiClosed(){
         updateTitle();
         super.onGuiClosed();
     }    
     
     @Override
-    protected void actionPerformed(GuiButton button) 
-    {
-        if(button.id == 112) // color upgrade
-        {
+    protected void actionPerformed(GuiButton button){
+        if(button.id == 112){ // color upgrade
+        
             GuiScreen colorGui = new GuiScreenColor(this, container.panel);
             mc.displayGuiScreen(colorGui);
-        }
-        else if(button.id == 111)
-        {
+        }else if(button.id == 111){
             ItemStack card = getActiveCard();
             if(card == null)
                 return;
-            if(card != null && card.getItem() instanceof IAdvancedCardSettings)
-            {
+            if(card != null && card.getItem() instanceof IAdvancedCardSettings){
                 ICardWrapper helper = new CardWrapperImpl(card, 0);
                 Object guiObject = ((IAdvancedCardSettings)card.getItem()).getSettingsScreen(helper);
-                if(!(guiObject instanceof GuiScreen))
-                {
+                if(!(guiObject instanceof GuiScreen)){
                     FMLLog.warning("Invalid card, getSettingsScreen method should return GuiScreen object");
                     return;
                 }
@@ -337,26 +296,17 @@ public class GuiInfoPanel extends GuiContainer
     }
 
     @Override
-    protected void keyTyped(char par1, int par2)
-    {
-        if (textboxTitle!=null &&  textboxTitle.isFocused())
-        {
-            if (par2 == 1)
-            {
+    protected void keyTyped(char par1, int par2){
+        if (textboxTitle!=null &&  textboxTitle.isFocused()){
+            if (par2 == 1){
                 mc.thePlayer.closeScreen();
-            }
-            else if(par1 == 13)
-            {
+            }else if(par1 == 13){
                 updateTitle();
-            }
-            else
-            {
+            }else{
                 modified = true;
                 textboxTitle.textboxKeyTyped(par1, par2);
             }
-        }
-        else
-        {
+        }else{
             super.keyTyped(par1, par2);
         }
     }

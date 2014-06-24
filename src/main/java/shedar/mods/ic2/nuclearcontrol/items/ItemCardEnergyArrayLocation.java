@@ -22,8 +22,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCardEnergyArrayLocation extends ItemCardBase
-{
+public class ItemCardEnergyArrayLocation extends ItemCardBase{
     public static final int DISPLAY_ENERGY = 1;
     public static final int DISPLAY_FREE = 2;
     public static final int DISPLAY_STORAGE = 4;
@@ -40,8 +39,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
         super("cardEnergyArray");
     }
     
-    private int[] getCoordinates(ICardWrapper card, int cardNumber)
-    {
+    private int[] getCoordinates(ICardWrapper card, int cardNumber){
         int cardCount = card.getInt("cardCount");
         if(cardNumber >= cardCount)
             return null;
@@ -53,17 +51,14 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
         return coordinates;
     }
 
-    public static int getCardCount(ICardWrapper card)
-    {
+    public static int getCardCount(ICardWrapper card){
         return card.getInt("cardCount");
     }
     
 
-    public static void initArray(CardWrapperImpl card, Vector<ItemStack> cards)
-    {
+    public static void initArray(CardWrapperImpl card, Vector<ItemStack> cards){
         int cardCount = getCardCount(card); 
-        for (ItemStack subCard : cards)
-        {
+        for (ItemStack subCard : cards){
             CardWrapperImpl wrapper = new CardWrapperImpl(subCard, -1);
             ChunkCoordinates target = wrapper.getTarget();
             if(target == null)
@@ -78,51 +73,40 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
     }
 
     @Override
-    public CardState update(TileEntity panel, ICardWrapper card, int range)
-    {
+    public CardState update(TileEntity panel, ICardWrapper card, int range){
         int cardCount = getCardCount(card);
         long totalEnergy =  0;
         if(cardCount == 0)
         {
             return CardState.INVALID_CARD;
-        }
-        else
-        {
+        }else{
             boolean foundAny = false;
             boolean outOfRange = false;
-            for(int i=0; i<cardCount; i++)
-            {
+            for(int i=0; i<cardCount; i++){
                 int[] coordinates = getCoordinates(card, i);
                 int dx = coordinates[0] - panel.xCoord;
                 int dy = coordinates[1] - panel.yCoord;
                 int dz = coordinates[2] - panel.zCoord;
                 if(Math.abs(dx) <= range && 
                         Math.abs(dy) <= range && 
-                        Math.abs(dz) <= range)
-                {
-                    EnergyStorageData storage = EnergyStorageHelper.getStorageAt(panel.worldObj, 
+                        Math.abs(dz) <= range){
+                    EnergyStorageData storage = EnergyStorageHelper.getStorageAt(panel.getWorldObj(), 
                             coordinates[0], coordinates[1], coordinates[2], card.getInt(String.format("_%dtargetType", i)));
-                    if(storage != null)
-                    {
+                    if(storage != null){
                         totalEnergy += storage.stored;
                         card.setInt(String.format("_%denergy", i), (int)storage.stored);
                         card.setInt(String.format("_%dmaxStorage", i), (int)storage.capacity);
                         foundAny = true;
-                    }
-                    else
-                    {
+                    }else{
                         card.setInt(String.format("_%denergy", i), STATUS_NOT_FOUND);
                     }
-                }
-                else
-                {
+                }else{
                     card.setInt(String.format("_%denergy", i), STATUS_OUT_OF_RANGE);
                     outOfRange = true;
                 }
             }
             card.setLong("energyL", totalEnergy);
-            if(!foundAny)
-            {
+            if(!foundAny){
                 if(outOfRange)
                     return CardState.OUT_OF_RANGE;
                 else
@@ -133,14 +117,12 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
     }
 
     @Override
-    public UUID getCardType()
-    {
+    public UUID getCardType(){
         return CARD_TYPE;
     }
     
     @Override
-    public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels)
-    {
+    public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels){
         List<PanelString> result = new LinkedList<PanelString>();
         PanelString line;
         long totalEnergy = 0;
@@ -152,36 +134,27 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
         boolean showStorage = (displaySettings & DISPLAY_STORAGE) > 0;
         boolean showPercentage = (displaySettings & DISPLAY_PERCENTAGE) > 0;
         int cardCount = getCardCount(card);
-        for(int i=0; i<cardCount; i++)
-        {
+        for(int i=0; i<cardCount; i++){
             int energy =  card.getInt(String.format("_%denergy",i));
             int storage =  card.getInt(String.format("_%dmaxStorage",i));
             boolean isOutOfRange = energy == STATUS_OUT_OF_RANGE;
             boolean isNotFound = energy == STATUS_NOT_FOUND;
-            if(showSummary && !isOutOfRange && !isNotFound)
-            {
+            if(showSummary && !isOutOfRange && !isNotFound){
                 totalEnergy += energy;
                 totalStorage += storage;
             }
             
-            if(showEach)
-            {
-                if(isOutOfRange)
-                {
+            if(showEach){
+                if(isOutOfRange){
                     line = new PanelString();
                     line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelOutOfRangeN", i+1);
                     result.add(line);
-                }
-                else if(isNotFound)
-                {
+                }else if(isNotFound){
                     line = new PanelString();
                     line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelNotFoundN", i+1);
                     result.add(line);
-                }
-                else
-                {
-                    if(showEnergy)
-                    {
+                }else{
+                    if(showEnergy){
                         line = new PanelString();
                         if(showLabels)
                             line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelEnergyN", i+1, StringUtils.getFormatted("", energy, false));
@@ -189,8 +162,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
                             line.textLeft = StringUtils.getFormatted("", energy, false);
                         result.add(line);
                     }
-                    if(showFree)
-                    {
+                    if(showFree){
                         line = new PanelString();
                         if(showLabels)
                             line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelEnergyFreeN", i+1, StringUtils.getFormatted("", storage - energy, false));
@@ -199,8 +171,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
     
                         result.add(line);
                     }
-                    if(showStorage)
-                    {
+                    if(showStorage){
                         line = new PanelString();
                         if(showLabels)
                             line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelEnergyStorageN", i+1, StringUtils.getFormatted("", storage, false));
@@ -208,8 +179,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
                             line.textLeft = StringUtils.getFormatted("", storage, false);
                         result.add(line);
                     }
-                    if(showPercentage)
-                    {
+                    if(showPercentage){
                         line = new PanelString();
                         if(showLabels)
                             line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelEnergyPercentageN", i+1, StringUtils.getFormatted("", storage==0? 100:(((long)energy)*100L/storage), false));
@@ -220,28 +190,23 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
                 }
             }
         }
-        if(showSummary)
-        {
-            if(showEnergy)
-            {
+        if(showSummary){
+            if(showEnergy){
                 line = new PanelString();
                 line.textLeft =  StringUtils.getFormatted("msg.nc.InfoPanelEnergy", totalEnergy, showLabels);
                 result.add(line);
             }
-            if(showFree)
-            {
+            if(showFree){
                 line = new PanelString();
                 line.textLeft =  StringUtils.getFormatted("msg.nc.InfoPanelEnergyFree", totalStorage - totalEnergy, showLabels);
                 result.add(line);
             }
-            if(showStorage)
-            {
+            if(showStorage){
                 line = new PanelString();
                 line.textLeft =  StringUtils.getFormatted("msg.nc.InfoPanelEnergyStorage", totalStorage, showLabels);
                 result.add(line);
             }
-            if(showPercentage)
-            {
+            if(showPercentage){
                 line = new PanelString();
                 line.textLeft =  StringUtils.getFormatted("msg.nc.InfoPanelEnergyPercentage", totalStorage==0? 100:(totalEnergy*100/totalStorage), showLabels);
                 result.add(line);
@@ -251,8 +216,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
     }
 
     @Override
-    public List<PanelSetting> getSettingsList()
-    {
+    public List<PanelSetting> getSettingsList(){
         List<PanelSetting> result = new ArrayList<PanelSetting>(3);
         result.add(new PanelSetting(LanguageHelper.translate("msg.nc.cbInfoPanelEnergyCurrent"), DISPLAY_ENERGY, CARD_TYPE));
         result.add(new PanelSetting(LanguageHelper.translate("msg.nc.cbInfoPanelEnergyStorage"), DISPLAY_STORAGE, CARD_TYPE));
@@ -266,15 +230,12 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase
     @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean advanced) 
-    {
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean advanced) {
         CardWrapperImpl card = new CardWrapperImpl(itemStack, -1);
         int cardCount = getCardCount(card);
-        if(cardCount > 0)
-        {
+        if(cardCount > 0){
             String title = card.getTitle();
-            if(title != null && !title.isEmpty())
-            {
+            if(title != null && !title.isEmpty()){
                 info.add(title);
             }
             String hint = String.format(LanguageHelper.translate("msg.nc.EnergyCardQuantity"), cardCount);

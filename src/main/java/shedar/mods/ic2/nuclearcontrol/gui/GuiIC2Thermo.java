@@ -18,8 +18,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiIC2Thermo extends GuiContainer
-{
+public class GuiIC2Thermo extends GuiContainer{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIThermalMonitor.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
@@ -27,8 +26,7 @@ public class GuiIC2Thermo extends GuiContainer
     private GuiTextField textboxHeat = null;
     private String name;
     
-    public GuiIC2Thermo(TileEntityIC2Thermo thermo)
-    {
+    public GuiIC2Thermo(TileEntityIC2Thermo thermo){
         super(new ContainerEmpty(thermo));
         xSize = 191;
         ySize = 64;
@@ -36,18 +34,15 @@ public class GuiIC2Thermo extends GuiContainer
         name = StatCollector.translateToLocal("tile.blockThermalMonitor.name");
     }
     
-    private void updateHeat(int delta)
-    {
-        if(textboxHeat != null)
-        {
+    private void updateHeat(int delta){
+        if(textboxHeat != null){
             int heat = 0;
-            try
-            {
+            try{
                 String value = textboxHeat.getText();
                 if(!"".equals(value))
                     heat = Integer.parseInt(value);
             }catch (NumberFormatException e) {
-                // do noting
+                // do nothing
             }
             heat+=delta;
             if(heat<0)
@@ -64,8 +59,7 @@ public class GuiIC2Thermo extends GuiContainer
 
     @SuppressWarnings("unchecked")
     @Override
-    public void initGui()
-    {
+    public void initGui(){
         super.initGui();
         buttonList.clear();
         buttonList.add(new CompactButton(0, guiLeft + 47, guiTop + 20, 22, 12, "-1"));
@@ -82,42 +76,38 @@ public class GuiIC2Thermo extends GuiContainer
         
         buttonList.add(new GuiThermoInvertRedstone(10, guiLeft + 70, guiTop + 38, thermo));
         
-        textboxHeat = new GuiTextField(fontRenderer, 70, 21, 51, 12);
+        textboxHeat = new GuiTextField(fontRendererObj, 70, 21, 51, 12);
         textboxHeat.setFocused(true);
         textboxHeat.setText(thermo.getHeatLevel().toString());
     }
 
     @Override
-    public void updateScreen()
-    {
+    public void updateScreen(){
         super.updateScreen();
         if(textboxHeat!=null)
             textboxHeat.updateCursorCounter();
     }
     
     @Override
-    public boolean doesGuiPauseGame()
-    {
+    public boolean doesGuiPauseGame(){
         return false;
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
-    {
-        fontRenderer.drawString(name, (xSize - fontRenderer.getStringWidth(name)) / 2, 6, 0x404040);
+    protected void drawGuiContainerForegroundLayer(int par1, int par2){
+        fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
         if(textboxHeat != null)
             textboxHeat.drawTextBox();    
     }
     
     @Override
-    public void onGuiClosed()
-    {
+    public void onGuiClosed(){
         updateHeat(0);
         super.onGuiClosed();
     }    
     
-    @Override protected void actionPerformed(GuiButton button)
-    {
+    @Override 
+    protected void actionPerformed(GuiButton button){
         if(button.id>=10)
             return;
         int delta = Integer.parseInt(button.displayString.replace("+", ""));
@@ -125,10 +115,9 @@ public class GuiIC2Thermo extends GuiContainer
     };
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
-    {
+    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3){
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+        mc.renderEngine.bindTexture(TEXTURE_LOCATION);
         int left = (width - xSize) / 2;
         int top = (height - ySize) / 2;
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);

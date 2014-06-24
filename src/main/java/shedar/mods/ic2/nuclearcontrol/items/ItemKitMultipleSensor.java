@@ -16,8 +16,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
 import shedar.mods.ic2.nuclearcontrol.utils.LiquidStorageHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
 
-public class ItemKitMultipleSensor extends ItemSensorKitBase
-{
+public class ItemKitMultipleSensor extends ItemSensorKitBase{
     public static final int TYPE_COUNTER = 0;
     public static final int TYPE_LIQUID = 1;
 
@@ -53,10 +52,8 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase
     }    
     
     @Override
-    public Icon getIconFromDamage(int damage)
-    {
-        switch (damage)
-        {
+    public IIcon getIconFromDamage(int damage){
+        switch (damage){
         case TYPE_COUNTER:
             return iconCounter;
         case TYPE_LIQUID:
@@ -66,14 +63,12 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase
     }
     
     @Override
-    protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack)
-    {
+    protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack){
         int damage = stack.getItemDamage();
         
-        switch (damage)
-        {
+        switch (damage){
         case TYPE_COUNTER:
-            TileEntity entity = world.getBlockTileEntity(x, y, z);
+            TileEntity entity = world.getTileEntity(x, y, z);
             if (entity != null && 
                 (entity instanceof TileEntityEnergyCounter ||
                  entity instanceof TileEntityAverageCounter))

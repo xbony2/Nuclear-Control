@@ -20,7 +20,7 @@ public class SoundHelper
     {
         SoundManager mgr = FMLClientHandler.instance().getClient().sndManager;
         GameSettings settings =  FMLClientHandler.instance().getClient().gameSettings; 
-        if (settings.soundVolume != 0.0F)
+        if (settings.soundVolume != 0.0F) 
         {
             SoundSystem sndSystem = mgr.sndSystem;
             if(sndSystem == null)
@@ -74,7 +74,7 @@ public class SoundHelper
     public static boolean isPlaying(String soundId)
     {
         SoundManager mgr = FMLClientHandler.instance().getClient().sndManager;
-        SoundSystem snd =mgr.sndSystem;
+        SoundSystem snd = mgr.sndSystem;
         return snd != null && snd.playing(soundId);
     }
     

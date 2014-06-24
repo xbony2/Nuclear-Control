@@ -10,8 +10,7 @@ import shedar.mods.ic2.nuclearcontrol.api.ICardGui;
 import shedar.mods.ic2.nuclearcontrol.api.ICardSettingsWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 
-public class GuiCardText extends GuiScreen implements ICardGui
-{
+public class GuiCardText extends GuiScreen implements ICardGui{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUITextCard.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
@@ -26,29 +25,25 @@ public class GuiCardText extends GuiScreen implements ICardGui
     
     private static final int lineCount = 10;
     
-    public GuiCardText(ICardWrapper helper)
-    {
+    public GuiCardText(ICardWrapper helper){
         this.helper = helper;
     }
     
     @Override
-    public boolean doesGuiPauseGame() 
-    {
+    public boolean doesGuiPauseGame() {
         return false;
     }
     
     @Override
-    public void setCardSettingsHelper(ICardSettingsWrapper wrapper)
-    {
+    public void setCardSettingsHelper(ICardSettingsWrapper wrapper){
         this.wrapper = wrapper;
     }
 
     @SuppressWarnings("unchecked")
-    private void initControls()
-    {
+    private void initControls(){
         buttonList.clear();
         buttonList.add(new GuiButton(1, guiLeft+xSize-60-8, guiTop+120, 60, 20, "Ok"));
-        textArea = new GuiTextArea(fontRenderer, guiLeft+8, guiTop+5, xSize-16, ySize-35, lineCount);
+        textArea = new GuiTextArea(fontRendererObj, guiLeft+8, guiTop+5, xSize-16, ySize-35, lineCount);
         textArea.setFocused(true);
         String[] data = textArea.getText();
         for(int i=0; i<lineCount; i++)
@@ -58,8 +53,7 @@ public class GuiCardText extends GuiScreen implements ICardGui
     }
     
     @Override
-    protected void mouseClicked(int x, int y, int par3)
-    {
+    protected void mouseClicked(int x, int y, int par3){
         super.mouseClicked(x, y, par3);
         if(textArea != null)
             textArea.mouseClicked(x, y, par3);
@@ -67,15 +61,11 @@ public class GuiCardText extends GuiScreen implements ICardGui
     
     
     @Override
-    protected void actionPerformed(GuiButton par1GuiButton) 
-    {
-        if(textArea!=null && wrapper != null)
-        {
+    protected void actionPerformed(GuiButton par1GuiButton) {
+        if(textArea!=null && wrapper != null){
             String[] lines = textArea.getText();
-            if(lines!=null)
-            {
-                for(int i=0; i<lines.length; i++)
-                {
+            if(lines!=null){
+                for(int i=0; i<lines.length; i++){
                     wrapper.setString("line_"+i, lines[i]);
                 }
             }
@@ -85,10 +75,9 @@ public class GuiCardText extends GuiScreen implements ICardGui
     }
     
     @Override
-    public void drawScreen(int par1, int par2, float par3)
-    {
+    public void drawScreen(int par1, int par2, float par3){
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+        mc.renderEngine.bindTexture(TEXTURE_LOCATION);
         int left = (width - xSize) / 2;
         int top = (height - ySize) / 2;
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
@@ -98,26 +87,19 @@ public class GuiCardText extends GuiScreen implements ICardGui
     }
     
     @Override
-    protected void keyTyped(char par1, int par2)
-    {
-        if (par2 == 1 || (par2 == this.mc.gameSettings.keyBindInventory.keyCode && (textArea==null || !textArea.isFocused())))
-        {
+    protected void keyTyped(char par1, int par2){
+        if (par2 == 1 || (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode() && (textArea==null || !textArea.isFocused()))){
             actionPerformed(null);
             
-        }
-        else if (textArea != null &&  textArea.isFocused())
-        {
+        }else if (textArea != null &&  textArea.isFocused()){
             textArea.textAreaKeyTyped(par1, par2);
-        }
-        else
-        {
+        }else{
             super.keyTyped(par1, par2);
         }
     }
 
     @Override
-    public void initGui() 
-    {
+    public void initGui() {
         super.initGui();
         guiLeft = (width - xSize) / 2;
         guiTop = (height - ySize) / 2;

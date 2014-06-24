@@ -449,8 +449,8 @@ public class BlockNuclearControlMain extends BlockContainer{
 		}
         TileEntity targetEntity = iblockaccess.getTileEntity(targetX, targetY, targetZ);
         if (tileentity instanceof TileEntityIC2Thermo && targetEntity!=null && 
-            (NuclearHelper.getReactorAt(tileentity.worldObj, targetX, targetY, targetZ)!=null || 
-    		NuclearHelper.getReactorChamberAt(tileentity.worldObj, targetX, targetY, targetZ)!=null)){
+            (NuclearHelper.getReactorAt(tileentity.getWorldObj(), targetX, targetY, targetZ)!=null || 
+    		NuclearHelper.getReactorChamberAt(tileentity.getWorldObj(), targetX, targetY, targetZ)!=null)){
             return 0;
         }
         if(tileentity instanceof TileEntityRemoteThermo){
@@ -470,7 +470,7 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
     
     @Override
-    public IIcon getBlockTexture(IBlockAccess blockaccess, int x, int y, int z, int side){
+    public IIcon getIcon(IBlockAccess blockaccess, int x, int y, int z, int side){
         int blockType = blockaccess.getBlockMetadata(x, y, z);
         if(subblocks.containsKey(blockType))
             return subblocks.get(blockType).getBlockTexture(blockaccess, x, y, z, side);
@@ -519,7 +519,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         else if(entity instanceof TileEntityInfoPanelExtender){
             TileEntityInfoPanelExtender extender = (TileEntityInfoPanelExtender)entity; 
             if(extender.getScreen()!=null){
-                TileEntityInfoPanel core = extender.getScreen().getCore(extender.worldObj); 
+                TileEntityInfoPanel core = extender.getScreen().getCore(extender.getWorldObj()); 
                 if(core!=null && core.getPowered())
                     return 7;
                 else

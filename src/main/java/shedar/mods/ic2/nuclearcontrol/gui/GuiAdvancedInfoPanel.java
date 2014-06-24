@@ -31,8 +31,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiAdvancedInfoPanel extends GuiInfoPanel
-{
+public class GuiAdvancedInfoPanel extends GuiInfoPanel{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIAdvancedInfoPanel.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
     
@@ -45,8 +44,7 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
     private byte activeTab;
     private boolean initialized;
     
-    public GuiAdvancedInfoPanel(Container container)
-    {
+    public GuiAdvancedInfoPanel(Container container){
         super(container);
         ySize = 212;
         activeTab = 0;
@@ -56,10 +54,9 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
-    {
+    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3){
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+        mc.renderEngine.bindTexture(TEXTURE_LOCATION);
         int left = (width - xSize) / 2;
         int top = (height - ySize) / 2;
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
@@ -67,20 +64,18 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
     }
     
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
-    {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2){
         super.drawGuiContainerForegroundLayer(par1, par2);
     }    
     
     @SuppressWarnings("unchecked")
     @Override
-    protected void initControls()
-    {
+    protected void initControls(){
         ItemStack card = getActiveCard(); 
         if((card == null && prevCard == null && initialized) || (card!=null  && card.equals(prevCard)))
             return;
         initialized = true;
-        int h = fontRenderer.FONT_HEIGHT + 1;
+        int h = fontRendererObj.FONT_HEIGHT + 1;
         buttonList.clear();
         prevCard = card;
 
@@ -95,68 +90,54 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
         buttonList.add(new IconButton(ID_POWER, guiLeft + 83 + 17*3, guiTop + 42, 16, 16, TEXTURE_LOCATION, 192-16, 
                 getIconPowerTopOffset(((TileEntityAdvancedInfoPanel)container.panel).getPowerMode())));
         
-        if(card!=null && card.getItem() instanceof IPanelDataSource)
-        {
+        if(card!=null && card.getItem() instanceof IPanelDataSource){
             byte slot = container.panel.getIndexOfCard(card);
             IPanelDataSource source = (IPanelDataSource)card.getItem();
-            if(source instanceof IAdvancedCardSettings)
-            {
+            if(source instanceof IAdvancedCardSettings){
                 //settings
                 buttonList.add(new IconButton(ID_SETTINGS, guiLeft + 83 + 17*4, guiTop + 42, 16, 16, TEXTURE_LOCATION, 192, 15 + 16*2));
             }
             int row = 0;
             List<PanelSetting> settingsList = null;
-            if(card.getItem() instanceof IPanelMultiCard)
-            {
+            if(card.getItem() instanceof IPanelMultiCard){
                 settingsList = ((IPanelMultiCard)source).getSettingsList(new CardWrapperImpl(card, activeTab));
-            }
-            else
-            {
+            }else{
                 settingsList = source.getSettingsList();
             }
             
             if(settingsList!=null)
-            for (PanelSetting panelSetting : settingsList)
-            {
-                buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32, guiTop + 60 + h*row, panelSetting, container.panel, slot, fontRenderer));
+            for (PanelSetting panelSetting : settingsList){
+                buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32, guiTop + 60 + h*row, panelSetting, container.panel, slot, fontRendererObj));
                 row++;
             }
-            if(!modified)
-            {
-                textboxTitle = new GuiTextField(fontRenderer, 7, 16, 162, 18);
+            if(!modified){
+                textboxTitle = new GuiTextField(fontRendererObj, 7, 16, 162, 18);
                 textboxTitle.setFocused(true);
                 textboxTitle.setText(new CardWrapperImpl(card, activeTab).getTitle());
             }
-        }
-        else
-        {
+        }else{
             modified = false;
             textboxTitle = null;
         }        
     }
 
     @Override
-    protected ItemStack getActiveCard()
-    {
+    protected ItemStack getActiveCard(){
         return container.panel.getCards().get(activeTab);
     }
     
     @Override
-    public void setWorldAndResolution(net.minecraft.client.Minecraft par1Minecraft, int par2, int par3) 
-    {
+    public void setWorldAndResolution(net.minecraft.client.Minecraft par1Minecraft, int par2, int par3) {
         initialized = false;
         super.setWorldAndResolution(par1Minecraft, par2, par3);
     }
     
-    private int getIconLabelsTopOffset(boolean checked)
-    {
+    private int getIconLabelsTopOffset(boolean checked){
         return checked?15:31;
     }
     
-    private int getIconPowerTopOffset(byte mode)
-    {
-        switch (mode)
-        {   
+    private int getIconPowerTopOffset(byte mode){
+        switch (mode){   
         case TileEntityAdvancedInfoPanel.POWER_REDSTONE:
             return 15 + 16*2;
         case TileEntityAdvancedInfoPanel.POWER_INVERTED:
@@ -170,10 +151,8 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) 
-    {
-        switch(button.id)
-        {
+    protected void actionPerformed(GuiButton button) {
+        switch(button.id){
         case ID_COLORS:
             GuiScreen colorGui = new GuiScreenColor(this, container.panel);
             mc.displayGuiScreen(colorGui);
@@ -182,12 +161,10 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
             ItemStack card = getActiveCard();
             if(card == null)
                 return;
-            if(card != null && card.getItem() instanceof IAdvancedCardSettings)
-            {
+            if(card != null && card.getItem() instanceof IAdvancedCardSettings){
                 ICardWrapper helper = new CardWrapperImpl(card, activeTab);
                 Object guiObject = ((IAdvancedCardSettings)card.getItem()).getSettingsScreen(helper);
-                if(!(guiObject instanceof GuiScreen))
-                {
+                if(!(guiObject instanceof GuiScreen)){
                     FMLLog.warning("Invalid card, getSettingsScreen method should return GuiScreen object");
                     return;
                 }
@@ -199,8 +176,7 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
             break;
         case ID_LABELS:
             boolean checked = !container.panel.getShowLabels();
-            if(button instanceof IconButton)
-            {
+            if(button instanceof IconButton){
                 IconButton iButton = (IconButton)button;
                 iButton.textureTop = getIconLabelsTopOffset(checked);
             }
@@ -210,8 +186,7 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
             break;
         case ID_POWER:
             byte mode = ((TileEntityAdvancedInfoPanel)container.panel).getNextPowerMode();
-            if(button instanceof IconButton)
-            {
+            if(button instanceof IconButton){
                 IconButton iButton = (IconButton)button;
                 iButton.textureTop = getIconPowerTopOffset(mode);
             }
@@ -225,11 +200,9 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel
     }
     
     @Override
-    protected void mouseClicked(int x, int y, int par3)
-    {
+    protected void mouseClicked(int x, int y, int par3){
         super.mouseClicked(x, y, par3);
-        if(x>=guiLeft+7 && x<=guiLeft+24 && y>=guiTop+62 && y<=guiTop+104)
-        {
+        if(x>=guiLeft+7 && x<=guiLeft+24 && y>=guiTop+62 && y<=guiTop+104){
             byte newTab = (byte) ((y-guiTop-62)/14);
             if(newTab>2)
                 newTab = 2;

@@ -25,8 +25,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCardReactorSensorLocation extends ItemCardBase implements IRemoteSensor
-{
+public class ItemCardReactorSensorLocation extends ItemCardBase implements IRemoteSensor{
     protected static final String HINT_TEMPLATE = "x: %d, y: %d, z: %d";
 
     public static final int DISPLAY_ONOFF = 1;
@@ -43,13 +42,11 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements IRemo
     }
 
     @Override
-    public CardState update(TileEntity panel, ICardWrapper card, int range)
-    {
+    public CardState update(TileEntity panel, ICardWrapper card, int range){
         ChunkCoordinates target = card.getTarget();
-        IReactor reactor = NuclearHelper.getReactorAt(panel.worldObj, 
+        IReactor reactor = NuclearHelper.getReactorAt(panel.getWorldObj(), 
                 target.posX, target.posY, target.posZ);
-        if(reactor != null)
-        {
+        if(reactor != null){
             card.setInt("heat", reactor.getHeat());
             card.setInt("maxHeat", reactor.getMaxHeat());
             card.setBoolean("reactorPoweredB", NuclearHelper.isProducing(reactor));
@@ -59,8 +56,7 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements IRemo
             IInventory inventory = (IInventory)reactor; 
             int slotCount = inventory.getSizeInventory();
             int timeLeft = 0;
-            for(int i = 0; i < slotCount; i++)
-            {
+            for(int i = 0; i < slotCount; i++){
                 ItemStack rStack = inventory.getStackInSlot(i);
                 if(rStack!=null)
                 {
@@ -69,16 +65,13 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements IRemo
             }
             card.setInt("timeLeft", timeLeft*reactor.getTickRate()/20);
             return CardState.OK;
-        }
-        else
-        {
+        }else{
             return CardState.NO_TARGET;
         }
     }
 
     @Override
-    public UUID getCardType()
-    {
+    public UUID getCardType(){
         return CARD_TYPE;
     }
 

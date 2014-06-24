@@ -23,8 +23,7 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
     public int ratio;
     public int transfer;
 
-    public ItemToolDigitalThermometer(int k, int l)
-    {
+    public ItemToolDigitalThermometer(int k, int l){
         super();
         setMaxDamage(101);
         tier = k;
@@ -39,8 +38,7 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
     }    
 
     @Override
-    protected boolean canTakeDamage(ItemStack itemstack, int i)
-    {
+    protected boolean canTakeDamage(ItemStack itemstack, int i){
         i *= 50;
         return ElectricItem.manager.discharge(itemstack, i, 0x7fffffff, true, true) == i;
     }

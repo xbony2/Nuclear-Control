@@ -13,16 +13,14 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiInfoPanelShowLabels extends GuiButton
-{
+public class GuiInfoPanelShowLabels extends GuiButton{
     private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIInfoPanel.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
     private TileEntityInfoPanel panel;
     private boolean checked;
 
-    public GuiInfoPanelShowLabels(int id, int x, int y, TileEntityInfoPanel panel)
-    {
+    public GuiInfoPanelShowLabels(int id, int x, int y, TileEntityInfoPanel panel){
         super(id, x, y, 0, 0, "");
         height  = 9;
         width = 18;
@@ -31,11 +29,9 @@ public class GuiInfoPanelShowLabels extends GuiButton
     }
 
     @Override
-    public void drawButton(Minecraft minecraft, int par2, int par3)
-    {
-        if (this.drawButton)
-        {
-            minecraft.renderEngine.func_110577_a/*bindTExture*/(TEXTURE_LOCATION);
+    public void drawButton(Minecraft minecraft, int par2, int par3){
+        if (this.visible){
+            minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             int delta = checked?12:21;
             drawTexturedModalRect(xPosition, yPosition+1, 176, delta, 18, 9);
@@ -43,24 +39,19 @@ public class GuiInfoPanelShowLabels extends GuiButton
     }
 
     @Override
-    protected int getHoverState(boolean flag)
-    {
+    protected int getHoverState(boolean flag){
         return 0;
     }
 
     @Override
-    public boolean mousePressed(Minecraft minecraft, int i, int j)
-    {
-        if (super.mousePressed(minecraft, i, j))
-        {
+    public boolean mousePressed(Minecraft minecraft, int i, int j){
+        if (super.mousePressed(minecraft, i, j)){
             checked = !checked;
             int value = checked?-1:-2;
             panel.setShowLabels(checked);
             NetworkHelper.initiateClientTileEntityEvent(panel, value);
             return true;
-        }
-        else
-        {
+        }else{
             return false;
         }
     }
