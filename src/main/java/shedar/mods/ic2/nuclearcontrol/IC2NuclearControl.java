@@ -368,7 +368,7 @@ public class IC2NuclearControl{
         //isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
         //httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
         proxy.registerTileEntities();
-        NetworkRegistry.instance().registerGuiHandler(instance, proxy);
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
         configuration.save();
     }
 }
