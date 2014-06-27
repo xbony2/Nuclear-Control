@@ -95,10 +95,10 @@ public class NuclearHelper {
 	public static int getNuclearCellTimeLeft(ItemStack rStack)
 	{
 	    int val = IC2NuclearControl.instance.crossIC2.getNuclearCellTimeLeft(rStack);
-	    if(val == -1)
-	    {
-	        val = IC2NuclearControl.instance.crossGregTech.getNuclearCellTimeLeft(rStack);
-	    }
+	   // if(val == -1)
+	   // {
+	   //    val = IC2NuclearControl.instance.crossGregTech.getNuclearCellTimeLeft(rStack);
+	   // }
 	    return val;
 	}
 	

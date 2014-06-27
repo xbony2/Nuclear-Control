@@ -60,8 +60,8 @@ public class HttpCardSender
         for (Object item: cardData.getTags())
         {
             NBTBase tag = (NBTBase)item;
-            if(!"_webSensorId".equals(tag.getName()))
-                builder.withField(tag.getName(), JsonNodeBuilders.aStringBuilder(tag.toString()));
+            if(!"_webSensorId".equals(tag.getId()))
+                builder.withField(tag.getId(), JsonNodeBuilders.aStringBuilder(tag.toString()));
         }
         unsent.put(id, builder);
     }

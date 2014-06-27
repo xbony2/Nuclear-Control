@@ -248,17 +248,17 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
             }
             GL11.glRotatef((float)-angleVert, 1, 0, 0);
             GL11.glRotatef((float)angleHor, 0, 1, 0);
-            FontRenderer fontRenderer = this.getFontRenderer();
+            FontRenderer fontRendererObj = this.func_147498_b();
             
             int maxWidth = 1;
             for (PanelString panelString : joinedData)
             {
                 String currentString = implodeArray(new String[]{panelString.textLeft, panelString.textCenter, panelString.textRight}," ");
-                maxWidth = Math.max(fontRenderer.getStringWidth(currentString), maxWidth);
+                maxWidth = Math.max(fontRendererObj.getStringWidth(currentString), maxWidth);
             }
             maxWidth+=4;
 
-            int lineHeight = fontRenderer.FONT_HEIGHT + 2;
+            int lineHeight = fontRendererObj.FONT_HEIGHT + 2;
             int requiredHeight = lineHeight * joinedData.size();
             float scaleX = displayWidth/maxWidth;
             float scaleY = displayHeight/requiredHeight;
@@ -293,11 +293,11 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
             for (PanelString panelString : joinedData)
             {
                 if(panelString.textLeft != null)
-                    fontRenderer.drawString(panelString.textLeft, offsetX-realWidth/2, 1+offsetY-realHeight/2 + row * lineHeight, panelString.colorLeft!=0?panelString.colorLeft:panel.getColorTextHex());
+                    fontRendererObj.drawString(panelString.textLeft, offsetX-realWidth/2, 1+offsetY-realHeight/2 + row * lineHeight, panelString.colorLeft!=0?panelString.colorLeft:panel.getColorTextHex());
                 if(panelString.textCenter != null)
-                    fontRenderer.drawString(panelString.textCenter, -fontRenderer.getStringWidth(panelString.textCenter)/2, offsetY - realHeight/2  + row * lineHeight, panelString.colorCenter!=0?panelString.colorCenter:panel.getColorTextHex());
+                    fontRendererObj.drawString(panelString.textCenter, -fontRendererObj.getStringWidth(panelString.textCenter)/2, offsetY - realHeight/2  + row * lineHeight, panelString.colorCenter!=0?panelString.colorCenter:panel.getColorTextHex());
                 if(panelString.textRight != null)
-                    fontRenderer.drawString(panelString.textRight, realWidth/2-fontRenderer.getStringWidth(panelString.textRight), 
+                    fontRendererObj.drawString(panelString.textRight,fontRendererObj.getStringWidth(panelString.textRight), 
                                             offsetY - realHeight/2  + row * lineHeight, panelString.colorRight!=0?panelString.colorRight:panel.getColorTextHex());
                 row++;
             }

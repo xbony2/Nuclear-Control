@@ -59,9 +59,9 @@ public class GuiInfoPanel extends GuiContainer{
         isColored = !this.container.panel.getColored(); 
     }
     
-    @Override
+/*
     @SuppressWarnings("unchecked") 
-    protected void drawItemStackTooltip(ItemStack itemStack, int par2, int par3){
+    protected void drawItemStack(ItemStack itemStack, int par2, int par3){
         @SuppressWarnings("rawtypes")
         List list = itemStack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
         
@@ -86,6 +86,7 @@ public class GuiInfoPanel extends GuiContainer{
         FontRenderer font = itemStack.getItem().getFontRenderer(itemStack);
         drawHoveringText(list, par2, par3, (font == null ? fontRendererObj : font));
     }
+    */
     
     @Override
     protected void drawHoveringText(List par1List, int par2, int par3, FontRenderer font){

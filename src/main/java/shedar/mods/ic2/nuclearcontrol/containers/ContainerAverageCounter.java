@@ -74,7 +74,7 @@ public class ContainerAverageCounter extends Container
     public ItemStack slotClick(int par1, int par2, int par3, EntityPlayer player)
     {
         ItemStack stack = super.slotClick(par1, par2, par3, player);
-        averageCounter.onInventoryChanged();
+        averageCounter.markDirty();
         return stack;
     }
     

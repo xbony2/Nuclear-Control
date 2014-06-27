@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
@@ -104,7 +105,7 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase{
     
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         par3List.add(new ItemStack(par1, 1, TYPE_COUNTER));
         par3List.add(new ItemStack(par1, 1, TYPE_LIQUID));

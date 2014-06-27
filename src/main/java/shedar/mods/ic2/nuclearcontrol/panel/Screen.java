@@ -74,7 +74,7 @@ public class Screen
                     if(powered || force)
                     {
                         world.markBlockForUpdate(x, y, z);
-                        world.updateAllLightTypes(x, y, z);
+                        world.func_147451_t(x, y, z);
                     }
                 }
             }
@@ -103,7 +103,7 @@ public class Screen
                     if(powered || force)
                     {
                         world.markBlockForUpdate(x, y, z);
-                        world.updateAllLightTypes(x, y, z);
+                        world.func_147451_t(x, y, z);
                     }
                 }
             }
@@ -122,7 +122,7 @@ public class Screen
                     for(int z = minZ; z<=maxZ; z++)
                     {
                         world.markBlockForUpdate(x, y, z);
-                        world.updateAllLightTypes(x, y, z);
+                        world.func_147451_t(x, y, z);
                     }
                 }
             }

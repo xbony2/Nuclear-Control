@@ -114,7 +114,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
     public void updateEntity(){
         if (!init){
             initData();
-            onInventoryChanged();
+            markDirty();
         }
         if (!worldObj.isRemote){
             if (!addedToEnergyNet){
@@ -162,7 +162,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
                 inventory[slotNum] = ItemStack.loadItemStackFromNBT(compound);
             }
         }
-        onInventoryChanged();
+        markDirty();
     }
     
     @Override
@@ -220,7 +220,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
             if (inventory[slotNum].stackSize <= amount){
                 ItemStack itemStack = inventory[slotNum];
                 inventory[slotNum] = null;
-                onInventoryChanged();
+                markDirty();
                 return itemStack;
             }
             
@@ -228,7 +228,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
             if (inventory[slotNum].stackSize == 0){
                 inventory[slotNum] = null;
             }
-            onInventoryChanged();
+            markDirty();
             return taken;
         }
         return null;
@@ -247,7 +247,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
         {
             itemStack.stackSize = getInventoryStackLimit();
         }
-        onInventoryChanged();
+        markDirty();
     }
     
     @Override
@@ -275,8 +275,8 @@ public class TileEntityEnergyCounter extends TileEntity implements
     }
     
     @Override
-    public void onInventoryChanged() {
-        super.onInventoryChanged();
+    public void markDirty() {
+        super.markDirty();
         int upgradeCountTransormer = 0;
         ItemStack itemStack = inventory[0];
         if (itemStack!=null && itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))){

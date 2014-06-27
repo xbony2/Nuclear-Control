@@ -24,12 +24,12 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
     public int ratio;
     public int transfer;
 
-    public ItemToolDigitalThermometer(int k, int l){
+    public ItemToolDigitalThermometer(int k, int l, int i1){
         super();
         setMaxDamage(101);
         tier = k;
         ratio = l;
-        //transfer = i1;
+        transfer = i1;
         
     }
 

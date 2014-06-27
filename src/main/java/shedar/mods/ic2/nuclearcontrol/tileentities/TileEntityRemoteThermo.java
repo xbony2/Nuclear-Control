@@ -89,7 +89,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
             MinecraftForge.EVENT_BUS.post(event);
             addedToEnergyNet = true;
         }
-        onInventoryChanged();
+        markDirty();
 
         int fire;
         if(energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption){
@@ -211,7 +211,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
                 inventory[slotNum] = ItemStack.loadItemStackFromNBT(compound);
             }
         }
-        onInventoryChanged();
+        markDirty();
     }
     
     @Override
@@ -319,8 +319,8 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
     }
     
     @Override
-    public void onInventoryChanged(){
-        super.onInventoryChanged();
+    public void markDirty(){
+        super.markDirty();
         int upgradeCountTransormer = 0;
         int upgradeCountStorage = 0;
         int upgradeCountRange = 0;

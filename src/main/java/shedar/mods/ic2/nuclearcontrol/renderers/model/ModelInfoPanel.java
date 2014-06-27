@@ -352,7 +352,7 @@ public class ModelInfoPanel
                 midpoint[offsetV] = p[offsetV]+dv/2;
                 midpoint[offsetD] = p[offsetD]+(ddh+ddv)/2;
 
-                IIcon texture = block.getBlockTexture(panel.getWorldObj(), (int)Math.floor(midpoint[0]), (int)Math.floor(midpoint[1]), (int)Math.floor(midpoint[2]), facing);
+                IIcon texture = block.getBlockTextureFromSide(facing);
 
                 double u1 = texture.getMinU();
                 double u2 = texture.getMaxU();
@@ -465,6 +465,6 @@ public class ModelInfoPanel
         }
         Tessellator.instance.draw();
         Tessellator.instance.startDrawingQuads();
-        renderer.minecraftRB.renderEngine.func_110577_a/*bindTExture*/(TextureMap.field_110575_b/*blocks texture atlas*/);
+        renderer.minecraftRB.renderEngine.bindTexture/*bindTExture*/(TextureMap.locationBlocksTexture/*blocks texture atlas*/);
     }
 }
