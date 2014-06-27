@@ -31,7 +31,7 @@ public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements 
             lightLevel = lightSteps[internalFire/2];
         }
         if(lightLevel!=light)
-            worldObj.updateAllLightTypes(xCoord, yCoord, zCoord);
+            worldObj.getFullBlockLightValue(xCoord, yCoord, zCoord);
     }
 
     @Override

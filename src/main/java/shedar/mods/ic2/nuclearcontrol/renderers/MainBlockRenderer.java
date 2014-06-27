@@ -8,6 +8,7 @@ import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
+import shedar.mods.ic2.nuclearcontrol.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.IRotation;
 import shedar.mods.ic2.nuclearcontrol.renderers.model.ModelInfoPanel;
@@ -30,7 +31,7 @@ public class MainBlockRenderer implements ISimpleBlockRenderingHandler{
     {
         if(model == modelId)
         {
-            float[] size = IC2NuclearControl.instance.blockNuclearControlMain.getBlockBounds(metadata); 
+            float[] size = /*IC2NuclearControl.instance.*/BlockNuclearControlMain.getBlockBounds(metadata); 
             block.setBlockBounds(size[0], size[1], size[2], size[3], size[4], size[5]);
             renderer.setRenderBoundsFromBlock(block);
             Tessellator tesselator = Tessellator.instance;
@@ -105,7 +106,7 @@ public class MainBlockRenderer implements ISimpleBlockRenderingHandler{
             else if(tileEntity instanceof TileEntityAdvancedInfoPanelExtender)
             {
                 TileEntityAdvancedInfoPanelExtender advancedExtender = (TileEntityAdvancedInfoPanelExtender)tileEntity;
-                if(advancedExtender.getScreen()==null || advancedExtender.getScreen().getCore(advancedExtender.worldObj)==null)
+                if(advancedExtender.getScreen()==null || advancedExtender.getScreen().getCore(advancedExtender.getWorldObj())==null)
                     renderer.renderStandardBlock(block, x, y, z);
             }
             else

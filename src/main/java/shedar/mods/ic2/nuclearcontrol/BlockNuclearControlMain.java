@@ -53,7 +53,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.WrenchHelper;
 
 public class BlockNuclearControlMain extends BlockContainer{
-    private Map<Integer, Subblock> subblocks;
+    public static Map<Integer, Subblock> subblocks;
     
     public BlockNuclearControlMain(){
         super(Material.iron);
@@ -266,7 +266,7 @@ public class BlockNuclearControlMain extends BlockContainer{
             return true;
         }
         if (!canPlaceBlockAtlocal(world, x, y, z)){
-            if (world.getBlock(x, y, z) == blockId){
+            if (world.getBlock(x, y, z) == world.getBlock(x, y, z)){
                 dropBlockAsItem(world, x, y, z, metadata, 0);
                 world.setBlock(x, y, z, Blocks.air, 0, 3);
             }
@@ -276,7 +276,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         }
     }
     
-    public float[] getBlockBounds(int damage){
+    public static float[] getBlockBounds(int damage){
         if(subblocks.containsKey(damage)){
             return subblocks.get(damage).getBlockBounds(null);
         }
@@ -524,7 +524,7 @@ public class BlockNuclearControlMain extends BlockContainer{
                     return 0;
             }
         }
-        return lightValue[blockID];
+        return 12; //lightValue[blockID];
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })

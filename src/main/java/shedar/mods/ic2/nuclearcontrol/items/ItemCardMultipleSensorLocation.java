@@ -8,6 +8,7 @@ import java.util.UUID;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -322,7 +323,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List){
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List){
         par3List.add(new ItemStack(par1, 1, ItemKitMultipleSensor.TYPE_COUNTER));
         par3List.add(new ItemStack(par1, 1, ItemKitMultipleSensor.TYPE_LIQUID));
     }

@@ -1,9 +1,11 @@
 package shedar.mods.ic2.nuclearcontrol.renderers;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -12,7 +14,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
 public class TileEntityIC2ThermoRenderer extends TileEntitySpecialRenderer
 {
 
-    @Override
+	@Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f)
     {
         boolean isThermo = tileEntity instanceof TileEntityIC2Thermo;
@@ -58,12 +60,13 @@ public class TileEntityIC2ThermoRenderer extends TileEntitySpecialRenderer
             }
             GL11.glTranslatef(0.5F, 0.4375F, 0.6875F);
             
-            FontRenderer fontRenderer = this.getFontRenderer();
+
+            FontRenderer fontRendererObj = this.func_147498_b();
             GL11.glRotatef(-90, 1, 0, 0);
             GL11.glScalef(var12, - var12, var12);
             GL11.glPolygonOffset( -10, -10 );
             GL11.glEnable ( GL11.GL_POLYGON_OFFSET_FILL );
-            fontRenderer.drawString(text, -fontRenderer.getStringWidth(text) / 2, -fontRenderer.FONT_HEIGHT, 0);
+            fontRendererObj.drawString(text, -fontRendererObj.getStringWidth(text) / 2, -fontRendererObj.FONT_HEIGHT, 0);
             GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL );
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glPopMatrix();

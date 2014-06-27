@@ -30,7 +30,7 @@ public class TileEntityRemoteThermoRenderer extends TileEntitySpecialRenderer{
             int heat = thermo.getHeatLevel();
             String text = Integer.toString(heat);
             GL11.glTranslatef((float)x, (float)y, (float)z);
-            func_110628_a/*bindTextureByName*/(TEXTURE_LOCATION);
+            bindTexture/*bindTextureByName*/(TEXTURE_LOCATION);
             switch (side){
                 case 0:
                     break;
@@ -129,7 +129,7 @@ public class TileEntityRemoteThermoRenderer extends TileEntitySpecialRenderer{
             tessellator.draw();
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             
-            FontRenderer fontRenderer = this.getFontRenderer();
+            FontRenderer fontRenderer = this.func_147498_b();
             GL11.glDepthMask(false);
             GL11.glScalef(var12, - var12, var12);
             fontRenderer.drawString(text, -fontRenderer.getStringWidth(text) / 2, -fontRenderer.FONT_HEIGHT, 0);

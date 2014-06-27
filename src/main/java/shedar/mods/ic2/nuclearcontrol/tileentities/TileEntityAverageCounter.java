@@ -138,7 +138,7 @@ public class TileEntityAverageCounter extends TileEntity implements
     public void updateEntity(){
         if (!init){
             initData();
-            onInventoryChanged();
+            markDirty();
         }
         if(FMLCommonHandler.instance().getEffectiveSide().isClient())
             return;
@@ -193,7 +193,7 @@ public class TileEntityAverageCounter extends TileEntity implements
                 inventory[slotNum] = ItemStack.loadItemStackFromNBT(compound);
             }
         }
-        onInventoryChanged();
+        markDirty();
     }
     
     @Override
@@ -255,7 +255,7 @@ public class TileEntityAverageCounter extends TileEntity implements
             if (inventory[slotNum].stackSize <= amount){
                 ItemStack itemStack = inventory[slotNum];
                 inventory[slotNum] = null;
-                onInventoryChanged();
+                markDirty();
                 return itemStack;
             }
             
@@ -263,7 +263,7 @@ public class TileEntityAverageCounter extends TileEntity implements
             if (inventory[slotNum].stackSize == 0){
                 inventory[slotNum] = null;
             }
-            onInventoryChanged();
+            markDirty();
             return taken;
         }
         return null;
@@ -281,7 +281,7 @@ public class TileEntityAverageCounter extends TileEntity implements
         if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()){
             itemStack.stackSize = getInventoryStackLimit();
         }
-        onInventoryChanged();
+        markDirty();
     }
     
     @Override
@@ -309,8 +309,8 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
     
     @Override
-    public void onInventoryChanged() {
-        super.onInventoryChanged();
+    public void markDirty() {
+        super.markDirty();
         int upgradeCountTransormer = 0;
         ItemStack itemStack = inventory[0];
         if (itemStack!=null && itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))){

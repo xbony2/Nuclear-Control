@@ -13,8 +13,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemNuclearControlMain extends ItemBlock{
-    public ItemNuclearControlMain(){
-        super();
+    public ItemNuclearControlMain(BlockNuclearControlMain par1){
+        super(par1);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
@@ -30,7 +30,7 @@ public class ItemNuclearControlMain extends ItemBlock{
 
     @Override
     public String getUnlocalizedName(ItemStack item){
-        Subblock subblock = IC2NuclearControl.instance.blockNuclearControlMain.getSubblock(item.getItemDamage());
+        Subblock subblock = this.getSubblock(item.getItemDamage());
         if(subblock == null)
             return "";
         return subblock.getName();
@@ -38,17 +38,17 @@ public class ItemNuclearControlMain extends ItemBlock{
     
     @Override
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata){
-       if (!world.setBlock(x, y, z, getBlock, metadata & 0xff, 3)){
+       if (!world.setBlock(x, y, z, world.getBlock(x,y,z), metadata & 0xff, 3)){
                return false;
        }
 
-       if (world.getBlock(x, y, z) == getBlock())
+       if (world.getBlock(x, y, z) == world.getBlock(x,y,z))
        { 
-           if(getBlock() instanceof BlockNuclearControlMain)
-               ((BlockNuclearControlMain)getBlock()).onBlockPlacedBy(world, x, y, z, player, stack, metadata);
+           if(world.getBlock(x,y,z) instanceof BlockNuclearControlMain)
+               ((BlockNuclearControlMain)world.getBlock(x,y,z)).onBlockPlacedBy(world, x, y, z, player, stack, metadata);
            else
-               getBlock().onBlockPlacedBy(world, x, y, z, player, stack);
-           getBlock().onPostBlockPlaced(world, x, y, z, metadata);
+        	   world.getBlock(x,y,z).onBlockPlacedBy(world, x, y, z, player, stack);
+           world.getBlock(x,y,z).onPostBlockPlaced(world, x, y, z, metadata);
        }
 
        return true;
@@ -91,7 +91,12 @@ public class ItemNuclearControlMain extends ItemBlock{
             }
         }
 
-        return IC2NuclearControl.instance.blockNuclearControlMain.canPlaceBlockOnSide(world, x, y, z, side, item.getItemDamage());
+        return IC2NuclearControl.instance.blockNuclearControlMain.canPlaceBlockOnSide(world, x, y, z, side);
+    }
+    private Subblock getSubblock(int metadata){
+        if(BlockNuclearControlMain.subblocks.containsKey(metadata))
+            return BlockNuclearControlMain.subblocks.get(metadata);
+        return null;
     }
     
 }

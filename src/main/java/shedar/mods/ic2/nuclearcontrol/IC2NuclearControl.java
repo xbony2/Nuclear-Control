@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -40,6 +41,7 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemToolThermometer;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -103,7 +105,7 @@ public class IC2NuclearControl{
     public Item itemTimeCard;
     public Item itemUpgrade;
     public Item itemTextCard;
-    public BlockNuclearControlMain blockNuclearControlMain;
+    public Block blockNuclearControlMain;
     public int modelId;
     public int alarmRange;
     public int SMPMaxAlarmRange;
@@ -307,7 +309,7 @@ public class IC2NuclearControl{
     }*/
 
     protected void initBlocks(Configuration configuration){
-        blockNuclearControlMain = new BlockNuclearControlMain().setBlockName("blockThermalMonitor");
+        blockNuclearControlMain = new BlockNuclearControlMain().setBlockName("blockThermalMonitor").setCreativeTab(CreativeTabs.tabRedstone);
         itemToolThermometer = new ItemToolThermometer().setUnlocalizedName("ItemToolThermometer");
         itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80).setUnlocalizedName("ItemToolDigitalThermometer");
         itemSensorLocationCard = new ItemCardReactorSensorLocation().setUnlocalizedName("ItemSensorLocationCard");
@@ -328,7 +330,8 @@ public class IC2NuclearControl{
     }    
 
     public void registerBlocks(){
-        GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
+        //GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
+    	GameRegistry.registerBlock(blockNuclearControlMain, "Pizza");
     }
     
     @EventHandler
@@ -336,8 +339,9 @@ public class IC2NuclearControl{
        configFile = event.getSuggestedConfigurationFile();
        configDir = event.getModConfigurationDirectory();
        MinecraftForge.EVENT_BUS.register(this);
-       MinecraftForge.EVENT_BUS.register(proxy);
-       TickRegistry.registerScheduledTickHandler(proxy, Side.SERVER);
+       //MinecraftForge.EVENT_BUS.register(proxy);
+       //FMLCommonHandler.instance().bus().register(proxy);
+       //    registerScheduledTickHandler(proxy, Side.SERVER);
     }
 
     @EventHandler

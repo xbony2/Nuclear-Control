@@ -15,12 +15,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import net.minecraftforge.event.ForgeSubscribe;
+//import net.minecraftforge.event.ForgeSubscribe;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.renderers.MainBlockRenderer;
@@ -44,11 +44,12 @@ import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.Player;
+//import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class ClientProxy extends CommonProxy{
-    @Override
+public class ClientProxy extends CommonProxy {
+    /*
+	@Override
     public String playAlarm(double x, double y, double z, String name, float volume){
         return SoundHelper.playAlarm(x, y, z, name, volume);
     }
@@ -62,7 +63,7 @@ public class ClientProxy extends CommonProxy{
     public boolean isPlaying(String soundId){
         return SoundHelper.isPlaying(soundId);
     }
-    
+    /*
     @SubscribeEvent
     public void importSound(SoundLoadEvent event){
         ModContainer container = Loader.instance().getIndexedModList().get("IC2NuclearControl");
@@ -91,7 +92,7 @@ public class ClientProxy extends CommonProxy{
         }
         ncInstance.serverAllowedAlarms = new ArrayList<String>();
     }    
-    
+    */
     @Override
     public void registerTileEntities(){
         TileEntityIC2ThermoRenderer renderThermalMonitor = new TileEntityIC2ThermoRenderer();
@@ -113,9 +114,9 @@ public class ClientProxy extends CommonProxy{
         IC2NuclearControl.instance.modelId = modelId;
         RenderingRegistry.registerBlockHandler(new MainBlockRenderer(modelId));
     }
-    
+    /*
     @Override
-    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player){
+    public void onPacketData(INetHandler manager, C17PacketCustomPayload packet, Player player){
         super.onPacketData(manager, packet, player);
         if (!(player instanceof EntityPlayerMP)){
             World world;
@@ -283,14 +284,20 @@ public class ClientProxy extends CommonProxy{
             }
         }        
     }
-    
+    */
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
         TileEntity tileEntity = world.getTileEntity(x, y, z);
-        Subblock block = IC2NuclearControl.instance.blockNuclearControlMain.getSubblock(ID);
+        Subblock block = this.getSubblock(ID);
         if(block == null)
             return null;
         return block.getClientGuiElement(tileEntity, player);
     }    
+    private Subblock getSubblock(int metadata){
+        if(BlockNuclearControlMain.subblocks.containsKey(metadata))
+            return BlockNuclearControlMain.subblocks.get(metadata);
+        return null;
+    }
+
 
 }

@@ -1,5 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol;
-
+/*
 import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.audio.SoundPoolEntry;
 import net.minecraft.client.settings.GameSettings;
@@ -37,7 +37,7 @@ public class SoundHelper
                     range *= volume;
                 }
 
-                sndSystem.newSource(volume > 1.0F, soundId, sound.func_110457_b()/*getSoundUrl*/, sound.func_110458_a()/*getSoundName*/, false, x, y, z, 2, range);
+                sndSystem.newSource(volume > 1.0F, soundId, sound.func_110457_b()/*getSoundUrl//, sound.func_110458_a()/*getSoundName//, false, x, y, z, 2, range);
                 sndSystem.setPitch(soundId, 1);
 
                 if (volume > 1.0F)
@@ -86,3 +86,4 @@ public class SoundHelper
     }
 
 }
+*/

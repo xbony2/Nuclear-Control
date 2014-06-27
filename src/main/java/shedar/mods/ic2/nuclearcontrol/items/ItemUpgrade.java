@@ -60,7 +60,7 @@ public class ItemUpgrade extends Item
     }
     
     @Override
-    public Icon getIconFromDamage(int damage)
+    public IIcon getIconFromDamage(int damage)
     {
         switch (damage)
         {
@@ -77,7 +77,7 @@ public class ItemUpgrade extends Item
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List itemList)
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List itemList)
     {
         itemList.add(new ItemStack(par1, 1, DAMAGE_RANGE));
         itemList.add(new ItemStack(par1, 1, DAMAGE_COLOR));

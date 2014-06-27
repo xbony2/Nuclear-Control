@@ -5,11 +5,11 @@ import java.util.EnumSet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
+//import net.minecraft.network.INetworkManager;
+//import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeSubscribe;
+//import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.WorldEvent;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
@@ -24,13 +24,13 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.IScheduledTickHandler;
-import cpw.mods.fml.common.TickType;
+//import cpw.mods.fml.common.IScheduledTickHandler;
+//import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.network.Player;
+//import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class CommonProxy implements IGuiHandler, IScheduledTickHandler{
+public class CommonProxy implements IGuiHandler/*, IScheduledTickHandler*/{
     public boolean isPlaying(String soundId){
         return false;
     }

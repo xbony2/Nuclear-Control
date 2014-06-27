@@ -131,7 +131,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
             else
             {
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                worldObj.updateAllLightTypes(xCoord, yCoord, zCoord);
+                worldObj.updateLightByType(null, xCoord, yCoord, zCoord);
             }
             prevPowerMode = powerMode;
         }

@@ -257,7 +257,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
             if (updateTicker-- > 0)
                 return;
             updateTicker = tickRate;
-            onInventoryChanged();
+            markDirty();
         }      
         super.updateEntity();
     }
@@ -284,7 +284,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
                 }
             }
         }
-        onInventoryChanged();
+        markDirty();
     }
 
     @Override
@@ -386,8 +386,8 @@ public class TileEntityRangeTrigger extends TileEntity implements
     }
     
     @Override
-    public void onInventoryChanged() {
-        super.onInventoryChanged();
+    public void markDirty() {
+        super.markDirty();
         if(worldObj!= null && FMLCommonHandler.instance().getEffectiveSide().isServer()){
             int upgradeCountRange = 0;
             ItemStack itemStack = inventory[SLOT_UPGRADE];
