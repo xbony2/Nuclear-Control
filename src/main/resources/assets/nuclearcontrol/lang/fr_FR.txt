@@ -1,0 +1,103 @@
+item.ItemToolThermometer.name=Thermomètre
+item.ItemToolDigitalThermometer.name=Thermomètre digital
+item.ItemRemoteSensorKit.name=Kit de capteurs de réacteur
+item.ItemEnergySensorKit.name=Kit de capteurs d'énergie
+item.ItemCounterSensorKit.name=Kit de capteurs compteurs
+item.ItemLiquidSensorKit.name=Kit de capteurs de liquides
+item.ItemSensorLocationCard.name=Carte de localisation pour capteurs de réacteur
+item.ItemEnergySensorLocationCard.name=Carte de localisation pour capteurs d'énergie
+item.ItemCounterSensorLocationCard.name=Carte de localisation pour capteurs compteurs
+item.ItemLiquidSensorLocationCard.name=Carte de localisation pour capteurs de liquides
+item.ItemEnergyArrayLocationCard.name=Carte de localisation pour capteurs de réseau énergétique
+item.ItemRangeUpgrade.name=Amélioration de portée
+item.ItemColorUpgrade.name=Amélioration d'affichage
+item.ItemWebUpgrade.name=Amélioration web
+item.ItemTimeCard.name=Carte de temps
+item.ItemTextCard.name=Carte de texte
+
+tile.blockThermalMonitor.name=Moniteur thermique
+tile.blockIndustrialAlarm.name=Alarme industrielle
+tile.blockHowlerAlarm.name=Alarme
+tile.blockRemoteThermo.name=Moniteur thermique distant
+tile.blockInfoPanel.name=Écran
+tile.blockInfoPanelExtender.name=Extension d'écran
+tile.blockAdvancedInfoPanel.name=Écran avancé
+tile.blockAdvancedInfoPanelExtender.name=Extension d'écran avancé
+
+tile.blockEnergyCounter.name=Compteur énergétique
+tile.blockAverageCounter.name=Compteur d'arrondi
+tile.blockRangeTrigger.name=Déclencheur de portée
+
+msg.nc.HowlerAlarmSoundRange=Portée du so: %s
+msg.nc.HowlerAlarmSound=Son
+msg.nc.ThermalMonitorSave=Sauvegarder
+msg.nc.ThermalMonitorSignalAt=Signal à une chaleur de %s
+msg.nc.Thermo=Chaleur de la coque: %s
+msg.nc.ThermoDigital=Chaleur de la coque: %s (Évaporation: %s / Fusion: %s)
+msg.nc.SensorKit=Capteurs distants montés. Carte de localisation reçue.
+
+msg.nc.InfoPanelOutOfRange=Hors portée
+msg.nc.InfoPanelInvalidCard=Carte invalide
+msg.nc.InfoPanelNoTarget=Cible introuvable
+
+msg.nc.InfoPanelOn=On
+msg.nc.InfoPanelOff=Off
+msg.nc.InfoPanelHeat=T: %s
+msg.nc.InfoPanelMaxHeat=Température Max: %s
+msg.nc.InfoPanelMelting=Température de fusion: %s
+msg.nc.InfoPanelOutput=Débit: %sEU/t
+msg.nc.InfoPanelOutputMJ=Débit: %sMJ/t
+msg.nc.InfoPanelOutputSteam=Débit: %smB/t
+msg.nc.InfoPanelTimeRemaining=Temps restant: %s
+
+msg.nc.InfoPanelEnergyCounter=Énergie: %sEU
+msg.nc.InfoPanelEnergyCounterMJ=Énergie: %sMJ
+
+msg.nc.InfoPanelEnergy=Énergie: %s
+msg.nc.InfoPanelEnergyFree=Libre: %s
+msg.nc.InfoPanelEnergyStorage=Capacité: %s
+msg.nc.InfoPanelEnergyPercentage=Énergie(%): %s%%
+
+msg.nc.cbInfoPanelLiquidName=Nom
+msg.nc.cbInfoPanelLiquidAmount=Quantité
+msg.nc.cbInfoPanelLiquidCapacity=Capacité
+msg.nc.cbInfoPanelLiquidFree=Libre
+msg.nc.cbInfoPanelLiquidPercentage=Quantité(%)
+
+msg.nc.InfoPanelLiquidName=Nom: %s
+msg.nc.InfoPanelLiquidAmount=Quantité: %s
+msg.nc.InfoPanelLiquidCapacity=Capacité: %s
+msg.nc.InfoPanelLiquidFree=Volume restant: %s
+msg.nc.InfoPanelLiquidPercentage=Quantité(%): %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d introuvable
+msg.nc.InfoPanelOutOfRangeN=#%d hors portée
+msg.nc.InfoPanelEnergyN=#%d : %s
+msg.nc.InfoPanelEnergyFreeN=#%d libre: %s
+msg.nc.InfoPanelEnergyStorageN=#%d capacité: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d énergie(%): %s%%
+
+msg.nc.InfoPanelTime=Heure: %s
+
+msg.nc.cbInfoPanelOnOff=Marche/Arrêt
+msg.nc.cbInfoPanelHeat=Chaleur
+msg.nc.cbInfoPanelMaxHeat=Température max
+msg.nc.cbInfoPanelMelting=Température de fusion
+msg.nc.cbInfoPanelOutput=Débit (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=Temps avant fin du cycle
+
+msg.nc.cb24h=Mode 24h
+
+msg.nc.cbInfoPanelEnergyCurrent=Énergie
+msg.nc.cbInfoPanelEnergyStorage=Capacité
+msg.nc.cbInfoPanelEnergyFree=Libre
+msg.nc.cbInfoPanelEnergyEach=Information pour chaque carte
+msg.nc.cbInfoPanelEnergyTotal=Sommaire
+msg.nc.cbInfoPanelEnergyPercentage=Énergie(%)
+msg.nc.EnergyCardQuantity=Nombre de cartes: %d
+msg.nc.AverageCounterPeriod=Période: %ssec
+
+msg.nc.Reset=RàZ
+msg.nc.ScreenColor=Couleur d'écran
+msg.nc.TextColor=Couleur de texte
+msg.nc.None=N/A
