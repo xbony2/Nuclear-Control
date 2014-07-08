@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 //import net.minecraftforge.event.ForgeSubscribe;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
+import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.renderers.MainBlockRenderer;
 import shedar.mods.ic2.nuclearcontrol.renderers.TileEntityIC2ThermoRenderer;

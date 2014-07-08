@@ -12,9 +12,9 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import argo.jdom.JsonNodeBuilder;
-import argo.jdom.JsonNodeBuilders;
-import argo.jdom.JsonObjectNodeBuilder;
+//import argo.jdom.JsonNodeBuilder;
+//import argo.jdom.JsonNodeBuilders;
+//import argo.jdom.JsonObjectNodeBuilder;
 
 public class HttpCardSender
 {
@@ -22,7 +22,7 @@ public class HttpCardSender
     private static final String DATA_URL_TEMPLATE = "http://sensors.modstats.org/api/v1/report"; 
     public static HttpCardSender instance = new HttpCardSender();
     @SuppressWarnings("rawtypes")
-    private ConcurrentHashMap<Long, JsonNodeBuilder> unsent = new ConcurrentHashMap<Long, JsonNodeBuilder>();
+   // private ConcurrentHashMap<Long, JsonNodeBuilder> unsent = new ConcurrentHashMap<Long, JsonNodeBuilder>();
     public ConcurrentLinkedQueue<Long> availableIds = new ConcurrentLinkedQueue<Long>();
     private ExecutorService executor = Executors.newFixedThreadPool(2); 
     
@@ -32,28 +32,28 @@ public class HttpCardSender
     
     public void requestId()
     {
-        try
+        /*try
         {
-            executor.submit(new Request(new URL(ID_URL_TEMPLATE+IC2NuclearControl.instance.httpSensorKey), null));
+            //executor.submit(new Request(new URL(ID_URL_TEMPLATE+IC2NuclearControl.instance.httpSensorKey), null));
         } catch (MalformedURLException e)
         {
             e.printStackTrace();
-        }
+        }*/
     }
     
     public void send()
     {
-        try
+        /*try
         {
             executor.submit(new Request(new URL(DATA_URL_TEMPLATE), unsent));
         } catch (MalformedURLException e)
         {
             e.printStackTrace();
-        }
+        }*/
     }
     
     public void add(NBTTagCompound cardData, UUID cardType, Long id)
-    {
+    {/*
         JsonObjectNodeBuilder builder = JsonNodeBuilders.anObjectBuilder();
         builder.withField("id", JsonNodeBuilders.aNumberBuilder(id.toString()));
         builder.withField("type", JsonNodeBuilders.aStringBuilder(cardType.toString().replace("-", "")));
@@ -63,7 +63,7 @@ public class HttpCardSender
             if(!"_webSensorId".equals(tag.getId()))
                 builder.withField(tag.getId(), JsonNodeBuilders.aStringBuilder(tag.toString()));
         }
-        unsent.put(id, builder);
+        unsent.put(id, builder);*/
     }
     
 }

@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol;
+package shedar.mods.ic2.nuclearcontrol.blocks;
 
 
 import ic2.api.tile.IWrenchable;
@@ -28,6 +28,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.subblocks.AdvancedInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.subblocks.AdvancedInfoPanelExtender;
 import shedar.mods.ic2.nuclearcontrol.subblocks.AverageCounter;
@@ -482,6 +483,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         }
     }
     
+    //TODO remove subblocks and make them normal
     public Subblock getSubblock(int metadata){
         if(subblocks.containsKey(metadata))
             return subblocks.get(metadata);

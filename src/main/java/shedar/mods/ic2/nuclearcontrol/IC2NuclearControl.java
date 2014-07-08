@@ -18,6 +18,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
+import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 /*
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;

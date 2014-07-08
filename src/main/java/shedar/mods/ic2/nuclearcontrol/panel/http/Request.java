@@ -11,29 +11,30 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import argo.format.CompactJsonFormatter;
+/*import argo.format.CompactJsonFormatter;
 import argo.format.JsonFormatter;
 import argo.jdom.JsonArrayNodeBuilder;
 import argo.jdom.JsonNodeBuilder;
 import argo.jdom.JsonNodeBuilders;
-import argo.jdom.JsonObjectNodeBuilder;
+import argo.jdom.JsonObjectNodeBuilder;*/
 
 public class Request implements Runnable{
 
     
-    private static final JsonFormatter JSON_FORMATTER = new CompactJsonFormatter();
-    private final URL url;
-    @SuppressWarnings("rawtypes")
-    private final ConcurrentHashMap<Long, JsonNodeBuilder> unsent;
+    //private static final JsonFormatter JSON_FORMATTER = new CompactJsonFormatter();
+    //private final URL url;
+    //@SuppressWarnings("rawtypes")
+    //private final ConcurrentHashMap<Long, JsonNodeBuilder> unsent;
 
+    /*
     @SuppressWarnings("rawtypes")
     public Request(URL url, ConcurrentHashMap<Long, JsonNodeBuilder> unsent) {
         this.url = url;
-        this.unsent = unsent;
-    }
+        //this.unsent = unsent;
+    }*/
     
     private String formatData()
-    {
+    {/*
         JsonObjectNodeBuilder builder = JsonNodeBuilders.anObjectBuilder();
         JsonArrayNodeBuilder array = JsonNodeBuilders.anArrayBuilder();
         List<Long> list = new ArrayList<Long>(unsent.keySet());
@@ -44,12 +45,13 @@ public class Request implements Runnable{
         }
         builder.withField("key", JsonNodeBuilders.aStringBuilder(IC2NuclearControl.instance.httpSensorKey))
                 .withField("data", array);
-        return JSON_FORMATTER.format(builder.build());
+        return JSON_FORMATTER.format(builder.build());*/
+    	return null; // <For now
     }
 
     public void run() {
         HttpURLConnection connection;
-        try
+        /*try
         {
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
@@ -85,6 +87,6 @@ public class Request implements Runnable{
                 reader.close();
                 connection.disconnect();
             }
-        } catch (IOException e){}
+        } catch (IOException e){}*/
   }
 }
