@@ -42,7 +42,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
     protected int tickRate;
 
     public long counter;
-    private long prevTotal;
+    private double prevTotal;
     
     private short prevFacing;
     public short facing;
@@ -125,7 +125,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
             }
             if(updateTicker-- == 0){
                 updateTicker = tickRate-1;
-                long total = EnergyNet.instance.getTotalEnergyEmitted(this);
+                double total = EnergyNet.instance.getTotalEnergyEmitted(this);
                 if(total > 0){
                     if(prevTotal!=-1){
                         total = total - prevTotal;
@@ -351,17 +351,17 @@ public class TileEntityEnergyCounter extends TileEntity implements
     }
 
     @Override
-    public int getInsulationEnergyAbsorption(){
+    public double getInsulationEnergyAbsorption(){
         return 16384;
     }
 
     @Override
-    public int getInsulationBreakdownEnergy(){
+    public double getInsulationBreakdownEnergy(){
         return packetSize+1;
     }
 
     @Override
-    public int getConductorBreakdownEnergy(){
+    public double getConductorBreakdownEnergy(){
         return packetSize+1;
     }
 

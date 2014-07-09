@@ -47,7 +47,7 @@ public class GuiInfoPanelCheckBox extends GuiButton{
     }
 
     @Override
-    protected int getHoverState(boolean flag){
+	public int getHoverState(boolean flag){
         return 0;
     }
 

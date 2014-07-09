@@ -46,7 +46,7 @@ public class TileEntityAverageCounter extends TileEntity implements
     private byte prevPowerType;
     public byte powerType;
 
-    private long prevTotal;
+    private double prevTotal;
     
     private short prevFacing;
     public short facing;
@@ -154,7 +154,7 @@ public class TileEntityAverageCounter extends TileEntity implements
                 index = (index+1) % DATA_POINTS;
                 data[index] = 0;
                 getAverage();
-                long total = EnergyNet.instance.getTotalEnergyEmitted(this);
+                double total = EnergyNet.instance.getTotalEnergyEmitted(this);
                 if(total > 0){
                     if(prevTotal!=-1){
                         total = total - prevTotal;
@@ -415,17 +415,17 @@ public class TileEntityAverageCounter extends TileEntity implements
     }
 
     @Override
-    public int getInsulationEnergyAbsorption(){
+    public double getInsulationEnergyAbsorption(){
         return 16384;
     }
 
     @Override
-    public int getInsulationBreakdownEnergy(){
+    public double getInsulationBreakdownEnergy(){
         return packetSize+1;
     }
 
     @Override
-    public int getConductorBreakdownEnergy(){
+    public double getConductorBreakdownEnergy(){
         return packetSize+1;
     }
 

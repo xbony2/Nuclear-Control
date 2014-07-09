@@ -39,9 +39,9 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
     }    
 
     @Override
-    protected boolean canTakeDamage(ItemStack itemstack, int i){
+    protected boolean canTakeDamage(ItemStack itemstack, int i){ //TODO (not sure what the last parmeter is for)
         i *= 50;
-        return ElectricItem.manager.discharge(itemstack, i, 0x7fffffff, true, true) == i;
+        return ElectricItem.manager.discharge(itemstack, i, 0x7fffffff, true, true, false) == i;
     }
     
     @Override
@@ -65,7 +65,7 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
 	}
 
 	@Override
-	public int getMaxCharge(ItemStack itemStack) {
+	public double getMaxCharge(ItemStack itemStack) {
 		return 12000;
 	}
 
@@ -75,7 +75,7 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
 	}
 
 	@Override
-	public int getTransferLimit(ItemStack itemStack) {
+	public double getTransferLimit(ItemStack itemStack) {
 		return 250;
 	}
 

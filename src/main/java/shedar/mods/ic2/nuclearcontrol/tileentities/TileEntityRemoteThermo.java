@@ -167,7 +167,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
                         IElectricItem ielectricitem = (IElectricItem)inventory[SLOT_CHARGER].getItem();
     
                         if (ielectricitem.canProvideEnergy(inventory[SLOT_CHARGER])){
-                            int k = ElectricItem.manager.discharge(inventory[SLOT_CHARGER], maxStorage - energy, tier, false, false);
+                            double k = ElectricItem.manager.discharge(inventory[SLOT_CHARGER], maxStorage - energy, tier, false, false, true); //TODO (I still don't what I'm doing)
                             energy += k;
                         }
                     }else if(inventory[SLOT_CHARGER] == IC2Items.getItem("suBattery")){
@@ -383,17 +383,17 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
     }
 
     @Override
-    public double demandedEnergyUnits(){
+    public double getDemandedEnergy(){
         return maxStorage-energy;
     }
 
     @Override
-    public double injectEnergyUnits(ForgeDirection directionFrom, double amount){
+    public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage){ 
         if (amount > maxPacketSize){
             worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air, 0, 3);
             worldObj.createExplosion(null, xCoord, yCoord, zCoord, 0.8F, false);
             return 0;
-        }
+        }//TODO ?
 
         energy += amount;
         int left = 0;
@@ -498,7 +498,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
     }
 
     @Override
-    public int getMaxSafeInput(){
+    public int getSinkTier(){
         return maxPacketSize;
     }
 
@@ -511,5 +511,6 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
     public boolean isItemValidForSlot(int slot, ItemStack itemstack){
         return isItemValid(slot, itemstack);
     }
+
 
 }
