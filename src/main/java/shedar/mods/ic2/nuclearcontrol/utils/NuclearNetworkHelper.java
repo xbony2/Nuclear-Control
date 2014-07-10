@@ -11,7 +11,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 
-import net.minecraft.client.multiplayer.NetClientHandler;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ICrafting;
@@ -86,7 +86,7 @@ public class NuclearNetworkHelper{
             double dz = z - player.posZ;
 
             if (dx*dx + dy*dy + dz*dz < dist * dist){
-                player.playerNetServerHandler.sendPacketToPlayer(packet);
+                player.playerNetServerHandler.sendPacket(packet);
             }        
         }
         
@@ -131,7 +131,7 @@ public class NuclearNetworkHelper{
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-            }else if ( value == null){
+            }else if( value == null){
                 output.writeByte(FIELD_NULL);
             }
         }
@@ -224,7 +224,7 @@ public class NuclearNetworkHelper{
         packet.data = output.toByteArray();
         packet.length = packet.data.length;
 
-        sendPacketToAllAround(panel.xCoord, panel.yCoord, panel.zCoord, 64, panel.worldObj, packet);
+        sendPacketToAllAround(panel.xCoord, panel.yCoord, panel.zCoord, 64, panel.getWorldObj(), packet);
     }
     
     public static void chatMessage(EntityPlayer player, String message){
@@ -255,8 +255,8 @@ public class NuclearNetworkHelper{
         packet.isChunkDataPacket = false;
         packet.data = output.toByteArray();
         packet.length = packet.data.length;
-        NetClientHandler netHandler = FMLClientHandler.instance().getClient().getNetHandler();
-        if(netHandler!=null)
+        NetHandlerPlayClient netHandler = FMLClientHandler.instance().getClient().getNetHandler();
+        if(netHandler!=null) //TODO
             netHandler.addToSendQueue(packet);
     }
     

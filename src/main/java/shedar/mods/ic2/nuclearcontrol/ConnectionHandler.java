@@ -1,20 +1,11 @@
 package shedar.mods.ic2.nuclearcontrol;
 
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.NetLoginHandler;
-import net.minecraft.network.packet.NetHandler;
-import net.minecraft.network.packet.Packet1Login;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
-import cpw.mods.fml.common.network.IConnectionHandler;
-import cpw.mods.fml.common.network.Player;
-
-public class ConnectionHandler implements IConnectionHandler
-{
+public class ConnectionHandler implements IConnectionHandler{
 
     @Override
     public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager)

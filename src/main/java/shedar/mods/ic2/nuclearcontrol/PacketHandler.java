@@ -1,12 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol;
 
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.Player;
 
-public class PacketHandler implements IPacketHandler
-{
+public class PacketHandler implements IPacketHandler{
     public static final int PACKET_ALARM = 1;
     public static final int PACKET_SENSOR = 2;
     public static final int PACKET_SENSOR_TITLE = 3;

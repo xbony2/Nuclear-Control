@@ -24,6 +24,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 //import cpw.mods.fml.common.IScheduledTickHandler;
 //import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -64,7 +65,7 @@ public class CommonProxy implements IGuiHandler/*, IScheduledTickHandler*/{
         return block.getServerGuiElement(tileEntity, player);
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onWorldUnload(WorldEvent.Unload event){
         IC2NuclearControl.instance.screenManager.clearWorld(event.world);
     }
