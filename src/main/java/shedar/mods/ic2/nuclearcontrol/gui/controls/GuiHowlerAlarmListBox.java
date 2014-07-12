@@ -109,16 +109,12 @@ public class GuiHowlerAlarmListBox extends GuiButton{
         int rowTop = BASIC_Y_OFFSET;
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         Minecraft mc = FMLClientHandler.instance().getClient();
-        ScaledResolution scaler = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-        GL11.glScissor( xPosition * scaler.getScaleFactor(), 
-                        mc.displayHeight - (yPosition+height) * scaler.getScaleFactor(), 
-                        (width - SCROLL_WIDTH) * scaler.getScaleFactor(), 
-                        height * scaler.getScaleFactor());
+        ScaledResolution scaler = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight); //Might not work, consider it TODO
+        GL11.glScissor( xPosition * scaler.getScaleFactor(), mc.displayHeight - (yPosition+height) * scaler.getScaleFactor(), (width - SCROLL_WIDTH) * scaler.getScaleFactor(), height * scaler.getScaleFactor());
 
         for (String row : items){
             if(row.equals(currentItem)){
-                drawRect(xPosition, yPosition + rowTop - scrollTop-1, 
-                        xPosition + width - SCROLL_WIDTH, yPosition + rowTop - scrollTop + lineHeight-1, selectedColor);
+                drawRect(xPosition, yPosition + rowTop - scrollTop-1, xPosition + width - SCROLL_WIDTH, yPosition + rowTop - scrollTop + lineHeight-1, selectedColor);
                 fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET, yPosition + rowTop - scrollTop, selectedFontColor);
             }else{
                 fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET, yPosition + rowTop - scrollTop, fontColor);

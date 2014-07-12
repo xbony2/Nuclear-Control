@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
 import com.google.common.io.ByteArrayDataOutput;
@@ -8,8 +9,7 @@ import com.google.common.io.ByteStreams;
 public class ConnectionHandler implements IConnectionHandler{
 
     @Override
-    public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager)
-    {
+    public void playerLoggedIn(EntityPlayer player, NetHandler netHandler, INetworkManager manager){
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeShort(PacketHandler.PACKET_ALARM);
         out.writeInt(IC2NuclearControl.instance.maxAlarmRange);

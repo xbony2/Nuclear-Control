@@ -69,8 +69,8 @@ public class CommonProxy implements IGuiHandler/*, IScheduledTickHandler*/{
     public void onWorldUnload(WorldEvent.Unload event){
         IC2NuclearControl.instance.screenManager.clearWorld(event.world);
     }
-    
-    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player){
+    @Override
+    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, EntityPlayer player){
         if (player instanceof EntityPlayerMP){//server
             // used to set sound alarm from client's GUI
             ByteArrayDataInput dat = ByteStreams.newDataInput(packet.data);
