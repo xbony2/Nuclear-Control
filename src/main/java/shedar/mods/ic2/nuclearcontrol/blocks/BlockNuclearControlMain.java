@@ -84,9 +84,9 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
     
     @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z){
+    public boolean isBlockNormalCube(){
         return false;
-    }//I think this is right :D
+    }//I think this is right, if not, #BlameZuxelus (was canPlaceBlockAt before though)
 
     @Override
     public boolean renderAsNormalBlock(){
@@ -483,7 +483,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         }
     }
     
-    //TODO remove subblocks and make them normal
+    //TODO remove subblocks and bring them back as normal blocks
     public Subblock getSubblock(int metadata){
         if(subblocks.containsKey(metadata))
             return subblocks.get(metadata);
@@ -526,7 +526,7 @@ public class BlockNuclearControlMain extends BlockContainer{
                     return 0;
             }
         }
-        return 12; //lightValue[blockID];
+        return getLightValue(); //Was "return 12", however Zuxelus said otherwise. 
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })

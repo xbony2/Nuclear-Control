@@ -11,61 +11,61 @@ import shedar.mods.ic2.nuclearcontrol.crossmod.data.EnergyStorageData;
 
 public class CrossIndustrialCraft2{
 
-    private ItemStack _IC2WrenchId;
-    private ItemStack _IC2ElectricWrenchId;
+    private ItemStack IC2Wrench;
+    private ItemStack IC2ElectricWrench;
     
-    private Method _getMaxDamageEx; 
-    private Method _getDamageOfStack; 
-    private Class _gradItemInt;
+    private Method getMaxDamageEx; 
+    private Method getDamageOfStack; 
+    private Class gradItemInt;
     
-    private boolean _isApiAvailable = false;
-    private boolean _isIdInitialized = false;
+    private boolean isApiAvailable = false;
+    private boolean isIdInitialized = false;
     
-    private ItemStack[] _fuelIds = null;
+    private ItemStack[] fuelItems = null;
     
     private void initIds(){
-        if(!_isApiAvailable || _isIdInitialized)
+        if(!isApiAvailable || isIdInitialized)
             return;
-        _fuelIds = new ItemStack[6];
-        _fuelIds[0] = IC2Items.getItem("reactorUraniumSimple");
-        _fuelIds[1] = IC2Items.getItem("reactorUraniumDual");
-        _fuelIds[2] = IC2Items.getItem("reactorUraniumQuad");
+        fuelItems = new ItemStack[6];
+        fuelItems[0] = IC2Items.getItem("reactorUraniumSimple");
+        fuelItems[1] = IC2Items.getItem("reactorUraniumDual");
+        fuelItems[2] = IC2Items.getItem("reactorUraniumQuad");
 
-        _fuelIds[3] = IC2Items.getItem("reactorMOXSimple");
-        _fuelIds[4] = IC2Items.getItem("reactorMOXDual");
-        _fuelIds[5] = IC2Items.getItem("reactorMOXQuad");
+        fuelItems[3] = IC2Items.getItem("reactorMOXSimple");
+        fuelItems[4] = IC2Items.getItem("reactorMOXDual");
+        fuelItems[5] = IC2Items.getItem("reactorMOXQuad");
 
-        Arrays.sort(_fuelIds);
+        //Arrays.sort(fuelItems); //TODO cannot do this (thanks to @Zuxelus for the pointer)
         
-        _IC2WrenchId = IC2Items.getItem("wrench");
-        _IC2ElectricWrenchId = IC2Items.getItem("electricWrench");
-        _isIdInitialized = true;
+        IC2Wrench = IC2Items.getItem("wrench");
+        IC2ElectricWrench = IC2Items.getItem("electricWrench");
+        isIdInitialized = true;
     }
     
     public boolean isApiAvailable(){
-        return _isApiAvailable;
+        return isApiAvailable;
     }
     
     public boolean isWrench(ItemStack itemStack){
         initIds();
-        return _isApiAvailable && (itemStack == _IC2WrenchId || itemStack ==_IC2ElectricWrenchId);
+        return isApiAvailable && (itemStack == IC2Wrench || itemStack ==IC2ElectricWrench);
     }
     
     @SuppressWarnings("unchecked")
     public CrossIndustrialCraft2(){
         try{
             Class.forName("ic2.api.tile.IEnergyStorage", false, this.getClass().getClassLoader());
-            _gradItemInt = Class.forName("ic2.core.item.ItemGradualInt", false, this.getClass().getClassLoader());
-            _getMaxDamageEx = _gradItemInt.getMethod("getMaxDamageEx");
-            _getDamageOfStack = _gradItemInt.getMethod("getDamageOfStack", ItemStack.class);
-            _isApiAvailable = true;
-        } catch (Exception e){
-            _isApiAvailable = false;
+            gradItemInt = Class.forName("ic2.core.item.ItemGradualInt", false, this.getClass().getClassLoader());
+            getMaxDamageEx = gradItemInt.getMethod("getMaxDamageEx");
+            getDamageOfStack = gradItemInt.getMethod("getDamageOfStack", ItemStack.class);
+            isApiAvailable = true;
+        }catch (Exception e){
+            isApiAvailable = false;
         }
     }
 
     public EnergyStorageData getStorageData(TileEntity target){
-        if(!_isApiAvailable || target == null)
+        if(!isApiAvailable || target == null)
             return null;
         if(target instanceof IEnergyStorage){
             IEnergyStorage storage = (IEnergyStorage)target;
@@ -80,14 +80,14 @@ public class CrossIndustrialCraft2{
     }
     
     public int getNuclearCellTimeLeft(ItemStack stack){
-        if(!_isApiAvailable || stack == null)
+        if(!isApiAvailable || stack == null)
             return -1;
         initIds();
-        if(Arrays.binarySearch(_fuelIds, stack)>=0){
+        if(Arrays.binarySearch(fuelItems, stack)>=0){
             int delta;
             try{
-                int maxDamage = (Integer)_getMaxDamageEx.invoke( stack.getItem());
-                int damage = (Integer)_getDamageOfStack.invoke(stack.getItem(), stack);
+                int maxDamage = (Integer)getMaxDamageEx.invoke(stack.getItem());
+                int damage = (Integer)getDamageOfStack.invoke(stack.getItem(), stack);
                 delta = maxDamage - damage;
             }catch(Exception e){
                 delta = stack.getMaxDamage() - stack.getItemDamage(); 
