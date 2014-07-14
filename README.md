@@ -7,7 +7,7 @@ Credits:
 Shedar, for the original code and textures.
 Zuxelus, for trying to update it (code wise)
 Me, for trying to update it (code wise) >.>
-Backdraft, for translation to fr_FR.
+Pyrolusite, for translation to fr_FR and item textures.
 Dmf444, for figuring out everything I didn’t figure out code-wise.
 Vexatos, translation to de_DE.
 Toltol, translation to tr_TR.
