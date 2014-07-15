@@ -5,6 +5,7 @@ import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 
 import java.io.File;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,14 +53,12 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="2.0.0a", dependencies = "after:IC2")
-/*@NetworkMod(channels = { "NuclearControl" }, clientSideRequired = true, serverSideRequired = false, 
-            packetHandler = PacketHandler.class, connectionHandler = ConnectionHandler.class)
-@ModstatInfo(prefix="nc")*/
 public class IC2NuclearControl{
     
     public static final int COLOR_WHITE = 15;
@@ -80,15 +79,22 @@ public class IC2NuclearControl{
     public static final int COLOR_BLACK = 0;
     
     public static final String LOG_PREFIX = "[IC2NuclearControl] ";
-    public static final String NETWORK_CHANNEL_NAME = "NuclearControl";
     
-    public static final String[] builtInAlarms = {"alarm-default.ogg", "alarm-sci-fi.ogg"};
-    
+    //The instance of your mod forge uses
     @Instance
     public static IC2NuclearControl instance;
     
+    //Says where the client and server 'proxy' code is loaded.
     @SidedProxy(clientSide = "shedar.mods.ic2.nuclearcontrol.ClientProxy", serverSide = "shedar.mods.ic2.nuclearcontrol.CommonProxy")
+  
+    //The proxy to be used by client and server
     public static CommonProxy proxy;
+    
+    //Channels for handling packages
+  	public static EnumMap<Side, FMLEmbeddedChannel> channels;
+  	
+  	//Mod's creative tab
+  	public static IC2NCCreativeTabs tabIC2NC = new IC2NCCreativeTabs();
     
     protected File configFile;
     protected File configDir;
@@ -125,24 +131,6 @@ public class IC2NuclearControl{
     public CrossGregTech crossGregTech;
     public CrossRailcraft crossRailcraft;
     public CrossTE crossThermalEx;
-    
-    //@SuppressWarnings("unchecked")
-    
-    /*
-    protected static int getIdFor(Configuration configuration, String name, int i, boolean block){
-        try{
-            if (block)
-                return configuration.getBlock(name, i).getInt();
-            else
-                return configuration.getItem(name, i).getInt();
-        } 
-        catch (Exception exception)
-        {
-            FMLLog.warning(LOG_PREFIX + "Can't get id for:" + name);
-        }
-
-        return i;
-    }*/
 
     protected void initBlocks(Configuration configuration){
         blockNuclearControlMain = new BlockNuclearControlMain().setBlockName("blockThermalMonitor").setCreativeTab(CreativeTabs.tabRedstone);
@@ -166,18 +154,27 @@ public class IC2NuclearControl{
     }    
 
     public void registerBlocks(){
-        //GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
-    	GameRegistry.registerBlock(blockNuclearControlMain, "Pizza"); //Why pizza? I dunno, bony here didn't do it.
+    	GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
+    	//^Might work, might not
     }
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
-       configFile = event.getSuggestedConfigurationFile();
-       configDir = event.getModConfigurationDirectory();
-       MinecraftForge.EVENT_BUS.register(this);
-       //MinecraftForge.EVENT_BUS.register(proxy);
-       //FMLCommonHandler.instance().bus().register(proxy);
-       //    registerScheduledTickHandler(proxy, Side.SERVER);
+    	configFile = event.getSuggestedConfigurationFile();
+		configDir = event.getModConfigurationDirectory();
+		MinecraftForge.EVENT_BUS.register(this);
+
+		//registers channel handler
+		new ChannelHandler();
+		channels = NetworkRegistry.INSTANCE.newChannel("IC2NC", ChannelHandler.instance);
+
+		//Register event handlers
+		MinecraftForge.EVENT_BUS.register(ServerTickHandler.instance);
+		FMLCommonHandler.instance().bus().register(ServerTickHandler.instance);
+		if (event.getSide().isClient()){
+			MinecraftForge.EVENT_BUS.register(ClientTickHandler.instance);
+			FMLCommonHandler.instance().bus().register(ClientTickHandler.instance);
+		}
     }
 
     @EventHandler
@@ -186,28 +183,28 @@ public class IC2NuclearControl{
         crossIC2 = new CrossIndustrialCraft2();
         crossGregTech = new CrossGregTech();
         crossRailcraft = new CrossRailcraft();
+        crossThermalEx = new CrossTE();
     }
 
     @EventHandler
     public void init(FMLInitializationEvent evt){
-        //Modstats.instance().getReporter().registerMod(this);
-        IC2NuclearControl.instance.screenManager = new ScreenManager();
-        Configuration configuration;
-        configuration = new Configuration(configFile);
-        configuration.load();
-        initBlocks(configuration);
-        registerBlocks();
-        alarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "alarmRange", 64).getInt();
-        maxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "maxAlarmRange", 128).getInt();
-        allowedAlarms = configuration.get(Configuration.CATEGORY_GENERAL, "allowedAlarms", "default,sci-fi").getString().replaceAll(" ", "");
-        remoteThermalMonitorEnergyConsumption = configuration.get(Configuration.CATEGORY_GENERAL, "remoteThermalMonitorEnergyConsumption", 1).getInt();
-        screenRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "infoPanelRefreshPeriod", 20).getInt();
-        rangeTriggerRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "rangeTriggerRefreshPeriod", 20).getInt();
-        SMPMaxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "SMPMaxAlarmRange", 256).getInt();
-        //isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
-        //httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
-        proxy.registerTileEntities();
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-        configuration.save();
+    	IC2NuclearControl.instance.screenManager = new ScreenManager();
+		Configuration configuration;
+		configuration = new Configuration(configFile);
+		configuration.load();
+		initBlocks(configuration);
+		registerBlocks();
+		alarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "alarmRange", 64).getInt();
+		maxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "maxAlarmRange", 128).getInt();
+		allowedAlarms = configuration.get(Configuration.CATEGORY_GENERAL, "allowedAlarms", "default,sci-fi").getString().replaceAll(" ", "");
+		remoteThermalMonitorEnergyConsumption = configuration.get(Configuration.CATEGORY_GENERAL, "remoteThermalMonitorEnergyConsumption", 1).getInt();
+		screenRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "infoPanelRefreshPeriod", 20).getInt();
+		rangeTriggerRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "rangeTriggerRefreshPeriod", 20).getInt();
+		SMPMaxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "SMPMaxAlarmRange", 256).getInt();
+		isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
+		httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
+		proxy.registerTileEntities();
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+		configuration.save();
     }
 }

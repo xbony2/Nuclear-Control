@@ -59,7 +59,7 @@ public class BlockNuclearControlMain extends BlockContainer{
     public BlockNuclearControlMain(){
         super(Material.iron);
         setHardness(0.5F);
-        setCreativeTab(CreativeTabs.tabRedstone);
+        setCreativeTab(IC2NuclearControl.tabIC2NC);
         subblocks = new HashMap<Integer, Subblock>();
         register(new ThermalMonitor());
         register(new IndustrialAlarm());
@@ -497,12 +497,13 @@ public class BlockNuclearControlMain extends BlockContainer{
         else
             return 0;
     }
-    /*
+    
     @Override
-    public boolean isSideSolid(World world, int x, int y, int z, ForgeDirection side){
-        int metadata = world.getBlockMetadata(x, y, z);
-        return !isSolidBlockRequired(metadata); 
-    }*/
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+		int metadata = world.getBlockMetadata(x, y, z);
+		return !isSolidBlockRequired(metadata);
+
+	}
     
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
