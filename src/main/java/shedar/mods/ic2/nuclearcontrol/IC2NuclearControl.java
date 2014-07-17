@@ -165,7 +165,7 @@ public class IC2NuclearControl{
 		MinecraftForge.EVENT_BUS.register(this);
 
 		//registers channel handler
-		new ChannelHandler();
+		//new ChannelHandler();
 		channels = NetworkRegistry.INSTANCE.newChannel("IC2NC", ChannelHandler.instance);
 
 		//Register event handlers
