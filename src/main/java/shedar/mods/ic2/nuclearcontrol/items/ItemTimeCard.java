@@ -24,20 +24,17 @@ public class ItemTimeCard extends ItemCardBase{
     }
 
     @Override
-    public CardState update(TileEntity panel, ICardWrapper card, int range)
-    {
+    public CardState update(TileEntity panel, ICardWrapper card, int range){
         return CardState.OK;
     }
 
     @Override
-    public boolean isDamageable()
-    {
+    public boolean isDamageable(){
         return false;
     }
     
     @Override
-    public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels)
-    {
+    public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels){
         List<PanelString> result = new ArrayList<PanelString>(1);
         PanelString item = new PanelString();
         result.add(item);
@@ -46,8 +43,7 @@ public class ItemTimeCard extends ItemCardBase{
         int minutes = (time % 1000)*6/100;
         String suffix = "";
         
-        if((displaySettings & MODE_24H) == 0)
-        {
+        if((displaySettings & MODE_24H) == 0){
             suffix = hours<12?"AM":"PM";
             hours%=12;
             if(hours == 0)
@@ -59,16 +55,14 @@ public class ItemTimeCard extends ItemCardBase{
     }
 
     @Override
-    public List<PanelSetting> getSettingsList()
-    {
+    public List<PanelSetting> getSettingsList(){
         List<PanelSetting> result = new ArrayList<PanelSetting>(1);
         result.add(new PanelSetting(LanguageHelper.translate("msg.nc.cb24h"), MODE_24H, CARD_TYPE));
         return result;
     }
 
     @Override
-    public UUID getCardType()
-    {
+    public UUID getCardType(){
         return CARD_TYPE;
     }
 

@@ -27,7 +27,7 @@ public class RecipesOld {
                     "NNN", "ICI", "IRI", 
                         'I', "ingotIron", 
                         'R', "dustRedstone", 
-                        'N', Blocks.jukebox, 
+                        'N', Blocks.noteblock, 
                         'C', "circuitBasic"});
         
         ItemStack industrialAlarm = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_INDUSTRIAL_ALARM);
@@ -60,7 +60,7 @@ public class RecipesOld {
         
         Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_ADVANCED_PANEL), new Object[] {
                     "PPP", "GLG", "CAC", 
-                        'P', Blocks.glass_pane, 
+                        'P', "paneGlass", 
                         'L', "dyeLime", 
                         'G', IC2Items.getItem("goldCableItem"),
                         'A', "circuitAdvanced", 
