@@ -2,6 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.items;
 
 import ic2.api.reactor.IC2Reactor;
 import ic2.api.reactor.IReactor;
+import ic2.core.init.MainConfig;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,13 +45,13 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements IRemo
     @Override
     public CardState update(TileEntity panel, ICardWrapper card, int range){
         ChunkCoordinates target = card.getTarget();
-        IReactor reactor = NuclearHelper.getReactorAt(panel.getWorldObj(), 
-                target.posX, target.posY, target.posZ);
+        IReactor reactor = NuclearHelper.getReactorAt(panel.getWorldObj(), target.posX, target.posY, target.posZ);
         if(reactor != null){
             card.setInt("heat", reactor.getHeat());
             card.setInt("maxHeat", reactor.getMaxHeat());
             card.setBoolean("reactorPoweredB", NuclearHelper.isProducing(reactor));
-            card.setInt("output", Math.round(reactor.getReactorEnergyOutput()*IC2Reactor.getEUOutput()));
+            //card.setInt("output", Math.round(reactor.getReactorEnergyOutput()*IC2Reactor.getEUOutput()));
+            card.setInt("output", Math.round(reactor.getReactorEnergyOutput() * 5.0F * MainConfig.get().getFloat("balance/energy/generator/nuclear")));
             card.setBoolean("isSteam", NuclearHelper.isSteam(reactor));
 
             IInventory inventory = (IInventory)reactor; 

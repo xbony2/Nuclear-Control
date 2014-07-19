@@ -245,17 +245,17 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
     
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side, int metadata){
-        ForgeDirection dir = ForgeDirection.getOrientation(side);
-        if(!isSolidBlockRequired(metadata)){
-            return true;
-        }
-        return (dir == ForgeDirection.DOWN  && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN )) ||
-                (dir == ForgeDirection.UP    && world.isSideSolid(x, y - 1, z, ForgeDirection.UP   )) ||
-                (dir == ForgeDirection.NORTH && world.isSideSolid(x, y, z + 1, ForgeDirection.NORTH)) ||
-                (dir == ForgeDirection.SOUTH && world.isSideSolid(x, y, z - 1, ForgeDirection.SOUTH)) ||
-                (dir == ForgeDirection.WEST  && world.isSideSolid(x + 1, y, z, ForgeDirection.WEST )) ||
-                (dir == ForgeDirection.EAST  && world.isSideSolid(x - 1, y, z, ForgeDirection.EAST ));
-    }
+		ForgeDirection dir = ForgeDirection.getOrientation(side);
+		if(!isSolidBlockRequired(metadata)){
+			return true;
+		}
+		return (dir == ForgeDirection.DOWN  && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN )) ||
+				(dir == ForgeDirection.UP    && world.isSideSolid(x, y - 1, z, ForgeDirection.UP   )) ||
+				(dir == ForgeDirection.NORTH && world.isSideSolid(x, y, z + 1, ForgeDirection.NORTH)) ||
+				(dir == ForgeDirection.SOUTH && world.isSideSolid(x, y, z - 1, ForgeDirection.SOUTH)) ||
+				(dir == ForgeDirection.WEST  && world.isSideSolid(x + 1, y, z, ForgeDirection.WEST )) ||
+				(dir == ForgeDirection.EAST  && world.isSideSolid(x - 1, y, z, ForgeDirection.EAST ));
+	}
 
     /**
      * Tests if the block can remain at its current location and will drop as an item if it is unable to stay. Returns
@@ -485,10 +485,9 @@ public class BlockNuclearControlMain extends BlockContainer{
     
     //TODO remove subblocks and bring them back as normal blocks
     public Subblock getSubblock(int metadata){
-        if(subblocks.containsKey(metadata))
-            return subblocks.get(metadata);
-        return null;
-    }
+		if(subblocks.containsKey(metadata)) return subblocks.get(metadata);
+		return null;
+	}
 
     @Override
     public int damageDropped(int i){
@@ -531,12 +530,12 @@ public class BlockNuclearControlMain extends BlockContainer{
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override
-    public void getSubBlocks(Item item, CreativeTabs tab, List itemList){
-        for(int i=0;i<=Damages.DAMAGE_MAX;i++){
-            itemList.add(new ItemStack(this, 1, i));
-        }
-    }
+	@Override
+	public void getSubBlocks(Item id, CreativeTabs tab, List itemList){
+		for(int i = 0; i <= Damages.DAMAGE_MAX; i++){
+			itemList.add(new ItemStack(this, 1, i));
+		}
+	}
 
     @Override
     public TileEntity createNewTileEntity(World world, int metadata){

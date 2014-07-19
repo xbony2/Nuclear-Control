@@ -128,12 +128,12 @@ public class IC2NuclearControl{
 
     public CrossBuildcraft crossBC;
     public CrossIndustrialCraft2 crossIC2;
-    public CrossGregTech crossGregTech;
+    //public CrossGregTech crossGregTech;
     public CrossRailcraft crossRailcraft;
     public CrossTE crossThermalEx;
 
     protected void initBlocks(Configuration configuration){
-        blockNuclearControlMain = new BlockNuclearControlMain().setBlockName("blockThermalMonitor").setCreativeTab(CreativeTabs.tabRedstone);
+        blockNuclearControlMain = new BlockNuclearControlMain().setBlockName("blockThermalMonitor");
         itemToolThermometer = new ItemToolThermometer().setUnlocalizedName("ItemToolThermometer");
         itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80).setUnlocalizedName("ItemToolDigitalThermometer");
         itemSensorLocationCard = new ItemCardReactorSensorLocation().setUnlocalizedName("ItemSensorLocationCard");
@@ -181,7 +181,7 @@ public class IC2NuclearControl{
     public void postInit(FMLPostInitializationEvent evt){
         crossBC = new CrossBuildcraft();
         crossIC2 = new CrossIndustrialCraft2();
-        crossGregTech = new CrossGregTech();
+        //crossGregTech = new CrossGregTech();
         crossRailcraft = new CrossRailcraft();
         crossThermalEx = new CrossTE();
     }
