@@ -9,9 +9,9 @@ item.ItemEnergySensorLocationCard.name=Карта-датчик располож�
 item.ItemCounterSensorLocationCard.name=Карта-датчик расположения счётчика
 item.ItemLiquidSensorLocationCard.name=Карта-датчик расположения жидкости
 item.ItemEnergyArrayLocationCard.name=Карта-датчик расположения массива с энергией
-item.ItemRangeUpgrade.name=Улучшение "усиление сигнала"
-item.ItemColorUpgrade.name=Улучшение "цветность"
-item.ItemWebUpgrade.name=Улучшение "сеть"
+item.ItemRangeUpgrade.name=Улучшение «усиление сигнала»
+item.ItemColorUpgrade.name=Улучшение «цветность»
+item.ItemWebUpgrade.name=Улучшение «сеть»
 item.ItemTimeCard.name=Карта со временем
 item.ItemTextCard.name=Текстовая карта
 
@@ -46,12 +46,12 @@ msg.nc.InfoPanelHeat=Т: %s
 msg.nc.InfoPanelMaxHeat=Макс. нагрев: %s
 msg.nc.InfoPanelMelting=Плавление: %s
 msg.nc.InfoPanelOutput=Выход: %sеЭ/т
-msg.nc.InfoPanelOutputMJ=Выход: %sМЖ/т
+msg.nc.InfoPanelOutputMJ=Выход: %sМДж/т
 msg.nc.InfoPanelOutputSteam=Выход: %sмВ/т
 msg.nc.InfoPanelTimeRemaining=Осталось: %s
 
 msg.nc.InfoPanelEnergyCounter=Энергия: %sеЭ
-msg.nc.InfoPanelEnergyCounterMJ=Энергия: %sМЖ
+msg.nc.InfoPanelEnergyCounterMJ=Энергия: %sМДж
 
 msg.nc.InfoPanelEnergy=Энергия: %s
 msg.nc.InfoPanelEnergyFree=Свободно: %s
@@ -86,7 +86,7 @@ msg.nc.cbInfoPanelMelting=Температура плавления
 msg.nc.cbInfoPanelOutput=Выход (еЭ/т)
 msg.nc.cbInfoPanelTimeRemaining=Время до окончания цикла
 
-msg.nc.cb24h=24h mode
+msg.nc.cb24h=24-часовой режим
 
 msg.nc.cbInfoPanelEnergyCurrent=Энергия
 msg.nc.cbInfoPanelEnergyStorage=Хранилище
