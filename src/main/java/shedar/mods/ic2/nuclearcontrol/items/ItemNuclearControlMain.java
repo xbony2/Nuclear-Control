@@ -17,6 +17,7 @@ public class ItemNuclearControlMain extends ItemBlock{
 		super(block);
 		setMaxDamage(0);
 		setHasSubtypes(true);
+		setCreativeTab(IC2NuclearControl.tabIC2NC);
 	}
 
 	/**

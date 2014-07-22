@@ -42,6 +42,7 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemToolDigitalThermometer;
 import shedar.mods.ic2.nuclearcontrol.items.ItemToolThermometer;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
+import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -58,7 +59,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="2.0.0a", dependencies = "after:IC2")
+@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies = "after:IC2")
 public class IC2NuclearControl{
     
     public static final int COLOR_WHITE = 15;
@@ -113,7 +114,7 @@ public class IC2NuclearControl{
     public static Item itemTimeCard;
     public static Item itemUpgrade;
     public static Item itemTextCard;
-    public static Block blockNuclearControlMain;
+    public static BlockNuclearControlMain blockNuclearControlMain;
     public int modelId;
     public int alarmRange;
     public int SMPMaxAlarmRange;
@@ -125,6 +126,7 @@ public class IC2NuclearControl{
     public ScreenManager screenManager = new ScreenManager();
     public int screenRefreshPeriod;
     public int rangeTriggerRefreshPeriod;
+    public String recipes;
 
     public CrossBuildcraft crossBC;
     public CrossIndustrialCraft2 crossIC2;
@@ -133,7 +135,7 @@ public class IC2NuclearControl{
     public CrossTE crossThermalEx;
 
     protected void initBlocks(Configuration configuration){
-        blockNuclearControlMain = new BlockNuclearControlMain().setBlockName("blockThermalMonitor");
+    	blockNuclearControlMain = new BlockNuclearControlMain();
         itemToolThermometer = new ItemToolThermometer().setUnlocalizedName("ItemToolThermometer");
         itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80).setUnlocalizedName("ItemToolDigitalThermometer");
         itemSensorLocationCard = new ItemCardReactorSensorLocation().setUnlocalizedName("ItemSensorLocationCard");
@@ -150,7 +152,17 @@ public class IC2NuclearControl{
     
     @EventHandler
     public void modsLoaded(FMLPostInitializationEvent evt){
-       RecipesOld.addOldRecipes();
+    	if(recipes == "normal"){ 
+    	   RecipesNew.addRecipes();
+       }
+       
+       if(recipes == "old"){
+    	RecipesOld.addOldRecipes();
+       }
+       
+       if(recipes == "gregtech"){
+    	   //TODO
+       }
     }    
 
     public void registerBlocks(){
@@ -203,6 +215,7 @@ public class IC2NuclearControl{
 		SMPMaxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "SMPMaxAlarmRange", 256).getInt();
 		isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
 		httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
+		recipes = configuration.get(Configuration.CATEGORY_GENERAL, "recipes", "normal").getString();
 		proxy.registerTileEntities();
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 		configuration.save();

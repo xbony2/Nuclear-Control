@@ -90,7 +90,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		Subblock block = IC2NuclearControl.instance.blockNuclearControlMain.getSubblock(ID);
+		Subblock block = IC2NuclearControl.blockNuclearControlMain.getSubblock(ID);
 		if (block == null)
 			return null;
 		return block.getClientGuiElement(tileEntity, player);

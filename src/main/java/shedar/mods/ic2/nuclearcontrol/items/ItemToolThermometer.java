@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
@@ -19,7 +20,7 @@ public class ItemToolThermometer extends Item{
         super();
         setMaxDamage(102);
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.tabMisc);
+        setCreativeTab(IC2NuclearControl.tabIC2NC);
     }
 
     protected boolean canTakeDamage(ItemStack itemstack, int i){

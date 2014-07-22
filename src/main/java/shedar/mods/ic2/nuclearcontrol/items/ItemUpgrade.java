@@ -32,7 +32,7 @@ public class ItemUpgrade extends Item
         super();
         setMaxDamage(0);
         setHasSubtypes(true);
-        setCreativeTab(CreativeTabs.tabMisc);
+        setCreativeTab(IC2NuclearControl.tabIC2NC);
     }
     
     @Override

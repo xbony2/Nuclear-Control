@@ -62,7 +62,7 @@ public class CommonProxy implements IGuiHandler{
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
-		Subblock block = IC2NuclearControl.instance.blockNuclearControlMain.getSubblock(ID);
+		Subblock block = IC2NuclearControl.blockNuclearControlMain.getSubblock(ID);
 		if(block == null)
 			return null;
 		TileEntity tileEntity = world.getTileEntity(x, y, z);

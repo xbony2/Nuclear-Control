@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
@@ -21,7 +22,7 @@ public abstract class ItemSensorKitBase extends Item {
         super();
         this.textureItemName = textureItemName;
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.tabMisc);
+        setCreativeTab(IC2NuclearControl.tabIC2NC);
     }
 
     @Override

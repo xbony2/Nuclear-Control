@@ -485,7 +485,8 @@ public class BlockNuclearControlMain extends BlockContainer{
     
     //TODO remove subblocks and bring them back as normal blocks
     public Subblock getSubblock(int metadata){
-		if(subblocks.containsKey(metadata)) return subblocks.get(metadata);
+		if(subblocks.containsKey(metadata))
+			return subblocks.get(metadata);
 		return null;
 	}
 
@@ -532,7 +533,7 @@ public class BlockNuclearControlMain extends BlockContainer{
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void getSubBlocks(Item id, CreativeTabs tab, List itemList){
-		for(int i = 0; i <= Damages.DAMAGE_MAX; i++){
+		for(int i = 0;i <= Damages.DAMAGE_MAX;i++){
 			itemList.add(new ItemStack(this, 1, i));
 		}
 	}

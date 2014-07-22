@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
@@ -22,6 +23,7 @@ public abstract class ItemCardBase extends Item implements  IPanelDataSource{
         this.textureItemName = textureItemName;
         setMaxStackSize(1);
         canRepair = false;
+        this.setCreativeTab(IC2NuclearControl.tabIC2NC);
     }
     
     @Override
