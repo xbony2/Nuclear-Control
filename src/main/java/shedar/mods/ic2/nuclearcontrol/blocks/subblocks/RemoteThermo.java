@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.subblocks;
+package shedar.mods.ic2.nuclearcontrol.blocks.subblocks;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;

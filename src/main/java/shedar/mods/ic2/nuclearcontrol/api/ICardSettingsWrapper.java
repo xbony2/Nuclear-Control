@@ -7,20 +7,19 @@ package shedar.mods.ic2.nuclearcontrol.api;
  * @author Shedar
  *
  */
-public interface ICardSettingsWrapper
-{
-    void setInt(String name, Integer value);
-    void setLong(String name, Long value);
-    void setString(String name, String value);
-    void setBoolean(String name, Boolean value);
-    
-    /**
-     * Method saves unsaved field changes.
-     */
-    void commit();
-    
-    /**
-     * Method closes card's gui and returns control to the gui of Information panel.
-     */
-    void closeGui();
+public interface ICardSettingsWrapper{
+	void setInt(String name, Integer value);
+	void setLong(String name, Long value);
+	void setString(String name, String value);
+	void setBoolean(String name, Boolean value);
+
+	/**
+	 * Method saves unsaved field changes.
+	 */
+	void commit();
+
+	/**
+	 * Method closes card's gui and returns control to the gui of Information panel.
+	 */
+	void closeGui();
 }

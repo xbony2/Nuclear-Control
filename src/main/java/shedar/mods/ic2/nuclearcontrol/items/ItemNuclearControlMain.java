@@ -7,8 +7,8 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
+import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.subblocks.Subblock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

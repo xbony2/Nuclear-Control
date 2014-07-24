@@ -1,6 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
-import ic2.api.reactor.IC2Reactor;
 import ic2.api.reactor.IReactor;
 import ic2.core.init.MainConfig;
 

@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.subblocks;
+package shedar.mods.ic2.nuclearcontrol.blocks.subblocks;
 
 import ic2.api.tile.IWrenchable;
 import net.minecraft.client.renderer.texture.IIconRegister;

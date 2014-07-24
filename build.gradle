@@ -31,7 +31,7 @@ minecraft {
 }
 
 dependencies {
-    compile 'net.industrial-craft:industrialcraft-2:2.1.504-experimental:api'
+    compile 'net.industrial-craft:industrialcraft-2:2.1.534-experimental:api'
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

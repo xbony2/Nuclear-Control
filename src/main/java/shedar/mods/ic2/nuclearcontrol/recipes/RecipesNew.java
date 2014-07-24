@@ -172,7 +172,7 @@ public class RecipesNew {
         			" C ", "PWP", " C ",
         				'C', Items.clock,
         				'P', Items.paper,
-        				'W', IC2Items.getItem("insulatedtinCableItem")
+        				'W', IC2Items.getItem("insulatedTinCableItem")
         });
         
         /*Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),  
