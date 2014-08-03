@@ -2,6 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.gui;
 
 import ic2.api.network.NetworkHelper;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -182,7 +183,15 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel{
             }
             int value = checked?-1:-2;
             container.panel.setShowLabels(checked);
-            NetworkHelper.initiateClientTileEntityEvent(container.panel, value);
+            NetworkHelper nh = new NetworkHelper();
+            try{
+            Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+            m1.setAccessible(true);
+            m1.invoke(container.panel, value);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            //NetworkHelper.initiateClientTileEntityEvent(container.panel, value);
             break;
         case ID_POWER:
             byte mode = ((TileEntityAdvancedInfoPanel)container.panel).getNextPowerMode();
@@ -190,7 +199,15 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel{
                 IconButton iButton = (IconButton)button;
                 iButton.textureTop = getIconPowerTopOffset(mode);
             }
-            NetworkHelper.initiateClientTileEntityEvent(container.panel, mode);
+            NetworkHelper nh2 = new NetworkHelper();
+            try{
+            Method m1 = nh2.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+            m1.setAccessible(true);
+            m1.invoke(container.panel, mode);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            //NetworkHelper.initiateClientTileEntityEvent(container.panel, mode);
             break;
         case ID_SLOPE:
             GuiPanelSlope slopeGui = new GuiPanelSlope(this, (TileEntityAdvancedInfoPanel)container.panel);

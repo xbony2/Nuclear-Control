@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui.controls;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -8,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -50,7 +51,15 @@ public class GuiRangeTriggerInvertRedstone extends GuiButton{
             checked = !checked;
             int value = checked?-2:-1;
             trigger.setInvertRedstone(checked);
-            NetworkHelper.initiateClientTileEntityEvent(trigger, value);
+            NetworkHelper nh = new NetworkHelper();
+            try{
+            Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+            m1.setAccessible(true);
+            m1.invoke(trigger, value);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            //NetworkHelper.initiateClientTileEntityEvent(trigger, value);
             return true;
         }else{
             return false;

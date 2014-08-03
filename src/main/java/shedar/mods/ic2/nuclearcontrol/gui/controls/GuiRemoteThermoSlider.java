@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui.controls;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -10,7 +12,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -78,7 +79,15 @@ public class GuiRemoteThermoSlider extends GuiButton{
         int newHeatLevel = getNormalizedHeatLevel(); 
         if(thermo.getHeatLevel()!=newHeatLevel){
             thermo.setHeatLevel(newHeatLevel);
-            NetworkHelper.initiateClientTileEntityEvent(thermo, newHeatLevel);
+            NetworkHelper nh = new NetworkHelper();
+            try{
+            Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+            m1.setAccessible(true);
+            m1.invoke(thermo, newHeatLevel);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            //NetworkHelper.initiateClientTileEntityEvent(thermo, newHeatLevel);
         }
         displayString = String.format(label, newHeatLevel);
     }

@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -81,14 +83,22 @@ public class GuiAverageCounter extends GuiContainer{
         int event = 0;
         switch(guiButton.id){
         case 1:
-            event = 1;break;
+            event = 1; break;
         case 2:
-            event = 3;break;
+            event = 3; break;
         case 3:
-            event = 5;break;
+            event = 5; break;
         case 4:
-            event = 10;break;
+            event = 10; break;
         }
-        NetworkHelper.initiateClientTileEntityEvent(container.averageCounter, event);
+        NetworkHelper nh = new NetworkHelper();
+        try{
+        Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+        m1.setAccessible(true);
+        m1.invoke(container.averageCounter, event);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        //NetworkHelper.initiateClientTileEntityEvent(container.averageCounter, event);
     }
 }

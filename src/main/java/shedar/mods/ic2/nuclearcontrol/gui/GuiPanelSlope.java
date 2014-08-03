@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -53,7 +55,15 @@ public class GuiPanelSlope  extends GuiScreen{
                 if(amount<0)
                     amount = 0;
             }
-            NetworkHelper.initiateClientTileEntityEvent(panel, offset+amount);
+            NetworkHelper nh = new NetworkHelper();
+            try{
+            Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+            m1.setAccessible(true);
+            m1.invoke(panel, offset + amount);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            //NetworkHelper.initiateClientTileEntityEvent(panel, offset+amount);
         }
     }
     

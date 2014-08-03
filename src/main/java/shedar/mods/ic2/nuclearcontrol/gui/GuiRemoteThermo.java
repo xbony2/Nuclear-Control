@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -13,7 +15,6 @@ import org.lwjgl.opengl.GL11;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.CompactButton;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.GuiThermoInvertRedstone;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -76,7 +77,15 @@ public class GuiRemoteThermo extends GuiContainer{
                 heat = 1000000;
             if(container.remoteThermo.getHeatLevel().intValue()!=heat){
                 container.remoteThermo.setHeatLevel(heat);
-                NetworkHelper.initiateClientTileEntityEvent(container.remoteThermo, heat);
+                NetworkHelper nh = new NetworkHelper();
+                try{
+                Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+                m1.setAccessible(true);
+                m1.invoke(container.remoteThermo, heat);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                //NetworkHelper.initiateClientTileEntityEvent(container.remoteThermo, heat);
             }
             textboxHeat.setText(new Integer(heat).toString());
         }

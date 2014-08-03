@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui.controls;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -8,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -49,7 +50,15 @@ public class GuiInfoPanelShowLabels extends GuiButton{
             checked = !checked;
             int value = checked?-1:-2;
             panel.setShowLabels(checked);
-            NetworkHelper.initiateClientTileEntityEvent(panel, value);
+            NetworkHelper nh = new NetworkHelper();
+            try{
+            Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+            m1.setAccessible(true);
+            m1.invoke(panel, value);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            //NetworkHelper.initiateClientTileEntityEvent(panel, value);
             return true;
         }else{
             return false;

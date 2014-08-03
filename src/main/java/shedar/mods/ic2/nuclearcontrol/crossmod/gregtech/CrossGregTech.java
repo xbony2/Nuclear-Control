@@ -1,5 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.gregtech;
-
+/*
 import java.lang.reflect.Field;
 
 import gregtech.api.GregTech_API;
@@ -41,4 +41,4 @@ public class CrossGregTech{
     }
     
     
-}
+}*/

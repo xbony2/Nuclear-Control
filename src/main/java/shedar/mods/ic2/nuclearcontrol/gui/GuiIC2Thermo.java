@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -13,7 +15,6 @@ import shedar.mods.ic2.nuclearcontrol.containers.ContainerEmpty;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.CompactButton;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.GuiThermoInvertRedstone;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -51,7 +52,15 @@ public class GuiIC2Thermo extends GuiContainer{
                 heat = 1000000;
             if(thermo.getHeatLevel().intValue()!=heat){
                 thermo.setHeatLevel(heat);
-                NetworkHelper.initiateClientTileEntityEvent(thermo, heat);
+                NetworkHelper nh = new NetworkHelper();
+                try{
+                Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+                m1.setAccessible(true);
+                m1.invoke(thermo, heat);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                //NetworkHelper.initiateClientTileEntityEvent(thermo, heat);
             }
             textboxHeat.setText(new Integer(heat).toString());
         }
@@ -126,7 +135,7 @@ public class GuiIC2Thermo extends GuiContainer{
     @Override
     protected void keyTyped(char par1, int par2)
     {
-        if (par2 == 1)//Esc
+        if (par2 == 1)//Esc button
         {
             mc.thePlayer.closeScreen();
         }

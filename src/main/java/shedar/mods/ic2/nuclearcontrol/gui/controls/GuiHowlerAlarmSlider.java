@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui.controls;
 
+import java.lang.reflect.Method;
+
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -9,7 +11,6 @@ import org.lwjgl.opengl.GL11;
 
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityHowlerAlarm;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -55,7 +56,15 @@ public class GuiHowlerAlarmSlider extends GuiButton{
         int newValue = getNormalizedValue(); 
         if(alarm.getRange()!=newValue){
             alarm.setRange(newValue);
-            NetworkHelper.initiateClientTileEntityEvent(alarm, newValue);
+            NetworkHelper nh = new NetworkHelper();
+            try{
+                Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
+                m1.setAccessible(true);
+                m1.invoke(alarm, newValue);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            //NetworkHelper.initiateClientTileEntityEvent(alarm, newValue);
         }
         displayString = String.format(label, newValue);
     }

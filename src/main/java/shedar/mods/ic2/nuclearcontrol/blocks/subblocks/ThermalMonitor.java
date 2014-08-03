@@ -83,8 +83,7 @@ public class ThermalMonitor extends Subblock{
     }
 
     @Override
-    protected byte[][] getMapping()
-    {
+    protected byte[][] getMapping(){
         return mapping;
     }
 

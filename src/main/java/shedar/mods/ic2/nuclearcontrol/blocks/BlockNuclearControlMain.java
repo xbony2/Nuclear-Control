@@ -205,12 +205,10 @@ public class BlockNuclearControlMain extends BlockContainer{
             IInventory inventory = (IInventory)tileEntity;
             float range = 0.7F;
 
-            for (int i = 0; i < inventory.getSizeInventory(); i++)
-            {
+            for (int i = 0; i < inventory.getSizeInventory(); i++){
                 ItemStack itemStack = inventory.getStackInSlot(i);
 
-                if (itemStack != null)
-                {
+                if (itemStack != null){
                     double dx = (double)(world.rand.nextFloat() * range) + (double)(1.0F - range) * 0.5D;
                     double dy = (double)(world.rand.nextFloat() * range) + (double)(1.0F - range) * 0.5D;
                     double dz = (double)(world.rand.nextFloat() * range) + (double)(1.0F - range) * 0.5D;

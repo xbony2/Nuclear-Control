@@ -24,7 +24,7 @@ import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
 */
 import shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.CrossBuildcraft;
-import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.CrossGregTech;
+//import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.CrossGregTech;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.thermalexpansion.CrossTE;
