@@ -42,7 +42,7 @@ public class TileEntityEnergyCounter extends TileEntity implements IEnergyConduc
 	protected int updateTicker;
 	protected int tickRate;
 
-	public long counter;
+	public double counter;
 	private double prevTotal;
 
 	private short prevFacing;
@@ -62,7 +62,7 @@ public class TileEntityEnergyCounter extends TileEntity implements IEnergyConduc
 		addedToEnergyNet = false;
 		packetSize = BASE_PACKET_SIZE;
 		prevFacing = facing = 0;
-		counter = 0;
+		counter = 0.0;
 		tickRate = IC2NuclearControl.instance.screenRefreshPeriod;
 		updateTicker = tickRate;
 		prevTotal = -1;
@@ -150,7 +150,7 @@ public class TileEntityEnergyCounter extends TileEntity implements IEnergyConduc
 	public void readFromNBT(NBTTagCompound nbttagcompound){
 		super.readFromNBT(nbttagcompound);
 		facing = nbttagcompound.getShort("facing");
-		counter = nbttagcompound.getLong("counter");
+		counter = nbttagcompound.getDouble("counter");
 		powerType = nbttagcompound.getByte("powerType");
 
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
@@ -188,7 +188,7 @@ public class TileEntityEnergyCounter extends TileEntity implements IEnergyConduc
 	public void writeToNBT(NBTTagCompound nbttagcompound){
 		super.writeToNBT(nbttagcompound);
 		nbttagcompound.setShort("facing", facing);
-		nbttagcompound.setLong("counter", counter);
+		nbttagcompound.setDouble("counter", counter);
 		nbttagcompound.setByte("powerType", powerType);
 
 		NBTTagList nbttaglist = new NBTTagList();

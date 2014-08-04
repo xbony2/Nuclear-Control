@@ -84,10 +84,5 @@ public class ChannelHandler extends FMLIndexedMessageToMessageCodec<Packet>
 		IC2NuclearControl.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(player);
 		IC2NuclearControl.channels.get(Side.SERVER).writeOutbound(packet);
 	}
-	/*
-	public static void sendToAllPlayers(Packet packet){
-		IC2NuclearControl.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.ALL);
-		IC2NuclearControl.channels.get(Side.SERVER).writeOutbound(packet);
-	}*/
 
 }

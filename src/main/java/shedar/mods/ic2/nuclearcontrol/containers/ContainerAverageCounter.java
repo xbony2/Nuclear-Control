@@ -13,7 +13,7 @@ public class ContainerAverageCounter extends Container
 {
     public TileEntityAverageCounter averageCounter;
     private EntityPlayer player;
-    private long lastAverage = -1;
+    private double lastAverage = -1;
 
     public ContainerAverageCounter(EntityPlayer player, TileEntityAverageCounter averageCounter)
     {

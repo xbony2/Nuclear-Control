@@ -16,20 +16,14 @@ import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
 
 public abstract class ItemCardBase extends Item implements  IPanelDataSource{
-    private String textureItemName;
     
     public ItemCardBase(String textureItemName){
         super();
-        this.textureItemName = textureItemName;
         setMaxStackSize(1);
         canRepair = false;
         this.setCreativeTab(IC2NuclearControl.tabIC2NC);
-    }
-    
-    @Override
-    public void registerIcons(IIconRegister iconRegister){
-             itemIcon = iconRegister.registerIcon(TextureResolver.getItemTexture(textureItemName));
-    }    
+        setTextureName(TextureResolver.getItemTexture(textureItemName));
+    } 
 
     @Override
     public boolean isDamageable(){

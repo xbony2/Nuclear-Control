@@ -22,13 +22,9 @@ public abstract class ItemSensorKitBase extends Item {
         super();
         this.textureItemName = textureItemName;
         setMaxStackSize(1);
+        setTextureName(TextureResolver.getItemTexture(textureItemName));
         setCreativeTab(IC2NuclearControl.tabIC2NC);
     }
-
-    @Override
-    public void registerIcons(IIconRegister iconRegister){
-        itemIcon = iconRegister.registerIcon(TextureResolver.getItemTexture(textureItemName));
-    }   
     
     abstract protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack);
     

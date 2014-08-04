@@ -33,7 +33,7 @@ public class StringUtils
             return value;
     }
 
-    public static String getFormatted(String resourceName, long value, boolean showLabels)
+    public static String getFormatted(String resourceName, double value, boolean showLabels)
     {
         return getFormatted(resourceName, getFormatter().format(value), showLabels);
     }

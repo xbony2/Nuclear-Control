@@ -209,10 +209,8 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 		if (worldObj.isRemote && field.equals("soundName") && prevSoundName != soundName){
-			if (IC2NuclearControl.instance.availableAlarms!=null && !IC2NuclearControl.instance.availableAlarms.contains(soundName)){
-				FMLLog.info( 
-						String.format(IC2NuclearControl.LOG_PREFIX + "Can't set sound '%s' at %d,%d,%d, using default",
-								soundName, xCoord, yCoord, zCoord));
+			if (IC2NuclearControl.instance.availableAlarms != null && !IC2NuclearControl.instance.availableAlarms.contains(soundName)){
+				IC2NuclearControl.logger.info("Can't set sound '%s' at %d,%d,%d, using default", soundName, xCoord, yCoord, zCoord);
 				soundName = DEFAULT_SOUND_NAME;
 			}
 			prevSoundName = soundName;

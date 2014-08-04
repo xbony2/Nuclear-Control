@@ -19,6 +19,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.IAdvancedCardSettings;
 import shedar.mods.ic2.nuclearcontrol.api.ICardGui;
 import shedar.mods.ic2.nuclearcontrol.api.ICardSettingsWrapper;
@@ -285,7 +286,8 @@ public class GuiInfoPanel extends GuiContainer{
                 ICardWrapper helper = new CardWrapperImpl(card, 0);
                 Object guiObject = ((IAdvancedCardSettings)card.getItem()).getSettingsScreen(helper);
                 if(!(guiObject instanceof GuiScreen)){
-                    FMLLog.warning("Invalid card, getSettingsScreen method should return GuiScreen object");
+                    //FMLLog.warning("Invalid card, getSettingsScreen method should return GuiScreen object");
+                	IC2NuclearControl.logger.warn("Invalid card, getSettingsScreen method should return GuiScreen object");
                     return;
                 }
                 GuiScreen gui = (GuiScreen)guiObject;

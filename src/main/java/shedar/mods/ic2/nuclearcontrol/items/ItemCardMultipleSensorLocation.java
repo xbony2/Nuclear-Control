@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
+import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,14 +47,17 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     public static final int DISPLAY_LIQUID_PERCENTAGE = 16;
     
     
-    private static final UUID CARD_TYPE_COUNTER = new UUID(0, 4);;
+    private static final UUID CARD_TYPE_COUNTER = new UUID(0, 4);
     private static final UUID CARD_TYPE_LIQUID = UUID.fromString("210dc1f0-118c-48ee-9d08-42bfbee1ea15");
+    private static final UUID CARD_TYPE_GENERATOR = UUID.fromString("210dc1f0-118c-48ee-9d08-42bfbee1ea16");
 
     private static final String TEXTURE_CARD_COUNTER = "cardCounter";
     private static final String TEXTURE_CARD_LIQUID = "cardLiquid";
+    private static final String TEXTURE_CARD_GENERATOR = "cardGenerator";
     
     private IIcon iconCounter;
     private IIcon iconLiquid;
+    private IIcon iconGenerator;
     
     public ItemCardMultipleSensorLocation(){
         super("");
@@ -62,6 +67,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     public void registerIcons(IIconRegister iconRegister){
         iconCounter = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_CARD_COUNTER));
         iconLiquid = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_CARD_LIQUID));
+        iconGenerator = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_CARD_GENERATOR));
     }    
     
     @Override
@@ -74,6 +80,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
             return "item.ItemCounterSensorLocationCard";
         case ItemKitMultipleSensor.TYPE_LIQUID:
             return "item.ItemLiquidSensorLocationCard";
+        case ItemKitMultipleSensor.TYPE_GENERATOR:
+        	return "item.ItemGeneratorSensorLocationCard";
         }
         return "";
     }
@@ -89,6 +97,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
             return updateCounter(panel, card, range);
         case ItemKitMultipleSensor.TYPE_LIQUID:
             return updateLiquid(panel, card, range);
+        case ItemKitMultipleSensor.TYPE_GENERATOR:
+        	return updateGenerator(panel, card, range);
         }
         return CardState.INVALID_CARD;
     }
@@ -131,7 +141,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
         if(tileEntity != null && tileEntity instanceof TileEntityEnergyCounter)
         {
             TileEntityEnergyCounter counter  = (TileEntityEnergyCounter)tileEntity;
-            card.setLong("energy", counter.counter);
+            card.setDouble("energy", counter.counter);
             card.setInt("powerType", (int)counter.powerType);
             return CardState.OK;
         }
@@ -148,6 +158,18 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
         }
     }
 
+    
+    public CardState updateGenerator(TileEntity panel, ICardWrapper card, int range){
+    	ChunkCoordinates target = card.getTarget();
+    	TileEntity entity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
+    	if (entity instanceof TileEntityBaseGenerator){
+    		int production = ((TileEntityBaseGenerator)entity).production;
+    		card.setInt("production", production);
+    		return CardState.OK;
+    	}else{
+    		return CardState.NO_TARGET;
+    	}
+    }
     @Override
     public List<PanelSetting> getSettingsList(ICardWrapper card)
     {
@@ -158,6 +180,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
             return getSettingsListCounter();
         case ItemKitMultipleSensor.TYPE_LIQUID:
             return getSettingsListLiquid();
+        case ItemKitMultipleSensor.TYPE_GENERATOR:
+        	return getSettingsListGenerator();
         }
         return null;
     }
@@ -172,6 +196,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
             return CARD_TYPE_COUNTER;
         case ItemKitMultipleSensor.TYPE_LIQUID:
             return CARD_TYPE_LIQUID;
+        case ItemKitMultipleSensor.TYPE_GENERATOR:
+        	return CARD_TYPE_GENERATOR;
         }
         return null;
     }
@@ -186,6 +212,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
             return getStringDataCounter(displaySettings, card, showLabels);
         case ItemKitMultipleSensor.TYPE_LIQUID:
             return getStringDataLiquid(displaySettings, card, showLabels);
+        case ItemKitMultipleSensor.TYPE_GENERATOR:
+        	return getStringDataGenerator(displaySettings, card, showLabels);
         }
         return null;
     }
@@ -255,7 +283,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
         {//energy counter
             if((displaySettings & DISPLAY_ENERGY) > 0)
             {
-                long energy = card.getLong("energy");
+                double energy = card.getDouble("energy");
                 line = new PanelString();
                 String key = card.getInt("powerType") == TileEntityAverageCounter.POWER_TYPE_EU?"msg.nc.InfoPanelEnergyCounter":"msg.nc.InfoPanelEnergyCounterMJ";
                 line.textLeft = StringUtils.getFormatted(key, energy, showLabels); 
@@ -265,6 +293,14 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
         return result;
     }
     
+    public List<PanelString> getStringDataGenerator(int displaySettings, ICardWrapper card, boolean showLabels){
+    	List<PanelString> result = new LinkedList<PanelString>();
+    	PanelString line = new PanelString();
+    	line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelOutput", card.getInt("production"), showLabels); 
+    	result.add(line);
+    	return result;
+    }
+    
     @Override
     public IIcon getIconFromDamage(int damage){
         switch (damage){
@@ -272,6 +308,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
             return iconCounter;
         case ItemKitMultipleSensor.TYPE_LIQUID:
             return iconLiquid;
+        case ItemKitMultipleSensor.TYPE_GENERATOR:
+        	return iconGenerator;
         }
         return null;
     }
@@ -293,6 +331,10 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
         return result;
     }
 
+    public List<PanelSetting> getSettingsListGenerator(){
+    	return null;
+    }
+    
     @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -323,9 +365,10 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List){
-        par3List.add(new ItemStack(par1, 1, ItemKitMultipleSensor.TYPE_COUNTER));
-        par3List.add(new ItemStack(par1, 1, ItemKitMultipleSensor.TYPE_LIQUID));
+    public void getSubItems(Item item, CreativeTabs tab, List list){
+        list.add(new ItemStack(item, 1, ItemKitMultipleSensor.TYPE_COUNTER));
+        list.add(new ItemStack(item, 1, ItemKitMultipleSensor.TYPE_LIQUID));
+        list.add(new ItemStack(item, 1, ItemKitMultipleSensor.TYPE_GENERATOR));
     }
 
 }

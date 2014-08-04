@@ -157,8 +157,8 @@ public class ClientProxy extends CommonProxy
 						case NuclearNetworkHelper.FIELD_BOOLEAN:
 							helper.setBoolean(name, dat.readBoolean());
 							break;
-						case NuclearNetworkHelper.FIELD_LONG:
-							helper.setLong(name, dat.readLong());
+						case NuclearNetworkHelper.FIELD_DOUBLE:
+							helper.setDouble(name, dat.readDouble());
 							break;
 						case NuclearNetworkHelper.FIELD_STRING:
 							helper.setString(name, dat.readUTF());
@@ -176,7 +176,8 @@ public class ClientProxy extends CommonProxy
 							helper.clearField(name);
 							break;
 						default:
-							FMLLog.warning("Invalid field type: %d", type);
+							//FMLLog.warning("Invalid field type: %d", type);
+							IC2NuclearControl.logger.warn("Invalid field type: %d", type);
 							break;
 						}
 					}
@@ -210,7 +211,7 @@ public class ClientProxy extends CommonProxy
 						return;
 					}
 					TileEntityEnergyCounter counter = (TileEntityEnergyCounter)ent;
-					counter.counter = dat.readLong();
+					counter.counter = dat.readDouble();
 					break;
 				case PacketHandler.PACKET_ACOUNTER:
 					world = FMLClientHandler.instance().getClient().theWorld;
@@ -269,7 +270,8 @@ public class ClientProxy extends CommonProxy
 					panel.resetCardData();
 					break;
 				default:
-					FMLLog.warning("%sUnknown packet type: %d", IC2NuclearControl.LOG_PREFIX, packetType);
+					//FMLLog.warning("%sUnknown packet type: %d", IC2NuclearControl.LOG_PREFIX, packetType);
+					IC2NuclearControl.logger.warn("Unknown packet type: %d", packetType);
 					break;
 				}
 			}

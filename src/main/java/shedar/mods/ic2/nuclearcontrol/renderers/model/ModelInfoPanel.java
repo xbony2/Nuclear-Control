@@ -352,8 +352,8 @@ public class ModelInfoPanel
                 midpoint[offsetV] = p[offsetV]+dv/2;
                 midpoint[offsetD] = p[offsetD]+(ddh+ddv)/2;
 
-                IIcon texture = block.getBlockTextureFromSide(facing);
-
+                IIcon texture = block.getIcon(panel.getWorldObj(), (int)Math.floor(midpoint[0]), (int)Math.floor(midpoint[1]), (int)Math.floor(midpoint[2]), facing);
+                
                 double u1 = texture.getMinU();
                 double u2 = texture.getMaxU();
                 double v1 = texture.getMinV();

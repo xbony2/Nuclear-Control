@@ -21,16 +21,12 @@ public class ItemToolThermometer extends Item{
         setMaxDamage(102);
         setMaxStackSize(1);
         setCreativeTab(IC2NuclearControl.tabIC2NC);
+        setTextureName(TextureResolver.getItemTexture("thermometer"));
     }
 
     protected boolean canTakeDamage(ItemStack itemstack, int i){
         return true;
-    }
-
-    @Override
-    public void registerIcons(IIconRegister iconRegister){
-        itemIcon = iconRegister.registerIcon(TextureResolver.getItemTexture("thermometer"));
-    }    
+    }   
 
     @Override
     public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side,  float hitX, float hitY, float hitZ)

@@ -95,8 +95,8 @@ public class CrossBuildcraft{
         if(receiver == null)
             return null;
         EnergyStorageData result = new EnergyStorageData();
-        result.capacity = (int)receiver.getMaxEnergyStored();
-        result.stored = (int)receiver.getEnergyStored();
+        result.capacity = receiver.getMaxEnergyStored();
+        result.stored = receiver.getEnergyStored();
         result.units = "MJ";
         result.type = EnergyStorageData.TARGET_TYPE_BC;
         return result;

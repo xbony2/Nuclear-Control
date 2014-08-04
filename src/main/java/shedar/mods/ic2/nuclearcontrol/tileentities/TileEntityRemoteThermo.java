@@ -38,7 +38,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory{
 	public static final int SLOT_CHARGER = 0;
 	public static final int SLOT_CARD = 1;
-	private static final int BASE_PACKET_SIZE = 32;
+	private static final double BASE_PACKET_SIZE = 32.0D;
 	private static final int BASE_STORAGE = 600;
 	private static final int STORAGE_PER_UPGRADE = 10000;
 	private static final int ENERGY_SU_BATTERY = 1000;
@@ -47,15 +47,15 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 	private int deltaX;
 	private int deltaY;
 	private int deltaZ;
-	private int prevMaxStorage;
-	public int maxStorage;
-	public int prevMaxPacketSize;
-	public int maxPacketSize;
+	private double prevMaxStorage;
+	public double maxStorage;
+	public double prevMaxPacketSize;
+	public double maxPacketSize;
 	private int prevTier;
 	public int tier;
 	public int rotation;
 	public int prevRotation;
-	public int energy;
+	public double energy;
 	private boolean addedToEnergyNet;
 	private ItemStack inventory[];
 
@@ -119,11 +119,11 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 		}
 	}
 
-	public int getEnergy(){
+	public double getEnergy(){
 		return energy;
 	}
 
-	public void setEnergy(int value){
+	public void setEnergy(double value){
 		energy = value;
 	}
 
@@ -145,7 +145,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 		prevRotation = rotation;
 	}
 
-	public void setMaxPacketSize(int value){
+	public void setMaxPacketSize(double value){
 		maxPacketSize = value;
 		if (maxPacketSize!=prevMaxPacketSize){
 			//NetworkHelper.updateTileEntityField(this, "maxPacketSize");
@@ -154,7 +154,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 		prevMaxPacketSize = maxPacketSize;
 	}
 
-	public void setMaxStorage(int value){
+	public void setMaxStorage(double value){
 		maxStorage = value;
 		if (maxStorage!=prevMaxStorage){
 			//NetworkHelper.updateTileEntityField(this, "maxStorage");
@@ -244,7 +244,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 	@Override
 	public void writeToNBT(NBTTagCompound nbttagcompound){
 		super.writeToNBT(nbttagcompound);
-		nbttagcompound.setInteger("energy", energy);
+		nbttagcompound.setDouble("energy", energy);
 		nbttagcompound.setInteger("rotation", rotation);
 
 		NBTTagList nbttaglist = new NBTTagList();
@@ -370,7 +370,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 		if (worldObj != null && !worldObj.isRemote){
 			tier = upgradeCountTransormer + 1;
 			setTier(tier);
-			maxPacketSize = BASE_PACKET_SIZE * (int)Math.pow(4D, upgradeCountTransormer);
+			maxPacketSize = BASE_PACKET_SIZE * Math.pow(4D, upgradeCountTransormer);
 			setMaxPacketSize(maxPacketSize);
 			maxStorage = BASE_STORAGE + STORAGE_PER_UPGRADE * upgradeCountStorage;
 			setMaxStorage(maxStorage);
@@ -399,7 +399,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
         }//TODO ?
 
         energy += amount;
-        int left = 0;
+        double left = 0.0;
 
         if (energy > maxStorage){
             left = energy - maxStorage;
@@ -500,7 +500,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 
 	@Override
     public int getSinkTier(){
-        return maxPacketSize;
+        return tier;
     }
 
 	@Override

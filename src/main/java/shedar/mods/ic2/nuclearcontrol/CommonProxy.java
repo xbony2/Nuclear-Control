@@ -143,7 +143,8 @@ public class CommonProxy implements IGuiHandler{
 					}
 					String className = dat.readUTF();
 					if (!stack.getItem().getClass().getName().equals(className)){
-						FMLLog.warning("Class mismatch: '%s'!='%s'", className, stack.getItem().getClass().getName());
+						//FMLLog.warning("Class mismatch: '%s'!='%s'", className, stack.getItem().getClass().getName());
+						IC2NuclearControl.logger.warn("Class mismatch: '%s'!='%s'", className, stack.getItem().getClass().getName());
 						return;
 					}
 					CardWrapperImpl helper = new CardWrapperImpl(stack, slot);
@@ -158,14 +159,15 @@ public class CommonProxy implements IGuiHandler{
 						case NuclearNetworkHelper.FIELD_BOOLEAN:
 							helper.setBoolean(name, dat.readBoolean());
 							break;
-						case NuclearNetworkHelper.FIELD_LONG:
-							helper.setLong(name, dat.readLong());
+						case NuclearNetworkHelper.FIELD_DOUBLE:
+							helper.setDouble(name, dat.readDouble());
 							break;
 						case NuclearNetworkHelper.FIELD_STRING:
 							helper.setString(name, dat.readUTF());
 							break;
 						default:
-							FMLLog.warning("Invalid field type: %d", type);
+							//FMLLog.warning("Invalid field type: %d", type);
+							IC2NuclearControl.logger.warn("Invalid field type: %d", type);
 							break;
 						}
 					}

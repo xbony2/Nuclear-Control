@@ -27,8 +27,8 @@ public interface ICardWrapper{
 	void setInt(String name, Integer value);
 	Integer getInt(String name);
 
-	void setLong(String name, Long value);
-	Long getLong(String name);
+	void setDouble(String name, Double value);
+	Double getDouble(String name);
 
 	void setString(String name, String value);
 	String getString(String name);

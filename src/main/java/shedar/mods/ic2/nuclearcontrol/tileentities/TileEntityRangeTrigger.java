@@ -65,11 +65,11 @@ public class TileEntityRangeTrigger extends TileEntity implements ISlotItemFilte
 	private boolean prevInvertRedstone;
 	private boolean invertRedstone;
 
-	private long prevLevelStart;
-	public long levelStart;
+	private double prevLevelStart;
+	public double levelStart;
 
-	private long prevLevelEnd;
-	public long levelEnd;
+	private double prevLevelEnd;
+	public double levelEnd;
 
 	@Override
 	public short getFacing(){
@@ -160,7 +160,7 @@ public class TileEntityRangeTrigger extends TileEntity implements ISlotItemFilte
 		prevOnFire = onFire;
 	}
 
-	public void setLevelStart(long start){
+	public void setLevelStart(double start){
 		levelStart = start;
 		if (prevLevelStart != start){
 			//NetworkHelper.updateTileEntityField(this, "levelStart");
@@ -169,7 +169,7 @@ public class TileEntityRangeTrigger extends TileEntity implements ISlotItemFilte
 		prevLevelStart = levelStart;
 	}
 
-	public void setLevelEnd(long end){
+	public void setLevelEnd(double end){
 		levelEnd = end;
 		if (prevLevelEnd != end){
 			//NetworkHelper.updateTileEntityField(this, "levelEnd");
@@ -239,8 +239,8 @@ public class TileEntityRangeTrigger extends TileEntity implements ISlotItemFilte
 		prevRotation = rotation = nbttagcompound.getInteger("rotation");
 		prevFacing = facing =  nbttagcompound.getShort("facing");
 		prevInvertRedstone = invertRedstone = nbttagcompound.getBoolean("invert"); 
-		levelStart = nbttagcompound.getLong("levelStart");
-		levelEnd = nbttagcompound.getLong("levelEnd");
+		levelStart = nbttagcompound.getDouble("levelStart");
+		levelEnd = nbttagcompound.getDouble("levelEnd");
 
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 		inventory = new ItemStack[getSizeInventory()];
@@ -269,8 +269,8 @@ public class TileEntityRangeTrigger extends TileEntity implements ISlotItemFilte
 		nbttagcompound.setShort("facing", facing);
 		nbttagcompound.setInteger("rotation", rotation);
 		nbttagcompound.setBoolean("invert", isInvertRedstone());
-		nbttagcompound.setLong("levelStart", levelStart);
-		nbttagcompound.setLong("levelEnd", levelEnd);
+		nbttagcompound.setDouble("levelStart", levelStart);
+		nbttagcompound.setDouble("levelEnd", levelEnd);
 
 		NBTTagList nbttaglist = new NBTTagList();
 		for (int i = 0; i < inventory.length; i++){
@@ -393,10 +393,10 @@ public class TileEntityRangeTrigger extends TileEntity implements ISlotItemFilte
 						CardState state = ((IPanelDataSource) item).update(this, cardHelper, range);
 						cardHelper.setState(state);
 						if (state == CardState.OK){
-							long minV = Math.min(levelStart, levelEnd);
-							long maxV = Math.max(levelStart, levelEnd);
-							long cur = cardHelper.getLong("energyL");
-							if (cur>=maxV){
+							double minV = Math.min(levelStart, levelEnd);
+							double maxV = Math.max(levelStart, levelEnd);
+							double cur = cardHelper.getDouble("energyL");
+							if (cur >= maxV){
 								fire = STATE_ACTIVE;
 							}else if(cur < minV){
 								fire = STATE_PASSIVE;

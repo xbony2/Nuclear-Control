@@ -12,7 +12,7 @@ public class ContainerRemoteThermo extends Container
 {
     public TileEntityRemoteThermo remoteThermo;
     private EntityPlayer player;
-    private int lastEnergy = -1;
+    private double lastEnergy = -1;
 
     public ContainerRemoteThermo(EntityPlayer player, TileEntityRemoteThermo remoteThermo)
     {
@@ -50,7 +50,7 @@ public class ContainerRemoteThermo extends Container
     public void detectAndSendChanges()
     {
         super.detectAndSendChanges();
-        int energy = remoteThermo.energy;
+        int energy = (int)remoteThermo.energy; // ? (says Zuxelus)
         for (int i = 0; i < crafters.size(); i++)
         {
             ICrafting crafting = (ICrafting)crafters.get(i);

@@ -13,7 +13,7 @@ public class ContainerEnergyCounter extends Container
 {
     public TileEntityEnergyCounter energyCounter;
     private EntityPlayer player;
-    private long lastCounter = -1;
+    private double lastCounter = -1;
 
     public ContainerEnergyCounter(EntityPlayer player, TileEntityEnergyCounter energyCounter)
     {
@@ -51,7 +51,7 @@ public class ContainerEnergyCounter extends Container
     public void detectAndSendChanges()
     {
         super.detectAndSendChanges();
-        long counter = energyCounter.counter;
+        double counter = energyCounter.counter;
         for (int i = 0; i < crafters.size(); i++)
         {
             ICrafting crafting = (ICrafting)crafters.get(i);

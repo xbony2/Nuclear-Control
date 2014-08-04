@@ -2,6 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.recipes;
 
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
+import ic2.core.util.StackUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -86,7 +87,7 @@ public class RecipesNew {
         Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemRemoteSensorKit, 1), new Object[]{
                     "DF", "PW", 
                         'P', Items.paper, 
-                        'D', digitalThermometer, 
+                        'D', StackUtil.copyWithWildCard(digitalThermometer), 
                         'F', IC2Items.getItem("frequencyTransmitter"),
                         'W', "dyeWhite"});
         
@@ -172,9 +173,14 @@ public class RecipesNew {
         			" C ", "PWP", " C ",
         				'C', Items.clock,
         				'P', Items.paper,
-        				'W', IC2Items.getItem("insulatedTinCableItem")
-        });
+        				'W', IC2Items.getItem("insulatedTinCableItem")});
         
+        Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemMultipleSensorKit, 1, ItemKitMultipleSensor.TYPE_GENERATOR), new Object[]{
+        			"CF", "PL",
+        				'P', Items.paper,
+        				'C', IC2Items.getItem("energyStorageUpgrade"),
+        				'F', IC2Items.getItem("frequencyTransmitter"),
+        				'L', "dyeLightBlue"});
         /*Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),  
         		IC2NuclearControl.itemSensorLocationCard );
         

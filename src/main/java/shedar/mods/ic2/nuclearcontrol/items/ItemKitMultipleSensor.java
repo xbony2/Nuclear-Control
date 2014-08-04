@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
+import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
+
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -20,12 +22,15 @@ import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
 public class ItemKitMultipleSensor extends ItemSensorKitBase{
     public static final int TYPE_COUNTER = 0;
     public static final int TYPE_LIQUID = 1;
+    public static final int TYPE_GENERATOR = 2;
 
     private static final String TEXTURE_KIT_COUNTER = "kitCounter";
     private static final String TEXTURE_KIT_LIQUID = "kitLiquid";
+    private static final String TEXTURE_KIT_GENERATOR = "kitGenerator";
     
     private IIcon iconCounter;
     private IIcon iconLiquid;
+    private IIcon iconGenerator;
     
     public ItemKitMultipleSensor(){
         super("");
@@ -41,6 +46,8 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase{
             return "item.ItemCounterSensorKit";
         case TYPE_LIQUID:
             return "item.ItemLiquidSensorKit";
+        case TYPE_GENERATOR:
+        	return "item.ItemGeneratorSensorKit";
         }
         return "";
     }
@@ -50,6 +57,7 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase{
     {
         iconCounter = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_KIT_COUNTER));
         iconLiquid = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_KIT_LIQUID));
+        iconGenerator = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_KIT_GENERATOR));
     }    
     
     @Override
@@ -59,6 +67,8 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase{
             return iconCounter;
         case TYPE_LIQUID:
             return iconLiquid;
+        case TYPE_GENERATOR:
+        	return iconGenerator;
         }
         return null;
     }
@@ -84,6 +94,12 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase{
                 return new ChunkCoordinates(x, y, z);
             }
             break;
+        case TYPE_GENERATOR:
+        	TileEntity tileentity = world.getTileEntity(x, y, z);
+        	if (tileentity != null && tileentity instanceof TileEntityBaseGenerator){
+        		return new ChunkCoordinates(x, y, z);
+        	}
+        	break;
         default:
             break;
         }
@@ -99,16 +115,18 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase{
             return new ItemStack(IC2NuclearControl.instance.itemMultipleSensorLocationCard, 1, TYPE_COUNTER);
         case TYPE_LIQUID:
             return new ItemStack(IC2NuclearControl.instance.itemMultipleSensorLocationCard, 1, TYPE_LIQUID);
+        case TYPE_GENERATOR:
+        	return new ItemStack(IC2NuclearControl.instance.itemMultipleSensorLocationCard, 1, TYPE_GENERATOR);
         }
         return null;
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
-        par3List.add(new ItemStack(par1, 1, TYPE_COUNTER));
-        par3List.add(new ItemStack(par1, 1, TYPE_LIQUID));
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list){
+        list.add(new ItemStack(item, 1, TYPE_COUNTER));
+        list.add(new ItemStack(item, 1, TYPE_LIQUID));
+        list.add(new ItemStack(item, 1, TYPE_GENERATOR));
     }
 
 }

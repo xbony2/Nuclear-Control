@@ -9,6 +9,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -30,6 +32,7 @@ import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.thermalexpansion.CrossTE;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCardLiquidArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardMultipleSensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardReactorSensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardText;
@@ -59,7 +62,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies = "after:IC2")
+@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies = "after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl{
     
     public static final int COLOR_WHITE = 15;
@@ -79,8 +82,6 @@ public class IC2NuclearControl{
     public static final int COLOR_RED = 1;
     public static final int COLOR_BLACK = 0;
     
-    public static final String LOG_PREFIX = "[IC2NuclearControl] ";
-    
     //The instance of your mod forge uses
     @Instance
     public static IC2NuclearControl instance;
@@ -97,6 +98,10 @@ public class IC2NuclearControl{
   	//Mod's creative tab
   	public static IC2NCCreativeTabs tabIC2NC = new IC2NCCreativeTabs();
     
+  	//For logging purposes
+  	public static Logger logger;
+  	public static ConfigurationHandler config;
+  	
     protected File configFile;
     protected File configDir;
     
@@ -114,6 +119,8 @@ public class IC2NuclearControl{
     public static Item itemTimeCard;
     public static Item itemUpgrade;
     public static Item itemTextCard;
+    public static Item itemLiquidArrayLocationCard;
+    public static Item itemWindCard;
     public static BlockNuclearControlMain blockNuclearControlMain;
     public int modelId;
     public int alarmRange;
@@ -134,7 +141,7 @@ public class IC2NuclearControl{
     public CrossRailcraft crossRailcraft;
     public CrossTE crossThermalEx;
 
-    protected void initBlocks(Configuration configuration){
+    protected void initBlocks(){
     	blockNuclearControlMain = new BlockNuclearControlMain();
         itemToolThermometer = new ItemToolThermometer().setUnlocalizedName("ItemToolThermometer");
         itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80).setUnlocalizedName("ItemToolDigitalThermometer");
@@ -148,6 +155,7 @@ public class IC2NuclearControl{
         itemMultipleSensorKit = new ItemKitMultipleSensor().setUnlocalizedName("ItemCounterSensorKit");
         itemEnergySensorKit = new ItemKitEnergySensor().setUnlocalizedName("ItemEnergySensorKit");
         itemRemoteSensorKit = new ItemKitReactorSensor().setUnlocalizedName("ItemRemoteSensorKit");
+        itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation().setUnlocalizedName("ItemLiquidArrayLocationCard");
     }
     
     @EventHandler
@@ -167,14 +175,30 @@ public class IC2NuclearControl{
 
     public void registerBlocks(){
     	GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
-    	//^Might work, might not
+    	GameRegistry.registerItem(itemToolThermometer, "itemToolThermometer");
+    	GameRegistry.registerItem(itemToolDigitalThermometer, "itemToolDigitalThermometer");
+    	GameRegistry.registerItem(itemRemoteSensorKit, "itemRemoteSensorKit");
+    	GameRegistry.registerItem(itemEnergySensorKit, "itemEnergySensorKit");
+    	GameRegistry.registerItem(itemMultipleSensorKit, "itemMultipleSensorKit");
+    	GameRegistry.registerItem(itemSensorLocationCard, "itemSensorLocationCard");
+    	GameRegistry.registerItem(itemEnergySensorLocationCard, "itemEnergySensorLocationCard");
+    	GameRegistry.registerItem(itemMultipleSensorLocationCard, "itemMultipleSensorLocationCard");
+    	GameRegistry.registerItem(itemEnergyArrayLocationCard, "itemEnergyArrayLocationCard");
+    	GameRegistry.registerItem(itemTimeCard, "itemTimeCard");
+    	GameRegistry.registerItem(itemUpgrade, "itemUpgrade");
+    	GameRegistry.registerItem(itemTextCard, "itemTextCard");
+    	GameRegistry.registerItem(itemLiquidArrayLocationCard, "itemLiquidArrayLocationCard");
+    	//GameRegistry.registerItem(itemWindCard, "itemWindCard");
+    	//^Might work, might not :p
     }
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
-    	configFile = event.getSuggestedConfigurationFile();
-		configDir = event.getModConfigurationDirectory();
-		MinecraftForge.EVENT_BUS.register(this);
+    	logger = event.getModLog();
+    	//Loads configuration
+    	config = new ConfigurationHandler();
+    	FMLCommonHandler.instance().bus().register(config);
+    	config.init(event.getSuggestedConfigurationFile());
 
 		//registers channel handler
 		//new ChannelHandler();
@@ -187,6 +211,7 @@ public class IC2NuclearControl{
 			MinecraftForge.EVENT_BUS.register(ClientTickHandler.instance);
 			FMLCommonHandler.instance().bus().register(ClientTickHandler.instance);
 		}
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
     }
 
     @EventHandler
@@ -201,23 +226,8 @@ public class IC2NuclearControl{
     @EventHandler
     public void init(FMLInitializationEvent evt){
     	IC2NuclearControl.instance.screenManager = new ScreenManager();
-		Configuration configuration;
-		configuration = new Configuration(configFile);
-		configuration.load();
-		initBlocks(configuration);
+		initBlocks();
 		registerBlocks();
-		alarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "alarmRange", 64).getInt();
-		maxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "maxAlarmRange", 128).getInt();
-		allowedAlarms = configuration.get(Configuration.CATEGORY_GENERAL, "allowedAlarms", "default,sci-fi").getString().replaceAll(" ", "");
-		remoteThermalMonitorEnergyConsumption = configuration.get(Configuration.CATEGORY_GENERAL, "remoteThermalMonitorEnergyConsumption", 1).getInt();
-		screenRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "infoPanelRefreshPeriod", 20).getInt();
-		rangeTriggerRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "rangeTriggerRefreshPeriod", 20).getInt();
-		SMPMaxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "SMPMaxAlarmRange", 256).getInt();
-		isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
-		httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
-		recipes = configuration.get(Configuration.CATEGORY_GENERAL, "recipes", "normal").getString();
 		proxy.registerTileEntities();
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-		configuration.save();
     }
 }

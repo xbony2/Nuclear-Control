@@ -30,13 +30,9 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
         tier = k;
         ratio = l;
         transfer = i1;
+        setTextureName(TextureResolver.getItemTexture("thermometerDigital"));
         
     }
-
-    @Override
-    public void registerIcons(IIconRegister iconRegister){
-        itemIcon = iconRegister.registerIcon(TextureResolver.getItemTexture("thermometerDigital"));
-    }    
 
     @Override
     protected boolean canTakeDamage(ItemStack itemstack, int i){ //TODO (not sure what the last parmeter is for)
@@ -48,9 +44,7 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer
     protected void messagePlayer(EntityPlayer entityplayer, IReactor reactor) {
         int heat = reactor.getHeat();
         int maxHeat = reactor.getMaxHeat();
-        NuclearNetworkHelper.chatMessage(entityplayer, 
-                "ThermoDigital:" + heat + ":" +((maxHeat * 50) / 100) + 
-                ":"+ ((maxHeat * 85) / 100));
+        NuclearNetworkHelper.chatMessage(entityplayer, "ThermoDigital:" + heat + ":" +((maxHeat * 50) / 100) + ":"+ ((maxHeat * 85) / 100));
     }
     
     @Override

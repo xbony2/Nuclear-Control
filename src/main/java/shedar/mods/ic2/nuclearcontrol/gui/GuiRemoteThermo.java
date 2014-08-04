@@ -134,7 +134,7 @@ public class GuiRemoteThermo extends GuiContainer{
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
         
         //Charge level progress bar
-        int chargeWidth = (int)(76F * container.remoteThermo.energy)/container.remoteThermo.maxStorage;
+        int chargeWidth = (int)(76F * container.remoteThermo.energy / container.remoteThermo.maxStorage);
         if(chargeWidth > 76){
             chargeWidth = 76;
         }

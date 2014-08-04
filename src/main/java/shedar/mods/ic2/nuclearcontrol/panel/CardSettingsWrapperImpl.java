@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.ICardSettingsWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiInfoPanel;
@@ -24,7 +25,7 @@ public class CardSettingsWrapperImpl implements ICardSettingsWrapper
     {
         if(!(card.getItem() instanceof IPanelDataSource))
         {
-            FMLLog.severe("CardHelper sould be used for IPanelDataSource items.");
+        	IC2NuclearControl.logger.error("CardHelper sould be used for IPanelDataSource items.");
         }
         this.card = card;
         this.panel = panel;
@@ -40,7 +41,7 @@ public class CardSettingsWrapperImpl implements ICardSettingsWrapper
     }
     
     @Override
-    public void setLong(String name, Long value)
+    public void setDouble(String name, double value)
     {
         updateSet.put(name, value);
     }

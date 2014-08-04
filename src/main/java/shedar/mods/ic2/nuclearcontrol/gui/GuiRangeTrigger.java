@@ -59,7 +59,7 @@ public class GuiRangeTrigger extends GuiContainer{
         initControls();
     };
 
-    private void renderValue(long value, int x, int y){
+    private void renderValue(double value, int x, int y){
         x+=114;
         for( int i=0; i<10; i++){
             byte digit = (byte)(value % 10);
@@ -78,10 +78,10 @@ public class GuiRangeTrigger extends GuiContainer{
         int power = 9 - (id % 10);
         id /= 10;
         boolean isEnd = id % 2 == 1;
-        long initValue = isEnd ? container.trigger.levelEnd:container.trigger.levelStart;
-        long newValue = initValue;
-        long delta = (long)Math.pow(10, power);
-        long digit = (initValue / delta) % 10;
+        double initValue = isEnd ? container.trigger.levelEnd:container.trigger.levelStart;
+        double newValue = initValue;
+        double delta = (long)Math.pow(10, power);
+        double digit = (initValue / delta) % 10;
         if(isPlus && digit<9){
             newValue += delta;
         }else if(!isPlus && digit > 0){

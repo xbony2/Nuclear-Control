@@ -29,7 +29,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 
 public class NuclearNetworkHelper
 {
-	public static final int FIELD_LONG = 1;
+	public static final int FIELD_DOUBLE = 1;
 	public static final int FIELD_INT = 2;
 	public static final int FIELD_STRING = 3;
 	public static final int FIELD_BOOLEAN = 4;
@@ -49,7 +49,7 @@ public class NuclearNetworkHelper
 			output.writeInt(counter.xCoord);
 			output.writeInt(counter.yCoord);
 			output.writeInt(counter.zCoord);
-			output.writeLong(counter.counter);
+			output.writeDouble(counter.counter);
 		}
 		catch (IOException e)
 		{
@@ -125,10 +125,10 @@ public class NuclearNetworkHelper
 			{
 				output.writeUTF(entry.getKey());
 				Object value = entry.getValue();
-				if(value instanceof Long)
+				if(value instanceof Double)
 				{
-					output.writeByte(FIELD_LONG);
-					output.writeLong((Long)value);
+					output.writeByte(FIELD_DOUBLE);
+					output.writeDouble((Double)value);
 				}
 				else if(value instanceof Integer)
 				{
@@ -225,8 +225,8 @@ public class NuclearNetworkHelper
 				Object value = entry.getValue();
 				if (value instanceof Long)
 				{
-					output.writeByte(FIELD_LONG);
-					output.writeLong((Long)value);
+					output.writeByte(FIELD_DOUBLE);
+					output.writeDouble((Double)value);
 				}
 				else if (value instanceof Integer)
 				{
@@ -320,7 +320,7 @@ public class NuclearNetworkHelper
 	}
 
 	//client
-	public static void setRangeTrigger(int x, int y, int z, long value, boolean isEnd)
+	public static void setRangeTrigger(int x, int y, int z, double value, boolean isEnd)
 	{
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		DataOutputStream output = new DataOutputStream(stream);
@@ -330,7 +330,7 @@ public class NuclearNetworkHelper
 			output.writeInt(x);
 			output.writeInt(y);
 			output.writeInt(z);
-			output.writeLong(value);
+			output.writeDouble(value);
 			output.writeBoolean(isEnd);
 		}
 		catch (IOException e)

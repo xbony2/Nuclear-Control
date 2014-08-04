@@ -14,6 +14,9 @@ item.ItemColorUpgrade.name=Color Upgrade
 item.ItemWebUpgrade.name=Web Upgrade
 item.ItemTimeCard.name=Time Card
 item.ItemTextCard.name=Text Card
+item.ItemGeneratorSensorKit.name=Generator Sensor Kit
+item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
+item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
 
 tile.blockThermalMonitor.name=Thermal Monitor
 tile.blockIndustrialAlarm.name=Industrial Alarm
@@ -76,6 +79,11 @@ msg.nc.InfoPanelEnergyN=#%d Energy: %s
 msg.nc.InfoPanelEnergyFreeN=#%d Free: %s
 msg.nc.InfoPanelEnergyStorageN=#%d Storage: %s
 msg.nc.InfoPanelEnergyPercentageN=#%d Fill: %s%%
+msg.nc.InfoPanelLiquidNameN=#%d Name: %s
+msg.nc.InfoPanelLiquidN=#%d Amount: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Free: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Capacity: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Fill: %s%%
 
 msg.nc.InfoPanelTime=Time: %s
 
@@ -96,6 +104,11 @@ msg.nc.cbInfoPanelEnergyTotal=Summary
 msg.nc.cbInfoPanelEnergyPercentage=Fill percentage
 msg.nc.EnergyCardQuantity=Cards quantity: %d
 msg.nc.AverageCounterPeriod=Period: %ssec
+
+msg.nc.LiquidCardQuantity=Cards quantity: %d
+
+msg.nc.cbInfoPanelLiquidEach=Each card info
+msg.nc.cbInfoPanelLiquidTotal=Summary
 
 msg.nc.Reset=Reset
 msg.nc.ScreenColor=Screen Color
