@@ -1,16 +1,17 @@
-# tr_TR translation, by Toltol-PlanetTRCraft Team
-
 item.ItemToolThermometer.name=Termometre
 item.ItemToolDigitalThermometer.name=Dijital Termometre
-item.ItemRemoteSensorKit.name=Uzak Sensör Kiti
+item.ItemRemoteSensorKit.name=Uzaklık Sensör Kiti
 item.ItemEnergySensorKit.name=Enerji Sensör Kiti
-item.ItemCounterSensorKit.name=Counter Sensor Kit
+item.ItemCounterSensorKit.name=Counter Sensör Kiti
 item.ItemLiquidSensorKit.name=Sıvı Sensör Kiti
+item.ItemGeneratorSensorKit.name=Jeneratör Sensör Kiti
 item.ItemSensorLocationCard.name=Reaktör Sensör Kartı
 item.ItemEnergySensorLocationCard.name=Enerji Sensör Kartı
 item.ItemCounterSensorLocationCard.name=Counter Sensör Yer Kartı
 item.ItemLiquidSensorLocationCard.name=Sıvı Sensör Yer Kartı
+item.ItemGeneratorSensorLocationCard.name=Jeneratör Sensör Yer Kartı
 item.ItemEnergyArrayLocationCard.name=Enerji Array Yer Kartı
+item.ItemLiquidArrayLocationCard.name=Sıvı Array Yer Kartı
 item.ItemRangeUpgrade.name=Uzaklık Yükseltmesi
 item.ItemColorUpgrade.name=Renk Yükseltmesi
 item.ItemWebUpgrade.name=Web Yükseltmesi
@@ -22,9 +23,9 @@ tile.blockIndustrialAlarm.name=Endüstriyel Alarm
 tile.blockHowlerAlarm.name=Güçlü Alarm
 tile.blockRemoteThermo.name=Uzak Termal Monitör
 tile.blockInfoPanel.name=Endüstriyel Bilgi Paneli
-tile.blockInfoPanelExtender.name=Extender Bilgi Paneli
+tile.blockInfoPanelExtender.name=Endüstriyel Bilgi Panel Ekranı
 tile.blockAdvancedInfoPanel.name=Gelişmiş Bilgi Paneli
-tile.blockAdvancedInfoPanelExtender.name=Extender Gelişmiş Panel
+tile.blockAdvancedInfoPanelExtender.name=Gelişmiş Bilgi Panel Ekranı
 
 tile.blockEnergyCounter.name=Enerji Counter
 tile.blockAverageCounter.name=Average Counter
@@ -79,6 +80,12 @@ msg.nc.InfoPanelEnergyFreeN=#%d Boş: %s
 msg.nc.InfoPanelEnergyStorageN=#%d Kapasitesi: %s
 msg.nc.InfoPanelEnergyPercentageN=#%d Kullanılan: %s%%
 
+msg.nc.InfoPanelLiquidNameN=#%d Adı: %s
+msg.nc.InfoPanelLiquidN=#%d Miktarı: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Boş: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Kapasitesi: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Kullanılan: %s%%
+
 msg.nc.InfoPanelTime=Zaman: %s
 
 msg.nc.cbInfoPanelOnOff=Açık/Kapalı statüsü
@@ -98,6 +105,11 @@ msg.nc.cbInfoPanelEnergyTotal=Özet
 msg.nc.cbInfoPanelEnergyPercentage=Doldurun
 msg.nc.EnergyCardQuantity=Kartların miktarı: %d
 msg.nc.AverageCounterPeriod=Süre: %ssaniye
+
+msg.nc.LiquidCardQuantity=Kart Miktarı: %d
+
+msg.nc.cbInfoPanelLiquidEach=Kart Bilgileri
+msg.nc.cbInfoPanelLiquidTotal=Özet
 
 msg.nc.Reset=Reset
 msg.nc.ScreenColor=Ekran Rengi
