@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
+import ic2.api.energy.EnergyNet;
 import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
 
 import java.util.ArrayList;
@@ -163,7 +164,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
     	ChunkCoordinates target = card.getTarget();
     	TileEntity entity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
     	if (entity instanceof TileEntityBaseGenerator){
-    		int production = ((TileEntityBaseGenerator)entity).production;
+    		//int production = ((TileEntityBaseGenerator)entity).production;
+    		int production = (int)EnergyNet.instance.getTotalEnergyEmitted(entity);//TODO deprecated for now
     		card.setInt("production", production);
     		return CardState.OK;
     	}else{

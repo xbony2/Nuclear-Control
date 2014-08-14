@@ -37,6 +37,7 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.HowlerAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanelExtender;
+import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Light;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
@@ -46,6 +47,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLight;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
@@ -72,6 +74,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         register(new RangeTrigger());
         register(new AdvancedInfoPanel());
         register(new AdvancedInfoPanelExtender());
+        register(new Light());
     }
     
     public void register(Subblock block){
@@ -373,6 +376,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         return "IC2 Thermo";
     }
 
+    @Override
     public boolean canProvidePower(){
         return true;
     }
@@ -508,23 +512,24 @@ public class BlockNuclearControlMain extends BlockContainer{
         TileEntity entity = world.getTileEntity(x, y, z);
         if(entity instanceof TileEntityIndustrialAlarm){
             return ((TileEntityIndustrialAlarm)entity).lightLevel;
-        }
-        else if(entity instanceof TileEntityInfoPanel){
+        }else if(entity instanceof TileEntityInfoPanel){
             if(((TileEntityInfoPanel)entity).getPowered())
                 return 7;
             else
                 return 0;
-        }
-        else if(entity instanceof TileEntityInfoPanelExtender){
+        }else if(entity instanceof TileEntityInfoPanelExtender){
             TileEntityInfoPanelExtender extender = (TileEntityInfoPanelExtender)entity; 
-            if(extender.getScreen()!=null){
+            if(extender.getScreen() != null){
                 TileEntityInfoPanel core = extender.getScreen().getCore(extender.getWorldObj()); 
                 if(core!=null && core.getPowered())
                     return 7;
                 else
                     return 0;
             }
+        }else if(entity instanceof TileEntityLight){
+        	return 10;
         }
+        
         return getLightValue(); //Was "return 12", however Zuxelus said otherwise. 
     }
     

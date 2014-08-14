@@ -92,7 +92,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	public void setRotateVert(byte p){
 		rotateVert = p;
 		if (prevRotateVert != p){
-			NetworkHelper.updateTileEntityField(this, "rotateVert");
+			//NetworkHelper.updateTileEntityField(this, "rotateVert");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "rotateVert");
 		}
 		prevRotateVert = rotateVert;

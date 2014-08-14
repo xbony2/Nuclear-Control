@@ -4,6 +4,7 @@ item.ItemRemoteSensorKit.name=Набор с дистанционным датч�
 item.ItemEnergySensorKit.name=Набор для энергетического хранилища
 item.ItemCounterSensorKit.name=Набор для счётчика энергии
 item.ItemLiquidSensorKit.name=Набор для жидкостного хранилища
+item.ItemGeneratorSensorKit.name=Набор для генератора
 item.ItemSensorLocationCard.name=Карта-датчик расположения реактора
 item.ItemEnergySensorLocationCard.name=Карта-датчик расположения энергии
 item.ItemCounterSensorLocationCard.name=Карта-датчик расположения счётчика
@@ -58,6 +59,12 @@ msg.nc.InfoPanelEnergyFree=Свободно: %s
 msg.nc.InfoPanelEnergyStorage=Хранится: %s
 msg.nc.InfoPanelEnergyPercentage=Заполнено: %s%%
 
+msg.nc.InfoPanelLiquidNameN=#%d Название: %s
+msg.nc.InfoPanelLiquidN=#%d Количество: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Свободно: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Объём: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Заполнено: %s%%
+
 msg.nc.cbInfoPanelLiquidName=Название жидкости
 msg.nc.cbInfoPanelLiquidAmount=Количество
 msg.nc.cbInfoPanelLiquidCapacity=Объём
@@ -96,6 +103,11 @@ msg.nc.cbInfoPanelEnergyTotal=Суммарно
 msg.nc.cbInfoPanelEnergyPercentage=Процент заполнения
 msg.nc.EnergyCardQuantity=Количество карт: %d
 msg.nc.AverageCounterPeriod=Период: %sсек.
+
+msg.nc.LiquidCardQuantity=Количество карт: %d
+
+msg.nc.cbInfoPanelLiquidEach=Информация по каждой карте
+msg.nc.cbInfoPanelLiquidTotal=Суммарно
 
 msg.nc.Reset=Сброс
 msg.nc.ScreenColor=Цветной экран

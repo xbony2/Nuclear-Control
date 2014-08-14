@@ -43,7 +43,6 @@ public class TileEntityEnergyCounter extends TileEntity implements IEnergyConduc
 	protected int tickRate;
 
 	public double counter;
-	private double prevTotal;
 
 	private short prevFacing;
 	public short facing;
@@ -65,7 +64,6 @@ public class TileEntityEnergyCounter extends TileEntity implements IEnergyConduc
 		counter = 0.0;
 		tickRate = IC2NuclearControl.instance.screenRefreshPeriod;
 		updateTicker = tickRate;
-		prevTotal = -1;
 	}
 
 	protected void initData(){
@@ -124,23 +122,12 @@ public class TileEntityEnergyCounter extends TileEntity implements IEnergyConduc
 			if (!addedToEnergyNet){
 				EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
 				MinecraftForge.EVENT_BUS.post(event);
-				prevTotal = EnergyNet.instance.getTotalEnergyEmitted(this);
 				addedToEnergyNet = true;
 			}
 			if (updateTicker-- == 0){
 				updateTicker = tickRate-1;
-				double total = EnergyNet.instance.getTotalEnergyEmitted(this);
-				if (total > 0){
-					if (prevTotal!=-1){
-						total = total - prevTotal;
-						prevTotal += total;
-					}else{
-						prevTotal = total;
-					}
-					if (total > 0)
-						counter += total;
-					setPowerType(TileEntityAverageCounter.POWER_TYPE_EU);
-				}
+				counter = EnergyNet.instance.getTotalEnergyEmitted(this);
+				setPowerType(TileEntityAverageCounter.POWER_TYPE_EU);
 			}
 		}
 		super.updateEntity();

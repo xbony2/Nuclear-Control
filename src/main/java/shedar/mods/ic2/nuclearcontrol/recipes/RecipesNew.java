@@ -89,12 +89,12 @@ public class RecipesNew {
                         'P', Items.paper, 
                         'D', StackUtil.copyWithWildCard(digitalThermometer), 
                         'F', IC2Items.getItem("frequencyTransmitter"),
-                        'W', "dyeWhite"});
+                        'W', "dyeYellow"});
         
         Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemEnergySensorKit, 1), new Object[]{
                     "RF", "PO", 
                         'P', Items.paper, 
-                        'R', "redstone", 
+                        'R', "dustRedstone", 
                         'F', IC2Items.getItem("frequencyTransmitter"),
                         'O', "dyeOrange"});
         
@@ -154,7 +154,7 @@ public class RecipesNew {
                         'P', Items.paper, 
                         'C', "circuitBasic", 
                         'F', IC2Items.getItem("frequencyTransmitter"),
-                        'R', "dyeRed"});
+                        'R', "dyeOrange"});
         
         Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemMultipleSensorKit, 1, ItemKitMultipleSensor.TYPE_LIQUID), new Object[] {
                     "CF", "PB", 

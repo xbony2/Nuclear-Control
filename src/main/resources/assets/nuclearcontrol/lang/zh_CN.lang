@@ -1,4 +1,4 @@
-﻿#zh_CN
+#zh_CN
 
 item.ItemToolThermometer.name=温度计
 item.ItemToolDigitalThermometer.name=数码温度计
@@ -6,11 +6,14 @@ item.ItemRemoteSensorKit.name=远程传感工具
 item.ItemEnergySensorKit.name=电力传感工具
 item.ItemCounterSensorKit.name=计数器传感工具
 item.ItemLiquidSensorKit.name=流体传感工具
+item.ItemGeneratorSensorKit.name=Generator Sensor Kit
 item.ItemSensorLocationCard.name=反应堆传感定位卡片
 item.ItemEnergySensorLocationCard.name=电力传感定位卡片
+item.ItemCounterSensorLocationCard.name=Counter Sensor Location Card
 item.ItemCounterSensorLocationCard.name=计数传感定位卡片
 item.ItemLiquidSensorLocationCard.name=流体传感定位卡片
 item.ItemEnergyArrayLocationCard.name=电力阵列定位卡片
+item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
 item.ItemRangeUpgrade.name=范围升级
 item.ItemColorUpgrade.name=彩色升级
 item.ItemWebUpgrade.name=网页升级
@@ -79,6 +82,12 @@ msg.nc.InfoPanelEnergyFreeN=#%d 剩余: %s
 msg.nc.InfoPanelEnergyStorageN=#%d 存储: %s
 msg.nc.InfoPanelEnergyPercentageN=#%d 充电百分比: %s%%
 
+msg.nc.InfoPanelLiquidNameN=#%d Name: %s
+msg.nc.InfoPanelLiquidN=#%d Amount: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Free: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Capacity: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Fill: %s%%
+
 msg.nc.InfoPanelTime=时间: %s
 
 msg.nc.cbInfoPanelOnOff=开/关状态
@@ -98,6 +107,11 @@ msg.nc.cbInfoPanelEnergyTotal=总计
 msg.nc.cbInfoPanelEnergyPercentage=充电百分比
 msg.nc.EnergyCardQuantity=卡片数量: %d
 msg.nc.AverageCounterPeriod=周期: %s秒
+
+msg.nc.LiquidCardQuantity=Cards quantity: %d
+
+msg.nc.cbInfoPanelLiquidEach=Each card info
+msg.nc.cbInfoPanelLiquidTotal=Summary
 
 msg.nc.Reset=重置
 msg.nc.ScreenColor=屏幕颜色

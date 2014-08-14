@@ -13,8 +13,8 @@ public class ConfigurationHandler {
     public void init(File configFile) {
         if (configuration == null){
             configuration = new Configuration(configFile);
-            loadConfiguration();
         }
+        loadConfiguration();
     }
 
     private void loadConfiguration(){

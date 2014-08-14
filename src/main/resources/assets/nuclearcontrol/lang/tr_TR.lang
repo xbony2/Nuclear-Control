@@ -9,7 +9,9 @@ item.ItemSensorLocationCard.name=Reaktör Sensör Kartı
 item.ItemEnergySensorLocationCard.name=Enerji Sensör Kartı
 item.ItemCounterSensorLocationCard.name=Counter Sensör Yer Kartı
 item.ItemLiquidSensorLocationCard.name=Sıvı Sensör Yer Kartı
+item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
 item.ItemGeneratorSensorLocationCard.name=Jeneratör Sensör Yer Kartı
+item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
 item.ItemEnergyArrayLocationCard.name=Enerji Array Yer Kartı
 item.ItemLiquidArrayLocationCard.name=Sıvı Array Yer Kartı
 item.ItemRangeUpgrade.name=Uzaklık Yükseltmesi
@@ -61,6 +63,12 @@ msg.nc.InfoPanelEnergyFree=Boş: %s
 msg.nc.InfoPanelEnergyStorage=Depolanan: %s
 msg.nc.InfoPanelEnergyPercentage=Kullanılan: %s%%
 
+msg.nc.InfoPanelLiquidNameN=#%d Adı: %s
+msg.nc.InfoPanelLiquidN=#%d Miktarı: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Boş: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Kapasitesi: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Kullanılan: %s%%
+
 msg.nc.cbInfoPanelLiquidName=Sıvı adı
 msg.nc.cbInfoPanelLiquidAmount=Miktarı
 msg.nc.cbInfoPanelLiquidCapacity=Kapasitesi
@@ -105,6 +113,11 @@ msg.nc.cbInfoPanelEnergyTotal=Özet
 msg.nc.cbInfoPanelEnergyPercentage=Doldurun
 msg.nc.EnergyCardQuantity=Kartların miktarı: %d
 msg.nc.AverageCounterPeriod=Süre: %ssaniye
+
+msg.nc.LiquidCardQuantity=Kartların miktarı: %d
+
+msg.nc.cbInfoPanelLiquidEach=Kart Bilgisi
+msg.nc.cbInfoPanelLiquidTotal=Özet
 
 msg.nc.LiquidCardQuantity=Kart Miktarı: %d
 

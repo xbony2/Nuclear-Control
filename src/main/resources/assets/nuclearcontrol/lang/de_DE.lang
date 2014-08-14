@@ -4,11 +4,14 @@ item.ItemRemoteSensorKit.name=Fernsensor-Bausatz
 item.ItemEnergySensorKit.name=Energiesensor-Bausatz
 item.ItemCounterSensorKit.name=Zählsensor-Bausatz
 item.ItemLiquidSensorKit.name=Flüssigkeitssensor-Bausatz
+item.ItemGeneratorSensorKit.name=Generator Sensor Kit
 item.ItemSensorLocationCard.name=Reaktorsensor-Ortungskarte
 item.ItemEnergySensorLocationCard.name=Energiesensor-Ortungskarte
 item.ItemCounterSensorLocationCard.name=Zählsensor-Ortungskarte
 item.ItemLiquidSensorLocationCard.name=Flüssigkeitssensor-Ortungskarte
+item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
 item.ItemEnergyArrayLocationCard.name=Energiebereichs-Ortungskarte
+item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
 item.ItemRangeUpgrade.name=Reichweitenupgrade
 item.ItemColorUpgrade.name=Farbupgrade
 item.ItemWebUpgrade.name=Netzupgrade
@@ -77,6 +80,12 @@ msg.nc.InfoPanelEnergyFreeN=#%d Frei: %s
 msg.nc.InfoPanelEnergyStorageN=#%d Speicher: %s
 msg.nc.InfoPanelEnergyPercentageN=#%d Gefüllt: %s%%
 
+msg.nc.InfoPanelLiquidNameN=#%d Name: %s
+msg.nc.InfoPanelLiquidN=#%d Menge: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Frei: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Kapazität: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Gefüllt: %s%%
+
 msg.nc.InfoPanelTime=Zeit: %s
 
 msg.nc.cbInfoPanelOnOff=An/Aus Status
@@ -96,6 +105,11 @@ msg.nc.cbInfoPanelEnergyTotal=Zusammenfassung
 msg.nc.cbInfoPanelEnergyPercentage=Füllstand
 msg.nc.EnergyCardQuantity=Kartenanzahl: %d
 msg.nc.AverageCounterPeriod=Periode: %ssec
+
+msg.nc.LiquidCardQuantity=Kartenanzahl: %d
+
+msg.nc.cbInfoPanelLiquidEach=Info jeder Karte
+msg.nc.cbInfoPanelLiquidTotal=Zusammenfassung
 
 msg.nc.Reset=Reset
 msg.nc.ScreenColor=Bildschirmfarbe

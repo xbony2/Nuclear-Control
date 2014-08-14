@@ -62,7 +62,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies = "after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
+@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies="required-after:IC2@[2.2.589-experimental]", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl{
     
     public static final int COLOR_WHITE = 15;
@@ -157,21 +157,6 @@ public class IC2NuclearControl{
         itemRemoteSensorKit = new ItemKitReactorSensor().setUnlocalizedName("ItemRemoteSensorKit");
         itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation().setUnlocalizedName("ItemLiquidArrayLocationCard");
     }
-    
-    @EventHandler
-    public void modsLoaded(FMLPostInitializationEvent evt){
-    	if(recipes == "normal"){ 
-    	   RecipesNew.addRecipes();
-       }
-       
-       if(recipes == "old"){
-    	RecipesOld.addOldRecipes();
-       }
-       
-       if(recipes == "gregtech"){
-    	   //TODO
-       }
-    }    
 
     public void registerBlocks(){
     	GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
@@ -221,6 +206,20 @@ public class IC2NuclearControl{
         //crossGregTech = new CrossGregTech();
         crossRailcraft = new CrossRailcraft();
         crossThermalEx = new CrossTE();
+        
+        if(recipes == "normal"){ 
+      	  RecipesNew.addRecipes();
+        }
+         
+        if(recipes == "old"){
+          RecipesOld.addOldRecipes();
+        }
+         
+        if(recipes == "gregtech"){
+      	  //TODO
+        	logger.error("Gregtech recipes not complete yet, try again later!");
+        }
+         
     }
 
     @EventHandler

@@ -1,9 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.utils;
 
-public class Damages
-{
-    private Damages()
-    {}
+public class Damages{
+    private Damages(){}
     
     public static final int DAMAGE_THERMAL_MONITOR = 0;
     public static final int DAMAGE_INDUSTRIAL_ALARM = 1;
@@ -16,7 +14,8 @@ public class Damages
     public static final int DAMAGE_RANGE_TRIGGER = 8;
     public static final int DAMAGE_ADVANCED_PANEL = 9;
     public static final int DAMAGE_ADVANCED_EXTENDER = 10;
+    public static final int DAMAGE_LIGHT = 11;
 
-    public static final int DAMAGE_MAX = 10;
+    public static final int DAMAGE_MAX = 11;
 
 }

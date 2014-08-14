@@ -35,7 +35,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEntityAverageCounter extends TileEntity implements IEnergyConductor, IWrenchable, INetworkClientTileEntityEventListener,IInventory, ISlotItemFilter, INetworkDataProvider, INetworkUpdateListener {
 	private static final int BASE_PACKET_SIZE = 32;
-	private static final int DATA_POINTS = 11;
+	private static final int DATA_POINTS = 11 * 20;
 
 	public static final byte POWER_TYPE_EU = 0;
 	public static final byte POWER_TYPE_MJ = 1;
@@ -47,12 +47,12 @@ public class TileEntityAverageCounter extends TileEntity implements IEnergyCondu
 	private byte prevPowerType;
 	public byte powerType;
 
-	private double prevTotal;
+	//private double prevTotal;
 
 	private short prevFacing;
 	public short facing;
 
-	protected float[] data;
+	protected double[] data;
 	protected int index;
 	protected int updateTicker;
 	protected int tickRate;
@@ -70,7 +70,7 @@ public class TileEntityAverageCounter extends TileEntity implements IEnergyCondu
 		addedToEnergyNet = false;
 		packetSize = BASE_PACKET_SIZE;
 		prevFacing = facing = 0;
-		data = new float[DATA_POINTS];
+		data = new double[DATA_POINTS];
 		index = 0;
 		tickRate = 20;
 		updateTicker = tickRate;
@@ -146,27 +146,16 @@ public class TileEntityAverageCounter extends TileEntity implements IEnergyCondu
 			if (!addedToEnergyNet){
 				EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
 				MinecraftForge.EVENT_BUS.post(event);
-				prevTotal = EnergyNet.instance.getTotalEnergyEmitted(this);
+				//prevTotal = EnergyNet.instance.getTotalEnergyEmitted(this);
 				addedToEnergyNet = true;
 			}
-			if (updateTicker-- == 0){
-				updateTicker = tickRate-1;
-				index = (index+1) % DATA_POINTS;
-				data[index] = 0;
-				getAverage();
-				double total = EnergyNet.instance.getTotalEnergyEmitted(this);
-				if(total > 0){
-					if(prevTotal!=-1){
-						total = total - prevTotal;
-						prevTotal += total;
-					}else{
-						prevTotal = total;
-					}
-					if(total>0)
-						data[index] += total;
-					setPowerType(POWER_TYPE_EU);
-				}
-			}
+			index = (index + 1) % DATA_POINTS;
+			data[index] = 0;
+			getAverage();
+			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
+			
+			data[index] = total;
+			setPowerType(POWER_TYPE_EU);
 		}
 		super.updateEntity();
 	}
@@ -378,12 +367,12 @@ public class TileEntityAverageCounter extends TileEntity implements IEnergyCondu
 	}
 
 	private int getAverage(){
-		int start = DATA_POINTS + index - period;
-		long sum = 0;
-		for (int i = 0; i < period; i++){
+		int start = DATA_POINTS + index - period * 20;
+		double sum = 0;
+		for (int i = 0; i < period * 20; i++){
 			sum += data[(start + i) % DATA_POINTS];
 		}
-		clientAverage = (int)(sum / (((long)period) * tickRate));
+		clientAverage = (int)Math.round(sum / period / 20);
 		return clientAverage;
 	}
 
@@ -391,8 +380,9 @@ public class TileEntityAverageCounter extends TileEntity implements IEnergyCondu
 	public void onNetworkEvent(EntityPlayer player, int event){
 		if (event == 0){
 			for(int i = 0; i < DATA_POINTS; i++){
-				data[i]=0;
+				data[i] = 0;
 			}
+			
 			updateTicker = tickRate;
 			index = 0;
 		}else{
