@@ -19,7 +19,7 @@ public class RemoteThermo extends Subblock{
     public static final byte I_SCALE = 2;
     public static final byte I_SIDE = 3;
     
-    private static final byte[][] mapping ={
+    private static final byte[][] mapping = {
         {I_BACK, I_FACE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
         {I_FACE, I_BACK, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
         {I_SIDE, I_SIDE, I_BACK, I_FACE, I_SIDE, I_SIDE},

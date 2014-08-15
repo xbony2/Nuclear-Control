@@ -28,6 +28,7 @@ tile.blockInfoPanel.name=工业信息屏
 tile.blockInfoPanelExtender.name=工业信息屏扩展
 tile.blockAdvancedInfoPanel.name=高级工业信息屏
 tile.blockAdvancedInfoPanelExtender.name=高级工业信息屏扩展
+tile.blockLight.name=Industrial Light
 
 tile.blockEnergyCounter.name=电力计数器
 tile.blockAverageCounter.name=平均电力计数器

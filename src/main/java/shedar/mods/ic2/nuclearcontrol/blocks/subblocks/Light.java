@@ -11,6 +11,20 @@ import net.minecraft.util.IIcon;
 public class Light extends Subblock{
 
 	private static final int DAMAGE = Damages.DAMAGE_LIGHT;
+	private static final float[] BOUNDS = {0, 0, 0, 1, 1, 1};
+	
+	public static final byte I_SIDE = 0;
+	
+	 private static final byte[][] mapping = {
+	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
+	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
+	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
+	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
+	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
+	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE}
+	    };
+	
+	private IIcon[] icons = new IIcon[1];
 	
 	public Light() {
 		super(DAMAGE, "tile.blockLight");
@@ -19,20 +33,17 @@ public class Light extends Subblock{
 
 	@Override
 	public IIcon getIcon(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return icons[index];
 	}
 
 	@Override
 	protected byte[][] getMapping() {
-		// TODO Auto-generated method stub
-		return null;
+		return mapping;
 	}
 
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
-		// TODO Auto-generated method stub
-		
+		icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/whiteOn");
 	}
 
 	@Override
@@ -42,32 +53,27 @@ public class Light extends Subblock{
 	}
 
 	@Override
-	public boolean isSolidBlockRequired() {
-		// TODO Auto-generated method stub
+	public boolean isSolidBlockRequired(){
 		return false;
 	}
 
 	@Override
-	public boolean hasGui() {
+	public boolean hasGui(){
 		return false;
 	}
 
 	@Override
-	public float[] getBlockBounds(TileEntity tileEntity) {
-		// TODO Auto-generated method stub
+	public float[] getBlockBounds(TileEntity tileEntity){
+		return BOUNDS;
+	}
+
+	@Override
+	public Container getServerGuiElement(TileEntity tileEntity, EntityPlayer player){
 		return null;
 	}
 
 	@Override
-	public Container getServerGuiElement(TileEntity tileEntity,
-			EntityPlayer player) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object getClientGuiElement(TileEntity tileEntity, EntityPlayer player) {
-		// TODO Auto-generated method stub
+	public Object getClientGuiElement(TileEntity tileEntity, EntityPlayer player){
 		return null;
 	}
 

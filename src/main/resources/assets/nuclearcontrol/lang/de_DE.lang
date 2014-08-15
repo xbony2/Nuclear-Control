@@ -26,6 +26,7 @@ tile.blockInfoPanel.name=Industrielle Informationstafel
 tile.blockInfoPanelExtender.name=Informationstafelerweiterung
 tile.blockAdvancedInfoPanel.name=Fortgeschrittene Informationstafel
 tile.blockAdvancedInfoPanelExtender.name=Fortgeschrittene Tafelerweiterung
+tile.blockLight.name=Industrial Light
 
 tile.blockEnergyCounter.name=Energiezähler
 tile.blockAverageCounter.name=Durchschnittszähler

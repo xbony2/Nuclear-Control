@@ -125,12 +125,11 @@ public class BlockNuclearControlMain extends BlockContainer{
         super.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, metadata);
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         ForgeDirection oposite = dir.getOpposite();
-        if(metadata > Damages.DAMAGE_MAX)
-        {
+        if(metadata > Damages.DAMAGE_MAX){
             metadata = 0;
         }
-        if(isSolidBlockRequired(metadata) && !world.isSideSolid(x + oposite.offsetX, y + oposite.offsetY, z + oposite.offsetZ, dir))
-        {
+        
+        if(isSolidBlockRequired(metadata) && !world.isSideSolid(x + oposite.offsetX, y + oposite.offsetY, z + oposite.offsetZ, dir)){
             side = 1;
         }
         return metadata + (side<<8);
@@ -250,7 +249,7 @@ public class BlockNuclearControlMain extends BlockContainer{
 		if(!isSolidBlockRequired(metadata)){
 			return true;
 		}
-		return (dir == ForgeDirection.DOWN  && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN )) ||
+		return  (dir == ForgeDirection.DOWN  && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN )) ||
 				(dir == ForgeDirection.UP    && world.isSideSolid(x, y - 1, z, ForgeDirection.UP   )) ||
 				(dir == ForgeDirection.NORTH && world.isSideSolid(x, y, z + 1, ForgeDirection.NORTH)) ||
 				(dir == ForgeDirection.SOUTH && world.isSideSolid(x, y, z - 1, ForgeDirection.SOUTH)) ||
@@ -317,12 +316,10 @@ public class BlockNuclearControlMain extends BlockContainer{
         float tmp;
         
         int side = 0;
-        if(tileentity instanceof IWrenchable)
-        {
+        if(tileentity instanceof IWrenchable){
         	side = Facing.oppositeSide[((IWrenchable)tileentity).getFacing()];
         }
-        switch (side)
-        {
+        switch (side){
             case 1:
             	baseY1 = 1 - baseY1;
             	baseY2 = 1 - baseY2;
@@ -527,7 +524,7 @@ public class BlockNuclearControlMain extends BlockContainer{
                     return 0;
             }
         }else if(entity instanceof TileEntityLight){
-        	return 10;
+        	return 15;
         }
         
         return getLightValue(); //Was "return 12", however Zuxelus said otherwise. 
