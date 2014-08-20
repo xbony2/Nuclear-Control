@@ -1,19 +1,17 @@
-#zh_CN
-
 item.ItemToolThermometer.name=温度计
 item.ItemToolDigitalThermometer.name=数码温度计
 item.ItemRemoteSensorKit.name=远程传感工具
 item.ItemEnergySensorKit.name=电力传感工具
 item.ItemCounterSensorKit.name=计数器传感工具
 item.ItemLiquidSensorKit.name=流体传感工具
-item.ItemGeneratorSensorKit.name=Generator Sensor Kit
+item.ItemGeneratorSensorKit.name=发电器传感工具
+item.ItemGeneratorSensorLocationCard.name=发电器传感定位卡片
 item.ItemSensorLocationCard.name=反应堆传感定位卡片
 item.ItemEnergySensorLocationCard.name=电力传感定位卡片
-item.ItemCounterSensorLocationCard.name=Counter Sensor Location Card
 item.ItemCounterSensorLocationCard.name=计数传感定位卡片
 item.ItemLiquidSensorLocationCard.name=流体传感定位卡片
 item.ItemEnergyArrayLocationCard.name=电力阵列定位卡片
-item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
+item.ItemLiquidArrayLocationCard.name=流体阵列定位卡片
 item.ItemRangeUpgrade.name=范围升级
 item.ItemColorUpgrade.name=彩色升级
 item.ItemWebUpgrade.name=网页升级
@@ -28,7 +26,7 @@ tile.blockInfoPanel.name=工业信息屏
 tile.blockInfoPanelExtender.name=工业信息屏扩展
 tile.blockAdvancedInfoPanel.name=高级工业信息屏
 tile.blockAdvancedInfoPanelExtender.name=高级工业信息屏扩展
-tile.blockLight.name=Industrial Light
+tile.blockLight.name=工业照明
 
 tile.blockEnergyCounter.name=电力计数器
 tile.blockAverageCounter.name=平均电力计数器
@@ -83,7 +81,7 @@ msg.nc.InfoPanelEnergyFreeN=#%d 剩余: %s
 msg.nc.InfoPanelEnergyStorageN=#%d 存储: %s
 msg.nc.InfoPanelEnergyPercentageN=#%d 充电百分比: %s%%
 
-msg.nc.InfoPanelLiquidNameN=#%d Name: %s
+msg.nc.InfoPanelLiquidNameN=#%d 名称: %s
 msg.nc.InfoPanelLiquidN=#%d Amount: %s
 msg.nc.InfoPanelLiquidFreeN=#%d Free: %s
 msg.nc.InfoPanelLiquidCapacityN=#%d Capacity: %s
