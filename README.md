@@ -17,7 +17,7 @@ Dmf444, for figuring out everything I didn’t figure out code-wise.
 
 Lordperi, for translation to spanish. 
 
-Adaptivity (aka Anton), for updating ru_RU.
+Adaptivity, for translation to ru_RU.
 
 Vexatos, translation to de_DE.
 
