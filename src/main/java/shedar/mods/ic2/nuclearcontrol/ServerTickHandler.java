@@ -20,6 +20,10 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraft.entity.player.EntityPlayerMP;
+
+import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
+import shedar.mods.ic2.nuclearcontrol.network.message.PacketAlarm;
 
 public class ServerTickHandler {
 
@@ -34,18 +38,8 @@ public class ServerTickHandler {
 
 	// Function playerLoggedIn from ConnectionHandler.java
 	@SubscribeEvent
-	public void onPlayerLogin(PlayerLoggedInEvent event)
-	{
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		DataOutputStream out = new DataOutputStream(stream);
-		try{		
-			out.writeShort(PacketHandler.PACKET_ALARM);
-			out.writeInt(IC2NuclearControl.instance.maxAlarmRange);
-			out.writeUTF(IC2NuclearControl.instance.allowedAlarms);
-		}catch (IOException e){
-			e.printStackTrace();
-		}
-		ChannelHandler.instance.sendToPlayer(new Packet(stream.toByteArray()),event.player);
+	public void onPlayerLogin(PlayerLoggedInEvent event){
+		ChannelHandler.network.sendTo(new PacketAlarm(IC2NuclearControl.instance.maxAlarmRange, IC2NuclearControl.instance.allowedAlarms), (EntityPlayerMP)event.player);
 	}
 
 }

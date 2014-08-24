@@ -1,6 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol;
 
-
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 
@@ -44,6 +43,7 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemTimeCard;
 import shedar.mods.ic2.nuclearcontrol.items.ItemToolDigitalThermometer;
 import shedar.mods.ic2.nuclearcontrol.items.ItemToolThermometer;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
+import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
@@ -62,7 +62,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies="required-after:IC2@[2.2.589-experimental]", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
+@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies="required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl{
     
     public static final int COLOR_WHITE = 15;
@@ -91,9 +91,6 @@ public class IC2NuclearControl{
   
     //The proxy to be used by client and server
     public static CommonProxy proxy;
-    
-    //Channels for handling packages
-  	public static EnumMap<Side, FMLEmbeddedChannel> channels;
   	
   	//Mod's creative tab
   	public static IC2NCCreativeTabs tabIC2NC = new IC2NCCreativeTabs();
@@ -186,8 +183,7 @@ public class IC2NuclearControl{
     	config.init(event.getSuggestedConfigurationFile());
 
 		//registers channel handler
-		//new ChannelHandler();
-		channels = NetworkRegistry.INSTANCE.newChannel("IC2NC", ChannelHandler.instance);
+		ChannelHandler.init();
 
 		//Register event handlers
 		MinecraftForge.EVENT_BUS.register(ServerTickHandler.instance);

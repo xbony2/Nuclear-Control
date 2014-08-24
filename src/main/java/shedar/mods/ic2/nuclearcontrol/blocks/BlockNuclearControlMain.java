@@ -1,6 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol.blocks;
 
-
 import ic2.api.tile.IWrenchable;
 
 import java.util.HashMap;
@@ -230,6 +229,9 @@ public class BlockNuclearControlMain extends BlockContainer{
         TileEntity tileentity = world.getTileEntity(x, y, z);
         if(tileentity instanceof IWrenchable){
         	side = Facing.oppositeSide[((IWrenchable)tileentity).getFacing()];
+        }
+        if(tileentity instanceof TileEntityLight){
+        		tileentity.updateEntity();
         }
         int metadata = world.getBlockMetadata(x, y, z);
         
@@ -482,7 +484,6 @@ public class BlockNuclearControlMain extends BlockContainer{
         }
     }
     
-    //TODO remove subblocks and bring them back as normal blocks
     public Subblock getSubblock(int metadata){
 		if(subblocks.containsKey(metadata))
 			return subblocks.get(metadata);
@@ -501,7 +502,6 @@ public class BlockNuclearControlMain extends BlockContainer{
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
 		int metadata = world.getBlockMetadata(x, y, z);
 		return !isSolidBlockRequired(metadata);
-
 	}
     
     @Override
@@ -523,14 +523,14 @@ public class BlockNuclearControlMain extends BlockContainer{
                 else
                     return 0;
             }
-        }else if(entity instanceof TileEntityLight){
-        	return 15;
-        }
+        }/*else if(entity instanceof TileEntityLight){
+        	if(((TileEntityLight) entity).isOn) return 15;
+        }*/
         
-        return getLightValue(); //Was "return 12", however Zuxelus said otherwise. 
+        return getLightValue();
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	public void getSubBlocks(Item id, CreativeTabs tab, List itemList){
 		for(int i = 0;i <= Damages.DAMAGE_MAX;i++){

@@ -69,7 +69,7 @@ public class CardWrapperImpl implements ICardWrapper
 		if (nbtTagCompound.hasKey(name))
 		{
 			Integer prevValue = nbtTagCompound.getInteger(name);
-			if (prevValue==null || !prevValue.equals(value))
+			if (prevValue == null || !prevValue.equals(value))
 				updateSet.put(name, value);
 		}
 		else

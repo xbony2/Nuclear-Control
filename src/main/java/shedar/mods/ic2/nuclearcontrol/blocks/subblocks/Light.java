@@ -15,6 +15,8 @@ public class Light extends Subblock{
 	
 	public static final byte I_SIDE = 0;
 	
+	private boolean on = false;
+	
 	 private static final byte[][] mapping = {
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
@@ -24,7 +26,7 @@ public class Light extends Subblock{
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE}
 	    };
 	
-	private IIcon[] icons = new IIcon[1];
+	private IIcon[] icons = new IIcon[2];
 	
 	public Light() {
 		super(DAMAGE, "tile.blockLight");
@@ -44,6 +46,7 @@ public class Light extends Subblock{
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
 		icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/whiteOn");
+		icons[1] = iconRegister.registerIcon("nuclearcontrol:light/off/whiteOff");
 	}
 
 	@Override
@@ -76,5 +79,7 @@ public class Light extends Subblock{
 	public Object getClientGuiElement(TileEntity tileEntity, EntityPlayer player){
 		return null;
 	}
-
+	
+	
+	
 }
