@@ -170,8 +170,6 @@ public class IC2NuclearControl{
     	GameRegistry.registerItem(itemUpgrade, "itemUpgrade");
     	GameRegistry.registerItem(itemTextCard, "itemTextCard");
     	GameRegistry.registerItem(itemLiquidArrayLocationCard, "itemLiquidArrayLocationCard");
-    	//GameRegistry.registerItem(itemWindCard, "itemWindCard");
-    	//^Might work, might not :p
     }
     
     @EventHandler
@@ -212,8 +210,8 @@ public class IC2NuclearControl{
         }
          
         if(recipes == "gregtech"){
-      	  //TODO
-        	logger.error("Gregtech recipes not complete yet, try again later!");
+          //TODO
+          logger.error("Gregtech recipes not complete yet, try again later!");
         }
          
     }

@@ -11,6 +11,7 @@ import ic2.core.network.NetworkManager;
 import java.util.List;
 import java.util.Vector;
 
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,7 +47,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 	private int updateTicker;
 	protected int tickRate;
-	private String soundId;
+	private PositionedSoundRecord sound;
 
 	public TileEntityHowlerAlarm(){
 		facing = 0;
@@ -130,9 +131,9 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 	@Override
 	public void invalidate(){
-		if(soundId != null){
-			IC2NuclearControl.proxy.stopAlarm(soundId);
-			soundId = null;
+		if(sound != null){
+			IC2NuclearControl.proxy.stopAlarm(sound);
+			sound = null;
 		}
 		super.invalidate();
 	}
@@ -143,16 +144,15 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 		if (prevPowered != value){
 			if (powered){
-				if (soundId == null && soundReceived)
-					soundId = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
+				if (sound == null && soundReceived)
+					sound = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
 							SOUND_PREFIX+soundName, getNormalizedRange());
 			}else{
-				if (soundId != null){
-					IC2NuclearControl.proxy.stopAlarm(soundId);
-					soundId = null;
+				if (sound != null){
+					IC2NuclearControl.proxy.stopAlarm(sound);
+					sound = null;
 				}
 			}
-			//NetworkHelper.updateTileEntityField(this, "powered");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "powered");
 		}
 		prevPowered = value;
@@ -163,13 +163,13 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 		if (prevPowered != value){
 			if (powered){
-				if(soundId == null && soundReceived)
-					soundId = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
-							SOUND_PREFIX+soundName, getNormalizedRange());
+				if(sound == null && soundReceived)
+					sound = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
+							SOUND_PREFIX + soundName, getNormalizedRange());
 			}else{
-				if (soundId != null){
-					IC2NuclearControl.proxy.stopAlarm(soundId);
-					soundId = null;
+				if (sound != null){
+					IC2NuclearControl.proxy.stopAlarm(sound);
+					sound = null;
 				}
 			}
 		}
@@ -180,7 +180,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 		if (worldObj.isRemote){
 			return Math.min(range, IC2NuclearControl.instance.SMPMaxAlarmRange)/BASE_SOUND_RANGE;
 		}
-		return range/BASE_SOUND_RANGE;
+		return range / BASE_SOUND_RANGE;
 	}
 
 	@Override
@@ -263,8 +263,8 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	}
 
 	protected void checkStatus(){
-		if (powered && soundReceived && (soundId == null || !IC2NuclearControl.proxy.isPlaying(soundId))){
-			soundId = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
+		if (powered && soundReceived && (sound == null || !IC2NuclearControl.proxy.isPlaying(sound))){
+			sound = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
 					SOUND_PREFIX + soundName, getNormalizedRange());
 		}
 	}

@@ -1,8 +1,3 @@
-/**
- * 
- * @author Zuxelus, and he got it from the SoundsCool mod
- * 
- */
 package shedar.mods.ic2.nuclearcontrol;
 
 import net.minecraft.client.Minecraft;
@@ -17,19 +12,14 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class SoundHelper
 {
-	private static final String SOUND_ID_PREFIX = "NuclearControl_";
-	public static final String SOUND_FOLDER = "nuclearControl";
 	private static final float DEFAULT_RANGE = 16F; 
 
-	private static int internalId = 0;
-
-	private static String playSound(String name)
+	private static void playSound(PositionedSoundRecord sound)
 	{
-		Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.func_147673_a(new ResourceLocation(name)));
-		return name;
+		Minecraft.getMinecraft().getSoundHandler().playSound(sound);
 	}
 
-	public static String playAlarm(double x, double y, double z, String name, float volume)
+	public static PositionedSoundRecord playAlarm(double x, double y, double z, String name, float volume)
 	{
 		float range = DEFAULT_RANGE;
 
@@ -40,20 +30,22 @@ public class SoundHelper
 
 		Entity person = FMLClientHandler.instance().getClient().renderViewEntity;
 
-		if (person!= null && person.getDistanceSq(x, y, z) < (double)(range * range))
+		if (person != null && volume > 0 && person.getDistanceSq(x, y, z) < range * range)
 		{
-			return playSound(name);
+			PositionedSoundRecord sound = new PositionedSoundRecord(new ResourceLocation(name), volume, 1.0F , (float)x, (float)y, (float)z);
+			playSound(sound);
+			return sound;
 		}
 		return null;
 	}
 
-	public static boolean isPlaying(String name)
+	public static boolean isPlaying(PositionedSoundRecord sound)
 	{
-		return Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(PositionedSoundRecord.func_147673_a(new ResourceLocation(name)));
+		return Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(sound);
 	}
 
-	public static void stopAlarm(String name)
+	public static void stopAlarm(PositionedSoundRecord sound)
 	{
-		Minecraft.getMinecraft().getSoundHandler().stopSound(PositionedSoundRecord.func_147673_a(new ResourceLocation(name)));
+		Minecraft.getMinecraft().getSoundHandler().stopSound(sound);
 	}
 }

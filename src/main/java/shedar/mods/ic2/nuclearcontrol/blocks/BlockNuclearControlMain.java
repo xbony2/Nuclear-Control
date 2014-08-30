@@ -5,6 +5,7 @@ import ic2.api.tile.IWrenchable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -46,7 +47,8 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLight;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOff;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOn;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
@@ -73,7 +75,8 @@ public class BlockNuclearControlMain extends BlockContainer{
         register(new RangeTrigger());
         register(new AdvancedInfoPanel());
         register(new AdvancedInfoPanelExtender());
-        register(new Light());
+        register(new Light(true));
+        register(new Light(false));
     }
     
     public void register(Subblock block){
@@ -182,6 +185,21 @@ public class BlockNuclearControlMain extends BlockContainer{
         if(metadata > Damages.DAMAGE_MAX){
             metadata = 0;
         }
+        if(metadata == Damages.DAMAGE_LIGHT_ON){ //TODO
+        	if(!world.isRemote){
+        		if(!world.isBlockIndirectlyGettingPowered(x, y, z)){
+        			world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_OFF, 2);
+        		}
+        	}
+        }
+        if(metadata == Damages.DAMAGE_LIGHT_OFF){
+        	if(!world.isRemote){
+        		if(world.isBlockIndirectlyGettingPowered(x, y, z)){
+        			world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_ON, 2);
+        		}
+        	}
+        }
+        
         if(isSolidBlockRequired(metadata))
     	for (int face = 0; face < 6; face++){
     		int side = Facing.oppositeSide[face];
@@ -230,8 +248,19 @@ public class BlockNuclearControlMain extends BlockContainer{
         if(tileentity instanceof IWrenchable){
         	side = Facing.oppositeSide[((IWrenchable)tileentity).getFacing()];
         }
-        if(tileentity instanceof TileEntityLight){
-        		tileentity.updateEntity();
+        if(tileentity instanceof TileEntityLightOn){
+        	if(!world.isRemote){
+        		if(!world.isBlockIndirectlyGettingPowered(x, y, z)){
+        			world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_OFF, 2);
+        		}
+        	}
+        }
+        if(tileentity instanceof TileEntityLightOff){
+            if(!world.isRemote){
+            	if(world.isBlockIndirectlyGettingPowered(x, y, z)){
+            		world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_ON, 2);
+            	}
+            }
         }
         int metadata = world.getBlockMetadata(x, y, z);
         
@@ -367,8 +396,8 @@ public class BlockNuclearControlMain extends BlockContainer{
             	baseX2 = 1 - tmp;
                 break;
         }
-        setBlockBounds( Math.min(baseX1, baseX2), Math.min(baseY1, baseY2), Math.min(baseZ1, baseZ2), 
-        				Math.max(baseX1, baseX2), Math.max(baseY1, baseY2), Math.max(baseZ1, baseZ2) );
+        setBlockBounds(Math.min(baseX1, baseX2), Math.min(baseY1, baseY2), Math.min(baseZ1, baseZ2), 
+        			   Math.max(baseX1, baseX2), Math.max(baseY1, baseY2), Math.max(baseZ1, baseZ2) );
     }
 
     public String getInvName(){
@@ -523,9 +552,9 @@ public class BlockNuclearControlMain extends BlockContainer{
                 else
                     return 0;
             }
-        }/*else if(entity instanceof TileEntityLight){
-        	if(((TileEntityLight) entity).isOn) return 15;
-        }*/
+        }else if(entity instanceof TileEntityLightOn){
+        	return 15;
+        }
         
         return getLightValue();
     }
@@ -548,5 +577,14 @@ public class BlockNuclearControlMain extends BlockContainer{
         if(subblocks.containsKey(metadata))
             return subblocks.get(metadata).getTileEntity();
         return null;
+    }
+    
+    @Override
+    public Item getItemDropped(int metadata, Random p_149650_2_, int p_149650_3_){
+    	if(metadata == Damages.DAMAGE_LIGHT_ON){
+    		System.out.println("YOLYOYLOYLYOYYOLYYO");
+    		return Item.getItemFromBlock(this);
+    	}
+    	return Item.getItemFromBlock(this);
     }
 }

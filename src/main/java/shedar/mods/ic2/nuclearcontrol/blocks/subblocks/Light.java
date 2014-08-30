@@ -1,6 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.blocks.subblocks;
 
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLight;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOff;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOn;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,12 +11,13 @@ import net.minecraft.util.IIcon;
 
 public class Light extends Subblock{
 
-	private static final int DAMAGE = Damages.DAMAGE_LIGHT;
+	private static final int DAMAGE1 = Damages.DAMAGE_LIGHT_ON;
+	private static final int DAMAGE2 = Damages.DAMAGE_LIGHT_OFF;
 	private static final float[] BOUNDS = {0, 0, 0, 1, 1, 1};
 	
-	public static final byte I_SIDE = 0;
+	boolean isOn;
 	
-	private boolean on = false;
+	public static final byte I_SIDE = 0;
 	
 	 private static final byte[][] mapping = {
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
@@ -26,32 +28,35 @@ public class Light extends Subblock{
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE}
 	    };
 	
-	private IIcon[] icons = new IIcon[2];
+	private IIcon[] icons = new IIcon[1];
 	
-	public Light() {
-		super(DAMAGE, "tile.blockLight");
-		
+	public Light(boolean on) {
+		super(on ? DAMAGE1 : DAMAGE2, on ? "tile.blockLightOn" : "tile.blockLightOff");
+		isOn = on;
 	}
 
 	@Override
-	public IIcon getIcon(int index) {
+	public IIcon getIcon(int index){
 		return icons[index];
 	}
 
 	@Override
-	protected byte[][] getMapping() {
+	protected byte[][] getMapping(){
 		return mapping;
 	}
 
 	@Override
-	public void registerIcons(IIconRegister iconRegister) {
-		icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/whiteOn");
-		icons[1] = iconRegister.registerIcon("nuclearcontrol:light/off/whiteOff");
+	public void registerIcons(IIconRegister iconRegister){
+		if(isOn){
+			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/whiteOn");
+		}else{
+			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/whiteOff");
+		}
 	}
 
 	@Override
 	public TileEntity getTileEntity(){
-		TileEntity entity = new TileEntityLight();
+		TileEntity entity = (isOn ? new TileEntityLightOn() : new TileEntityLightOff());
 		return entity;
 	}
 
@@ -79,7 +84,5 @@ public class Light extends Subblock{
 	public Object getClientGuiElement(TileEntity tileEntity, EntityPlayer player){
 		return null;
 	}
-	
-	
 	
 }

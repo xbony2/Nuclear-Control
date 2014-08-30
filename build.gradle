@@ -9,10 +9,6 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
-        maven {
-		name = "ic2"
-		url = "http://maven.ic2.player.to/"
-	}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
@@ -21,18 +17,16 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = “2.0.0a”
-group= "com.shedar.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "1.0"
+group= "com.shedar.IC2NuclearControl2” // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "IC2NuclearControl2"
 
 minecraft {
-    version = "1.7.10-10.13.0.1180"
-    runDir = "eclipse"
+    version = "1.7.10-10.13.0.1206"
+    assetDir = "eclipse/assets"
 }
 
 dependencies {
-    compile 'net.industrial-craft:industrialcraft-2:2.1.534-experimental:api'
-
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"

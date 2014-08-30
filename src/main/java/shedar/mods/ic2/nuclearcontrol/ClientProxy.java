@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -47,21 +48,21 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ClientProxy extends CommonProxy
 {
 	@Override
-	public String playAlarm(double x, double y, double z, String name, float volume)
+	public PositionedSoundRecord playAlarm(double x, double y, double z, String name, float volume)
 	{
 		return SoundHelper.playAlarm(x, y, z, name, volume);
 	}
 
 	@Override
-	public void stopAlarm(String soundId)
+	public void stopAlarm(PositionedSoundRecord sound)
 	{
-		SoundHelper.stopAlarm(soundId);
+		SoundHelper.stopAlarm(sound);
 	}
 
 	@Override
-	public boolean isPlaying(String soundId)
+	public boolean isPlaying(PositionedSoundRecord sound)
 	{
-		return SoundHelper.isPlaying(soundId);
+		return SoundHelper.isPlaying(sound);
 	}
 
 	@Override

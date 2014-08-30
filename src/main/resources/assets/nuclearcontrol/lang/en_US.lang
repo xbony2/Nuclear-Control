@@ -26,7 +26,8 @@ tile.blockInfoPanel.name=Industrial Information Panel
 tile.blockInfoPanelExtender.name=Information Panel Extender
 tile.blockAdvancedInfoPanel.name=Advanced Information Panel
 tile.blockAdvancedInfoPanelExtender.name=Advanced Panel Extender
-tile.blockLight.name=Industrial Light
+tile.blockLightOn.name=Simple Light
+tile.blockLightOff.name=Simple Light
 
 tile.blockEnergyCounter.name=Energy Counter
 tile.blockAverageCounter.name=Average Counter

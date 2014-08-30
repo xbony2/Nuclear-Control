@@ -29,25 +29,20 @@ public class ConfigurationHandler {
         	IC2NuclearControl.instance.isHttpSensorAvailable = configuration.get(Configuration.CATEGORY_GENERAL, "isHttpSensorAvailable", true).getBoolean(true);
         	IC2NuclearControl.instance.httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
         	IC2NuclearControl.instance.recipes = configuration.get(Configuration.CATEGORY_GENERAL, "recipes", "normal").getString();
-        }
-        catch (Exception e){
+        }catch (Exception e){
         	IC2NuclearControl.logger.error("Mod has a problem loading it's configuration", e);
         }finally{
-            if (configuration.hasChanged()){
-                configuration.save();
-            }
+        	configuration.save();
         }
     }
 
     public void save(){
-        if (configuration.hasChanged()){
-            configuration.save();
-        }
+    	configuration.save();
     }
 
     @SubscribeEvent
     public void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event){
-        if (event.modID.equalsIgnoreCase("IC2NuclearControl2")){
+        if(event.modID.equalsIgnoreCase("IC2NuclearControl2")){
             loadConfiguration();
         }
     }

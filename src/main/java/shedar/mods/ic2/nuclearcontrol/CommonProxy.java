@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumSet;
 
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -36,13 +37,13 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy implements IGuiHandler{
-	public boolean isPlaying(String soundId){
+	public boolean isPlaying(PositionedSoundRecord sound){
 		return false;
 	}
 
-	public void stopAlarm(String soundId){}
+	public void stopAlarm(PositionedSoundRecord sound){}
 
-	public String playAlarm(double x, double y, double z, String name, float volume){
+	public PositionedSoundRecord playAlarm(double x, double y, double z, String name, float volume){
 		return null;
 	}
 
