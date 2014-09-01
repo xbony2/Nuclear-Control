@@ -1,4 +1,4 @@
-Copyright (c) 2012, Oleg Romanovskiy <shedarhome@gmail.com> aka Shedar
+Copyright (c) 2014, Eric Schneider aka xbony2
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -11,11 +11,15 @@ modification, are permitted provided that the following conditions are met:
     * Neither the name of the <organization> nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
+      
+The copyright holder has the right to revoke these permissions whether or not
+the conditions are not met. The copyright holder also has the right to change
+the conditions with or without notice.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL Eric Schneider (xbony2) BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
