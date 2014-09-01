@@ -37,15 +37,6 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy implements IGuiHandler{
-	public boolean isPlaying(PositionedSoundRecord sound){
-		return false;
-	}
-
-	public void stopAlarm(PositionedSoundRecord sound){}
-
-	public PositionedSoundRecord playAlarm(double x, double y, double z, String name, float volume){
-		return null;
-	}
 
 	public void registerTileEntities(){
 		GameRegistry.registerTileEntity(shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo.class, "IC2Thermo");

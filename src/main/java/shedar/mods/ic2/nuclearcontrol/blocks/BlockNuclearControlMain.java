@@ -185,7 +185,7 @@ public class BlockNuclearControlMain extends BlockContainer{
         if(metadata > Damages.DAMAGE_MAX){
             metadata = 0;
         }
-        if(metadata == Damages.DAMAGE_LIGHT_ON){ //TODO
+        if(metadata == Damages.DAMAGE_LIGHT_ON){
         	if(!world.isRemote){
         		if(!world.isBlockIndirectlyGettingPowered(x, y, z)){
         			world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_OFF, 2);
@@ -520,11 +520,15 @@ public class BlockNuclearControlMain extends BlockContainer{
 	}
 
     @Override
-    public int damageDropped(int i){
-        if(i > 0 && i <= Damages.DAMAGE_MAX)
+    public int damageDropped(int i){ //TODO
+        if(i > 0 && i <= Damages.DAMAGE_MAX){
+        	if(i == Damages.DAMAGE_LIGHT_ON){
+        		return Damages.DAMAGE_LIGHT_OFF;
+        	}
             return i;
-        else
+        }else{
             return 0;
+        }
     }
     
     @Override
@@ -579,12 +583,4 @@ public class BlockNuclearControlMain extends BlockContainer{
         return null;
     }
     
-    @Override
-    public Item getItemDropped(int metadata, Random p_149650_2_, int p_149650_3_){
-    	if(metadata == Damages.DAMAGE_LIGHT_ON){
-    		System.out.println("YOLYOYLOYLYOYYOLYYO");
-    		return Item.getItemFromBlock(this);
-    	}
-    	return Item.getItemFromBlock(this);
-    }
 }

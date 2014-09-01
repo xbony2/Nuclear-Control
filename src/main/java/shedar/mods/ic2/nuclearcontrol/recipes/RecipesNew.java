@@ -35,6 +35,13 @@ public class RecipesNew {
                         'B', "plateBronze",
                         'R', "dustRedstone", 
                         'H', howler});
+        
+        ItemStack lampWhite = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_LIGHT_OFF);
+        Recipes.advRecipes.addRecipe(lampWhite, new Object[]{
+        			"GGG", "GWG", "GLG",
+        			'G', "paneGlass",
+        			'W', "dyeWhite",
+        			'L', "dustGlowstone"});
 
         Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_REMOTE_THERMO), new Object[]{
                     "IFI", "IMI", "ITI", 

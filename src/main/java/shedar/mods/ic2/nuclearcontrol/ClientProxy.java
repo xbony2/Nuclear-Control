@@ -47,23 +47,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ClientProxy extends CommonProxy
 {
-	@Override
-	public PositionedSoundRecord playAlarm(double x, double y, double z, String name, float volume)
-	{
-		return SoundHelper.playAlarm(x, y, z, name, volume);
-	}
-
-	@Override
-	public void stopAlarm(PositionedSoundRecord sound)
-	{
-		SoundHelper.stopAlarm(sound);
-	}
-
-	@Override
-	public boolean isPlaying(PositionedSoundRecord sound)
-	{
-		return SoundHelper.isPlaying(sound);
-	}
 
 	@Override
 	public void registerTileEntities()

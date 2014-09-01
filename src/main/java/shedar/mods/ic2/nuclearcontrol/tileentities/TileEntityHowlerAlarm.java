@@ -11,7 +11,6 @@ import ic2.core.network.NetworkManager;
 import java.util.List;
 import java.util.Vector;
 
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,10 +21,10 @@ import shedar.mods.ic2.nuclearcontrol.IRedstoneConsumer;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
 
 public class TileEntityHowlerAlarm extends TileEntity implements 
-	INetworkDataProvider, INetworkUpdateListener, IWrenchable, IRedstoneConsumer, INetworkClientTileEntityEventListener{
+	INetworkDataProvider, INetworkUpdateListener, IWrenchable, IRedstoneConsumer, INetworkClientTileEntityEventListener
+{
 	private static final String DEFAULT_SOUND_NAME = "default";
 	private static final float BASE_SOUND_RANGE = 16F;
 	private static final String SOUND_PREFIX = "nuclearcontrol:alarm-";
@@ -47,9 +46,10 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 	private int updateTicker;
 	protected int tickRate;
-	private PositionedSoundRecord sound;
+	private TileEntitySound sound;
 
-	public TileEntityHowlerAlarm(){
+	public TileEntityHowlerAlarm()
+	{
 		facing = 0;
 		prevFacing = 0;
 		init = false;
@@ -60,63 +60,81 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 		soundName = ""; 
 		range = IC2NuclearControl.instance.alarmRange;
 		soundReceived = false;
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+		{
+			sound = new TileEntitySound();
+		}
 	}
 
-	private void initData(){
-		if (!worldObj.isRemote){
+	private void initData()
+	{
+		if (!worldObj.isRemote)
+		{
 			RedstoneHelper.checkPowered(worldObj, this);
 		}
-		if (FMLCommonHandler.instance().getEffectiveSide().isServer() && "".equals(soundName)){
+		if (FMLCommonHandler.instance().getEffectiveSide().isServer() && "".equals(soundName))
+		{
 			setSoundName(DEFAULT_SOUND_NAME);
 		}
 		init = true;
 	}
 
-	public int getRange(){
+	public int getRange()
+	{
 		return range;
 	}
 
-	public void setRange(int r){
+	public void setRange(int r)
+	{
 		range = r;
-		if (prevRange != r){
+		if (prevRange != r)
+		{
 			//NetworkHelper.updateTileEntityField(this, "range");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "range");
 		}
 		prevRange = range;
 	}    
 
-	public String getSoundName(){
+	public String getSoundName()
+	{
 		return soundName;
 	}
 
-	public void setSoundName(String name){
+	public void setSoundName(String name)
+	{
 		soundName = name;
-		if (prevSoundName != name){
+		if (prevSoundName != name)
+		{
 			//NetworkHelper.updateTileEntityField(this, "soundName");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "soundName");
 		}
 		prevSoundName = name;
 	}    
 
-	public void onNetworkEvent(EntityPlayer entityplayer, int i){
+	public void onNetworkEvent(EntityPlayer entityplayer, int i)
+	{
 		setRange(i);
 	}
 
 	@Override
-	public short getFacing(){
+	public short getFacing()
+	{
 		return (short)Facing.oppositeSide[facing];
 	}
 
 	@Override
-	public void setFacing(short f){
+	public void setFacing(short f)
+	{
 		setSide((short)Facing.oppositeSide[f]);
 
 	}
 
-	private void setSide(short f){
+	private void setSide(short f)
+	{
 		facing = f;
 
-		if (prevFacing != f){
+		if (prevFacing != f)
+		{
 			//NetworkHelper.updateTileEntityField(this, "facing");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 		}
@@ -125,103 +143,127 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	}
 
 	@Override
-	public boolean getPowered(){
+	public boolean getPowered()
+	{
 		return powered;
 	}
 
 	@Override
-	public void invalidate(){
-		if(sound != null){
-			IC2NuclearControl.proxy.stopAlarm(sound);
-			sound = null;
+	public void invalidate()
+	{
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+		{
+			sound.stopAlarm();
 		}
 		super.invalidate();
 	}
 
 	@Override
-	public void setPowered(boolean value){
+	public void setPowered(boolean value)
+	{
 		powered = value;
 
-		if (prevPowered != value){
-			if (powered){
-				if (sound == null && soundReceived)
-					sound = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
-							SOUND_PREFIX+soundName, getNormalizedRange());
-			}else{
-				if (sound != null){
-					IC2NuclearControl.proxy.stopAlarm(sound);
-					sound = null;
+		if (prevPowered != value)
+		{
+			if (powered)
+			{
+				if (FMLCommonHandler.instance().getEffectiveSide().isClient() && soundReceived)
+					sound.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, SOUND_PREFIX+soundName, getNormalizedRange(), false);
+			}
+			else
+			{
+				if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+				{
+					sound.stopAlarm();
 				}
 			}
+			//NetworkHelper.updateTileEntityField(this, "powered");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "powered");
 		}
+
 		prevPowered = value;
 	}
 
-	public void setPoweredNoNotify(boolean value){
+	public void setPoweredNoNotify(boolean value)
+	{
 		powered = value;
 
-		if (prevPowered != value){
-			if (powered){
-				if(sound == null && soundReceived)
-					sound = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
-							SOUND_PREFIX + soundName, getNormalizedRange());
-			}else{
-				if (sound != null){
-					IC2NuclearControl.proxy.stopAlarm(sound);
-					sound = null;
+		if (prevPowered != value)
+		{
+			if (powered)
+			{
+				if (FMLCommonHandler.instance().getEffectiveSide().isClient() && soundReceived)
+					sound.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, SOUND_PREFIX+soundName, getNormalizedRange(), false);
+			}
+			else
+			{
+				if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+				{
+					sound.stopAlarm();
 				}
 			}
 		}
 		prevPowered = value;
 	}
 
-	private float getNormalizedRange(){
-		if (worldObj.isRemote){
-			return Math.min(range, IC2NuclearControl.instance.SMPMaxAlarmRange)/BASE_SOUND_RANGE;
+	private float getNormalizedRange()
+	{
+		if (worldObj.isRemote)
+		{
+			return Math.min(range, IC2NuclearControl.instance.SMPMaxAlarmRange) / BASE_SOUND_RANGE;
 		}
 		return range / BASE_SOUND_RANGE;
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side){
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
+	{
 		return false;
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer){
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
 		return true;
 	}
 
 	@Override
-	public float getWrenchDropRate(){
+	public float getWrenchDropRate()
+	{
 		return 1;
 	}
 
 	@Override
-	public void onNetworkUpdate(String field){
-		if (field.equals("facing") && prevFacing != facing){
+	public void onNetworkUpdate(String field)
+	{
+		if (field.equals("facing") && prevFacing != facing)
+		{
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			prevFacing = facing;
 		}
-		if (field.equals("powered") && prevPowered != powered){
+		if (field.equals("powered") && prevPowered != powered)
+		{
 			setPoweredNoNotify(powered);
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
-		if (worldObj.isRemote && field.equals("soundName") && prevSoundName != soundName){
-			if (IC2NuclearControl.instance.availableAlarms != null && !IC2NuclearControl.instance.availableAlarms.contains(soundName)){
+		if (worldObj.isRemote && field.equals("soundName") && prevSoundName != soundName)
+		{
+			if (IC2NuclearControl.instance.availableAlarms != null && !IC2NuclearControl.instance.availableAlarms.contains(soundName))
+			{
 				IC2NuclearControl.logger.info("Can't set sound '%s' at %d,%d,%d, using default", soundName, xCoord, yCoord, zCoord);
 				soundName = DEFAULT_SOUND_NAME;
 			}
 			prevSoundName = soundName;
 		}
-		if (field.equals("soundName")){
+		if (field.equals("soundName"))
+		{
 			soundReceived = true;
 		}
 	}
 
 	@Override
-	public List<String> getNetworkedFields(){
+	public List<String> getNetworkedFields()
+	{
 		Vector<String> vector = new Vector<String>(2);
 		vector.add("facing");
 		vector.add("powered");
@@ -231,12 +273,15 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	}
 
 	@Override
-	public void updateEntity(){
-		if (!init){
+	public void updateEntity()
+	{
+		if (!init)
+		{
 			initData();
 		}
 		super.updateEntity();
-		if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+		{
 			if (tickRate != -1 && updateTicker-- > 0)
 				return;
 			updateTicker = tickRate;
@@ -245,32 +290,40 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound){
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
 		super.readFromNBT(nbttagcompound);
 		prevFacing = facing =  nbttagcompound.getShort("facing");
-		if (nbttagcompound.hasKey("soundName")){
+		if (nbttagcompound.hasKey("soundName"))
+		{
 			prevSoundName = soundName = nbttagcompound.getString("soundName");
 			prevRange = range = nbttagcompound.getInteger("range");
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound){
+	public void writeToNBT(NBTTagCompound nbttagcompound)
+	{
 		super.writeToNBT(nbttagcompound);
 		nbttagcompound.setShort("facing", facing);
 		nbttagcompound.setString("soundName", soundName);
 		nbttagcompound.setInteger("range", range);
 	}
 
-	protected void checkStatus(){
-		if (powered && soundReceived && (sound == null || !IC2NuclearControl.proxy.isPlaying(sound))){
-			sound = IC2NuclearControl.proxy.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, 
-					SOUND_PREFIX + soundName, getNormalizedRange());
+	protected void checkStatus()
+	{
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
+		{
+			if (powered && soundReceived && !sound.isPlaying())
+			{
+				sound.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, SOUND_PREFIX+soundName, getNormalizedRange(), true);
+			}
 		}
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer){
-		return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain, 1, Damages.DAMAGE_HOWLER_ALARM);
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
+	{
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_HOWLER_ALARM);
 	}
 }

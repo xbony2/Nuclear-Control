@@ -5,4 +5,13 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityLightOn extends TileEntity{
 	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt){
+		
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbt){
+		
+    }
 }

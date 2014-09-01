@@ -48,9 +48,9 @@ public class Light extends Subblock{
 	@Override
 	public void registerIcons(IIconRegister iconRegister){
 		if(isOn){
-			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/whiteOn");
+			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/white");
 		}else{
-			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/whiteOff");
+			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/off/white");
 		}
 	}
 

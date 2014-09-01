@@ -14,99 +14,103 @@ import buildcraft.api.power.PowerHandler.PowerReceiver;
 import buildcraft.api.transport.IPipeConnection;
 import buildcraft.api.transport.IPipeTile.PipeType;
 
-public class TileEntityEnergyCounterBC extends TileEntityEnergyCounter implements IPowerReceptor, IPowerEmitter, IPipeConnection{
-    private static final int MAX_SEND = 100;
+public class TileEntityEnergyCounterBC extends TileEntityEnergyCounter implements IPowerReceptor, IPowerEmitter, IPipeConnection
+{
+	private static final int MAX_SEND = 100;
 
-    protected PowerHandler powerHandler;
+	protected PowerHandler powerHandler;
 
-    public TileEntityEnergyCounterBC(){
-        super();
-        powerHandler = new PowerHandler(this, PowerHandler.Type.MACHINE);
-        powerHandler.configurePowerPerdition(1, 100);
-    }
+	public TileEntityEnergyCounterBC()
+	{
+		super();
+		powerHandler = new PowerHandler(this, PowerHandler.Type.MACHINE);
+		powerHandler.configurePowerPerdition(1, 100);
+	}
 
-    @Override
-    public void initData() {
-        super.initData();
-        if (!worldObj.isRemote) {
-            powerHandler.configure(1, MAX_SEND, 1, 1000);
-        }
-    }
-    
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-        if (worldObj.isRemote)
-            return;
-        Direction[] directions = Direction.values();
-        for (Direction apiDirection : directions) 
-        {
-            ForgeDirection direction = apiDirection.toForgeDirection();
-            if(direction.ordinal() == getFacing())
-            {
-                continue;
-            }
-            int x = direction.offsetX + xCoord;
-            int y = direction.offsetY + yCoord;
-            int z = direction.offsetZ + zCoord;
-            TileEntity tile = worldObj.getTileEntity(x, y, z);
-            if (tile!=null && tile instanceof IPowerReceptor && ((IPowerReceptor)tile).getPowerReceiver(direction.getOpposite())!=null) 
-            {
-                PowerReceiver receptor = ((IPowerReceptor) tile).getPowerReceiver(direction.getOpposite());
-                if(powerHandler.getEnergyStored() >= receptor.getMinEnergyReceived() && MAX_SEND >= receptor.getMinEnergyReceived()){
-                    double toSend = Math.min(powerHandler.getEnergyStored(), receptor.getMaxEnergyReceived());
-                    double needed = receptor.receiveEnergy(PowerHandler.Type.MACHINE, toSend, direction.getOpposite());
-                    powerHandler.useEnergy(1, needed, true);
-                    counter+=needed;
-                }
-            }
-        }
-    }
+	@Override
+	public void initData() {
+		super.initData();
+		if (!worldObj.isRemote) {
+			powerHandler.configure(1, MAX_SEND, 1, 1000);
+		}
+	}
 
-    @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound)
-    {
-        super.writeToNBT(nbttagcompound);
-        powerHandler.writeToNBT(nbttagcompound);
-    }    
+	@Override
+	public void updateEntity() 
+	{
+		super.updateEntity();
+		if (worldObj.isRemote)
+			return;
+		Direction[] directions = Direction.values();
+		for (Direction apiDirection : directions) 
+		{
+			ForgeDirection direction = apiDirection.toForgeDirection();
+			if(direction.ordinal() == getFacing())
+			{
+				continue;
+			}
+			int x = direction.offsetX + xCoord;
+			int y = direction.offsetY + yCoord;
+			int z = direction.offsetZ + zCoord;
+			TileEntity tile = worldObj.getTileEntity(x, y, z);
+			if (tile != null && tile instanceof IPowerReceptor && ((IPowerReceptor)tile).getPowerReceiver(direction.getOpposite()) != null) 
+			{
+				PowerReceiver receptor = ((IPowerReceptor) tile).getPowerReceiver(direction.getOpposite());
+				if(powerHandler.getEnergyStored() >= receptor.getMinEnergyReceived() && MAX_SEND >= receptor.getMinEnergyReceived())
+				{
+					double toSend = Math.min(powerHandler.getEnergyStored(), receptor.getMaxEnergyReceived());
+					double needed = receptor.receiveEnergy(PowerHandler.Type.MACHINE, toSend, direction.getOpposite());
+					powerHandler.useEnergy(1, needed, true);
+					counter += needed;
+				}
+			}
+		}
+	}
 
-    @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound)
-    {
-        super.readFromNBT(nbttagcompound);
-        powerHandler.readFromNBT(nbttagcompound);
-    }
+	@Override
+	public void writeToNBT(NBTTagCompound nbttagcompound)
+	{
+		super.writeToNBT(nbttagcompound);
+		powerHandler.writeToNBT(nbttagcompound);
+	}
 
-    @Override
-    public boolean canEmitPowerFrom(ForgeDirection side)
-    {
-        return side.ordinal() != getFacing();
-    }
+	@Override
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
+		super.readFromNBT(nbttagcompound);
+		powerHandler.readFromNBT(nbttagcompound);
+	}
 
-    @Override
-    public PowerReceiver getPowerReceiver(ForgeDirection side)
-    {
-        return powerHandler.getPowerReceiver();
-    }
+	@Override
+	public boolean canEmitPowerFrom(ForgeDirection side)
+	{
+		return side.ordinal() != getFacing();
+	}
 
-    @Override
-    public void doWork(PowerHandler workProvider)
-    {
-        setPowerType(TileEntityAverageCounter.POWER_TYPE_MJ);
-    }
+	@Override
+	public PowerReceiver getPowerReceiver(ForgeDirection side)
+	{
+		return powerHandler.getPowerReceiver();
+	}
 
-    @Override
-    public World getWorld()
-    {
-        return worldObj;
-    }
+	@Override
+	public void doWork(PowerHandler workProvider)
+	{
+		setPowerType(TileEntityAverageCounter.POWER_TYPE_MJ);
+	}
 
-    @Override
-    public ConnectOverride overridePipeConnection(PipeType type, ForgeDirection with)
-    {
-        if (type == PipeType.POWER)
-            return ConnectOverride.DEFAULT;
-        return ConnectOverride.DISCONNECT;
-    }
+	@Override
+	public World getWorld()
+	{
+		return worldObj;
+	}
+
+	@Override
+	public ConnectOverride overridePipeConnection(PipeType type, ForgeDirection with)
+	{
+		if (type == PipeType.POWER)
+			return ConnectOverride.DEFAULT;
+		return ConnectOverride.DISCONNECT;
+	}
 
 }
