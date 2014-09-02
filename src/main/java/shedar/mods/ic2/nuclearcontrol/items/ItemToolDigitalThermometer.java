@@ -36,13 +36,9 @@ public class ItemToolDigitalThermometer extends ItemToolThermometer implements I
 
 	@Override
 	protected boolean canTakeDamage(ItemStack itemstack, int i)
-	{ 
-		i *= 50; //i = 100 now
-		if(ElectricItem.manager.getCharge(itemstack) >= i){
-			ElectricItem.manager.discharge(itemstack, i, tier, true, true, false);
-			return true;
-		}
-			return false;
+	{
+		i *= 50;
+		return ElectricItem.manager.discharge(itemstack, i, Integer.MAX_VALUE, true, false, true) == i;
 	}
 
 	@Override
