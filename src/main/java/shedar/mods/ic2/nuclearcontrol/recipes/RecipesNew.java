@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+import shedar.mods.ic2.nuclearcontrol.api.BonyDebugger;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
@@ -41,7 +42,7 @@ public class RecipesNew {
         			"GGG", "GWG", "GLG",
         			'G', "paneGlass",
         			'W', "dyeWhite",
-        			'L', "dustGlowstone"});
+        			'L', Blocks.glowstone});
 
         Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_REMOTE_THERMO), new Object[]{
                     "IFI", "IMI", "ITI", 

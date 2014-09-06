@@ -33,6 +33,7 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AdvancedInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AdvancedInfoPanelExtender;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AverageCounter;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.EnergyCounter;
+import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.FloodLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.HowlerAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
@@ -77,6 +78,8 @@ public class BlockNuclearControlMain extends BlockContainer{
         register(new AdvancedInfoPanelExtender());
         register(new Light(true));
         register(new Light(false));
+        register(new FloodLight(true));
+        register(new FloodLight(false));
     }
     
     public void register(Subblock block){
@@ -91,7 +94,7 @@ public class BlockNuclearControlMain extends BlockContainer{
     @Override
     public boolean isBlockNormalCube(){
         return false;
-    }//I think this is right, if not, #BlameZuxelus (was canPlaceBlockAt before though)
+    }
 
     @Override
     public boolean renderAsNormalBlock(){

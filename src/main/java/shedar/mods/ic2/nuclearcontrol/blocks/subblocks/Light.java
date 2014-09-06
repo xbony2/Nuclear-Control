@@ -19,14 +19,14 @@ public class Light extends Subblock{
 	
 	public static final byte I_SIDE = 0;
 	
-	 private static final byte[][] mapping = {
+	private static final byte[][] mapping = {
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE},
 	        {I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE, I_SIDE}
-	    };
+	 };
 	
 	private IIcon[] icons = new IIcon[1];
 	

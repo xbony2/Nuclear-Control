@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import codechicken.nei.guihook.IContainerTooltipHandler;
 
 public class TooltipHandler implements IContainerTooltipHandler{
-	//PS: I don't know what any of this means
     @Override
     public List<String> handleTooltip(GuiContainer gui, int mousex, int mousey, List<String> currenttip){
         return currenttip;

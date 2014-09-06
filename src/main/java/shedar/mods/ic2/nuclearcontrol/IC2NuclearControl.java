@@ -196,15 +196,15 @@ public class IC2NuclearControl{
         crossRailcraft = new CrossRailcraft();
         crossThermalEx = new CrossTE();
         
-        if(recipes == "normal"){ 
+        if(recipes.equals("normal")){ 
       	  RecipesNew.addRecipes();
         }
          
-        if(recipes == "old"){
+        if(recipes.equals("old")){
           RecipesOld.addOldRecipes();
         }
          
-        if(recipes == "gregtech"){
+        if(recipes.equals("gregtech")){
           //TODO
           logger.error("Gregtech recipes not complete yet, try again later!");
         }
