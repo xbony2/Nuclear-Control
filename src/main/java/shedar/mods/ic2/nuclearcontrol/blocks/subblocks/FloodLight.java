@@ -34,7 +34,7 @@ public class FloodLight extends Subblock{
 	
 	public FloodLight(boolean on) {
 		super(on ? DAMAGE1 : DAMAGE2, on ? "tile.blockFloodLightOn" : "tile.blockFloodLightOff");
-		
+		isOn = on;
 	}
 
 	@Override
