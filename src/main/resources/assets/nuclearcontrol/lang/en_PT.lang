@@ -1,0 +1,120 @@
+item.ItemToolThermometer.name=Temperrrrature Stick
+item.ItemToolDigitalThermometer.name=Maggggicccaaallll Temperrrrature Stick
+item.ItemRemoteSensorKit.name=Ye Old Remote Sensor Kit
+item.ItemEnergySensorKit.name=Ye Old Powe Sensor Kit
+item.ItemCounterSensorKit.name=Ye Old Country Men’s Sensor Kit
+item.ItemLiquidSensorKit.name=Sensor Kit Of The Seven Seas
+item.ItemSensorLocationCard.name=Ye Old Fancy-Energy-Creator Sensor Location Card
+item.ItemEnergySensorLocationCard.name=Ye Ol’ Powe Sensor Location Card
+item.ItemCounterSensorLocationCard.name=Country Men’s Sensor Location Card
+item.ItemLiquidSensorLocationCard.name=Sensor Location Card Of The Seven Seas
+item.ItemEnergyArrayLocationCard.name=Powwa Array Location Card
+item.ItemRangeUpgrade.name=Rrrrrange Upgrrrrrade
+item.ItemColorUpgrade.name=Colorrrr’ Upgrade
+item.ItemWebUpgrade.name=Mmmmaaaaggggiiiccccc-Land Conector Upgrade
+item.ItemTimeCard.name=The Hour Card
+item.ItemTextCard.name=Ye Worde Card
+item.ItemGeneratorSensorKit.name=Powe-Maka Sensor Kit
+item.ItemGeneratorSensorLocationCard.name=Powwa-maka Sensor Location Card
+item.ItemLiquidArrayLocationCard.name=Array Location Card Of The Seven Seas
+
+tile.blockThermalMonitor.name=Thermal Magic Shower-thingy
+tile.blockIndustrialAlarm.name=HOWLER
+tile.blockHowlerAlarm.name=HOWLER
+tile.blockRemoteThermo.name=Remote Thermal Magic Shower-thingy
+tile.blockInfoPanel.name=Iron-Graded Newspaper-Worthy-Crap Panel
+tile.blockInfoPanelExtender.name=Newspaper-Worthy-Crap Panel Extender
+tile.blockAdvancedInfoPanel.name=Fancy Newspaper-Worthy-Crap Panel
+tile.blockAdvancedInfoPanelExtender.name=Fancy Panel Extender
+tile.blockLightOn.name=Eas Light
+tile.blockLightOff.name=Eas Light
+tile.blockFloodLightOn.name=Full-Rum Light
+tile.blockFloodLightOff.name=Full-Rum Light
+
+tile.blockEnergyCounter.name=Powe Country Mens Tool
+tile.blockAverageCounter.name=Powe Country Mens Tool
+tile.blockRangeTrigger.name=Rrrrange Triggerrrr
+
+msg.nc.HowlerAlarmSoundRange=Loudes range: %s
+msg.nc.HowlerAlarmSound=Loudes
+msg.nc.ThermalMonitorSave=Save ye setti’
+msg.nc.ThermalMonitorSignalAt=Signal at ye %s heat
+msg.nc.Thermo=Ye Hull heat: %s
+msg.nc.ThermoDigital=Ye Hull heat: %s (Blue-Rum evaporate: %s / meltin’: %s)
+msg.nc.SensorKit=Ye ol’ Remote Sensor mounted, Sensarrr Location Card goten’
+
+msg.nc.InfoPanelOutOfRange=Out o’ Range
+msg.nc.InfoPanelInvalidCard=Not-true Card
+msg.nc.InfoPanelNoTarget=Tarrrget Not Found
+
+msg.nc.InfoPanelOn=On
+msg.nc.InfoPanelOff=Off
+msg.nc.InfoPanelHeat=T: %s
+msg.nc.InfoPanelMaxHeat=MostHeat: %s
+msg.nc.InfoPanelMelting=Meltin’: %s
+msg.nc.InfoPanelOutput=Output: %sEU/t
+msg.nc.InfoPanelOutputMJ=Output: %sMJ/t
+msg.nc.InfoPanelOutputSteam=Output: %smB/t
+msg.nc.InfoPanelTimeRemaining=Remainin’: %s
+
+msg.nc.InfoPanelEnergyCounter=Powe: %sEU
+msg.nc.InfoPanelEnergyCounterMJ=Powe: %sMJ
+
+msg.nc.InfoPanelEnergy=Powe: %s
+msg.nc.InfoPanelEnergyFree=Free: %s
+msg.nc.InfoPanelEnergyStorage=Storrrage: %s
+msg.nc.InfoPanelEnergyPercentage=Fill: %s%%
+
+msg.nc.cbInfoPanelLiquidName=Colorrr Rum
+msg.nc.cbInfoPanelLiquidAmount=Amount
+msg.nc.cbInfoPanelLiquidCapacity=Capacity
+msg.nc.cbInfoPanelLiquidFree=Free
+msg.nc.cbInfoPanelLiquidPercentage=Fill percentage
+
+msg.nc.InfoPanelLiquidName=Name: %s
+msg.nc.InfoPanelLiquidAmount=Amount: %s
+msg.nc.InfoPanelLiquidCapacity=Capacity: %s
+msg.nc.InfoPanelLiquidFree=Free: %s
+msg.nc.InfoPanelLiquidPercentage=Fill: %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d Not Found
+msg.nc.InfoPanelOutOfRangeN=#%d Out Of Rrrrange
+msg.nc.InfoPanelEnergyN=#%d Powe: %s
+msg.nc.InfoPanelEnergyFreeN=#%d Free: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Storage: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d Fill: %s%%
+msg.nc.InfoPanelLiquidNameN=#%d Name: %s
+msg.nc.InfoPanelLiquidN=#%d Amount: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Free: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Capacity: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Fill: %s%%
+
+msg.nc.InfoPanelTime=The Hour: %s
+
+msg.nc.cbInfoPanelOnOff=On/Off status
+msg.nc.cbInfoPanelHeat=Heat level
+msg.nc.cbInfoPanelMaxHeat=Max heat
+msg.nc.cbInfoPanelMelting=Meltin’ temp
+msg.nc.cbInfoPanelOutput=Output (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=The Hour to cycle end
+
+msg.nc.cb24h=Full-moon mode
+
+msg.nc.cbInfoPanelEnergyCurrent=Powe
+msg.nc.cbInfoPanelEnergyStorage=Storage
+msg.nc.cbInfoPanelEnergyFree=Free
+msg.nc.cbInfoPanelEnergyEach=Each card info
+msg.nc.cbInfoPanelEnergyTotal=Summary
+msg.nc.cbInfoPanelEnergyPercentage=Fill percentage
+msg.nc.EnergyCardQuantity=Cards quantity: %d
+msg.nc.AverageCounterPeriod=Period: %ssec
+
+msg.nc.LiquidCardQuantity=Cards quantity: %d
+
+msg.nc.cbInfoPanelLiquidEach=Each card info
+msg.nc.cbInfoPanelLiquidTotal=Summary
+
+msg.nc.Reset=Rrrreset
+msg.nc.ScreenColor=Screen Colorrrrr
+msg.nc.TextColor=Worde Color
+msg.nc.None=Nay!
