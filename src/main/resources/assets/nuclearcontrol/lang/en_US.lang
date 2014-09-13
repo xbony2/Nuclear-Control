@@ -28,8 +28,6 @@ tile.blockAdvancedInfoPanel.name=Advanced Information Panel
 tile.blockAdvancedInfoPanelExtender.name=Advanced Panel Extender
 tile.blockLightOn.name=Simple Light
 tile.blockLightOff.name=Simple Light
-tile.blockFloodLightOn.name=Flood Light
-tile.blockFloodLightOff.name=Flood Light
 
 tile.blockEnergyCounter.name=Energy Counter
 tile.blockAverageCounter.name=Average Counter
