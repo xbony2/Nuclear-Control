@@ -34,7 +34,6 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AdvancedInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AdvancedInfoPanelExtender;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AverageCounter;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.EnergyCounter;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.FloodLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.HowlerAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
@@ -44,7 +43,6 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityFloodLightOn;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityHowlerAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIndustrialAlarm;
@@ -61,8 +59,6 @@ import shedar.mods.ic2.nuclearcontrol.utils.WrenchHelper;
 
 public class BlockNuclearControlMain extends BlockContainer{
     public static Map<Integer, Subblock> subblocks;
-    public static boolean debugBeamBlocks = false;
-    public static final int maxRange = 64;
     
     public BlockNuclearControlMain(){
         super(Material.iron);
@@ -82,8 +78,6 @@ public class BlockNuclearControlMain extends BlockContainer{
         register(new AdvancedInfoPanelExtender());
         register(new Light(true));
         register(new Light(false));
-        register(new FloodLight(true));
-        register(new FloodLight(false));
     }
     
     public void register(Subblock block){
@@ -532,9 +526,6 @@ public class BlockNuclearControlMain extends BlockContainer{
         	if(i == Damages.DAMAGE_LIGHT_ON){
         		return Damages.DAMAGE_LIGHT_OFF;
         	}
-        	if(i == Damages.DAMAGE_FLOOD_LIGHT_ON){
-        		return Damages.DAMAGE_LIGHT_OFF;
-        	}
             return i;
         }else{
             return 0;
@@ -568,8 +559,6 @@ public class BlockNuclearControlMain extends BlockContainer{
             }
         }else if(entity instanceof TileEntityLightOn){
         	return 15;
-        }else if(entity instanceof TileEntityFloodLightOn){
-        	return 15;
         }
         
         return getLightValue();
@@ -595,135 +584,4 @@ public class BlockNuclearControlMain extends BlockContainer{
         return null;
     }
     
-    public void update(World world, int x, int y, int z) {
-		if (!world.isRemote) {
-			boolean active = isActive(world, x, y, z);
-			setIlluminated(world, x, y, z, active);
-		}
-	}
-
-	public void updateBeam(World world, int x, int y, int z) {
-		if (!world.isRemote) {
-			ForgeDirection dir = getDirection(world, x, y, z);
-			updateBeamInDirection(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir);
-		}
-	}
-	
-	public static void updateBeams(World world, int x, int y, int z) {
-		if (debugBeamBlocks)
-			System.out.printf("Floodlight.updateBeams at (%d,%d,%d)\n", x, y, z);
-		for (int i = 0; i < 6; i++)
-			updateBeamInDirection(world, x, y, z, ForgeDirection.getOrientation(i));
-	}
-
-	static void updateBeamInDirection(World world, int x, int y, int z, ForgeDirection dir) {
-		if (debugBeamBlocks)
-			System.out.printf("Floodlight.updateBeamInDirection %s from (%d,%d,%d) in %s\n",
-				dir, x, y, z, world);
-		int intensity = findSourceIntensity(world, x, y, z, dir);
-		propagateBeam(world, x, y, z, dir, intensity, 0);
-	}
-	
-	static int findSourceIntensity(World world, int x, int y, int z, ForgeDirection dir) {
-		if (debugBeamBlocks)
-			System.out.printf("Floodlight.findSourceIntensity %s from (%d,%d,%d)\n", dir, x, y, z);
-		int h = world.getHeight();
-		for (int i = 1; i <= maxRange; i++) {
-			int sx = x - i * dir.offsetX;
-			int sy = y - i * dir.offsetY;
-			int sz = z - i * dir.offsetZ;
-			if (debugBeamBlocks)
-				System.out.printf("Floodlight.findSourceIntensity: Checking (%d,%d,%d)\n", sx, sy, sz);
-			if (sy < 0 || sy >= h) {
-				if (debugBeamBlocks)
-					System.out.printf("Floodlight.findSourceIntensity: Reached edge of map, returning 0\n");
-				return 0;
-			}
-			Block block = getBlock(world, sx, sy, sz);
-			if (block == null) {
-				if (debugBeamBlocks)
-					System.out.printf("Floodlight.findSourceIntensity: Found air, returning 0\n");
-				return 0;
-			}
-			if (debugBeamBlocks)
-				System.out.printf("Floodlight.findSourceIntensity: Found %s\n", block.getLocalizedName());
-			if (block instanceof BlockFloodlight) {
-				if (debugBeamBlocks)
-					System.out.printf("Floodlight.findSourceIntensity: Found floodlight\n");
-				if (((BlockFloodlight)block).isActiveInDirection(world, sx, sy, sz, dir)) {
-					int result = maxRange + 1 - i;
-					if (debugBeamBlocks)
-						System.out.printf("Floodlight.findSourceIntensity: Is active, returning %d\n", result);
-					return result;
-				}
-			}
-			if (block instanceof BlockFloodlightBeam) {
-				int intensity = beamIntensity(world, sx, sy, sz, dir);
-				if (intensity > 0) /*to allow for old-style beam blocks*/ {
-					int result = intensity - i;
-					if (debugBeamBlocks)
-						System.out.printf("Floodlight.findSourceIntensity: Found beam block, returning %d\n", result);
-					return result;
-				}
-			}
-			if (block.isOpaqueCube()) {
-				if (debugBeamBlocks)
-					System.out.printf("Floodlight.findSourceIntensity: Found opaque block, returning 0\n");
-				return 0;
-			}
-		}
-		return 0;
-	}
-	
-	public static void propagateBeam(World world, int x, int y, int z, ForgeDirection dir, int intensity, int start){
-		if (debugBeamBlocks)
-			System.out.printf("Floodlight.propagateBeam %s from (%d,%d,%d) + %d with intensity %d\n", dir, x, y, z, start, intensity);
-		int h = world.getHeight();
-		for (int i = start; i < maxRange; i++) {
-			int bx = x + i * dir.offsetX;
-			int by = y + i * dir.offsetY;
-			int bz = z + i * dir.offsetZ;
-			if (debugBeamBlocks)
-				System.out.printf("Floodlight.propagateBeam: Checking (%d,%d,%d)\n", bx, by, bz);
-			if (by < 0 || by >= h) {
-				if (debugBeamBlocks)
-					System.out.printf("Floodlight.propagateBeam: Reached edge of map\n");
-				return;
-			}
-			Block block = getBlock(world, bx, by, bz);
-			if (block.isOpaqueCube()) {
-				if (debugBeamBlocks)
-					System.out.printf("Floodlight.propagateBeam: Found opaque block\n");
-				return;
-			}
-			if (block == Blocks.air || block instanceof BlockFloodlightBeam)
-				if (!setBeamIntensity(world, bx, by, bz, dir, intensity - i) && i != start) {
-					if (debugBeamBlocks)
-						System.out.printf("Floodlight.propagateBeam: Intensity already correct\n");
-					return;
-				}
-		}
-	}
-    
-	public void setIlluminated(World world, int x, int y, int z, boolean state) {
-		int oldData = world.getBlockMetadata(x, y, z);
-		int newData = (oldData & 0xe) | (state ? 1 : 0);
-		if (oldData != newData) {
-			world.setBlockMetadataWithNotify(x, y, z, newData, 0x3);
-			world.markBlockForUpdate(x, y, z);
-		}
-	}
-	
-	public ForgeDirection getDirection(World world, int x, int y, int z) {
-		int data = world.getBlockMetadata(x, y, z);
-		return direction(data);
-	}
-	
-	public ForgeDirection direction(int metadata) {
-		return ForgeDirection.getOrientation(metadata >> 1);
-	}
-	
-	public boolean isActive(World world, int x, int y, int z) {
-		return world.isBlockIndirectlyGettingPowered(x, y, z);
-	}
 }
