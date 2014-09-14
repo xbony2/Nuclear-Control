@@ -14,7 +14,8 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 
-public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
+public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
+{
 	private byte prevPowerMode;
 	public byte powerMode;
 
@@ -46,24 +47,29 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	public static final int OFFSET_ROTATE_VERT = 300;
 
 
-	public TileEntityAdvancedInfoPanel(){
+	public TileEntityAdvancedInfoPanel()
+	{
 		super(4);//3 cards + range/web upgrade
 		colored = true;
 		thickness = 16;
 	}
 
 	@Override
-	public int getCardSlotsCount(){
+	public int getCardSlotsCount()
+	{
 		return 3;
 	}
 
-	public byte getPowerMode(){
+	public byte getPowerMode()
+	{
 		return powerMode;
 	}
 
-	public void setPowerMode(byte p){
+	public void setPowerMode(byte p)
+	{
 		powerMode = p;
-		if (prevPowerMode != p){
+		if (prevPowerMode != p)
+		{
 			//NetworkHelper.updateTileEntityField(this, "powerMode");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "powerMode");
 
@@ -71,27 +77,33 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 		prevPowerMode = powerMode;
 	}
 
-	public void setThickness(byte p){
+	public void setThickness(byte p)
+	{
 		thickness = p;
-		if (prevThickness != p){
+		if (prevThickness != p)
+		{
 			//NetworkHelper.updateTileEntityField(this, "thickness");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "thickness");            
 		}
 		prevThickness = thickness;
 	}
 
-	public void setRotateHor(byte p){
+	public void setRotateHor(byte p)
+	{
 		rotateHor = p;
-		if (prevRotateHor != p){
+		if (prevRotateHor != p)
+		{
 			//NetworkHelper.updateTileEntityField(this, "rotateHor");
-			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "rotateHor");            
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "rotateHor");
 		}
 		prevRotateHor = rotateHor;
 	}
 
-	public void setRotateVert(byte p){
+	public void setRotateVert(byte p)
+	{
 		rotateVert = p;
-		if (prevRotateVert != p){
+		if (prevRotateVert != p)
+		{
 			//NetworkHelper.updateTileEntityField(this, "rotateVert");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "rotateVert");
 		}
@@ -99,7 +111,8 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	public List<String> getNetworkedFields(){
+	public List<String> getNetworkedFields()
+	{
 		List<String> list = super.getNetworkedFields();
 		list.add("card2");
 		list.add("card3");
@@ -111,29 +124,42 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	public void onNetworkUpdate(String field){
+	public void onNetworkUpdate(String field)
+	{
 		super.onNetworkUpdate(field);
-		if (field.equals("card2")){
+		if (field.equals("card2"))
+		{
 			inventory[SLOT_CARD2] = card2;
-		}else if (field.equals("card3")){
+		}
+		else if (field.equals("card3"))
+		{
 			inventory[SLOT_CARD3] = card3;
-		}else if (field.equals("powerMode") && prevPowerMode != powerMode){
-			if(screen!=null){
+		} 
+		else if (field.equals("powerMode") && prevPowerMode != powerMode)
+		{
+			if(screen!=null)
+			{
 				screen.turnPower(getPowered(), worldObj);
-			}else{
+			}
+			else
+			{
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				worldObj.func_147451_t(xCoord, yCoord, zCoord);
 			}
 			prevPowerMode = powerMode;
-		}else if(field.equals("thickness") || field.equals("rotateHor") || field.equals("rotateVert")){
+		}
+		else  if (field.equals("thickness") || field.equals("rotateHor") || field.equals("rotateVert"))
+		{
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 
 	}
 
 	@Override
-	public boolean isItemValid(int slotIndex, ItemStack itemstack){
-		switch (slotIndex){
+	public boolean isItemValid(int slotIndex, ItemStack itemstack)
+	{
+		switch (slotIndex)
+		{
 		case SLOT_CARD1:
 		case SLOT_CARD2:
 		case SLOT_CARD3:
@@ -148,12 +174,14 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	protected boolean isColoredEval(){
+	protected boolean isColoredEval()
+	{
 		return true;
 	}
 
 	@Override
-	protected boolean isWebEval(){
+	protected boolean isWebEval()
+	{
 		if(!IC2NuclearControl.instance.isHttpSensorAvailable)
 			return false;
 		ItemStack itemStack = inventory[SLOT_UPGRADE_WEB];
@@ -161,12 +189,14 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	protected ItemStack getRangeUpgrade(){
+	protected ItemStack getRangeUpgrade()
+	{
 		return inventory[SLOT_UPGRADE_RANGE];
 	}
 
 	@Override
-	public List<ItemStack> getCards(){
+	public List<ItemStack> getCards()
+	{
 		List<ItemStack> data = new ArrayList<ItemStack>(3);
 		data.add(inventory[SLOT_CARD1]);
 		data.add(inventory[SLOT_CARD2]);
@@ -175,12 +205,14 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	protected boolean isCardSlot(int slot){
+	protected boolean isCardSlot(int slot)
+	{
 		return slot == SLOT_CARD1 || slot == SLOT_CARD2 || slot == SLOT_CARD3; 
 	}
 
 	@Override
-	protected void saveDisplaySettings(NBTTagCompound nbttagcompound){
+	protected void saveDisplaySettings(NBTTagCompound nbttagcompound)
+	{
 		nbttagcompound.setTag("dSettings1", serializeSlotSettings(SLOT_CARD1));
 		nbttagcompound.setTag("dSettings2", serializeSlotSettings(SLOT_CARD2));
 		nbttagcompound.setTag("dSettings3", serializeSlotSettings(SLOT_CARD3));
@@ -191,7 +223,8 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	protected void readDisplaySettings(NBTTagCompound nbttagcompound){
+	protected void readDisplaySettings(NBTTagCompound nbttagcompound)
+	{
 		deserializeDisplaySettings(nbttagcompound, "dSettings1", SLOT_CARD1);
 		deserializeDisplaySettings(nbttagcompound, "dSettings2", SLOT_CARD2);
 		deserializeDisplaySettings(nbttagcompound, "dSettings3", SLOT_CARD3);
@@ -202,20 +235,26 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	protected void postReadFromNBT(){
-		if(inventory[SLOT_CARD1]!=null){
+	protected void postReadFromNBT()
+	{
+		if(inventory[SLOT_CARD1]!=null)
+		{
 			card = inventory[SLOT_CARD1];
 		}
-		if(inventory[SLOT_CARD2]!=null){
+		if(inventory[SLOT_CARD2]!=null)
+		{
 			card2 = inventory[SLOT_CARD2];
 		}
-		if(inventory[SLOT_CARD3]!=null){
+		if(inventory[SLOT_CARD3]!=null)
+		{
 			card3 = inventory[SLOT_CARD3];
 		}
 	}
 
-	public byte getNextPowerMode(){
-		switch (powerMode){   
+	public byte getNextPowerMode()
+	{
+		switch (powerMode)
+		{   
 		case POWER_REDSTONE:
 			return POWER_INVERTED;
 		case POWER_INVERTED:
@@ -229,8 +268,10 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	public boolean getPowered(){
-		switch (powerMode){   
+	public boolean getPowered()
+	{
+		switch (powerMode)
+		{   
 		case POWER_ON:
 			return true;
 		case POWER_OFF:
@@ -244,24 +285,33 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel{
 	}
 
 	@Override
-	public void onNetworkEvent(EntityPlayer entityplayer, int i){
+	public void onNetworkEvent(EntityPlayer entityplayer, int i)
+	{
 		super.onNetworkEvent(entityplayer, i);
-		if(i >= 0 && i < 100){
-			switch (i){   
+		if(i>=0 && i<100)
+		{
+			switch (i)
+			{   
 			case POWER_ON:
 			case POWER_OFF:
 			case POWER_REDSTONE:
 			case POWER_INVERTED:
 				setPowerMode((byte)i);
 			}
-		}else if(i>=OFFSET_THICKNESS && i<OFFSET_THICKNESS+100){
+		}
+		else if(i>=OFFSET_THICKNESS && i<OFFSET_THICKNESS+100)
+		{
 			i -= OFFSET_THICKNESS;
 			setThickness((byte)i);
-		}else if(i>=OFFSET_ROTATE_HOR && i<OFFSET_ROTATE_HOR+100){
+		}
+		else if(i>=OFFSET_ROTATE_HOR && i<OFFSET_ROTATE_HOR+100)
+		{
 			i -= OFFSET_ROTATE_HOR + 8;
 			i = -(i*7);
 			setRotateHor((byte)i);
-		}else if(i>=OFFSET_ROTATE_VERT && i<OFFSET_ROTATE_VERT+100){
+		}
+		else if(i>=OFFSET_ROTATE_VERT && i<OFFSET_ROTATE_VERT+100)
+		{
 			i -= OFFSET_ROTATE_VERT + 8;
 			i = -(i*7);
 			setRotateVert((byte)i);

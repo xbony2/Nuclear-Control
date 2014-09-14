@@ -96,7 +96,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 
 		int fire;
 		if (energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption){
-			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord+deltaX, yCoord+deltaY, zCoord+deltaZ);
+			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord + deltaX, yCoord + deltaY, zCoord + deltaZ);
 			if (reactor != null){
 				if (tickRate == -1){
 					tickRate = reactor.getTickRate() / 2;
@@ -130,16 +130,15 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 	public void setTier(int value){
 		tier = value;
 		if (tier != prevTier){
-			//NetworkHelper.updateTileEntityField(this, "tier");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "tier");
 		}
 		prevTier = tier;
 	}
 
+	@Override
 	public void setRotation(int value){
 		rotation = value;
 		if (rotation!=prevRotation){
-			//NetworkHelper.updateTileEntityField(this, "rotation");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "rotation");
 		}
 		prevRotation = rotation;
@@ -148,7 +147,6 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 	public void setMaxPacketSize(double value){
 		maxPacketSize = value;
 		if (maxPacketSize!=prevMaxPacketSize){
-			//NetworkHelper.updateTileEntityField(this, "maxPacketSize");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "maxPacketSize");
 		}
 		prevMaxPacketSize = maxPacketSize;
@@ -174,7 +172,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 						IElectricItem ielectricitem = (IElectricItem)inventory[SLOT_CHARGER].getItem();
 
 						if (ielectricitem.canProvideEnergy(inventory[SLOT_CHARGER])){
-							double k = ElectricItem.manager.discharge(inventory[SLOT_CHARGER], maxStorage - energy, tier, false, false, true); //TODO (I still don't what I'm doing)
+							double k = ElectricItem.manager.discharge(inventory[SLOT_CHARGER], maxStorage - energy, tier, false, false, false);
 							energy += k;
 						}
 					}else if(Item.getIdFromItem(inventory[SLOT_CHARGER].getItem()) == Item.getIdFromItem((IC2Items.getItem("suBattery")).getItem())){
@@ -192,8 +190,8 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 					}
 				}
 			}
-			if (energy>=consumption){
-				energy-=consumption;
+			if (energy >= consumption){
+				energy -= consumption;
 			}else{
 				energy = 0;
 			}
@@ -393,10 +391,10 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 	@Override
     public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage){ 
         if (amount > maxPacketSize){
-            worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air, 0, 3);
+            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             worldObj.createExplosion(null, xCoord, yCoord, zCoord, 0.8F, false);
             return 0;
-        }//TODO ?
+        }
 
         energy += amount;
         double left = 0.0;
@@ -495,7 +493,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer){
-		return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain, 1, Damages.DAMAGE_REMOTE_THERMO);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_REMOTE_THERMO);
 	}
 
 	@Override
