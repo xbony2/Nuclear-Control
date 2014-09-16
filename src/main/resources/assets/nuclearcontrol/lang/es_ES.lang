@@ -1,54 +1,55 @@
+# translated by francogp
+
 item.ItemToolThermometer.name=Termómetro
 item.ItemToolDigitalThermometer.name=Termómetro Digital
-item.ItemRemoteSensorKit.name=Kit Sensor Remoto
-item.ItemEnergySensorKit.name=Kit Sensor Energía
-item.ItemCounterSensorKit.name=Kit Sensor Contador
-item.ItemLiquidSensorKit.name=Kit Sensor Líquidos
-item.ItemSensorLocationCard.name=Tarjeta de Localización Sensor Reactor
-item.ItemEnergySensorLocationCard.name=Tarjeta de Localización Sensor Energía
-item.ItemCounterSensorLocationCard.name=Tarjeta de Localización Sensor Contador
-item.ItemLiquidSensorLocationCard.name=Tarjeta de Localización Sensor Líquidos
-item.ItemEnergyArrayLocationCard.name=Colección de Tarjetas de Sensores de Energía
-item.ItemRangeUpgrade.name=Actualización de Alcance
-item.ItemColorUpgrade.name=Actualización de Color
-item.ItemWebUpgrade.name=Actualización de Web
-item.ItemTimeCard.name=Tarjeta Horaria
+item.ItemRemoteSensorKit.name=Kit para Sensor Térmico Remoto
+item.ItemEnergySensorKit.name=Kit Sensor de Energía
+item.ItemCounterSensorKit.name=Kit de Sensores Contador
+item.ItemLiquidSensorKit.name=Kit de Sensores para Líquidos
+item.ItemGeneratorSensorKit.name=Kit de Sensores para Generador
+item.ItemSensorLocationCard.name=Tarjeta para Localizar Sensores Térmicos
+item.ItemEnergySensorLocationCard.name=Tarjeta de Ubicación para Sensor de Energía
+item.ItemCounterSensorLocationCard.name=Tarjeta para Localizar Contador de Sensores
+item.ItemLiquidSensorLocationCard.name=Tarjeta de Ubicación para Líquidos
+item.ItemGeneratorSensorLocationCard.name=Tarjeta de Ubicación para Sensor de Generador
+item.ItemEnergyArrayLocationCard.name=Tarjeta de Ubicación para Matriz Energética
+item.ItemLiquidArrayLocationCard.name=Tarjeta de Ubicación para Matriz Líquida
+item.ItemRangeUpgrade.name=Mejora de Alcance
+item.ItemColorUpgrade.name=Mejora de Color
+item.ItemWebUpgrade.name=Mejora para Red
+item.ItemTimeCard.name=Tarjeta de Tiempo
 item.ItemTextCard.name=Tarjeta de Texto
-item.ItemGeneratorSensorKit.name=Generator Sensor Kit
-item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
-item.ItemLiquidArrayLocationCard.name=Colección de Tarjetas de Sensores de Líquidos
 
-tile.blockThermalMonitor.name=Monitor Termal
+tile.blockThermalMonitor.name=Monitor Térmico
 tile.blockIndustrialAlarm.name=Alarma Industrial
-tile.blockHowlerAlarm.name=Alarma Howler
-tile.blockRemoteThermo.name=Monitor Termal Remoto
+tile.blockHowlerAlarm.name=Alarma Aulladora
+tile.blockRemoteThermo.name=Monitor Térmico Remoto
 tile.blockInfoPanel.name=Panel de Información Industrial
 tile.blockInfoPanelExtender.name=Extensor de Panel de Información
 tile.blockAdvancedInfoPanel.name=Panel de Información Avanzado
 tile.blockAdvancedInfoPanelExtender.name=Extensor de Panel Avanzado
-tile.blockLight.name=Industrial Light
 
 tile.blockEnergyCounter.name=Contador de Energía
-tile.blockAverageCounter.name=Contador de Energía Media
-tile.blockRangeTrigger.name=Disparador de Rango
+tile.blockAverageCounter.name=Contador Promedio
+tile.blockRangeTrigger.name=Interruptor a Distancia
 
-msg.nc.HowlerAlarmSoundRange=Alcance de Sonido: %s
+msg.nc.HowlerAlarmSoundRange=Rango de Sonido: %s
 msg.nc.HowlerAlarmSound=Sonido
-msg.nc.ThermalMonitorSave=Salvar Configuración
-msg.nc.ThermalMonitorSignalAt=Señal al %s temperatura
-msg.nc.Thermo=Temperatura del núcleo: %s
-msg.nc.ThermoDigital=Temperatura del núcleo: %s (Evaporación de agua: %s / Fundiendo: %s)
-msg.nc.SensorKit=Sensor Remoto Montado, Tarjeta de localización recivida
+msg.nc.ThermalMonitorSave=Salvar configuraciones
+msg.nc.ThermalMonitorSignalAt=Señal al alcanzar calor de %s
+msg.nc.Thermo=Calor del Casco: %s
+msg.nc.ThermoDigital=Calor Casco: %s (Evaporacion Agua: %s / Derretimiento: %s)
+msg.nc.SensorKit=Sensor Remoto Montado, Tarjeta Sensora de Localizacion recivida
 
-msg.nc.InfoPanelOutOfRange=Fuera de Alcance
+msg.nc.InfoPanelOutOfRange=Fuera de Rango
 msg.nc.InfoPanelInvalidCard=Tarjeta Invalida
-msg.nc.InfoPanelNoTarget=Objetivo no Encontrado
+msg.nc.InfoPanelNoTarget=Objetivo No Encontrado
 
-msg.nc.InfoPanelOn=On
-msg.nc.InfoPanelOff=Off
+msg.nc.InfoPanelOn=Encendido
+msg.nc.InfoPanelOff=Apagado
 msg.nc.InfoPanelHeat=T: %s
-msg.nc.InfoPanelMaxHeat=Max T: %s
-msg.nc.InfoPanelMelting=Fundiendo: %s
+msg.nc.InfoPanelMaxHeat=MaxTemp: %s
+msg.nc.InfoPanelMelting=Fusión: %s
 msg.nc.InfoPanelOutput=Salida: %sEU/t
 msg.nc.InfoPanelOutputMJ=Salida: %sMJ/t
 msg.nc.InfoPanelOutputSteam=Salida: %smB/t
@@ -59,14 +60,14 @@ msg.nc.InfoPanelEnergyCounterMJ=Energía: %sMJ
 
 msg.nc.InfoPanelEnergy=Energía: %s
 msg.nc.InfoPanelEnergyFree=Libre: %s
-msg.nc.InfoPanelEnergyStorage=Almacenada: %s
-msg.nc.InfoPanelEnergyPercentage=Llenado: %s%%
+msg.nc.InfoPanelEnergyStorage=Almacén: %s
+msg.nc.InfoPanelEnergyPercentage=Lleno: %s%%
 
 msg.nc.cbInfoPanelLiquidName=Nombre del Líquido
 msg.nc.cbInfoPanelLiquidAmount=Cantidad
 msg.nc.cbInfoPanelLiquidCapacity=Capacidad
 msg.nc.cbInfoPanelLiquidFree=Libre
-msg.nc.cbInfoPanelLiquidPercentage=Porcentaje Lleno
+msg.nc.cbInfoPanelLiquidPercentage=Pocentaje de Lleno
 
 msg.nc.InfoPanelLiquidName=Nombre: %s
 msg.nc.InfoPanelLiquidAmount=Cantidad: %s
@@ -75,43 +76,44 @@ msg.nc.InfoPanelLiquidFree=Libre: %s
 msg.nc.InfoPanelLiquidPercentage=Lleno: %s%%
 
 msg.nc.InfoPanelNotFoundN=#%d No Encontrado
-msg.nc.InfoPanelOutOfRangeN=#%d Fuera de alcance
+msg.nc.InfoPanelOutOfRangeN=#%d Fuera de Rango
 msg.nc.InfoPanelEnergyN=#%d Energía: %s
 msg.nc.InfoPanelEnergyFreeN=#%d Libre: %s
-msg.nc.InfoPanelEnergyStorageN=#%d Almacenada: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Almacén: %s
 msg.nc.InfoPanelEnergyPercentageN=#%d Lleno: %s%%
+
 msg.nc.InfoPanelLiquidNameN=#%d Nombre: %s
 msg.nc.InfoPanelLiquidN=#%d Cantidad: %s
 msg.nc.InfoPanelLiquidFreeN=#%d Libre: %s
 msg.nc.InfoPanelLiquidCapacityN=#%d Capacidad: %s
 msg.nc.InfoPanelLiquidPercentageN=#%d Lleno: %s%%
 
-msg.nc.InfoPanelTime=Hora: %s
+msg.nc.InfoPanelTime=Tiempo: %s
 
-msg.nc.cbInfoPanelOnOff=On/Off Estado
-msg.nc.cbInfoPanelHeat=Nivel de Temperatura
-msg.nc.cbInfoPanelMaxHeat=Temperatura Max.
-msg.nc.cbInfoPanelMelting=Temperatura Fundido
-msg.nc.cbInfoPanelOutput=Salida (EU/t)
-msg.nc.cbInfoPanelTimeRemaining=Tiempo para finalizar el ciclo
+msg.nc.cbInfoPanelOnOff=On/Off estado
+msg.nc.cbInfoPanelHeat=Nivel de Calor
+msg.nc.cbInfoPanelMaxHeat=Max Calor
+msg.nc.cbInfoPanelMelting=Temp de Fusión
+msg.nc.cbInfoPanelOutput=Output (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=Es hora de fin de ciclo
 
-msg.nc.cb24h=24h modo
+msg.nc.cb24h=modo 24h
 
 msg.nc.cbInfoPanelEnergyCurrent=Energía
-msg.nc.cbInfoPanelEnergyStorage=Almacenada
+msg.nc.cbInfoPanelEnergyStorage=Almacén
 msg.nc.cbInfoPanelEnergyFree=Libre
-msg.nc.cbInfoPanelEnergyEach=Información de cada tarjeta
-msg.nc.cbInfoPanelEnergyTotal=Resumen
-msg.nc.cbInfoPanelEnergyPercentage=Porcentaje Llenado
+msg.nc.cbInfoPanelEnergyEach=Cada Información de la tarjeta
+msg.nc.cbInfoPanelEnergyTotal=Sumario
+msg.nc.cbInfoPanelEnergyPercentage=Pocentaje de Lleno
 msg.nc.EnergyCardQuantity=Cantidad de tarjetas: %d
-msg.nc.AverageCounterPeriod=Periodo: %ssec
+msg.nc.AverageCounterPeriod=Período: %sseg
 
 msg.nc.LiquidCardQuantity=Cantidad de tarjetas: %d
 
-msg.nc.cbInfoPanelLiquidEach=Información de cada tarjeta
-msg.nc.cbInfoPanelLiquidTotal=Resumen
+msg.nc.cbInfoPanelLiquidEach=Cada Información de la tarjeta
+msg.nc.cbInfoPanelLiquidTotal=Sumario
 
-msg.nc.Reset=Resetear
-msg.nc.ScreenColor=Color de la Pantalla
+msg.nc.Reset=Reset
+msg.nc.ScreenColor=Color de Pantalla
 msg.nc.TextColor=Color del Texto
 msg.nc.None=N/A

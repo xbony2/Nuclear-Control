@@ -62,15 +62,13 @@ public class TileEntityInfoPanel extends TileEntity implements
 	public static final int BORDER_TOP = 4;
 	public static final int BORDER_BOTTOM = 8;
 
-	public static final int DISPLAY_DEFAULT = Integer.MAX_VALUE;
+	public static final int DISPLAY_DEFAULT = 2147483632;
 
 	private static final byte SLOT_CARD = 0;
 	private static final byte SLOT_UPGRADE_RANGE = 1;
 	private static final byte SLOT_UPGRADE_COLOR = 2;
 	private static final byte SLOT_UPGRADE_WEB = 2;
 	private static final byte LOCATION_RANGE = 8;
-
-	public float lastTick = 0;
 
 	protected int updateTicker;
 	protected int dataTicker;
@@ -895,7 +893,7 @@ public class TileEntityInfoPanel extends TileEntity implements
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int face) 
 	{
 		return !entityPlayer.isSneaking() && getFacing() != face;
-	};
+	}
 
 	@Override
 	public float getWrenchDropRate()

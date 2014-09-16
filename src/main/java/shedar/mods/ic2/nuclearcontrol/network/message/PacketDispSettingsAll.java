@@ -68,7 +68,9 @@ public class PacketDispSettingsAll implements IMessage, IMessageHandler<PacketDi
 			{
 				UUID key = item.getKey(); 
 				if (key == null)
+				{
 					continue;
+				}
 				buf.writeLong(key.getMostSignificantBits());
 				buf.writeLong(key.getLeastSignificantBits());
 				buf.writeInt(item.getValue());
@@ -76,9 +78,9 @@ public class PacketDispSettingsAll implements IMessage, IMessageHandler<PacketDi
 		}
 	}
 	
-    @Override
-    public IMessage onMessage(PacketDispSettingsAll message, MessageContext ctx)
-    {
+	@Override
+	public IMessage onMessage(PacketDispSettingsAll message, MessageContext ctx)
+	{
 		TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
 		if (tileEntity == null || !(tileEntity instanceof TileEntityInfoPanel))
 		{
@@ -92,12 +94,13 @@ public class PacketDispSettingsAll implements IMessage, IMessageHandler<PacketDi
 			{
 				UUID key = item.getKey(); 
 				if (key == null)
+				{
 					continue;
-				
+				}
 				setting.put(new UUID(key.getMostSignificantBits(), key.getLeastSignificantBits()), item.getValue());
 			}
 		}		
 		panel.resetCardData();
-    	return null;
-    }
+		return null;
+	}
 }

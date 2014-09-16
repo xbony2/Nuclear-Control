@@ -56,7 +56,7 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
 			if (scr != null)
 			{
 				TileEntity core = scr.getCore(tileEntity.getWorldObj());
-				if(core!=null)
+				if (core != null)
 				{
 					x += core.xCoord - tileEntity.xCoord;
 					y += core.yCoord - tileEntity.yCoord;
@@ -70,35 +70,46 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
 		if (isPanel)
 		{
 			TileEntityInfoPanel panel = (TileEntityInfoPanel)tileEntity;
-			if(panel.lastTick == f)
-				return;
-			panel.lastTick = f;
 			if (!panel.getPowered())
+			{
 				return;
+			}
 			List<ItemStack> cards = panel.getCards();
 			boolean anyCardFound = false;
 			List<PanelString> joinedData = new LinkedList<PanelString>();
 			for (ItemStack card : cards)
 			{
 				if (card == null || !(card.getItem() instanceof IPanelDataSource))
+				{
 					continue;
+				}
 				int displaySettings = panel.getDisplaySettingsByCard(card);
 				if (displaySettings == 0)
+				{
 					continue;
+				}
 				CardWrapperImpl helper = new CardWrapperImpl(card, -1);
 				CardState state = helper.getState();
 				List<PanelString> data;
 				if (state != CardState.OK && state != CardState.CUSTOM_ERROR)
+				{
 					data = StringUtils.getStateMessage(state);
+				}
 				else
+				{
 					data = panel.getCardData(displaySettings, card, helper);
+				}
 				if (data == null)
+				{
 					continue;
+				}
 				joinedData.addAll(data);
 				anyCardFound = true;
 			}
 			if (!anyCardFound)
+			{
 				return;
+			}
 
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset( -10, -10 );
@@ -113,14 +124,22 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
 			{
 				y -= panel.yCoord - screen.maxY;
 				if(side == 0 || side == 1 || side == 2 || side == 3 || side == 5)
+				{
 					z -= panel.zCoord - screen.minZ;
+				}
 				else
+				{
 					z -= panel.zCoord - screen.maxZ;
+				}
 
 				if(side == 0 || side == 2 || side == 4)
+				{
 					x -= panel.xCoord - screen.minX;
+				}
 				else
+				{
 					x -= panel.xCoord - screen.maxX;
+				}
 			}
 			GL11.glTranslatef((float)x, (float)y, (float)z);
 			switch (side)
@@ -294,12 +313,17 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer
 			for (PanelString panelString : joinedData)
 			{
 				if (panelString.textLeft != null)
-					fontRenderer.drawString(panelString.textLeft, offsetX-realWidth/2, 1+offsetY-realHeight/2 + row * lineHeight, panelString.colorLeft!=0?panelString.colorLeft:panel.getColorTextHex());
+				{
+					fontRenderer.drawString(panelString.textLeft, offsetX-realWidth / 2, 1+offsetY-realHeight / 2 + row * lineHeight, panelString.colorLeft != 0?panelString.colorLeft:panel.getColorTextHex());
+				}
 				if (panelString.textCenter != null)
-					fontRenderer.drawString(panelString.textCenter, -fontRenderer.getStringWidth(panelString.textCenter)/2, offsetY - realHeight/2  + row * lineHeight, panelString.colorCenter!=0?panelString.colorCenter:panel.getColorTextHex());
+				{
+					fontRenderer.drawString(panelString.textCenter, -fontRenderer.getStringWidth(panelString.textCenter) / 2, offsetY - realHeight/2  + row * lineHeight, panelString.colorCenter !=0 ?panelString.colorCenter:panel.getColorTextHex());
+				}
 				if (panelString.textRight != null)
-					fontRenderer.drawString(panelString.textRight, realWidth/2-fontRenderer.getStringWidth(panelString.textRight), 
-							offsetY - realHeight/2  + row * lineHeight, panelString.colorRight!=0?panelString.colorRight:panel.getColorTextHex());
+				{
+					fontRenderer.drawString(panelString.textRight, realWidth / 2-fontRenderer.getStringWidth(panelString.textRight), offsetY - realHeight/2  + row * lineHeight, panelString.colorRight != 0?panelString.colorRight:panel.getColorTextHex());
+				}
 				row++;
 			}
 

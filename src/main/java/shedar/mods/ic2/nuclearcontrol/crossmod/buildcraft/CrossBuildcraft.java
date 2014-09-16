@@ -25,13 +25,8 @@ public class CrossBuildcraft
 	@SuppressWarnings("unchecked")
 	public void registerTileEntity()
 	{
-		try
-		{
-			GameRegistry.registerTileEntity((Class<? extends TileEntity>)Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityAverageCounterBC"), "IC2NCAverageCounterBC");
-			GameRegistry.registerTileEntity((Class<? extends TileEntity>)Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityEnergyCounterBC"), "IC2NCEnergyCounterBC");
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		}
+		GameRegistry.registerTileEntity(TileEntityAverageCounterBC.class, "IC2NCAverageCounterBC");
+		GameRegistry.registerTileEntity(TileEntityEnergyCounterBC.class, "IC2NCEnergyCounterBC");
 	}
 
 	public CrossBuildcraft()
