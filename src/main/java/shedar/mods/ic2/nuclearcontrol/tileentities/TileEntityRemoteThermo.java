@@ -155,7 +155,6 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 	public void setMaxStorage(double value){
 		maxStorage = value;
 		if (maxStorage!=prevMaxStorage){
-			//NetworkHelper.updateTileEntityField(this, "maxStorage");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "maxStorage");
 		}
 		prevMaxStorage = maxStorage;
@@ -348,8 +347,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 				deltaX = target.posX - xCoord;
 				deltaY = target.posY - yCoord;
 				deltaZ = target.posZ - zCoord;
-				if(upgradeCountRange > 7)
-					upgradeCountRange = 7;
+				if(upgradeCountRange > 7) upgradeCountRange = 7;
 				int range = LOCATION_RANGE * (int)Math.pow(2, upgradeCountRange);
 				if(Math.abs(deltaX) > range || Math.abs(deltaY) > range || Math.abs(deltaZ) > range){
 					deltaX = deltaY = deltaZ = 0;

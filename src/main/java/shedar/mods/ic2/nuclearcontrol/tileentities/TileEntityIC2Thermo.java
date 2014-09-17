@@ -69,7 +69,6 @@ public class TileEntityIC2Thermo extends TileEntity implements INetworkDataProvi
 		invertRedstone = value;
 		if(prevInvertRedstone !=value){
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-			//NetworkHelper.updateTileEntityField(this, "invertRedstone");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "invertRedstone");
 		}
 		prevInvertRedstone = value;
@@ -163,7 +162,6 @@ public class TileEntityIC2Thermo extends TileEntity implements INetworkDataProvi
 	public void setHeatLevel(int h){
 		heatLevel = h;
 		if (prevHeatLevel != h){
-			//NetworkHelper.updateTileEntityField(this, "heatLevel");
 			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "heatLevel");
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
