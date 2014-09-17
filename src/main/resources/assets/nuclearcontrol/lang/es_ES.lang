@@ -19,6 +19,9 @@ item.ItemColorUpgrade.name=Mejora de Color
 item.ItemWebUpgrade.name=Mejora para Red
 item.ItemTimeCard.name=Tarjeta de Tiempo
 item.ItemTextCard.name=Tarjeta de Texto
+item.ItemGeneratorSensorKit.name=Generator Sensor Kit
+item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
+item.ItemLiquidArrayLocationCard.name=Colección de Tarjetas de Sensores de Líquidos
 
 tile.blockThermalMonitor.name=Monitor Térmico
 tile.blockIndustrialAlarm.name=Alarma Industrial

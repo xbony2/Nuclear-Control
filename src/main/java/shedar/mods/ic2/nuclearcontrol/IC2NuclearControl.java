@@ -20,10 +20,10 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
-import shedar.mods.ic2.nuclearcontrol.crossmod.thermalexpansion.CrossTE;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardLiquidArrayLocation;
@@ -131,7 +131,7 @@ public class IC2NuclearControl{
     public CrossIndustrialCraft2 crossIC2;
     //public CrossGregTech crossGregTech;
     public CrossRailcraft crossRailcraft;
-    public CrossTE crossThermalEx;
+    public CrossRF crossThermalEx;
 
     protected void initBlocks(){
     	blockNuclearControlMain = new BlockNuclearControlMain();
@@ -194,7 +194,7 @@ public class IC2NuclearControl{
         crossIC2 = new CrossIndustrialCraft2();
         //crossGregTech = new CrossGregTech();
         crossRailcraft = new CrossRailcraft();
-        crossThermalEx = new CrossTE();
+        crossThermalEx = new CrossRF();
         
         if(recipes.equals("normal")){ 
       	  RecipesNew.addRecipes();
