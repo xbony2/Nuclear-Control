@@ -4,27 +4,30 @@ item.ItemRemoteSensorKit.name=Набор с дистанционным датч�
 item.ItemEnergySensorKit.name=Набор для энергетического хранилища
 item.ItemCounterSensorKit.name=Набор для счётчика энергии
 item.ItemLiquidSensorKit.name=Набор для жидкостного хранилища
-item.ItemGeneratorSensorKit.name=Набор для генератора
 item.ItemSensorLocationCard.name=Карта-датчик расположения реактора
 item.ItemEnergySensorLocationCard.name=Карта-датчик расположения энергии
 item.ItemCounterSensorLocationCard.name=Карта-датчик расположения счётчика
 item.ItemLiquidSensorLocationCard.name=Карта-датчик расположения жидкости
 item.ItemEnergyArrayLocationCard.name=Карта-датчик расположения массива с энергией
-item.ItemRangeUpgrade.name=Улучшение «усиление сигнала»
-item.ItemColorUpgrade.name=Улучшение «цветность»
-item.ItemWebUpgrade.name=Улучшение «сеть»
+item.ItemRangeUpgrade.name=Улучшение «Усиление сигнала»
+item.ItemColorUpgrade.name=Улучшение «Цветность»
+item.ItemWebUpgrade.name=Улучшение «Сеть»
 item.ItemTimeCard.name=Карта со временем
 item.ItemTextCard.name=Текстовая карта
+item.ItemGeneratorSensorKit.name=Набор для генератора
+item.ItemGeneratorSensorLocationCard.name=Карта-датчик расположения генератора
+item.ItemLiquidArrayLocationCard.name=Карта-датчик расположения массива жидкости
 
 tile.blockThermalMonitor.name=Датчик температуры
 tile.blockIndustrialAlarm.name=Промышленная сирена
-tile.blockHowlerAlarm.name=Сирена "Ревун"
+tile.blockHowlerAlarm.name=Сирена «Ревун»
 tile.blockRemoteThermo.name=Дистанционный датчик температуры
 tile.blockInfoPanel.name=Промышленная информационная панель
 tile.blockInfoPanelExtender.name=Расширитель информационной панели
 tile.blockAdvancedInfoPanel.name=Продвинутая информационная панель
 tile.blockAdvancedInfoPanelExtender.name=Расширитель продвинутой информационной панели
-tile.blockLight.name=Industrial Light
+tile.blockLightOn.name=Простой светильник
+tile.blockLightOff.name=Простой светильник
 
 tile.blockEnergyCounter.name=Энергосчётчик
 tile.blockAverageCounter.name=Стационарный энергосчётчик
@@ -47,43 +50,42 @@ msg.nc.InfoPanelOff=Выключена
 msg.nc.InfoPanelHeat=Т: %s
 msg.nc.InfoPanelMaxHeat=Макс. нагрев: %s
 msg.nc.InfoPanelMelting=Плавление: %s
-msg.nc.InfoPanelOutput=Выход: %sеЭ/т
-msg.nc.InfoPanelOutputMJ=Выход: %sМДж/т
-msg.nc.InfoPanelOutputSteam=Выход: %sмВ/т
+msg.nc.InfoPanelOutput=Выход: %sEU/т
+msg.nc.InfoPanelOutputMJ=Выход: %sMJ/т
+msg.nc.InfoPanelOutputSteam=Выход: %smB/т
 msg.nc.InfoPanelTimeRemaining=Осталось: %s
 
-msg.nc.InfoPanelEnergyCounter=Энергия: %sеЭ
-msg.nc.InfoPanelEnergyCounterMJ=Энергия: %sМДж
+msg.nc.InfoPanelEnergyCounter=Энергия: %sEU
+msg.nc.InfoPanelEnergyCounterMJ=Энергия: %sMJ
 
 msg.nc.InfoPanelEnergy=Энергия: %s
 msg.nc.InfoPanelEnergyFree=Свободно: %s
 msg.nc.InfoPanelEnergyStorage=Хранится: %s
 msg.nc.InfoPanelEnergyPercentage=Заполнено: %s%%
 
-msg.nc.InfoPanelLiquidNameN=#%d Название: %s
-msg.nc.InfoPanelLiquidN=#%d Количество: %s
-msg.nc.InfoPanelLiquidFreeN=#%d Свободно: %s
-msg.nc.InfoPanelLiquidCapacityN=#%d Объём: %s
-msg.nc.InfoPanelLiquidPercentageN=#%d Заполнено: %s%%
-
 msg.nc.cbInfoPanelLiquidName=Название жидкости
 msg.nc.cbInfoPanelLiquidAmount=Количество
-msg.nc.cbInfoPanelLiquidCapacity=Объём
+msg.nc.cbInfoPanelLiquidCapacity=Ёмкость
 msg.nc.cbInfoPanelLiquidFree=Свободно
 msg.nc.cbInfoPanelLiquidPercentage=Процент заполнения
 
 msg.nc.InfoPanelLiquidName=Название: %s
 msg.nc.InfoPanelLiquidAmount=Количество: %s
-msg.nc.InfoPanelLiquidCapacity=Объём: %s
+msg.nc.InfoPanelLiquidCapacity=Ёмкость: %s
 msg.nc.InfoPanelLiquidFree=Свободно: %s
 msg.nc.InfoPanelLiquidPercentage=Заполнено: %s%%
 
-msg.nc.InfoPanelNotFoundN=#%d не найдено
-msg.nc.InfoPanelOutOfRangeN=#%d вне диапазона
-msg.nc.InfoPanelEnergyN=#%d энергия: %s
-msg.nc.InfoPanelEnergyFreeN=#%d свободно: %s
-msg.nc.InfoPanelEnergyStorageN=#%d хранится: %s
-msg.nc.InfoPanelEnergyPercentageN=#%d заполнено: %s%%
+msg.nc.InfoPanelNotFoundN=#%d Не найдено
+msg.nc.InfoPanelOutOfRangeN=#%d Вне диапазона
+msg.nc.InfoPanelEnergyN=#%d Энергия: %s
+msg.nc.InfoPanelEnergyFreeN=#%d Свободно: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Хранилище: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d Заполнено: %s%%
+msg.nc.InfoPanelLiquidNameN=#%d Название: %s
+msg.nc.InfoPanelLiquidN=#%d Количество: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Свободно: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Ёмкость: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Заполнено: %s%%
 
 msg.nc.InfoPanelTime=Время: %s
 
@@ -91,7 +93,7 @@ msg.nc.cbInfoPanelOnOff=Вкл./Выкл. состояние
 msg.nc.cbInfoPanelHeat=Уровень нагрева
 msg.nc.cbInfoPanelMaxHeat=Макс. нагрев
 msg.nc.cbInfoPanelMelting=Температура плавления
-msg.nc.cbInfoPanelOutput=Выход (еЭ/т)
+msg.nc.cbInfoPanelOutput=Выход (EU/т)
 msg.nc.cbInfoPanelTimeRemaining=Время до окончания цикла
 
 msg.nc.cb24h=24-часовой режим
