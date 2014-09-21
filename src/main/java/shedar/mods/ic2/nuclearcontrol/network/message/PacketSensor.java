@@ -33,16 +33,17 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 	private int z;
 	private byte slot;
 	private Map<String, Object> fields;
-	
+
 	public static final int FIELD_DOUBLE = 1;
 	public static final int FIELD_INT = 2;
 	public static final int FIELD_STRING = 3;
 	public static final int FIELD_BOOLEAN = 4;
 	public static final int FIELD_TAG = 5;
 	public static final int FIELD_NULL = 6;
-	
+	public static final int FIELD_LONG = 7;
+
 	public PacketSensor() {}
-	
+
 	public PacketSensor(int x, int y, int z, byte slot, Map<String, Object> fields)
 	{
 		this.x = x;
@@ -72,6 +73,9 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 				break;
 			case NuclearNetworkHelper.FIELD_BOOLEAN:
 				fields.put(name, buf.readBoolean());
+				break;
+			case NuclearNetworkHelper.FIELD_LONG:
+				fields.put(name, buf.readLong());
 				break;
 			case NuclearNetworkHelper.FIELD_DOUBLE:
 				fields.put(name, buf.readDouble());
@@ -115,7 +119,12 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 		{
 			ByteBufUtils.writeUTF8String(buf, entry.getKey());
 			Object value = entry.getValue();
-			if (value instanceof Double)
+			if (value instanceof Long)
+			{
+				buf.writeByte(FIELD_LONG);
+				buf.writeLong((Long)value);
+			}
+			else if (value instanceof Double)
 			{
 				buf.writeByte(FIELD_DOUBLE);
 				buf.writeDouble((Double)value);
@@ -157,10 +166,10 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 			}
 		}
 	}
-	
-    @Override
-    public IMessage onMessage(PacketSensor message, MessageContext ctx)
-    {
+
+	@Override
+	public IMessage onMessage(PacketSensor message, MessageContext ctx)
+	{
 		TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
 		if (tileEntity == null || !(tileEntity instanceof TileEntityInfoPanel))
 		{
@@ -177,7 +186,11 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 		{
 			String name = entry.getKey();
 			Object value = entry.getValue();
-			if (value instanceof Double)
+			if (value instanceof Long)
+			{
+				helper.setLong(name, (Long)value);
+			}
+			else if (value instanceof Double)
 			{
 				helper.setDouble(name, (Double)value);
 			}
@@ -203,6 +216,6 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 			}
 		}
 		panel.resetCardData();
-    	return null;
-    }
+		return null;
+	}
 }

@@ -5,7 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 
-public interface ICardWrapper{
+public interface ICardWrapper
+{
 
 	/**
 	 * Method to set target coordinates for card. Can be used if card implements {@link IRemoteSensor}. 
@@ -26,6 +27,9 @@ public interface ICardWrapper{
 
 	void setInt(String name, Integer value);
 	Integer getInt(String name);
+	
+	void setLong(String name, Long value);
+	Long getLong(String name);
 
 	void setDouble(String name, Double value);
 	Double getDouble(String name);

@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundList;
@@ -21,9 +22,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraft.entity.player.EntityPlayerMP;
-
 import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.network.message.PacketAlarm;
+import shedar.mods.ic2.nuclearcontrol.panel.http.HttpCardSender;
 
 public class ServerTickHandler {
 
@@ -42,4 +43,12 @@ public class ServerTickHandler {
 		ChannelHandler.network.sendTo(new PacketAlarm(IC2NuclearControl.instance.maxAlarmRange, IC2NuclearControl.instance.allowedAlarms), (EntityPlayerMP)event.player);
 	}
 
+	@SubscribeEvent
+	public void onTick(TickEvent.ServerTickEvent event){
+		if (event.type == event.type.SERVER && event.side == event.side.SERVER && event.phase == event.phase.END){
+			if (IC2NuclearControl.instance.isHttpSensorAvailable){
+		            HttpCardSender.instance.send();
+		    }
+		}
+	}
 }

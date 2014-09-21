@@ -32,6 +32,7 @@ public class NuclearNetworkHelper
 	public static final int FIELD_BOOLEAN = 4;
 	public static final int FIELD_TAG = 5;
 	public static final int FIELD_NULL = 6;
+	public static final int FIELD_LONG = 7;
 
 	//server
 	public static void sendEnergyCounterValue(TileEntityEnergyCounter counter, ICrafting crafter)
