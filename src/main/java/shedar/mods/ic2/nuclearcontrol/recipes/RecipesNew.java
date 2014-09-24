@@ -124,13 +124,13 @@ public class RecipesNew {
                         'A', "dyeCyan",  
                         'B', "dyeBlue"});
         
-        /*if(isHttpSensorAvailable){
+        if(IC2NuclearControl.isHttpSensorAvailable){
             Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_WEB), new Object[]{
-                        "CFC","CAC","CFC", 
+                        "CGC","CAC","CGC", 
                             'C', new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_RANGE), 
-                            'A', IC2Items.getItem("advancedCircuit"),
-                            'F', IC2Items.getItem("glassFiberCableItem")});
-        }*/
+                            'A', "circuitAdvanced",
+                            'G', "blockGlass"});
+        }
         
         ItemStack energyCounter = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_ENERGY_COUNTER);
         Recipes.advRecipes.addRecipe(energyCounter, new Object[]{
@@ -189,17 +189,5 @@ public class RecipesNew {
         				'C', IC2Items.getItem("energyStorageUpgrade"),
         				'F', IC2Items.getItem("frequencyTransmitter"),
         				'L', "dyeLightBlue"});
-        /*Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),  
-        		IC2NuclearControl.itemSensorLocationCard );
-        
-        Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),  
-        		IC2NuclearControl.itemEnergySensorLocationCard );
-        
-        Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),  
-                new  ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1, ItemKitMultipleSensor.TYPE_COUNTER));
-        
-        Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 1),  
-                new  ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1, ItemKitMultipleSensor.TYPE_LIQUID));
-        */
 	}
 }

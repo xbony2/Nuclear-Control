@@ -118,7 +118,7 @@ public class IC2NuclearControl{
     public int alarmRange;
     public int SMPMaxAlarmRange;
     public int maxAlarmRange;
-    public boolean isHttpSensorAvailable;
+    public static boolean isHttpSensorAvailable;
     public String httpSensorKey;
     public List<String> availableAlarms;
     public int remoteThermalMonitorEnergyConsumption;
