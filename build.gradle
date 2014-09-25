@@ -18,15 +18,32 @@ buildscript {
 apply plugin: 'forge'
 
 version = "1.0"
-group= "com.shedar.IC2NuclearControl2”archivesBaseName = "IC2NuclearControl2"
+group= "com.shedar.IC2NuclearControl2"
+archivesBaseName = "IC2NuclearControl2"
 minecraft {
     version = "1.7.10-10.13.0.1206"
     assetDir = "eclipse/assets"
 }
 
-dependencies {
-   
+repositories {
+	maven {
+		name = "ic2"
+		url = "http://maven.ic2.player.to/"
+	}
+	maven { 
+        name = "chickenbones" 
+        url = "http://chickenbones.net/maven/" 
+	}
 }
+
+dependencies {
+    compile 'net.industrial-craft:industrialcraft-2:2.2.607-experimental:dev'
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.1.8:dev" 
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev" 
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.93:dev"
+	compile "com.mod-buildcraft:buildcraft:6.0.17:dev"
+}
+
 
 processResources
 {
