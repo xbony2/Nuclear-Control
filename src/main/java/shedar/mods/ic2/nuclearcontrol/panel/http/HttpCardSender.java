@@ -18,58 +18,44 @@ import argo.jdom.JsonObjectNodeBuilder;
 
 public class HttpCardSender
 {
-	private static final String ID_URL_TEMPLATE = "http://sensors.modstats.org/api/v1/register?p="; 
-	private static final String DATA_URL_TEMPLATE = "http://sensors.modstats.org/api/v1/report"; 
+	private static final String ID_URL_TEMPLATE = "http://sensors.modstats.org/api/v1/register?p=";
+	private static final String DATA_URL_TEMPLATE = "http://sensors.modstats.org/api/v1/report";
 	public static HttpCardSender instance = new HttpCardSender();
 	@SuppressWarnings("rawtypes")
 	private ConcurrentHashMap<Long, JsonNodeBuilder> unsent = new ConcurrentHashMap<Long, JsonNodeBuilder>();
 	public ConcurrentLinkedQueue<Long> availableIds = new ConcurrentLinkedQueue<Long>();
 	private ExecutorService executor = Executors.newFixedThreadPool(2); 
 
-	private HttpCardSender() {}
+	private HttpCardSender(){}
 
-	public void requestId()
-	{
-		try
-		{
+	public void requestId(){
+		try{
 			executor.submit(new Request(new URL(ID_URL_TEMPLATE + IC2NuclearControl.instance.httpSensorKey), null));
-		}
-		catch (MalformedURLException e)
-		{
+		}catch (MalformedURLException e){
 			e.printStackTrace();
 		}
 	}
 
-	public void send()
-	{
-		try
-		{
+	public void send(){
+		try{
 			executor.submit(new Request(new URL(DATA_URL_TEMPLATE), unsent));
-		}
-		catch (MalformedURLException e)
-		{
+		}catch (MalformedURLException e){
 			e.printStackTrace();
 		}
 	}
 
-	public void add(NBTTagCompound cardData, UUID cardType, Long id)
-	{
+	public void add(NBTTagCompound cardData, UUID cardType, Long id){
 		JsonObjectNodeBuilder builder = JsonNodeBuilders.anObjectBuilder();
 		builder.withField("id", JsonNodeBuilders.aNumberBuilder(id.toString()));
 		builder.withField("type", JsonNodeBuilders.aStringBuilder(cardType.toString().replace("-", "")));
 		Iterator iterator = cardData.func_150296_c().iterator();
-		while (iterator.hasNext())
-		{
+		while (iterator.hasNext()){
 			String s = (String)iterator.next();
 			NBTBase tag = cardData.getTag(s);
-			if (!s.equals("_webSensorId"))
-			{
-				if (s.equals("energyL") || s.equals("maxStorageL"))
-				{
+			if (!s.equals("_webSensorId")){
+				if (s.equals("energyL") || s.equals("maxStorageL")){
 					builder.withField(s, JsonNodeBuilders.aStringBuilder(String.valueOf(Double.valueOf(tag.toString()).longValue())));
-				}
-				else
-				{
+				}else{
 					builder.withField(s, JsonNodeBuilders.aStringBuilder(tag.toString()));
 				}
 			}
