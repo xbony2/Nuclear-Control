@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0"
+version = "A1.0.0"
 group= "com.shedar.IC2NuclearControl2"
 archivesBaseName = "IC2NuclearControl2"
 minecraft {
