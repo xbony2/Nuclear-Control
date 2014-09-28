@@ -16,3 +16,6 @@ hs_err_pid*
 
 #gradle
 !gradle/wrapper/gradle-wrapper.jar
+
+#Argo library
+!src/main/java/shedar/mods/ic2/nuclearcontrol/lib/argo-3.12.jar
