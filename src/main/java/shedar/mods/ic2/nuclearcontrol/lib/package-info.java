@@ -3,6 +3,6 @@
  * It is required for anything web related to work.
  * If you do not have it, get it <a href="http://argo.sourceforge.net">here</a>
  * 
- * @author (of the library) mos20
+ * @author (of the library) mos20 (I did not make it, nor take credit for it)
  */
 package shedar.mods.ic2.nuclearcontrol.lib;
