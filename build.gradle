@@ -42,6 +42,7 @@ dependencies {
     compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev" 
     compile "codechicken:CodeChickenLib:1.7.10-1.1.1.93:dev"
 	compile "com.mod-buildcraft:buildcraft:6.0.17:dev"
+	compile 'net.sourceforge.argo:argo:3.12'
 }
 
 
