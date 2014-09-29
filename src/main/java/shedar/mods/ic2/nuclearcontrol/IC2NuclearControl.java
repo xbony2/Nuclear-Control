@@ -57,7 +57,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl2", name="Nuclear Control 2", version="A2.0.0", dependencies="required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
+@Mod(modid = "IC2NuclearControl", name="Nuclear Control 2", version="2.0.0a", dependencies="required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl{
     
     public static final int COLOR_WHITE = 15;
