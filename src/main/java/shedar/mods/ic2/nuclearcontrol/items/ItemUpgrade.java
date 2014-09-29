@@ -49,7 +49,7 @@ public class ItemUpgrade extends Item
         switch (damage)
         {
         case DAMAGE_RANGE:
-            return "item.ItemRangeUpgrade";
+            return "item.itemRangeUpgrade";
         case DAMAGE_COLOR:
             return "item.ItemColorUpgrade";
         case DAMAGE_WEB:

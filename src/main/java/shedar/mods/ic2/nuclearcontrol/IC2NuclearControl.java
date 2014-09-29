@@ -57,7 +57,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl", name="Nuclear Control 2", version="2.0.0a", dependencies="required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
+@Mod(modid = "IC2NuclearControl", name="Nuclear Control 2", version="2.0.0b", dependencies="required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl{
     
     public static final int COLOR_WHITE = 15;
@@ -150,21 +150,21 @@ public class IC2NuclearControl{
         itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation().setUnlocalizedName("ItemLiquidArrayLocationCard");
     }
 
-    public void registerBlocks(){
+    protected void registerBlocks(){
     	GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
-    	GameRegistry.registerItem(itemToolThermometer, "itemToolThermometer");
-    	GameRegistry.registerItem(itemToolDigitalThermometer, "itemToolDigitalThermometer");
-    	GameRegistry.registerItem(itemRemoteSensorKit, "itemRemoteSensorKit");
-    	GameRegistry.registerItem(itemEnergySensorKit, "itemEnergySensorKit");
-    	GameRegistry.registerItem(itemMultipleSensorKit, "itemMultipleSensorKit");
-    	GameRegistry.registerItem(itemSensorLocationCard, "itemSensorLocationCard");
-    	GameRegistry.registerItem(itemEnergySensorLocationCard, "itemEnergySensorLocationCard");
-    	GameRegistry.registerItem(itemMultipleSensorLocationCard, "itemMultipleSensorLocationCard");
-    	GameRegistry.registerItem(itemEnergyArrayLocationCard, "itemEnergyArrayLocationCard");
-    	GameRegistry.registerItem(itemTimeCard, "itemTimeCard");
-    	GameRegistry.registerItem(itemUpgrade, "itemUpgrade");
-    	GameRegistry.registerItem(itemTextCard, "itemTextCard");
-    	GameRegistry.registerItem(itemLiquidArrayLocationCard, "itemLiquidArrayLocationCard");
+    	GameRegistry.registerItem(itemToolThermometer, "ItemToolThermometer");
+    	GameRegistry.registerItem(itemToolDigitalThermometer, "ItemToolDigitalThermometer");
+    	GameRegistry.registerItem(itemRemoteSensorKit, "ItemRemoteSensorKit");
+    	GameRegistry.registerItem(itemEnergySensorKit, "ItemEnergySensorKit");
+    	GameRegistry.registerItem(itemMultipleSensorKit, "ItemMultipleSensorKit");
+    	GameRegistry.registerItem(itemSensorLocationCard, "ItemSensorLocationCard"); 
+    	GameRegistry.registerItem(itemEnergySensorLocationCard, "ItemEnergySensorLocationCard");
+    	GameRegistry.registerItem(itemMultipleSensorLocationCard, "ItemMultipleSensorLocationCard");
+    	GameRegistry.registerItem(itemEnergyArrayLocationCard, "ItemEnergyArrayLocationCard");
+    	GameRegistry.registerItem(itemTimeCard, "ItemTimeCard");
+    	GameRegistry.registerItem(itemUpgrade, "ItemUpgrade");
+    	GameRegistry.registerItem(itemTextCard, "ItemTextCard");
+    	GameRegistry.registerItem(itemLiquidArrayLocationCard, "ItemLiquidArrayLocationCard");
     }
     
     @EventHandler

@@ -78,7 +78,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
         switch (damage)
         {
         case ItemKitMultipleSensor.TYPE_COUNTER:
-            return "item.ItemCounterSensorLocationCard";
+            return "item.itemCounterSensorLocationCard";
         case ItemKitMultipleSensor.TYPE_LIQUID:
             return "item.ItemLiquidSensorLocationCard";
         case ItemKitMultipleSensor.TYPE_GENERATOR:
