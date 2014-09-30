@@ -1,24 +1,13 @@
 package shedar.mods.ic2.nuclearcontrol;
 
-import ic2.api.item.IC2Items;
-import ic2.api.recipe.Recipes;
-
 import java.io.File;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.UUID;
+
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.CrossBuildcraft;
@@ -42,9 +31,7 @@ import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -52,7 +39,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -97,6 +83,7 @@ public class IC2NuclearControl{
     protected File configFile;
     protected File configDir;
     
+    public static boolean isServer;
     public String allowedAlarms;
     public List<String> serverAllowedAlarms;
     public static Item itemToolThermometer;
@@ -118,7 +105,8 @@ public class IC2NuclearControl{
     public int alarmRange;
     public int SMPMaxAlarmRange;
     public int maxAlarmRange;
-    public static boolean isHttpSensorAvailable;
+    public static boolean isHttpSensorAvailableClient;
+    public static boolean isHttpSensorAvailableServer;
     public String httpSensorKey;
     public List<String> availableAlarms;
     public int remoteThermalMonitorEnergyConsumption;
@@ -170,11 +158,14 @@ public class IC2NuclearControl{
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
     	logger = event.getModLog();
+    	if(event.getSide() == Side.CLIENT) isServer = false;
+    	else isServer = true;
+    	
     	//Loads configuration
     	config = new ConfigurationHandler();
     	FMLCommonHandler.instance().bus().register(config);
     	config.init(event.getSuggestedConfigurationFile());
-
+    	
 		//registers channel handler
 		ChannelHandler.init();
 

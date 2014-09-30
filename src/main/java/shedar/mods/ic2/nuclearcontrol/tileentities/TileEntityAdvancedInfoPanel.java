@@ -1,6 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
-import ic2.api.network.NetworkHelper;
 import ic2.core.IC2;
 import ic2.core.network.NetworkManager;
 
@@ -10,7 +9,6 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 
@@ -182,8 +180,6 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel
 	@Override
 	protected boolean isWebEval()
 	{
-		if(!IC2NuclearControl.instance.isHttpSensorAvailable)
-			return false;
 		ItemStack itemStack = inventory[SLOT_UPGRADE_WEB];
 		return itemStack != null && itemStack.getItem() instanceof ItemUpgrade && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_WEB;
 	}

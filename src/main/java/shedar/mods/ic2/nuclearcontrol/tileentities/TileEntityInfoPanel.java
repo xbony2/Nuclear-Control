@@ -735,12 +735,7 @@ public class TileEntityInfoPanel extends TileEntity implements
 		return itemStack != null && itemStack.getItem() instanceof ItemUpgrade && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_COLOR;
 	}
 
-	protected boolean isWebEval()
-	{
-		if (!IC2NuclearControl.instance.isHttpSensorAvailable)
-		{
-			return false;
-		}
+	protected boolean isWebEval(){
 		ItemStack itemStack = inventory[SLOT_UPGRADE_WEB];
 		return itemStack != null && itemStack.getItem() instanceof ItemUpgrade && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_WEB;
 	}

@@ -77,11 +77,9 @@ public class ItemUpgrade extends Item
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List itemList)
-    {
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List itemList){
         itemList.add(new ItemStack(par1, 1, DAMAGE_RANGE));
         itemList.add(new ItemStack(par1, 1, DAMAGE_COLOR));
-        if(IC2NuclearControl.instance.isHttpSensorAvailable)
-            itemList.add(new ItemStack(par1, 1, DAMAGE_WEB));
+        itemList.add(new ItemStack(par1, 1, DAMAGE_WEB));
     }
 }

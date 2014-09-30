@@ -7,7 +7,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.api.BonyDebugger;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
@@ -124,7 +123,7 @@ public class RecipesNew {
                         'A', "dyeCyan",  
                         'B', "dyeBlue"});
         
-        if(IC2NuclearControl.isHttpSensorAvailable){
+        if((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer) || (IC2NuclearControl.isHttpSensorAvailableServer && IC2NuclearControl.isServer)){
             Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_WEB), new Object[]{
                         "CGC","CAC","CGC", 
                             'C', new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_RANGE), 

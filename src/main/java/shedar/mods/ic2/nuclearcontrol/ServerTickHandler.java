@@ -46,9 +46,7 @@ public class ServerTickHandler {
 	@SubscribeEvent
 	public void onTick(TickEvent.ServerTickEvent event){
 		if (event.type == event.type.SERVER && event.side == event.side.SERVER && event.phase == event.phase.END){
-			if (IC2NuclearControl.instance.isHttpSensorAvailable){
 		            HttpCardSender.instance.send();
-		    }
 		}
 	}
 }
