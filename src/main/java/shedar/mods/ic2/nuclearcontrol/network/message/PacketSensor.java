@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -26,8 +25,8 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMessage>
-{
+public class PacketSensor implements IMessage,
+		IMessageHandler<PacketSensor, IMessage> {
 	private int x;
 	private int y;
 	private int z;
@@ -42,10 +41,11 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 	public static final int FIELD_NULL = 6;
 	public static final int FIELD_LONG = 7;
 
-	public PacketSensor() {}
+	public PacketSensor() {
+	}
 
-	public PacketSensor(int x, int y, int z, byte slot, Map<String, Object> fields)
-	{
+	public PacketSensor(int x, int y, int z, byte slot,
+			Map<String, Object> fields) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -54,20 +54,17 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 	}
 
 	@Override
-	public void fromBytes(ByteBuf buf)
-	{
+	public void fromBytes(ByteBuf buf) {
 		x = buf.readInt();
 		y = buf.readInt();
 		z = buf.readInt();
 		slot = buf.readByte();
 		int fieldCount = buf.readShort();
 		fields = new HashMap<String, Object>();
-		for (int i = 0; i < fieldCount; i++)
-		{
+		for (int i = 0; i < fieldCount; i++) {
 			String name = ByteBufUtils.readUTF8String(buf);
 			byte type = buf.readByte();
-			switch (type)
-			{
+			switch (type) {
 			case NuclearNetworkHelper.FIELD_INT:
 				fields.put(name, buf.readInt());
 				break;
@@ -85,15 +82,15 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 				break;
 			case NuclearNetworkHelper.FIELD_TAG:
 				NBTTagCompound tag;
-				try
-				{
+				try {
 					int size = buf.readInt();
-					DataInputStream dat = new DataInputStream(new ByteArrayInputStream(Arrays.copyOfRange(buf.array(), buf.readerIndex() + 1, buf.readerIndex() + 1 + size)));
+					DataInputStream dat = new DataInputStream(
+							new ByteArrayInputStream(Arrays.copyOfRange(
+									buf.array(), buf.readerIndex() + 1,
+									buf.readerIndex() + 1 + size)));
 					tag = CompressedStreamTools.readCompressed(dat);
 					fields.put(name, tag);
-				}
-				catch (IOException e)
-				{
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				break;
@@ -108,110 +105,77 @@ public class PacketSensor implements IMessage, IMessageHandler<PacketSensor, IMe
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf)
-	{
+	public void toBytes(ByteBuf buf) {
 		buf.writeInt(x);
 		buf.writeInt(y);
 		buf.writeInt(z);
 		buf.writeByte(slot);
 		buf.writeShort(fields.size());
-		for (Map.Entry<String, Object> entry : fields.entrySet())
-		{
+		for (Map.Entry<String, Object> entry : fields.entrySet()) {
 			ByteBufUtils.writeUTF8String(buf, entry.getKey());
 			Object value = entry.getValue();
-			if (value instanceof Long)
-			{
+			if (value instanceof Long) {
 				buf.writeByte(FIELD_LONG);
-				buf.writeLong((Long)value);
-			}
-			else if (value instanceof Double)
-			{
+				buf.writeLong((Long) value);
+			} else if (value instanceof Double) {
 				buf.writeByte(FIELD_DOUBLE);
-				buf.writeDouble((Double)value);
-			}
-			else if (value instanceof Integer)
-			{
+				buf.writeDouble((Double) value);
+			} else if (value instanceof Integer) {
 				buf.writeByte(FIELD_INT);
-				buf.writeInt((Integer)value);
-			}
-			else if (value instanceof String)
-			{
+				buf.writeInt((Integer) value);
+			} else if (value instanceof String) {
 				buf.writeByte(FIELD_STRING);
-				ByteBufUtils.writeUTF8String(buf, (String)value);
-			}
-			else if (value instanceof Boolean)
-			{
+				ByteBufUtils.writeUTF8String(buf, (String) value);
+			} else if (value instanceof Boolean) {
 				buf.writeByte(FIELD_BOOLEAN);
-				buf.writeBoolean((Boolean)value);
-			}
-			else if (value instanceof NBTTagCompound)
-			{
+				buf.writeBoolean((Boolean) value);
+			} else if (value instanceof NBTTagCompound) {
 				buf.writeByte(FIELD_TAG);
-				try
-				{
+				try {
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
 					DataOutputStream output = new DataOutputStream(stream);
-					CompressedStreamTools.writeCompressed((NBTTagCompound)value, output);
+					CompressedStreamTools.writeCompressed(
+							(NBTTagCompound) value, output);
 					buf.writeInt(stream.size());
 					buf.writeBytes(stream.toByteArray());
-				}
-				catch (IOException e)
-				{
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-			else if (value == null)
-			{
+			} else if (value == null) {
 				buf.writeByte(FIELD_NULL);
 			}
 		}
 	}
 
 	@Override
-	public IMessage onMessage(PacketSensor message, MessageContext ctx)
-	{
-		TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
-		if (tileEntity == null || !(tileEntity instanceof TileEntityInfoPanel))
-		{
+	public IMessage onMessage(PacketSensor message, MessageContext ctx) {
+		TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld
+				.getTileEntity(message.x, message.y, message.z);
+		if (tileEntity == null || !(tileEntity instanceof TileEntityInfoPanel)) {
 			return null;
 		}
-		TileEntityInfoPanel panel = (TileEntityInfoPanel)tileEntity;
+		TileEntityInfoPanel panel = (TileEntityInfoPanel) tileEntity;
 		ItemStack stack = panel.getStackInSlot(message.slot);
-		if (stack == null || !(stack.getItem() instanceof IPanelDataSource))
-		{
+		if (stack == null || !(stack.getItem() instanceof IPanelDataSource)) {
 			return null;
 		}
 		CardWrapperImpl helper = new CardWrapperImpl(stack, message.slot);
-		for (Map.Entry<String, Object> entry : message.fields.entrySet())
-		{
+		for (Map.Entry<String, Object> entry : message.fields.entrySet()) {
 			String name = entry.getKey();
 			Object value = entry.getValue();
-			if (value instanceof Long)
-			{
-				helper.setLong(name, (Long)value);
-			}
-			else if (value instanceof Double)
-			{
-				helper.setDouble(name, (Double)value);
-			}
-			else if (value instanceof Integer)
-			{
-				helper.setInt(name, (Integer)value);
-			}
-			else if(value instanceof String)
-			{
-				helper.setString(name, (String)value);
-			}
-			else if (value instanceof Boolean)
-			{
-				helper.setBoolean(name, (Boolean)value); 
-			}
-			else if (value instanceof NBTTagCompound)
-			{
-				helper.setTag(name, (NBTTagCompound)value);
-			}
-			else if (value == null)
-			{
+			if (value instanceof Long) {
+				helper.setLong(name, (Long) value);
+			} else if (value instanceof Double) {
+				helper.setDouble(name, (Double) value);
+			} else if (value instanceof Integer) {
+				helper.setInt(name, (Integer) value);
+			} else if (value instanceof String) {
+				helper.setString(name, (String) value);
+			} else if (value instanceof Boolean) {
+				helper.setBoolean(name, (Boolean) value);
+			} else if (value instanceof NBTTagCompound) {
+				helper.setTag(name, (NBTTagCompound) value);
+			} else if (value == null) {
 				helper.clearField(name);
 			}
 		}

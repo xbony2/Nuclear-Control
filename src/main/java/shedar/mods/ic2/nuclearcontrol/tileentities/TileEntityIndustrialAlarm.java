@@ -7,27 +7,28 @@ import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 
-public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements ITextureHelper{
-	private static final byte[] lightSteps = {0, 7, 15, 7, 0};
+public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements
+		ITextureHelper {
+	private static final byte[] lightSteps = { 0, 7, 15, 7, 0 };
 
 	protected byte internalFire;
 	public byte lightLevel;
 
-	public TileEntityIndustrialAlarm(){
+	public TileEntityIndustrialAlarm() {
 		super();
 		internalFire = 0;
 		lightLevel = 0;
 	}
 
 	@Override
-	protected void checkStatus(){
+	protected void checkStatus() {
 		super.checkStatus();
 		int light = lightLevel;
-		if (!powered){
+		if (!powered) {
 			lightLevel = 0;
 			internalFire = 0;
-		}else{
-			internalFire = (byte)((internalFire + 1) % lightSteps.length * 2);
+		} else {
+			internalFire = (byte) ((internalFire + 1) % lightSteps.length * 2);
 			lightLevel = lightSteps[internalFire / 2];
 		}
 		if (lightLevel != light)
@@ -35,14 +36,14 @@ public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements 
 	}
 
 	@Override
-	public int modifyTextureIndex(int texture){
+	public int modifyTextureIndex(int texture) {
 		if (texture == IndustrialAlarm.I_BACK)
 			return texture;
-		switch (lightLevel){
+		switch (lightLevel) {
 		case 7:
 			texture += 1;
 			break;
-		case 15: 
+		case 15:
 			texture += 2;
 			break;
 		}
@@ -50,7 +51,9 @@ public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements 
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer){
-		return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain, 1, Damages.DAMAGE_INDUSTRIAL_ALARM);
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(
+				IC2NuclearControl.blockNuclearControlMain, 1,
+				Damages.DAMAGE_INDUSTRIAL_ALARM);
 	}
 }

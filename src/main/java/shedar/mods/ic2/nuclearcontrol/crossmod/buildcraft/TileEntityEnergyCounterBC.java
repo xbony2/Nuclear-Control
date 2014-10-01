@@ -14,14 +14,13 @@ import buildcraft.api.power.PowerHandler.PowerReceiver;
 import buildcraft.api.transport.IPipeConnection;
 import buildcraft.api.transport.IPipeTile.PipeType;
 
-public class TileEntityEnergyCounterBC extends TileEntityEnergyCounter implements IPowerReceptor, IPowerEmitter, IPipeConnection
-{
+public class TileEntityEnergyCounterBC extends TileEntityEnergyCounter
+		implements IPowerReceptor, IPowerEmitter, IPipeConnection {
 	private static final int MAX_SEND = 100;
 
 	protected PowerHandler powerHandler;
 
-	public TileEntityEnergyCounterBC()
-	{
+	public TileEntityEnergyCounterBC() {
 		super();
 		powerHandler = new PowerHandler(this, PowerHandler.Type.MACHINE);
 		powerHandler.configurePowerPerdition(1, 100);
@@ -36,30 +35,34 @@ public class TileEntityEnergyCounterBC extends TileEntityEnergyCounter implement
 	}
 
 	@Override
-	public void updateEntity() 
-	{
+	public void updateEntity() {
 		super.updateEntity();
 		if (worldObj.isRemote)
 			return;
 		Direction[] directions = Direction.values();
-		for (Direction apiDirection : directions) 
-		{
+		for (Direction apiDirection : directions) {
 			ForgeDirection direction = apiDirection.toForgeDirection();
-			if(direction.ordinal() == getFacing())
-			{
+			if (direction.ordinal() == getFacing()) {
 				continue;
 			}
 			int x = direction.offsetX + xCoord;
 			int y = direction.offsetY + yCoord;
 			int z = direction.offsetZ + zCoord;
 			TileEntity tile = worldObj.getTileEntity(x, y, z);
-			if (tile != null && tile instanceof IPowerReceptor && ((IPowerReceptor)tile).getPowerReceiver(direction.getOpposite()) != null) 
-			{
-				PowerReceiver receptor = ((IPowerReceptor) tile).getPowerReceiver(direction.getOpposite());
-				if(powerHandler.getEnergyStored() >= receptor.getMinEnergyReceived() && MAX_SEND >= receptor.getMinEnergyReceived())
-				{
-					double toSend = Math.min(powerHandler.getEnergyStored(), receptor.getMaxEnergyReceived());
-					double needed = receptor.receiveEnergy(PowerHandler.Type.MACHINE, toSend, direction.getOpposite());
+			if (tile != null
+					&& tile instanceof IPowerReceptor
+					&& ((IPowerReceptor) tile).getPowerReceiver(direction
+							.getOpposite()) != null) {
+				PowerReceiver receptor = ((IPowerReceptor) tile)
+						.getPowerReceiver(direction.getOpposite());
+				if (powerHandler.getEnergyStored() >= receptor
+						.getMinEnergyReceived()
+						&& MAX_SEND >= receptor.getMinEnergyReceived()) {
+					double toSend = Math.min(powerHandler.getEnergyStored(),
+							receptor.getMaxEnergyReceived());
+					double needed = receptor.receiveEnergy(
+							PowerHandler.Type.MACHINE, toSend,
+							direction.getOpposite());
 					powerHandler.useEnergy(1, needed, true);
 					counter += needed;
 				}
@@ -68,46 +71,40 @@ public class TileEntityEnergyCounterBC extends TileEntityEnergyCounter implement
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound)
-	{
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
 		powerHandler.writeToNBT(nbttagcompound);
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
-	{
+	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
 		powerHandler.readFromNBT(nbttagcompound);
 	}
 
 	@Override
-	public boolean canEmitPowerFrom(ForgeDirection side)
-	{
+	public boolean canEmitPowerFrom(ForgeDirection side) {
 		return side.ordinal() != getFacing();
 	}
 
 	@Override
-	public PowerReceiver getPowerReceiver(ForgeDirection side)
-	{
+	public PowerReceiver getPowerReceiver(ForgeDirection side) {
 		return powerHandler.getPowerReceiver();
 	}
 
 	@Override
-	public void doWork(PowerHandler workProvider)
-	{
+	public void doWork(PowerHandler workProvider) {
 		setPowerType(TileEntityAverageCounter.POWER_TYPE_MJ);
 	}
 
 	@Override
-	public World getWorld()
-	{
+	public World getWorld() {
 		return worldObj;
 	}
 
 	@Override
-	public ConnectOverride overridePipeConnection(PipeType type, ForgeDirection with)
-	{
+	public ConnectOverride overridePipeConnection(PipeType type,
+			ForgeDirection with) {
 		if (type == PipeType.POWER)
 			return ConnectOverride.DEFAULT;
 		return ConnectOverride.DISCONNECT;

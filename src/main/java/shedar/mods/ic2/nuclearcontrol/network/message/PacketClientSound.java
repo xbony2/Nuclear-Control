@@ -13,18 +13,18 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketClientSound implements IMessage, IMessageHandler<PacketClientSound, IMessage>
-{
+public class PacketClientSound implements IMessage,
+		IMessageHandler<PacketClientSound, IMessage> {
 	private int x;
 	private int y;
 	private int z;
 	private byte slot;
 	private String soundName;
-	
-	public PacketClientSound() {}
-	
-	public PacketClientSound(int x, int y, int z, byte slot, String soundName)
-	{
+
+	public PacketClientSound() {
+	}
+
+	public PacketClientSound(int x, int y, int z, byte slot, String soundName) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -33,8 +33,7 @@ public class PacketClientSound implements IMessage, IMessageHandler<PacketClient
 	}
 
 	@Override
-	public void fromBytes(ByteBuf buf)
-	{
+	public void fromBytes(ByteBuf buf) {
 		x = buf.readInt();
 		y = buf.readInt();
 		z = buf.readInt();
@@ -43,33 +42,32 @@ public class PacketClientSound implements IMessage, IMessageHandler<PacketClient
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf)
-	{
+	public void toBytes(ByteBuf buf) {
 		buf.writeInt(x);
 		buf.writeInt(y);
 		buf.writeInt(z);
 		buf.writeByte(slot);
 		ByteBufUtils.writeUTF8String(buf, soundName);
 	}
-	
-    @Override
-    public IMessage onMessage(PacketClientSound message, MessageContext ctx)
-    {
-		TileEntity tileEntity = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
-		if (tileEntity instanceof TileEntityHowlerAlarm)
-		{
-			((TileEntityHowlerAlarm) tileEntity).setSoundName(message.soundName);
-		} 
-		else if (tileEntity instanceof TileEntityInfoPanel)
-		{
-			ItemStack stack = ((TileEntityInfoPanel) tileEntity).getStackInSlot(message.slot);
-			if (stack == null || !(stack.getItem() instanceof IPanelDataSource))
-			{
+
+	@Override
+	public IMessage onMessage(PacketClientSound message, MessageContext ctx) {
+		TileEntity tileEntity = ctx.getServerHandler().playerEntity.worldObj
+				.getTileEntity(message.x, message.y, message.z);
+		if (tileEntity instanceof TileEntityHowlerAlarm) {
+			((TileEntityHowlerAlarm) tileEntity)
+					.setSoundName(message.soundName);
+		} else if (tileEntity instanceof TileEntityInfoPanel) {
+			ItemStack stack = ((TileEntityInfoPanel) tileEntity)
+					.getStackInSlot(message.slot);
+			if (stack == null || !(stack.getItem() instanceof IPanelDataSource)) {
 				return null;
 			}
 			new CardWrapperImpl(stack, -1).setTitle(message.soundName);
-			NuclearNetworkHelper.setSensorCardTitle((TileEntityInfoPanel)tileEntity, message.slot, message.soundName);
+			NuclearNetworkHelper.setSensorCardTitle(
+					(TileEntityInfoPanel) tileEntity, message.slot,
+					message.soundName);
 		}
-    	return null;
-    }
+		return null;
+	}
 }

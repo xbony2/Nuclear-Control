@@ -16,18 +16,15 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemCardMultipleSensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 
-public class StorageArrayRecipe implements IRecipe
-{
+public class StorageArrayRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting inventory, World world)
-	{
+	public boolean matches(InventoryCrafting inventory, World world) {
 		return getCraftingResult(inventory) != null;
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting inventory)
-	{
+	public ItemStack getCraftingResult(InventoryCrafting inventory) {
 		int inventoryLength = inventory.getSizeInventory();
 		boolean fail = false;
 		int cardCount = 0;
@@ -36,90 +33,89 @@ public class StorageArrayRecipe implements IRecipe
 		int arrayCountLiquid = 0;
 		ItemStack array = null;
 		Vector<ItemStack> cards = new Vector<ItemStack>();
-		for (int i = 0; i < inventoryLength; i++)
-		{
+		for (int i = 0; i < inventoryLength; i++) {
 			ItemStack itemStack = inventory.getStackInSlot(i);
 			if (itemStack == null)
 				continue;
-			if (itemStack.getItem() instanceof ItemCardEnergySensorLocation)
-			{
+			if (itemStack.getItem() instanceof ItemCardEnergySensorLocation) {
 				cards.add(itemStack);
 				cardCount++;
-			} 
-			else if (itemStack.getItem() instanceof ItemCardMultipleSensorLocation && itemStack.getItemDamage() == ItemKitMultipleSensor.TYPE_LIQUID)
-			{
+			} else if (itemStack.getItem() instanceof ItemCardMultipleSensorLocation
+					&& itemStack.getItemDamage() == ItemKitMultipleSensor.TYPE_LIQUID) {
 				cards.add(itemStack);
 				cardCountLiquid++;
-			}
-			else if (itemStack.getItem() instanceof ItemCardEnergyArrayLocation)
-			{
+			} else if (itemStack.getItem() instanceof ItemCardEnergyArrayLocation) {
 				array = itemStack;
 				arrayCount++;
-			}
-			else if (itemStack.getItem() instanceof ItemCardLiquidArrayLocation)
-			{
+			} else if (itemStack.getItem() instanceof ItemCardLiquidArrayLocation) {
 				array = itemStack;
 				arrayCountLiquid++;
-			}
-			else
-			{
+			} else {
 				fail = true;
 				break;
 			}
 		}
-		if (fail || (cardCount != 0 && cardCountLiquid != 0) || (arrayCount != 0 && arrayCountLiquid != 0) ||
-				(cardCount != 0 && arrayCountLiquid != 0) || (arrayCount != 0 && cardCountLiquid != 0))
-		{
+		if (fail || (cardCount != 0 && cardCountLiquid != 0)
+				|| (arrayCount != 0 && arrayCountLiquid != 0)
+				|| (cardCount != 0 && arrayCountLiquid != 0)
+				|| (arrayCount != 0 && cardCountLiquid != 0)) {
 			return null;
 		}
-		if (cardCount >= 2 && cardCount <= 6 && arrayCount == 0)
-		{
-			ItemStack itemStack = new ItemStack(IC2NuclearControl.instance.itemEnergyArrayLocationCard, 1, 0);
-			ItemCardEnergyArrayLocation.initArray(new CardWrapperImpl(itemStack, -1), cards);
+		if (cardCount >= 2 && cardCount <= 6 && arrayCount == 0) {
+			ItemStack itemStack = new ItemStack(
+					IC2NuclearControl.itemEnergyArrayLocationCard, 1,
+					0);
+			ItemCardEnergyArrayLocation.initArray(new CardWrapperImpl(
+					itemStack, -1), cards);
 			return itemStack;
-		}
-		else if (cardCount == 0 && arrayCount == 1)
-		{
-			int cnt = ItemCardEnergyArrayLocation.getCardCount(new CardWrapperImpl(array, -1));
-			if (cnt > 0)
-			{
-				return new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2*cnt, 0);
+		} else if (cardCount == 0 && arrayCount == 1) {
+			int cnt = ItemCardEnergyArrayLocation
+					.getCardCount(new CardWrapperImpl(array, -1));
+			if (cnt > 0) {
+				return new ItemStack(IC2Items.getItem("electronicCircuit")
+						.getItem(), 2 * cnt, 0);
 			}
-		}
-		else if (arrayCount == 1 && cardCount > 0)
-		{
-			int cnt = ItemCardEnergyArrayLocation.getCardCount(new CardWrapperImpl(array, -1));
-			if (cnt + cardCount <= 6)
-			{
-				ItemStack itemStack = new ItemStack(IC2NuclearControl.instance.itemEnergyArrayLocationCard, 1, 0);
-				itemStack.setTagCompound((NBTTagCompound)array.getTagCompound().copy());
-				ItemCardEnergyArrayLocation.initArray(new CardWrapperImpl(itemStack, -1), cards);
+		} else if (arrayCount == 1 && cardCount > 0) {
+			int cnt = ItemCardEnergyArrayLocation
+					.getCardCount(new CardWrapperImpl(array, -1));
+			if (cnt + cardCount <= 6) {
+				ItemStack itemStack = new ItemStack(
+						IC2NuclearControl.itemEnergyArrayLocationCard,
+						1, 0);
+				itemStack.setTagCompound((NBTTagCompound) array
+						.getTagCompound().copy());
+				ItemCardEnergyArrayLocation.initArray(new CardWrapperImpl(
+						itemStack, -1), cards);
 				return itemStack;
 			}
 		}
-		
-		if (cardCountLiquid >= 2 && cardCountLiquid <= 6 && arrayCountLiquid == 0)
-		{
-			ItemStack itemStack = new ItemStack(IC2NuclearControl.instance.itemLiquidArrayLocationCard, 1, 0);
-			ItemCardLiquidArrayLocation.initArray(new CardWrapperImpl(itemStack, -1), cards);
+
+		if (cardCountLiquid >= 2 && cardCountLiquid <= 6
+				&& arrayCountLiquid == 0) {
+			ItemStack itemStack = new ItemStack(
+					IC2NuclearControl.itemLiquidArrayLocationCard, 1,
+					0);
+			ItemCardLiquidArrayLocation.initArray(new CardWrapperImpl(
+					itemStack, -1), cards);
 			return itemStack;
-		}
-		else if (cardCountLiquid == 0 && arrayCountLiquid == 1)
-		{
-			int cnt = ItemCardLiquidArrayLocation.getCardCount(new CardWrapperImpl(array, -1));
-			if (cnt > 0)
-			{
-				return new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), cnt, 0);
+		} else if (cardCountLiquid == 0 && arrayCountLiquid == 1) {
+			int cnt = ItemCardLiquidArrayLocation
+					.getCardCount(new CardWrapperImpl(array, -1));
+			if (cnt > 0) {
+				return new ItemStack(IC2Items.getItem("electronicCircuit")
+						.getItem(), cnt, 0);
 			}
-		}
-		else if (arrayCountLiquid == 1 && cardCountLiquid > 0)
-		{
-			int cnt = ItemCardLiquidArrayLocation.getCardCount(new CardWrapperImpl(array, -1));
-			if (cnt + cardCount <= 6)
-			{
-				ItemStack itemStack = new ItemStack(IC2NuclearControl.instance.itemLiquidArrayLocationCard, 1, 0);
-				itemStack.setTagCompound((NBTTagCompound)array.getTagCompound().copy());
-				ItemCardLiquidArrayLocation.initArray(new CardWrapperImpl(itemStack, -1), cards);
+		} else if (arrayCountLiquid == 1 && cardCountLiquid > 0) {
+			int cnt = ItemCardLiquidArrayLocation
+					.getCardCount(new CardWrapperImpl(array, -1));
+			if (cnt + cardCount <= 6) {
+				ItemStack itemStack = new ItemStack(
+						IC2NuclearControl.itemLiquidArrayLocationCard,
+						1, 0);
+				itemStack.setTagCompound((NBTTagCompound) array
+						.getTagCompound().copy());
+				ItemCardLiquidArrayLocation.initArray(new CardWrapperImpl(
+						itemStack, -1), cards);
 				return itemStack;
 			}
 		}
@@ -127,14 +123,12 @@ public class StorageArrayRecipe implements IRecipe
 	}
 
 	@Override
-	public int getRecipeSize()
-	{
+	public int getRecipeSize() {
 		return 2;
 	}
 
 	@Override
-	public ItemStack getRecipeOutput()
-	{
+	public ItemStack getRecipeOutput() {
 		return null;
 	}
 }

@@ -2,7 +2,6 @@ package shedar.mods.ic2.nuclearcontrol.tileentities;
 
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
-import ic2.api.network.NetworkHelper;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
 import ic2.core.network.NetworkManager;
@@ -24,11 +23,9 @@ import shedar.mods.ic2.nuclearcontrol.panel.Screen;
 import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-
-public class TileEntityInfoPanelExtender extends TileEntity implements 
-	INetworkDataProvider, INetworkUpdateListener, 
-	IWrenchable, ITextureHelper, IScreenPart, IRotation
-{
+public class TileEntityInfoPanelExtender extends TileEntity implements
+		INetworkDataProvider, INetworkUpdateListener, IWrenchable,
+		ITextureHelper, IScreenPart, IRotation {
 
 	protected boolean init;
 
@@ -42,47 +39,43 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	private int coreZ;
 
 	@Override
-	public short getFacing()
-	{
-		return (short)Facing.oppositeSide[facing];
+	public short getFacing() {
+		return (short) Facing.oppositeSide[facing];
 	}
 
 	@Override
-	public void setFacing(short f)
-	{
-		setSide((short)Facing.oppositeSide[f]);
+	public void setFacing(short f) {
+		setSide((short) Facing.oppositeSide[f]);
 
 	}
 
-	private void setSide(short f)
-	{
+	private void setSide(short f) {
 		facing = f;
-		if (prevFacing != f)
-		{
-			if(FMLCommonHandler.instance().getEffectiveSide().isServer() && init)
-			{
-				IC2NuclearControl.instance.screenManager.unregisterScreenPart(this);
-				IC2NuclearControl.instance.screenManager.registerInfoPanelExtender(this);
+		if (prevFacing != f) {
+			if (FMLCommonHandler.instance().getEffectiveSide().isServer()
+					&& init) {
+				IC2NuclearControl.instance.screenManager
+						.unregisterScreenPart(this);
+				IC2NuclearControl.instance.screenManager
+						.registerInfoPanelExtender(this);
 			}
-			//NetworkHelper.updateTileEntityField(this, "facing");
-			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
+			// NetworkHelper.updateTileEntityField(this, "facing");
+			IC2.network.get().updateTileEntityField(this,
+					"facing");
 		}
 
 		prevFacing = f;
 	}
 
 	@Override
-	public void onNetworkUpdate(String field)
-	{
-		if (field.equals("facing") && prevFacing != facing)
-		{
+	public void onNetworkUpdate(String field) {
+		if (field.equals("facing") && prevFacing != facing) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			prevFacing = facing;
 		}
 	}
 
-	public TileEntityInfoPanelExtender()
-	{
+	public TileEntityInfoPanelExtender() {
 		super();
 		init = false;
 		facing = 0;
@@ -92,25 +85,22 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	}
 
 	@Override
-	public List<String> getNetworkedFields()
-	{
+	public List<String> getNetworkedFields() {
 		List<String> list = new ArrayList<String>(1);
 		list.add("facing");
 		return list;
 	}
 
-	protected void initData()
-	{
-		if (FMLCommonHandler.instance().getEffectiveSide().isServer() && !partOfScreen)
-		{
-			IC2NuclearControl.instance.screenManager.registerInfoPanelExtender(this);
+	protected void initData() {
+		if (FMLCommonHandler.instance().getEffectiveSide().isServer()
+				&& !partOfScreen) {
+			IC2NuclearControl.instance.screenManager
+					.registerInfoPanelExtender(this);
 		}
-		if (partOfScreen && screen == null)
-		{
+		if (partOfScreen && screen == null) {
 			TileEntity core = worldObj.getTileEntity(coreX, coreY, coreZ);
-			if (core!=null && core instanceof TileEntityInfoPanel)
-			{
-				screen = ((TileEntityInfoPanel)core).getScreen();
+			if (core != null && core instanceof TileEntityInfoPanel) {
+				screen = ((TileEntityInfoPanel) core).getScreen();
 				if (screen != null)
 					screen.init(true, worldObj);
 			}
@@ -119,23 +109,19 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	}
 
 	@Override
-	public void updateEntity()
-	{
-		if (!init)
-		{
+	public void updateEntity() {
+		if (!init) {
 			initData();
 		}
 		super.updateEntity();
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
-	{
+	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
-		prevFacing = facing =  nbttagcompound.getShort("facing");
+		prevFacing = facing = nbttagcompound.getShort("facing");
 		partOfScreen = nbttagcompound.getBoolean("partOfScreen");
-		if (nbttagcompound.hasKey("coreX"))
-		{
+		if (nbttagcompound.hasKey("coreX")) {
 			coreX = nbttagcompound.getInteger("coreX");
 			coreY = nbttagcompound.getInteger("coreY");
 			coreZ = nbttagcompound.getInteger("coreZ");
@@ -143,29 +129,24 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	}
 
 	@Override
-	public void invalidate()
-	{
+	public void invalidate() {
 		super.invalidate();
-		if (FMLCommonHandler.instance().getEffectiveSide().isServer())
-		{
+		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
 			IC2NuclearControl.instance.screenManager.unregisterScreenPart(this);
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound)
-	{
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
 		nbttagcompound.setShort("facing", facing);
 		nbttagcompound.setBoolean("partOfScreen", partOfScreen);
-		if (screen != null)
-		{
+		if (screen != null) {
 			nbttagcompound.setInteger("coreX", coreX);
 			nbttagcompound.setInteger("coreY", coreY);
 			nbttagcompound.setInteger("coreZ", coreZ);
 		}
 	}
-
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int face) {
@@ -173,27 +154,22 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	};
 
 	@Override
-	public float getWrenchDropRate()
-	{
+	public float getWrenchDropRate() {
 		return 1;
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
 		return !entityPlayer.isSneaking();
 	}
 
 	@Override
-	public int modifyTextureIndex(int texture)
-	{
+	public int modifyTextureIndex(int texture) {
 		if (texture != InfoPanel.I_COLOR_DEFAULT)
 			return texture;
-		if (screen != null)
-		{
+		if (screen != null) {
 			TileEntityInfoPanel core = screen.getCore(worldObj);
-			if (core != null)
-			{
+			if (core != null) {
 				return core.modifyTextureIndex(texture, xCoord, yCoord, zCoord);
 			}
 		}
@@ -201,35 +177,29 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	}
 
 	@Override
-	public void setScreen(Screen screen)
-	{
+	public void setScreen(Screen screen) {
 		this.screen = screen;
 		partOfScreen = screen != null;
 	}
 
 	@Override
-	public Screen getScreen()
-	{
+	public Screen getScreen() {
 		return screen;
 	}
 
 	@Override
-	public void rotate()
-	{
-		if (screen != null)
-		{
-			TileEntityInfoPanel core = screen.getCore(worldObj); 
+	public void rotate() {
+		if (screen != null) {
+			TileEntityInfoPanel core = screen.getCore(worldObj);
 			if (core != null)
 				core.rotate();
 		}
 	}
 
 	@Override
-	public int getRotation()
-	{
-		if (screen != null)
-		{
-			TileEntityInfoPanel core = screen.getCore(worldObj); 
+	public int getRotation() {
+		if (screen != null) {
+			TileEntityInfoPanel core = screen.getCore(worldObj);
 			if (core != null)
 				return core.rotation;
 		}
@@ -237,22 +207,22 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	}
 
 	@Override
-	public void setRotation(int rotation)
-	{
-		if (screen != null)
-		{
-			TileEntityInfoPanel core = screen.getCore(worldObj); 
+	public void setRotation(int rotation) {
+		if (screen != null) {
+			TileEntityInfoPanel core = screen.getCore(worldObj);
 			if (core != null)
 				core.setRotation(rotation);
 		}
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
-		return new ItemStack(IC2NuclearControl.instance.blockNuclearControlMain, 1, Damages.DAMAGE_INFO_PANEL_EXTENDER);
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(
+				IC2NuclearControl.blockNuclearControlMain, 1,
+				Damages.DAMAGE_INFO_PANEL_EXTENDER);
 	}
 
 	@Override
-	public void updateData() {}
+	public void updateData() {
+	}
 }

@@ -43,170 +43,189 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl", name="Nuclear Control 2", version="2.0.0b", dependencies="required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
-public class IC2NuclearControl{
-    
-    public static final int COLOR_WHITE = 15;
-    public static final int COLOR_ORANGE = 14;
-    public static final int COLOR_MAGENTA = 13;
-    public static final int COLOR_LIGHT_BLUE = 12;
-    public static final int COLOR_YELLOW = 11;
-    public static final int COLOR_LIME = 10;
-    public static final int COLOR_PINK = 9;
-    public static final int COLOR_GRAY = 8;
-    public static final int COLOR_LIGHT_GRAY = 7;
-    public static final int COLOR_CYAN = 6;
-    public static final int COLOR_PURPLE = 5;
-    public static final int COLOR_BLUE = 4;
-    public static final int COLOR_BROWN = 3;
-    public static final int COLOR_GREEN = 2;
-    public static final int COLOR_RED = 1;
-    public static final int COLOR_BLACK = 0;
-    
-    //The instance of your mod forge uses
-    @Instance
-    public static IC2NuclearControl instance;
-    
-    //Says where the client and server 'proxy' code is loaded.
-    @SidedProxy(clientSide = "shedar.mods.ic2.nuclearcontrol.ClientProxy", serverSide = "shedar.mods.ic2.nuclearcontrol.CommonProxy")
-  
-    //The proxy to be used by client and server
-    public static CommonProxy proxy;
-  	
-  	//Mod's creative tab
-  	public static IC2NCCreativeTabs tabIC2NC = new IC2NCCreativeTabs();
-    
-  	//For logging purposes
-  	public static Logger logger;
-  	public static ConfigurationHandler config;
-  	
-    protected File configFile;
-    protected File configDir;
-    
-    public static boolean isServer;
-    public String allowedAlarms;
-    public List<String> serverAllowedAlarms;
-    public static Item itemToolThermometer;
-    public static Item itemToolDigitalThermometer;
-    public static Item itemRemoteSensorKit;
-    public static Item itemEnergySensorKit;
-    public static Item itemMultipleSensorKit;
-    public static Item itemSensorLocationCard;
-    public static Item itemEnergySensorLocationCard;
-    public static Item itemMultipleSensorLocationCard;
-    public static Item itemEnergyArrayLocationCard;
-    public static Item itemTimeCard;
-    public static Item itemUpgrade;
-    public static Item itemTextCard;
-    public static Item itemLiquidArrayLocationCard;
-    public static Item itemWindCard;
-    public static BlockNuclearControlMain blockNuclearControlMain;
-    public int modelId;
-    public int alarmRange;
-    public int SMPMaxAlarmRange;
-    public int maxAlarmRange;
-    public static boolean isHttpSensorAvailableClient;
-    public static boolean isHttpSensorAvailableServer;
-    public String httpSensorKey;
-    public List<String> availableAlarms;
-    public int remoteThermalMonitorEnergyConsumption;
-    public ScreenManager screenManager = new ScreenManager();
-    public int screenRefreshPeriod;
-    public int rangeTriggerRefreshPeriod;
-    public String recipes;
+@Mod(modid = "IC2NuclearControl", name = "Nuclear Control 2", version = "2.0.0b", dependencies = "required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
+public class IC2NuclearControl {
 
-    public CrossBuildcraft crossBC;
-    public CrossIndustrialCraft2 crossIC2;
-    //public CrossGregTech crossGregTech;
-    public CrossRailcraft crossRailcraft;
-    public CrossRF crossThermalEx;
+	public static final int COLOR_WHITE = 15;
+	public static final int COLOR_ORANGE = 14;
+	public static final int COLOR_MAGENTA = 13;
+	public static final int COLOR_LIGHT_BLUE = 12;
+	public static final int COLOR_YELLOW = 11;
+	public static final int COLOR_LIME = 10;
+	public static final int COLOR_PINK = 9;
+	public static final int COLOR_GRAY = 8;
+	public static final int COLOR_LIGHT_GRAY = 7;
+	public static final int COLOR_CYAN = 6;
+	public static final int COLOR_PURPLE = 5;
+	public static final int COLOR_BLUE = 4;
+	public static final int COLOR_BROWN = 3;
+	public static final int COLOR_GREEN = 2;
+	public static final int COLOR_RED = 1;
+	public static final int COLOR_BLACK = 0;
 
-    protected void initBlocks(){
-    	blockNuclearControlMain = new BlockNuclearControlMain();
-        itemToolThermometer = new ItemToolThermometer().setUnlocalizedName("ItemToolThermometer");
-        itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80).setUnlocalizedName("ItemToolDigitalThermometer");
-        itemSensorLocationCard = new ItemCardReactorSensorLocation().setUnlocalizedName("ItemSensorLocationCard");
-        itemUpgrade = new ItemUpgrade();
-        itemTimeCard = new ItemTimeCard().setUnlocalizedName("ItemTimeCard");
-        itemTextCard = new ItemCardText().setUnlocalizedName("ItemTextCard");
-        itemEnergySensorLocationCard = new ItemCardEnergySensorLocation().setUnlocalizedName("ItemEnergySensorLocationCard");
-        itemEnergyArrayLocationCard = new ItemCardEnergyArrayLocation().setUnlocalizedName("ItemEnergyArrayLocationCard");
-        itemMultipleSensorLocationCard = new ItemCardMultipleSensorLocation();
-        itemMultipleSensorKit = new ItemKitMultipleSensor().setUnlocalizedName("ItemCounterSensorKit");
-        itemEnergySensorKit = new ItemKitEnergySensor().setUnlocalizedName("ItemEnergySensorKit");
-        itemRemoteSensorKit = new ItemKitReactorSensor().setUnlocalizedName("ItemRemoteSensorKit");
-        itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation().setUnlocalizedName("ItemLiquidArrayLocationCard");
-    }
+	// The instance of your mod forge uses
+	@Instance
+	public static IC2NuclearControl instance;
 
-    protected void registerBlocks(){
-    	GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
-    	GameRegistry.registerItem(itemToolThermometer, "ItemToolThermometer");
-    	GameRegistry.registerItem(itemToolDigitalThermometer, "ItemToolDigitalThermometer");
-    	GameRegistry.registerItem(itemRemoteSensorKit, "ItemRemoteSensorKit");
-    	GameRegistry.registerItem(itemEnergySensorKit, "ItemEnergySensorKit");
-    	GameRegistry.registerItem(itemMultipleSensorKit, "ItemMultipleSensorKit");
-    	GameRegistry.registerItem(itemSensorLocationCard, "ItemSensorLocationCard"); 
-    	GameRegistry.registerItem(itemEnergySensorLocationCard, "ItemEnergySensorLocationCard");
-    	GameRegistry.registerItem(itemMultipleSensorLocationCard, "ItemMultipleSensorLocationCard");
-    	GameRegistry.registerItem(itemEnergyArrayLocationCard, "ItemEnergyArrayLocationCard");
-    	GameRegistry.registerItem(itemTimeCard, "ItemTimeCard");
-    	GameRegistry.registerItem(itemUpgrade, "ItemUpgrade");
-    	GameRegistry.registerItem(itemTextCard, "ItemTextCard");
-    	GameRegistry.registerItem(itemLiquidArrayLocationCard, "ItemLiquidArrayLocationCard");
-    }
-    
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event){
-    	logger = event.getModLog();
-    	if(event.getSide() == Side.CLIENT) isServer = false;
-    	else isServer = true;
-    	
-    	//Loads configuration
-    	config = new ConfigurationHandler();
-    	FMLCommonHandler.instance().bus().register(config);
-    	config.init(event.getSuggestedConfigurationFile());
-    	
-		//registers channel handler
+	// Says where the client and server 'proxy' code is loaded.
+	@SidedProxy(clientSide = "shedar.mods.ic2.nuclearcontrol.ClientProxy", serverSide = "shedar.mods.ic2.nuclearcontrol.CommonProxy")
+	// The proxy to be used by client and server
+	public static CommonProxy proxy;
+
+	// Mod's creative tab
+	public static IC2NCCreativeTabs tabIC2NC = new IC2NCCreativeTabs();
+
+	// For logging purposes
+	public static Logger logger;
+	public static ConfigurationHandler config;
+
+	protected File configFile;
+	protected File configDir;
+
+	public static boolean isServer;
+	public String allowedAlarms;
+	public List<String> serverAllowedAlarms;
+	public static Item itemToolThermometer;
+	public static Item itemToolDigitalThermometer;
+	public static Item itemRemoteSensorKit;
+	public static Item itemEnergySensorKit;
+	public static Item itemMultipleSensorKit;
+	public static Item itemSensorLocationCard;
+	public static Item itemEnergySensorLocationCard;
+	public static Item itemMultipleSensorLocationCard;
+	public static Item itemEnergyArrayLocationCard;
+	public static Item itemTimeCard;
+	public static Item itemUpgrade;
+	public static Item itemTextCard;
+	public static Item itemLiquidArrayLocationCard;
+	public static Item itemWindCard;
+	public static BlockNuclearControlMain blockNuclearControlMain;
+	public int modelId;
+	public int alarmRange;
+	public int SMPMaxAlarmRange;
+	public int maxAlarmRange;
+	public static boolean isHttpSensorAvailableClient;
+	public static boolean isHttpSensorAvailableServer;
+	public String httpSensorKey;
+	public List<String> availableAlarms;
+	public int remoteThermalMonitorEnergyConsumption;
+	public ScreenManager screenManager = new ScreenManager();
+	public int screenRefreshPeriod;
+	public int rangeTriggerRefreshPeriod;
+	public String recipes;
+
+	public CrossBuildcraft crossBC;
+	public CrossIndustrialCraft2 crossIC2;
+	// public CrossGregTech crossGregTech;
+	public CrossRailcraft crossRailcraft;
+	public CrossRF crossThermalEx;
+
+	protected void initBlocks() {
+		blockNuclearControlMain = new BlockNuclearControlMain();
+		itemToolThermometer = new ItemToolThermometer()
+				.setUnlocalizedName("ItemToolThermometer");
+		itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80)
+				.setUnlocalizedName("ItemToolDigitalThermometer");
+		itemSensorLocationCard = new ItemCardReactorSensorLocation()
+				.setUnlocalizedName("ItemSensorLocationCard");
+		itemUpgrade = new ItemUpgrade();
+		itemTimeCard = new ItemTimeCard().setUnlocalizedName("ItemTimeCard");
+		itemTextCard = new ItemCardText().setUnlocalizedName("ItemTextCard");
+		itemEnergySensorLocationCard = new ItemCardEnergySensorLocation()
+				.setUnlocalizedName("ItemEnergySensorLocationCard");
+		itemEnergyArrayLocationCard = new ItemCardEnergyArrayLocation()
+				.setUnlocalizedName("ItemEnergyArrayLocationCard");
+		itemMultipleSensorLocationCard = new ItemCardMultipleSensorLocation();
+		itemMultipleSensorKit = new ItemKitMultipleSensor()
+				.setUnlocalizedName("ItemCounterSensorKit");
+		itemEnergySensorKit = new ItemKitEnergySensor()
+				.setUnlocalizedName("ItemEnergySensorKit");
+		itemRemoteSensorKit = new ItemKitReactorSensor()
+				.setUnlocalizedName("ItemRemoteSensorKit");
+		itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation()
+				.setUnlocalizedName("ItemLiquidArrayLocationCard");
+	}
+
+	protected void registerBlocks() {
+		GameRegistry.registerBlock(blockNuclearControlMain,
+				ItemNuclearControlMain.class, "blockNuclearControlMain");
+		GameRegistry.registerItem(itemToolThermometer, "ItemToolThermometer");
+		GameRegistry.registerItem(itemToolDigitalThermometer,
+				"ItemToolDigitalThermometer");
+		GameRegistry.registerItem(itemRemoteSensorKit, "ItemRemoteSensorKit");
+		GameRegistry.registerItem(itemEnergySensorKit, "ItemEnergySensorKit");
+		GameRegistry.registerItem(itemMultipleSensorKit,
+				"ItemMultipleSensorKit");
+		GameRegistry.registerItem(itemSensorLocationCard,
+				"ItemSensorLocationCard");
+		GameRegistry.registerItem(itemEnergySensorLocationCard,
+				"ItemEnergySensorLocationCard");
+		GameRegistry.registerItem(itemMultipleSensorLocationCard,
+				"ItemMultipleSensorLocationCard");
+		GameRegistry.registerItem(itemEnergyArrayLocationCard,
+				"ItemEnergyArrayLocationCard");
+		GameRegistry.registerItem(itemTimeCard, "ItemTimeCard");
+		GameRegistry.registerItem(itemUpgrade, "ItemUpgrade");
+		GameRegistry.registerItem(itemTextCard, "ItemTextCard");
+		GameRegistry.registerItem(itemLiquidArrayLocationCard,
+				"ItemLiquidArrayLocationCard");
+	}
+
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		logger = event.getModLog();
+		if (event.getSide() == Side.CLIENT)
+			isServer = false;
+		else
+			isServer = true;
+
+		// Loads configuration
+		config = new ConfigurationHandler();
+		FMLCommonHandler.instance().bus().register(config);
+		config.init(event.getSuggestedConfigurationFile());
+
+		// registers channel handler
 		ChannelHandler.init();
 
-		//Register event handlers
+		// Register event handlers
 		MinecraftForge.EVENT_BUS.register(ServerTickHandler.instance);
 		FMLCommonHandler.instance().bus().register(ServerTickHandler.instance);
-		if (event.getSide().isClient()){
+		if (event.getSide().isClient()) {
 			MinecraftForge.EVENT_BUS.register(ClientTickHandler.instance);
-			FMLCommonHandler.instance().bus().register(ClientTickHandler.instance);
+			FMLCommonHandler.instance().bus()
+					.register(ClientTickHandler.instance);
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-    }
+	}
 
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent evt){
-        crossBC = new CrossBuildcraft();
-        crossIC2 = new CrossIndustrialCraft2();
-        //crossGregTech = new CrossGregTech();
-        crossRailcraft = new CrossRailcraft();
-        crossThermalEx = new CrossRF();
-        
-        if(recipes.equals("normal")){ 
-      	  RecipesNew.addRecipes();
-        }
-         
-        if(recipes.equals("old")){
-          RecipesOld.addOldRecipes();
-        }
-         
-        if(recipes.equals("gregtech")){
-          //TODO
-          logger.error("Gregtech recipes not complete yet, try again later!");
-        }
-         
-    }
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent evt) {
+		crossBC = new CrossBuildcraft();
+		crossIC2 = new CrossIndustrialCraft2();
+		// crossGregTech = new CrossGregTech();
+		crossRailcraft = new CrossRailcraft();
+		crossThermalEx = new CrossRF();
 
-    @EventHandler
-    public void init(FMLInitializationEvent evt){
-    	IC2NuclearControl.instance.screenManager = new ScreenManager();
+		if (recipes.equals("normal")) {
+			RecipesNew.addRecipes();
+		}
+
+		if (recipes.equals("old")) {
+			RecipesOld.addOldRecipes();
+		}
+
+		if (recipes.equals("gregtech")) {
+			// TODO
+			logger.error("Gregtech recipes not complete yet, try again later!");
+		}
+
+	}
+
+	@EventHandler
+	public void init(FMLInitializationEvent evt) {
+		IC2NuclearControl.instance.screenManager = new ScreenManager();
 		initBlocks();
 		registerBlocks();
 		proxy.registerTileEntities();
-    }
+	}
 }

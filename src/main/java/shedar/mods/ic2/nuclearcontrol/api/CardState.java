@@ -1,19 +1,22 @@
 package shedar.mods.ic2.nuclearcontrol.api;
 
 /**
- * Enum of card states. Used as return value of {@link IPanelDataSource#update(net.minecraft.src.TileEntity, ICardWrapper, int)}.
- * If card state is OK or CUSTOM_ERROR, then {@link IPanelDataSource#getStringData(int, ICardWrapper, boolean)} 
- * will be called. Otherwise standard message will be displayed.
+ * Enum of card states. Used as return value of
+ * {@link IPanelDataSource#update(net.minecraft.src.TileEntity, ICardWrapper, int)}
+ * . If card state is OK or CUSTOM_ERROR, then
+ * {@link IPanelDataSource#getStringData(int, ICardWrapper, boolean)} will be
+ * called. Otherwise standard message will be displayed.
+ * 
  * @author Shedar
  */
-public enum CardState{
+public enum CardState {
 	/**
 	 * All required data found, ready to display it
 	 */
 	OK(1),
 
 	/**
-	 * Target block doesn't exist or has invalid type  
+	 * Target block doesn't exist or has invalid type
 	 */
 	NO_TARGET(2),
 
@@ -32,18 +35,18 @@ public enum CardState{
 	 */
 	CUSTOM_ERROR(5);
 
-	private final int index;   
+	private final int index;
 
 	CardState(int index) {
 		this.index = index;
 	}
 
-	public int getIndex() { 
-		return index; 
+	public int getIndex() {
+		return index;
 	}
 
-	public static CardState fromInteger(int value){
-		switch (value){
+	public static CardState fromInteger(int value) {
+		switch (value) {
 		case 1:
 			return OK;
 		case 2:

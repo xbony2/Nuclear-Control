@@ -7,8 +7,18 @@ import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.client.config.GuiConfig;
 
 public class ConfigGui extends GuiConfig {
-    public ConfigGui(GuiScreen parent) {
-        super(parent, new ConfigElement(IC2NuclearControl.config.configuration.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(), 
-        		"IC2NuclearControl2", false, false, GuiConfig.getAbridgedConfigPath(IC2NuclearControl.config.configuration.toString()));
-    }
+	public ConfigGui(GuiScreen parent) {
+		super(
+				parent,
+				new ConfigElement(
+						IC2NuclearControl.config.configuration
+								.getCategory(Configuration.CATEGORY_GENERAL))
+						.getChildElements(),
+				"IC2NuclearControl2",
+				false,
+				false,
+				GuiConfig
+						.getAbridgedConfigPath(IC2NuclearControl.config.configuration
+								.toString()));
+	}
 }

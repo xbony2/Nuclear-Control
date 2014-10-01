@@ -28,57 +28,59 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientTickHandler {
 	public final static ClientTickHandler instance = new ClientTickHandler();
-	private static final Gson gson = (new GsonBuilder()).registerTypeAdapter(SoundList.class, new SoundListSerializer()).create();
-	private static final ParameterizedType type = new ParameterizedType()
-	{
+	private static final Gson gson = (new GsonBuilder()).registerTypeAdapter(
+			SoundList.class, new SoundListSerializer()).create();
+	private static final ParameterizedType type = new ParameterizedType() {
 		private static final String __OBFID = "CL_00001148";
-		public Type[] getActualTypeArguments()
-		{
-			return new Type[] {String.class, SoundList.class};
+
+		@Override
+		public Type[] getActualTypeArguments() {
+			return new Type[] { String.class, SoundList.class };
 		}
-		public Type getRawType()
-		{
+
+		@Override
+		public Type getRawType() {
 			return Map.class;
 		}
-		public Type getOwnerType()
-		{
+
+		@Override
+		public Type getOwnerType() {
 			return null;
 		}
 	};
 
 	@SubscribeEvent
-	public void importSound(SoundLoadEvent event)
-	{
-		IC2NuclearControl ncInstance = IC2NuclearControl.instance; 
+	public void importSound(SoundLoadEvent event) {
+		IC2NuclearControl ncInstance = IC2NuclearControl.instance;
 		ncInstance.availableAlarms = new ArrayList<String>();
 
-		try
-		{
-			List list = Minecraft.getMinecraft().getResourceManager().getAllResources(new ResourceLocation("nuclearcontrol", "sounds.json")); 
+		try {
+			List list = Minecraft
+					.getMinecraft()
+					.getResourceManager()
+					.getAllResources(
+							new ResourceLocation("nuclearcontrol",
+									"sounds.json"));
 
-			for (int i = list.size() - 1; i >= 0; --i)
-			{
-				IResource iresource = (IResource)list.get(i);
+			for (int i = list.size() - 1; i >= 0; --i) {
+				IResource iresource = (IResource) list.get(i);
 
-				try
-				{
-					Map map = (Map) gson.fromJson(new InputStreamReader(iresource.getInputStream()), type);
+				try {
+					Map map = (Map) gson.fromJson(new InputStreamReader(
+							iresource.getInputStream()), type);
 					Iterator iterator1 = map.entrySet().iterator();
 
-					while (iterator1.hasNext())
-					{
-						Entry entry = (Entry)iterator1.next();
-						ncInstance.availableAlarms.add(((String)entry.getKey()).replace("alarm-",""));
+					while (iterator1.hasNext()) {
+						Entry entry = (Entry) iterator1.next();
+						ncInstance.availableAlarms
+								.add(((String) entry.getKey()).replace(
+										"alarm-", ""));
 					}
-				}
-				catch (RuntimeException runtimeexception)
-				{
+				} catch (RuntimeException runtimeexception) {
 					;
 				}
 			}
-		}
-		catch (IOException ioexception)
-		{
+		} catch (IOException ioexception) {
 			;
 		}
 

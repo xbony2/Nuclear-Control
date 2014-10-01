@@ -1,12 +1,14 @@
 package shedar.mods.ic2.nuclearcontrol.api;
 
 /**
- * Object defines one line of the Information Panel. Each line has contain 3 sections: left, center, right.
- * At least one of them should be not null. Each section can have its own color.   
+ * Object defines one line of the Information Panel. Each line has contain 3
+ * sections: left, center, right. At least one of them should be not null. Each
+ * section can have its own color.
+ * 
  * @see IPanelDataSource#getStringData(int, ICardWrapper, boolean)
  * @author Shedar
  */
-public class PanelString{
+public class PanelString {
 	/**
 	 * Text of the left aligned part of the line.
 	 */
