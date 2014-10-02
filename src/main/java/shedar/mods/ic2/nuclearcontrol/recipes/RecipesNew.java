@@ -14,64 +14,60 @@ import shedar.mods.ic2.nuclearcontrol.utils.Damages;
 public class RecipesNew {
 
 	public static void addRecipes() {
-		ItemStack thermalMonitor = new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_THERMAL_MONITOR);
-		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[] { "LLL",
-				"LCL", "LRL", 'L', "plateLead", 'R', "dustRedstone", 'C',
-				"circuitAdvanced" });
+		ItemStack thermalMonitor = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_THERMAL_MONITOR);
+		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[]{ 
+				"LLL", "LCL", "LRL", 
+					'L', "plateLead", 
+					'R', "dustRedstone", 
+					'C', "circuitAdvanced" });
 
-		ItemStack howler = new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_HOWLER_ALARM);
-		Recipes.advRecipes.addRecipe(howler, new Object[] { "NNN", "ICI",
-				"IRI", 'I', "plateIron", 'R', "dustRedstone", 'N',
-				Blocks.noteblock, 'C', "circuitBasic" });
+		ItemStack howler = new ItemStack( IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_HOWLER_ALARM);
+		Recipes.advRecipes.addRecipe(howler, new Object[]{ 
+				"NNN", "ICI", "IRI", 
+					'I', "plateIron", 
+					'R', "dustRedstone", 
+					'N', Blocks.noteblock, 
+					'C', "circuitBasic"});
 
-		ItemStack industrialAlarm = new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INDUSTRIAL_ALARM);
-		Recipes.advRecipes.addRecipe(industrialAlarm, new Object[] { "BBB",
-				"BHB", "BRB", 'B', "plateBronze", 'R', "dustRedstone", 'H',
-				howler });
+		ItemStack industrialAlarm = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_INDUSTRIAL_ALARM);
+		Recipes.advRecipes.addRecipe(industrialAlarm, new Object[]{ 
+				"BBB", "BHB", "BRB", 
+					'B', "plateBronze", 
+					'R', "dustRedstone", 
+					'H', howler });
 
-		ItemStack lampWhite = new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_LIGHT_OFF);
-		Recipes.advRecipes.addRecipe(lampWhite,
-				new Object[] { "GGG", "GWG", "GLG", 'G', "paneGlass", 'W',
-						"dyeWhite", 'L', Blocks.glowstone });
+		ItemStack lampWhite = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_LIGHT_OFF);
+		Recipes.advRecipes.addRecipe(lampWhite, new Object[] { 
+				"GGG", "GWG", "GLG", 
+					'G', "paneGlass", 
+					'W', "dyeWhite", 
+					'L', Blocks.glowstone});
 
-		Recipes.advRecipes.addRecipe(
-				new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
-						Damages.DAMAGE_REMOTE_THERMO),
-				new Object[] { "IFI", "IMI", "ITI", 'T', thermalMonitor, 'M',
-						IC2Items.getItem("machine"), 'F',
-						IC2Items.getItem("frequencyTransmitter"), 'I',
-						"plateIron" });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_REMOTE_THERMO), new Object[]{ 
+			"IFI", "IMI", "ITI", 
+				'T', thermalMonitor, 
+				'M', IC2Items.getItem("machine"), 
+				'F', IC2Items.getItem("frequencyTransmitter"), 
+				'I', "plateIron" });
 
-		Recipes.advRecipes.addRecipe(new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INFO_PANEL), new Object[] { "PPP", "CMC", "IRI",
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_INFO_PANEL), new Object[]{ 
+			"PPP", "CMC", "IRI",
 				'P', "paneGlassLime", 'C', "circuitBasic", 'I', "dyeBlack",
 				'R', "dustRedstone", 'M', IC2Items.getItem("machine") });
 
-		Recipes.advRecipes.addRecipe(new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INFO_PANEL_EXTENDER), new Object[] { "PPP",
-				"WRW", "WWW", 'P', "paneGlassLime", 'R', "dustRedstone", 'W',
-				"plankWood" });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_INFO_PANEL_EXTENDER), new Object[] { 
+			"PPP", "WRW", "WWW", 
+				'P', "paneGlassLime", 
+				'R', "dustRedstone", 
+				'W', "plankWood" });
 
-		Recipes.advRecipes
-				.addRecipe(
-						new ItemStack(
-								IC2NuclearControl.blockNuclearControlMain, 1,
-								Damages.DAMAGE_ADVANCED_PANEL),
-						new Object[] { "PPP", "GLG", "CAC", 'P',
-								"paneGlassLime", 'L', "dyeLime", 'G',
-								IC2Items.getItem("goldCableItem"), 'A',
-								"circuitAdvanced", 'C',
-								IC2Items.getItem("carbonPlate") });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_ADVANCED_PANEL), new Object[] { 
+			"PPP", "GLG", "CAC", 
+				'P', "paneGlassLime", 
+				'L', "dyeLime", 
+				'G', IC2Items.getItem("goldCableItem"), 
+				'A', "circuitAdvanced", 
+				'C', IC2Items.getItem("carbonPlate")});
 
 		Recipes.advRecipes.addRecipe(
 				new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
@@ -81,18 +77,17 @@ public class RecipesNew {
 						IC2Items.getItem("goldCableItem"), 'C',
 						IC2Items.getItem("carbonPlate") });
 
-		Recipes.advRecipes.addRecipe(new ItemStack(
-				IC2NuclearControl.itemToolThermometer, 1), new Object[] {
-				"IG ", "GWG", " GG", 'G', "blockGlass", 'I', "plateIron", 'W',
-				IC2Items.getItem("waterCell") });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemToolThermometer), new Object[]{
+			"IG ", "GWG", " GG", 
+				'G', "blockGlass", 
+				'I', "plateIron", 
+				'W', IC2Items.getItem("waterCell")});
 
-		ItemStack digitalThermometer = new ItemStack(
-				IC2NuclearControl.itemToolDigitalThermometer, 1);
-		Recipes.advRecipes.addRecipe(
-				digitalThermometer,
-				new Object[] { "T ", " P", 'T',
-						IC2NuclearControl.itemToolThermometer, 'P',
-						IC2Items.getItem("powerunitsmall") });
+		ItemStack digitalThermometer = new ItemStack(IC2NuclearControl.itemToolDigitalThermometer, 1);
+		Recipes.advRecipes.addRecipe(digitalThermometer, new Object[] { 
+			"T ", " P", 
+				'T', IC2NuclearControl.itemToolThermometer, 
+				'P', IC2Items.getItem("powerunitsmall")});
 
 		Recipes.advRecipes.addRecipe(
 				new ItemStack(IC2NuclearControl.itemRemoteSensorKit, 1),
@@ -125,16 +120,11 @@ public class RecipesNew {
 
 		if ((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer)
 				|| (IC2NuclearControl.isHttpSensorAvailableServer && IC2NuclearControl.isServer)) {
-			Recipes.advRecipes.addRecipe(new ItemStack(
-					IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_WEB),
-					new Object[] {
-							"CGC",
-							"CAC",
-							"CGC",
-							'C',
-							new ItemStack(IC2NuclearControl.itemUpgrade, 1,
-									ItemUpgrade.DAMAGE_RANGE), 'A',
-							"circuitAdvanced", 'G', "blockGlass" });
+			Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_WEB), new Object[]{
+				"CGC", "CAC", "CGC",
+					'C', new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_RANGE), 
+					'A', "circuitAdvanced", 
+					'G', "blockGlass"});
 		}
 
 		ItemStack energyCounter = new ItemStack(
@@ -180,22 +170,23 @@ public class RecipesNew {
 						"dyeBlue" });
 
 		Recipes.advRecipes.addRecipe(new ItemStack(
-				IC2NuclearControl.itemTextCard, 1), new Object[] { " C ",
-				"PFP", " C ", 'P', Items.paper, 'C', "circuitBasic", 'F',
-				IC2Items.getItem("insulatedTinCableItem") });
+				IC2NuclearControl.itemTextCard, 1), new Object[] { 
+			" C ", "PFP", " C ", 
+				'P', Items.paper, 
+				'C', "circuitBasic", 
+				'F', IC2Items.getItem("insulatedTinCableItem")});
 
-		Recipes.advRecipes.addRecipe(
-				new ItemStack(IC2NuclearControl.itemTimeCard, 1),
-				new Object[] { " C ", "PWP", " C ", 'C', Items.clock, 'P',
-						Items.paper, 'W',
-						IC2Items.getItem("insulatedTinCableItem") });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemTimeCard, 1), new Object[]{ 
+			" C ", "PWP", " C ", 
+				'C', Items.clock, 
+				'P', Items.paper, 
+				'W', IC2Items.getItem("insulatedTinCableItem")});
 
-		Recipes.advRecipes.addRecipe(
-				new ItemStack(IC2NuclearControl.itemMultipleSensorKit, 1,
-						ItemKitMultipleSensor.TYPE_GENERATOR),
-				new Object[] { "CF", "PL", 'P', Items.paper, 'C',
-						IC2Items.getItem("energyStorageUpgrade"), 'F',
-						IC2Items.getItem("frequencyTransmitter"), 'L',
-						"dyeLightBlue" });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemMultipleSensorKit, 1, ItemKitMultipleSensor.TYPE_GENERATOR), new Object[] { 
+			"CF", "PL", 
+				'P', Items.paper, 
+				'C', IC2Items.getItem("energyStorageUpgrade"), 
+				'F', IC2Items.getItem("frequencyTransmitter"), 
+				'L', "dyeLightBlue" });
 	}
 }

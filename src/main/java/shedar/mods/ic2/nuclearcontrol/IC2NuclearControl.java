@@ -9,10 +9,11 @@ import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.CrossBuildcraft;
+import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
+import shedar.mods.ic2.nuclearcontrol.crossmod.rf.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardLiquidArrayLocation;
@@ -147,28 +148,20 @@ public class IC2NuclearControl {
 	}
 
 	protected void registerBlocks() {
-		GameRegistry.registerBlock(blockNuclearControlMain,
-				ItemNuclearControlMain.class, "blockNuclearControlMain");
+		GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
 		GameRegistry.registerItem(itemToolThermometer, "ItemToolThermometer");
-		GameRegistry.registerItem(itemToolDigitalThermometer,
-				"ItemToolDigitalThermometer");
+		GameRegistry.registerItem(itemToolDigitalThermometer, "ItemToolDigitalThermometer");
 		GameRegistry.registerItem(itemRemoteSensorKit, "ItemRemoteSensorKit");
 		GameRegistry.registerItem(itemEnergySensorKit, "ItemEnergySensorKit");
-		GameRegistry.registerItem(itemMultipleSensorKit,
-				"ItemMultipleSensorKit");
-		GameRegistry.registerItem(itemSensorLocationCard,
-				"ItemSensorLocationCard");
-		GameRegistry.registerItem(itemEnergySensorLocationCard,
-				"ItemEnergySensorLocationCard");
-		GameRegistry.registerItem(itemMultipleSensorLocationCard,
-				"ItemMultipleSensorLocationCard");
-		GameRegistry.registerItem(itemEnergyArrayLocationCard,
-				"ItemEnergyArrayLocationCard");
+		GameRegistry.registerItem(itemMultipleSensorKit, "ItemMultipleSensorKit");
+		GameRegistry.registerItem(itemSensorLocationCard, "ItemSensorLocationCard");
+		GameRegistry.registerItem(itemEnergySensorLocationCard, "ItemEnergySensorLocationCard");
+		GameRegistry.registerItem(itemMultipleSensorLocationCard, "ItemMultipleSensorLocationCard");
+		GameRegistry.registerItem(itemEnergyArrayLocationCard, "ItemEnergyArrayLocationCard");
 		GameRegistry.registerItem(itemTimeCard, "ItemTimeCard");
 		GameRegistry.registerItem(itemUpgrade, "ItemUpgrade");
 		GameRegistry.registerItem(itemTextCard, "ItemTextCard");
-		GameRegistry.registerItem(itemLiquidArrayLocationCard,
-				"ItemLiquidArrayLocationCard");
+		GameRegistry.registerItem(itemLiquidArrayLocationCard, "ItemLiquidArrayLocationCard");
 	}
 
 	@EventHandler
@@ -211,11 +204,12 @@ public class IC2NuclearControl {
 		}
 
 		if (recipes.equals("old")) {
+			logger.error("Old recipes deprecated!");
 			RecipesOld.addOldRecipes();
 		}
 
 		if (recipes.equals("gregtech")) {
-			// TODO
+			GregtechRecipes.addRecipes();
 			logger.error("Gregtech recipes not complete yet, try again later!");
 		}
 
