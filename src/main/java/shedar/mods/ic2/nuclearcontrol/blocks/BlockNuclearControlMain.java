@@ -49,7 +49,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOff;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOn;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.WrenchHelper;
@@ -102,8 +102,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	}
 
 	private boolean isSolidBlockRequired(int metadata) {
-		return subblocks.containsKey(metadata)
-				&& subblocks.get(metadata).isSolidBlockRequired();
+		return subblocks.containsKey(metadata) && subblocks.get(metadata).isSolidBlockRequired();
 	}
 
 	/**
@@ -113,10 +112,8 @@ public class BlockNuclearControlMain extends BlockContainer {
 	public boolean canPlaceBlockAtlocal(World world, int x, int y, int z) {
 		for (int face = 0; face < 6; face++) {
 			int side = Facing.oppositeSide[face];
-			if (world.isSideSolid(x + Facing.offsetsXForSide[side], y
-					+ Facing.offsetsYForSide[side], z
-					+ Facing.offsetsZForSide[side],
-					ForgeDirection.getOrientation(face)))
+			if (world.isSideSolid(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z 
+					+ Facing.offsetsZForSide[side], ForgeDirection.getOrientation(face)))
 				return true;
 		}
 		return false;
@@ -126,36 +123,31 @@ public class BlockNuclearControlMain extends BlockContainer {
 	 * called before onBlockPlacedBy by ItemBlock and ItemReed
 	 */
 	@Override
-	public int onBlockPlaced(World world, int x, int y, int z, int side,
-			float hitX, float hitY, float hitZ, int metadata) {
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
 		super.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, metadata);
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
 		ForgeDirection oposite = dir.getOpposite();
-		if (metadata > Damages.DAMAGE_MAX) {
+		if (metadata > BlockDamages.DAMAGE_MAX) {
 			metadata = 0;
 		}
 
-		if (isSolidBlockRequired(metadata)
-				&& !world.isSideSolid(x + oposite.offsetX, y + oposite.offsetY,
-						z + oposite.offsetZ, dir)) {
+		if(isSolidBlockRequired(metadata) && !world.isSideSolid(x + oposite.offsetX, y + oposite.offsetY, z + oposite.offsetZ, dir)){
 			side = 1;
 		}
 		return metadata + (side << 8);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z,
-			EntityLivingBase player, ItemStack item) {
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item){
 		int metadata = item.getItemDamage();
 		onBlockPlacedBy(world, x, y, z, player, item, metadata);
 	}
 
-	public void onBlockPlacedBy(World world, int x, int y, int z,
-			EntityLivingBase player, ItemStack item, int metadata) {
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item, int metadata) {
 		TileEntity block = world.getTileEntity(x, y, z);
 		int side = metadata >> 8;
 		metadata = metadata & 0xff;
-		if (metadata > Damages.DAMAGE_MAX) {
+		if (metadata > BlockDamages.DAMAGE_MAX) {
 			metadata = 0;
 		}
 
@@ -199,20 +191,20 @@ public class BlockNuclearControlMain extends BlockContainer {
 	public void onBlockAdded(World world, int x, int y, int z) {
 		super.onBlockAdded(world, x, y, z);
 		int metadata = world.getBlockMetadata(x, y, z);
-		if (metadata > Damages.DAMAGE_MAX) {
+		if (metadata > BlockDamages.DAMAGE_MAX) {
 			metadata = 0;
 		}
-		if (metadata == Damages.DAMAGE_LIGHT_ON) {
+		if (metadata == BlockDamages.DAMAGE_LIGHT_ON) {
 			if (!world.isRemote) {
 				if (!world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_OFF, 2);
+					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_OFF, 2);
 				}
 			}
 		}
-		if (metadata == Damages.DAMAGE_LIGHT_OFF) {
+		if (metadata == BlockDamages.DAMAGE_LIGHT_OFF) {
 			if (!world.isRemote) {
 				if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_ON, 2);
+					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_ON, 2);
 				}
 			}
 		}
@@ -277,14 +269,14 @@ public class BlockNuclearControlMain extends BlockContainer {
 		if (tileentity instanceof TileEntityLightOn) {
 			if (!world.isRemote) {
 				if (!world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_OFF, 2);
+					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_OFF, 2);
 				}
 			}
 		}
 		if (tileentity instanceof TileEntityLightOff) {
 			if (!world.isRemote) {
 				if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, Damages.DAMAGE_LIGHT_ON, 2);
+					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_ON, 2);
 				}
 			}
 		}
@@ -357,8 +349,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	 * Updates the blocks bounds based on its current state.
 	 */
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x,
-			int y, int z) {
+	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
 		int blockType = blockAccess.getBlockMetadata(x, y, z);
 
 		float baseX1 = 0;
@@ -463,9 +454,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 		}
 		if (subblocks.containsKey(blockType)
 				&& subblocks.get(blockType).hasGui()) {
-			if (player instanceof EntityPlayerMP)
-				player.openGui(IC2NuclearControl.instance, blockType, world, x,
-						y, z);
+			if (player instanceof EntityPlayerMP) player.openGui(IC2NuclearControl.instance, blockType, world, x, y, z);
 			return true;
 		}
 		return false;
@@ -494,11 +483,9 @@ public class BlockNuclearControlMain extends BlockContainer {
 	}
 
 	@Override
-	public int isProvidingStrongPower(IBlockAccess iblockaccess, int x, int y,
-			int z, int direction) {
+	public int isProvidingStrongPower(IBlockAccess iblockaccess, int x, int y, int z, int direction) {
 		TileEntity tileentity = iblockaccess.getTileEntity(x, y, z);
-		if (!(tileentity instanceof TileEntityIC2Thermo)
-				&& !(tileentity instanceof TileEntityRangeTrigger))
+		if (!(tileentity instanceof TileEntityIC2Thermo) && !(tileentity instanceof TileEntityRangeTrigger))
 			return 0;
 
 		int targetX = x;
@@ -524,28 +511,21 @@ public class BlockNuclearControlMain extends BlockContainer {
 			targetX--;
 			break;
 		}
-		TileEntity targetEntity = iblockaccess.getTileEntity(targetX, targetY,
-				targetZ);
+		TileEntity targetEntity = iblockaccess.getTileEntity(targetX, targetY, targetZ);
 		if (tileentity instanceof TileEntityIC2Thermo
 				&& targetEntity != null
-				&& (NuclearHelper.getReactorAt(tileentity.getWorldObj(),
-						targetX, targetY, targetZ) != null || NuclearHelper
-						.getReactorChamberAt(tileentity.getWorldObj(), targetX,
-								targetY, targetZ) != null)) {
+				&& (NuclearHelper.getReactorAt(tileentity.getWorldObj(), targetX, targetY, targetZ) != null 
+				|| NuclearHelper.getReactorChamberAt(tileentity.getWorldObj(), targetX, targetY, targetZ) != null)) {
 			return 0;
 		}
 		if (tileentity instanceof TileEntityRemoteThermo) {
 			TileEntityRemoteThermo thermo = (TileEntityRemoteThermo) tileentity;
-			return thermo.getOnFire() >= thermo.getHeatLevel()
-					^ thermo.isInvertRedstone() ? 15 : 0;
+			return thermo.getOnFire() >= thermo.getHeatLevel() ^ thermo.isInvertRedstone() ? 15 : 0;
 		}
 		if (tileentity instanceof TileEntityRangeTrigger)
 			return ((TileEntityRangeTrigger) tileentity).getOnFire() > 0
-					^ ((TileEntityRangeTrigger) tileentity).isInvertRedstone() ? 15
-					: 0;
-		return ((TileEntityIC2Thermo) tileentity).getOnFire() > 0
-				^ ((TileEntityIC2Thermo) tileentity).isInvertRedstone() ? 15
-				: 0;
+					^ ((TileEntityRangeTrigger) tileentity).isInvertRedstone() ? 15 : 0;
+		return ((TileEntityIC2Thermo) tileentity).getOnFire() > 0 ^ ((TileEntityIC2Thermo) tileentity).isInvertRedstone() ? 15 : 0;
 	}
 
 	@Override
@@ -579,9 +559,9 @@ public class BlockNuclearControlMain extends BlockContainer {
 
 	@Override
 	public int damageDropped(int i) {
-		if (i > 0 && i <= Damages.DAMAGE_MAX) {
-			if (i == Damages.DAMAGE_LIGHT_ON) {
-				return Damages.DAMAGE_LIGHT_OFF;
+		if (i > 0 && i <= BlockDamages.DAMAGE_MAX) {
+			if (i == BlockDamages.DAMAGE_LIGHT_ON) {
+				return BlockDamages.DAMAGE_LIGHT_OFF;
 			}
 			return i;
 		} else {
@@ -590,8 +570,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	}
 
 	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z,
-			ForgeDirection side) {
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
 		int metadata = world.getBlockMetadata(x, y, z);
 		return !isSolidBlockRequired(metadata);
 	}
@@ -623,10 +602,10 @@ public class BlockNuclearControlMain extends BlockContainer {
 		return getLightValue();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	public void getSubBlocks(Item id, CreativeTabs tab, List itemList) {
-		for (int i = 0; i <= Damages.DAMAGE_MAX; i++) {
+		for (int i = 0; i <= BlockDamages.DAMAGE_MAX; i++) {
 			itemList.add(new ItemStack(this, 1, i));
 		}
 	}

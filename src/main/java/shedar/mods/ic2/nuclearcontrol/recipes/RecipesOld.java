@@ -10,47 +10,47 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.StorageArrayRecipe;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class RecipesOld {
 	@Deprecated
 	public static void addOldRecipes() {
 		ItemStack thermalMonitor = new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_THERMAL_MONITOR);
+				BlockDamages.DAMAGE_THERMAL_MONITOR);
 		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[] { "GGG",
 				"GCG", "GRG", 'G', IC2Items.getItem("reinforcedGlass"), 'R',
 				"dustRedstone", 'C', "circuitAdvanced" });
 
 		ItemStack howler = new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_HOWLER_ALARM);
+				BlockDamages.DAMAGE_HOWLER_ALARM);
 		Recipes.advRecipes.addRecipe(howler, new Object[] { "NNN", "ICI",
 				"IRI", 'I', "ingotIron", 'R', "dustRedstone", 'N',
 				Blocks.noteblock, 'C', "circuitBasic" });
 
 		ItemStack industrialAlarm = new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INDUSTRIAL_ALARM);
+				BlockDamages.DAMAGE_INDUSTRIAL_ALARM);
 		Recipes.advRecipes.addRecipe(industrialAlarm, new Object[] { "GOG",
 				"GHG", "GRG", 'G', IC2Items.getItem("reinforcedGlass"), 'O',
 				"dyeOrange", 'R', "dustRedstone", 'H', howler });
 
 		Recipes.advRecipes.addRecipe(new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_REMOTE_THERMO), new Object[] { "F", "M", "T",
+				BlockDamages.DAMAGE_REMOTE_THERMO), new Object[] { "F", "M", "T",
 				'T', thermalMonitor, 'M', IC2Items.getItem("machine"), 'F',
 				IC2Items.getItem("frequencyTransmitter") });
 
 		Recipes.advRecipes.addRecipe(new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INFO_PANEL), new Object[] { "PPP", "LCL", "IRI",
+				BlockDamages.DAMAGE_INFO_PANEL), new Object[] { "PPP", "LCL", "IRI",
 				'P', "paneGlass", 'L', "dyeLime", 'I', "dyeBlack", 'R',
 				"dustRedstone", 'C', "circuitBasic" });
 
 		Recipes.advRecipes.addRecipe(new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INFO_PANEL_EXTENDER), new Object[] { "PPP",
+				BlockDamages.DAMAGE_INFO_PANEL_EXTENDER), new Object[] { "PPP",
 				"WLW", "WWW", 'P', "paneGlass", 'L', "dyeLime", 'W',
 				"plankWood" });
 
@@ -58,7 +58,7 @@ public class RecipesOld {
 				.addRecipe(
 						new ItemStack(
 								IC2NuclearControl.blockNuclearControlMain, 1,
-								Damages.DAMAGE_ADVANCED_PANEL),
+								BlockDamages.DAMAGE_ADVANCED_PANEL),
 						new Object[] { "PPP", "GLG", "CAC", 'P', "paneGlass",
 								'L', "dyeLime", 'G',
 								IC2Items.getItem("goldCableItem"), 'A',
@@ -67,7 +67,7 @@ public class RecipesOld {
 
 		Recipes.advRecipes.addRecipe(new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_ADVANCED_EXTENDER),
+				BlockDamages.DAMAGE_ADVANCED_EXTENDER),
 				new Object[] { "PPP", "GLG", "GCG", 'P', "paneGlass", 'L',
 						"dyeLime", 'G', IC2Items.getItem("goldCableItem"), 'C',
 						IC2Items.getItem("carbonPlate") });
@@ -119,7 +119,7 @@ public class RecipesOld {
 
 		ItemStack energyCounter = new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_ENERGY_COUNTER);
+				BlockDamages.DAMAGE_ENERGY_COUNTER);
 		Recipes.advRecipes.addRecipe(
 				energyCounter,
 				new Object[] { " A ", "FTF", 'A', "circuitAdvanced", 'F',
@@ -128,7 +128,7 @@ public class RecipesOld {
 
 		ItemStack averageCounter = new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_AVERAGE_COUNTER);
+				BlockDamages.DAMAGE_AVERAGE_COUNTER);
 		Recipes.advRecipes.addRecipe(
 				averageCounter,
 				new Object[] { "FTF", " A ", 'A', "circuitAdvanced", 'F',
@@ -137,7 +137,7 @@ public class RecipesOld {
 
 		ItemStack rangeTrigger = new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_RANGE_TRIGGER);
+				BlockDamages.DAMAGE_RANGE_TRIGGER);
 		Recipes.advRecipes.addRecipe(rangeTrigger, new Object[] { "EFE", "AMA",
 				" R ", 'E', IC2Items.getItem("detectorCableItem"), 'F',
 				IC2Items.getItem("frequencyTransmitter"), 'A',

@@ -2,7 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.crossmod.gregtech;
 
 import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import ic2.api.recipe.Recipes;
 
 public class GregtechRecipes {
@@ -23,7 +23,7 @@ public class GregtechRecipes {
 				'C', "circuitGood",
 				'M', "plateAluminium"});
 		
-		ItemStack thermalMonitor = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, Damages.DAMAGE_THERMAL_MONITOR);
+		ItemStack thermalMonitor = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_THERMAL_MONITOR);
 		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[] { 
 				"LLL", "LRL", "CPC",
 					'L', "plateLead",

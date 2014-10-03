@@ -40,7 +40,7 @@ import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.panel.Screen;
 import shedar.mods.ic2.nuclearcontrol.panel.http.HttpCardSender;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
@@ -1114,7 +1114,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INFO_PANEL);
+				BlockDamages.DAMAGE_INFO_PANEL);
 	}
 
 	@Override

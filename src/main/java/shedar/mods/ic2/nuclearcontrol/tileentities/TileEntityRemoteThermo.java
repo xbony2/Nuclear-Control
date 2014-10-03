@@ -29,7 +29,7 @@ import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardReactorSensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
 public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
@@ -515,7 +515,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_REMOTE_THERMO);
+				BlockDamages.DAMAGE_REMOTE_THERMO);
 	}
 
 	@Override

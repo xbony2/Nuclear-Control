@@ -28,7 +28,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEntityAverageCounter extends TileEntity implements
@@ -406,7 +406,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_AVERAGE_COUNTER);
+				BlockDamages.DAMAGE_AVERAGE_COUNTER);
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements
 		ITextureHelper {
@@ -54,6 +54,6 @@ public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INDUSTRIAL_ALARM);
+				BlockDamages.DAMAGE_INDUSTRIAL_ALARM);
 	}
 }

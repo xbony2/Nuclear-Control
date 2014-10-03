@@ -8,10 +8,10 @@ import net.minecraft.util.IIcon;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class RangeTrigger extends Subblock {
-	private static final int DAMAGE = Damages.DAMAGE_RANGE_TRIGGER;
+	private static final int DAMAGE = BlockDamages.DAMAGE_RANGE_TRIGGER;
 	private static final float[] BOUNDS = { 0, 0, 0, 1, 1, 1 };
 
 	public static final byte I_BACK = 0;

@@ -9,10 +9,10 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class AverageCounter extends Subblock {
-	private static final int DAMAGE = Damages.DAMAGE_AVERAGE_COUNTER;
+	private static final int DAMAGE = BlockDamages.DAMAGE_AVERAGE_COUNTER;
 	private static final float[] BOUNDS = { 0, 0, 0, 1, 1, 1 };
 
 	public static final byte I_INPUT = 0;

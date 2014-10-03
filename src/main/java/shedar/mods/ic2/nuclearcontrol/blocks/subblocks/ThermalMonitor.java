@@ -8,10 +8,10 @@ import net.minecraft.util.IIcon;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerEmpty;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiIC2Thermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class ThermalMonitor extends Subblock {
-	private static final int DAMAGE = Damages.DAMAGE_THERMAL_MONITOR;
+	private static final int DAMAGE = BlockDamages.DAMAGE_THERMAL_MONITOR;
 	private static final float[] BOUNDS = { 0.0625F, 0, 0.0625F, 0.9375F,
 			0.4375F, 0.9375F };
 

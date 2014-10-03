@@ -32,7 +32,7 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEntityRangeTrigger extends TileEntity implements
@@ -574,7 +574,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_RANGE_TRIGGER);
+				BlockDamages.DAMAGE_RANGE_TRIGGER);
 	}
 
 	@Override

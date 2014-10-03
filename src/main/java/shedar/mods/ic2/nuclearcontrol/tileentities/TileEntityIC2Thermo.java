@@ -20,7 +20,7 @@ import net.minecraft.util.Facing;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
 public class TileEntityIC2Thermo extends TileEntity implements
@@ -300,6 +300,6 @@ public class TileEntityIC2Thermo extends TileEntity implements
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_THERMAL_MONITOR);
+				BlockDamages.DAMAGE_THERMAL_MONITOR);
 	}
 }

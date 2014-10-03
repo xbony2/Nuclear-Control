@@ -20,7 +20,7 @@ import shedar.mods.ic2.nuclearcontrol.IScreenPart;
 import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
 import shedar.mods.ic2.nuclearcontrol.panel.Screen;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEntityInfoPanelExtender extends TileEntity implements
@@ -219,7 +219,7 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(
 				IC2NuclearControl.blockNuclearControlMain, 1,
-				Damages.DAMAGE_INFO_PANEL_EXTENDER);
+				BlockDamages.DAMAGE_INFO_PANEL_EXTENDER);
 	}
 
 	@Override

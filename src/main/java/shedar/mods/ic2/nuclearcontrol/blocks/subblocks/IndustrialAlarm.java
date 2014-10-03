@@ -9,10 +9,10 @@ import shedar.mods.ic2.nuclearcontrol.containers.ContainerEmpty;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiIndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityHowlerAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIndustrialAlarm;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class IndustrialAlarm extends Subblock {
-	private static final int DAMAGE = Damages.DAMAGE_INDUSTRIAL_ALARM;
+	private static final int DAMAGE = BlockDamages.DAMAGE_INDUSTRIAL_ALARM;
 	private static final float[] BOUNDS = { 0.125F, 0, 0.125F, 0.875F, 0.4375F,
 			0.875F };
 

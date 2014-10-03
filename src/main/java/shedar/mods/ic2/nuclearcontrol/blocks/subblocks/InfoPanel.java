@@ -8,10 +8,10 @@ import net.minecraft.util.IIcon;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class InfoPanel extends Subblock {
-	private static final int DAMAGE = Damages.DAMAGE_INFO_PANEL;
+	private static final int DAMAGE = BlockDamages.DAMAGE_INFO_PANEL;
 	private static final float[] BOUNDS = { 0, 0, 0, 1, 1, 1 };
 
 	public static final byte I_PANEL_BACK = 0;

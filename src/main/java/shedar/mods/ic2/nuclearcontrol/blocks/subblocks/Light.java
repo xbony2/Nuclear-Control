@@ -2,7 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.blocks.subblocks;
 
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOff;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOn;
-import shedar.mods.ic2.nuclearcontrol.utils.Damages;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -11,8 +11,8 @@ import net.minecraft.util.IIcon;
 
 public class Light extends Subblock {
 
-	private static final int DAMAGE1 = Damages.DAMAGE_LIGHT_ON;
-	private static final int DAMAGE2 = Damages.DAMAGE_LIGHT_OFF;
+	private static final int DAMAGE1 = BlockDamages.DAMAGE_LIGHT_ON;
+	private static final int DAMAGE2 = BlockDamages.DAMAGE_LIGHT_OFF;
 	private static final float[] BOUNDS = { 0, 0, 0, 1, 1, 1 };
 
 	boolean isOn;
@@ -30,8 +30,7 @@ public class Light extends Subblock {
 	private IIcon[] icons = new IIcon[1];
 
 	public Light(boolean on) {
-		super(on ? DAMAGE1 : DAMAGE2, on ? "tile.blockLightOn"
-				: "tile.blockLightOff");
+		super(on ? DAMAGE1 : DAMAGE2, on ? "tile.blockLightOn" : "tile.blockLightOff");
 		isOn = on;
 	}
 
@@ -48,11 +47,9 @@ public class Light extends Subblock {
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
 		if (isOn) {
-			icons[0] = iconRegister
-					.registerIcon("nuclearcontrol:light/on/white");
+			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/on/white");
 		} else {
-			icons[0] = iconRegister
-					.registerIcon("nuclearcontrol:light/off/white");
+			icons[0] = iconRegister.registerIcon("nuclearcontrol:light/off/white");
 		}
 	}
 
