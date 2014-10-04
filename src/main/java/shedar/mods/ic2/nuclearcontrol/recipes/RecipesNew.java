@@ -6,7 +6,9 @@ import ic2.core.util.StackUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+import shedar.mods.ic2.nuclearcontrol.StorageArrayRecipe;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
@@ -188,5 +190,6 @@ public class RecipesNew {
 				'C', IC2Items.getItem("energyStorageUpgrade"), 
 				'F', IC2Items.getItem("frequencyTransmitter"), 
 				'L', "dyeLightBlue" });
+		CraftingManager.getInstance().getRecipeList().add(new StorageArrayRecipe());
 	}
 }

@@ -15,12 +15,9 @@ public final class CardHelper {
 	public static ICardWrapper getWrapper(ItemStack card) {
 		try {
 			Class c = Class.forName(className);
-			return (ICardWrapper) c.getConstructor(ItemStack.class, int.class)
-					.newInstance(card, -1);
-		} catch (Exception e) {
-			IC2NuclearControl.logger.error(
-					"Can't create Nuclear Control Card Wrapper: %s",
-					e.toString());
+			return (ICardWrapper) c.getConstructor(ItemStack.class, int.class).newInstance(card, -1);
+		}catch (Exception e){
+			IC2NuclearControl.logger.error("Can't create Nuclear Control Card Wrapper: %s", e.toString());
 		}
 		return null;
 	}

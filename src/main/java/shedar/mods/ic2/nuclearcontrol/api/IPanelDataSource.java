@@ -45,8 +45,7 @@ public interface IPanelDataSource {
 	 * @return list of string to display.
 	 * @see PanelString
 	 */
-	List<PanelString> getStringData(int displaySettings, ICardWrapper card,
-			boolean showLabels);
+	List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels);
 
 	/**
 	 * Method should return a list of settings, which displayed in the

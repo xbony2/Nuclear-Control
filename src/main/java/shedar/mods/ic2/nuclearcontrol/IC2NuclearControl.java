@@ -117,34 +117,24 @@ public class IC2NuclearControl {
 
 	public CrossBuildcraft crossBC;
 	public CrossIndustrialCraft2 crossIC2;
-	// public CrossGregTech crossGregTech;
 	public CrossRailcraft crossRailcraft;
-	public CrossRF crossThermalEx;
+	public CrossRF crossRF;
 
 	protected void initBlocks() {
 		blockNuclearControlMain = new BlockNuclearControlMain();
-		itemToolThermometer = new ItemToolThermometer()
-				.setUnlocalizedName("ItemToolThermometer");
-		itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80)
-				.setUnlocalizedName("ItemToolDigitalThermometer");
-		itemSensorLocationCard = new ItemCardReactorSensorLocation()
-				.setUnlocalizedName("ItemSensorLocationCard");
+		itemToolThermometer = new ItemToolThermometer().setUnlocalizedName("ItemToolThermometer");
+		itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80).setUnlocalizedName("ItemToolDigitalThermometer");
+		itemSensorLocationCard = new ItemCardReactorSensorLocation().setUnlocalizedName("ItemSensorLocationCard");
 		itemUpgrade = new ItemUpgrade();
 		itemTimeCard = new ItemTimeCard().setUnlocalizedName("ItemTimeCard");
 		itemTextCard = new ItemCardText().setUnlocalizedName("ItemTextCard");
-		itemEnergySensorLocationCard = new ItemCardEnergySensorLocation()
-				.setUnlocalizedName("ItemEnergySensorLocationCard");
-		itemEnergyArrayLocationCard = new ItemCardEnergyArrayLocation()
-				.setUnlocalizedName("ItemEnergyArrayLocationCard");
+		itemEnergySensorLocationCard = new ItemCardEnergySensorLocation().setUnlocalizedName("ItemEnergySensorLocationCard");
+		itemEnergyArrayLocationCard = new ItemCardEnergyArrayLocation().setUnlocalizedName("ItemEnergyArrayLocationCard");
 		itemMultipleSensorLocationCard = new ItemCardMultipleSensorLocation();
-		itemMultipleSensorKit = new ItemKitMultipleSensor()
-				.setUnlocalizedName("ItemCounterSensorKit");
-		itemEnergySensorKit = new ItemKitEnergySensor()
-				.setUnlocalizedName("ItemEnergySensorKit");
-		itemRemoteSensorKit = new ItemKitReactorSensor()
-				.setUnlocalizedName("ItemRemoteSensorKit");
-		itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation()
-				.setUnlocalizedName("ItemLiquidArrayLocationCard");
+		itemMultipleSensorKit = new ItemKitMultipleSensor().setUnlocalizedName("ItemCounterSensorKit");
+		itemEnergySensorKit = new ItemKitEnergySensor().setUnlocalizedName("ItemEnergySensorKit");
+		itemRemoteSensorKit = new ItemKitReactorSensor().setUnlocalizedName("ItemRemoteSensorKit");
+		itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation().setUnlocalizedName("ItemLiquidArrayLocationCard");
 	}
 
 	protected void registerBlocks() {
@@ -195,9 +185,8 @@ public class IC2NuclearControl {
 	public void postInit(FMLPostInitializationEvent evt) {
 		crossBC = new CrossBuildcraft();
 		crossIC2 = new CrossIndustrialCraft2();
-		// crossGregTech = new CrossGregTech();
 		crossRailcraft = new CrossRailcraft();
-		crossThermalEx = new CrossRF();
+		crossRF = new CrossRF();
 
 		if (recipes.equals("normal")) {
 			RecipesNew.addRecipes();

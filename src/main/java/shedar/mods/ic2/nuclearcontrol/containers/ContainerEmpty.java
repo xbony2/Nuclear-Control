@@ -5,19 +5,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 
-public class ContainerEmpty extends Container {
+public class ContainerEmpty extends Container
+{
 	private TileEntity entity;
 
-	public ContainerEmpty(TileEntity entity) {
+	public ContainerEmpty(TileEntity entity)
+	{
 		super();
 		this.entity = entity;
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
-		return entity.getWorldObj().getBlock(entity.xCoord, entity.yCoord,
-				entity.zCoord) != IC2NuclearControl.blockNuclearControlMain ? false
-				: player.getDistanceSq(entity.xCoord + 0.5D,
-						entity.yCoord + 0.5D, entity.zCoord + 0.5D) <= 64.0D;
+	public boolean canInteractWith(EntityPlayer player)
+	{
+		return entity.getWorldObj().getBlock(entity.xCoord, entity.yCoord, entity.zCoord) != IC2NuclearControl.instance.blockNuclearControlMain ? 
+				false : player.getDistanceSq(entity.xCoord + 0.5D, entity.yCoord + 0.5D, entity.zCoord + 0.5D) <= 64.0D;
 	}
 }
