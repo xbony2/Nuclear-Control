@@ -227,8 +227,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	}
 
 	@Override
-	public void onBlockDestroyedByPlayer(World world, int x, int y, int z,
-			int metadata) {
+	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metadata) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (tileEntity instanceof TileEntityHowlerAlarm) {
 			((TileEntityHowlerAlarm) tileEntity).setPowered(false);
@@ -259,8 +258,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z,
-			Block neighbor) {
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
 		int side = 0;
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		if (tileentity instanceof IWrenchable) {

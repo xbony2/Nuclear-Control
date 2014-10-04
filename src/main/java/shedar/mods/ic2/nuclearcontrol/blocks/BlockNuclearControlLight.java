@@ -1,33 +1,36 @@
 package shedar.mods.ic2.nuclearcontrol.blocks;
 
 import java.util.List;
-import java.util.Map;
 
-import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
-import shedar.mods.ic2.nuclearcontrol.utils.LightDamages;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+import shedar.mods.ic2.nuclearcontrol.utils.LightDamages;
 
 public class BlockNuclearControlLight extends Block{
 	public boolean isOn;
 	public int damageOff;
+	public int damageOn = damageOff + 1;
 
-	public BlockNuclearControlLight(Material material, String unlocal, boolean izOn, int damageOfff) {
+	public BlockNuclearControlLight(Material material) {
 		super(material);
 		setHardness(0.3F);
 		setStepSound(soundTypeGlass);
-		setBlockName(unlocal);
+		setBlockName("blockLight");
 		setCreativeTab(IC2NuclearControl.tabIC2NC);
-		isOn = izOn;
-		damageOff = damageOfff;
+		
+	}
+	
+	public void register(int damage, boolean onOrOff){
+		isOn = onOrOff;
+		if(isOn) damageOff = damage - 1;
+		else damageOff = damage;
 	}
 	
 	@Override
@@ -43,18 +46,52 @@ public class BlockNuclearControlLight extends Block{
 	
 	@Override
 	public void registerBlockIcons(IIconRegister register){
-		if(isOn) blockIcon = register.registerIcon("nuclearcontrol:light/on/" + this.getUnlocalizedName());
-		else blockIcon = register.registerIcon("nuclearcontrol:light/off/" + this.getUnlocalizedName());
+		if(isOn) blockIcon = register.registerIcon("nuclearcontrol:light/on/lamp" + damageOn);
+		else blockIcon = register.registerIcon("nuclearcontrol:light/off/lamp" + damageOff);
 	}
 	
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
 		super.onBlockAdded(world, x, y, z);
-		Block block = world.getBlock(x, y, z);
-		if(this.isOn){
+		if(isOn){
 			if(!world.isRemote){
-				
+				if (!world.isBlockIndirectlyGettingPowered(x, y, z)) {
+					world.setBlock(x, y, z, this, damageOff, 2);
+				}
 			}
+		}
+		if(!isOn){
+			if (!world.isRemote) {
+				if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
+					world.setBlock(x, y, z, this, damageOn, 2);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
+		if(isOn){
+			if(!world.isRemote) {
+				if (!world.isBlockIndirectlyGettingPowered(x, y, z)) {
+					world.setBlock(x, y, z, this, damageOff, 2);
+				}
+			}
+		}
+		if(!isOn){
+			if(!world.isRemote){
+				if(world.isBlockIndirectlyGettingPowered(x, y, z)){
+					world.setBlock(x, y, z, this, damageOn, 2);
+				}
+			}
+		}
+	}
+	
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	@Override
+	public void getSubBlocks(Item id, CreativeTabs tab, List itemList) {
+		for (int i = 0; i <= LightDamages.DAMAGE_MAX; i++) {
+			itemList.add(new ItemStack(this, 1, i));
 		}
 	}
 }
