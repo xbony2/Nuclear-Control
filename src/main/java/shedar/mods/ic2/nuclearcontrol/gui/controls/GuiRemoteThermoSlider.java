@@ -87,15 +87,13 @@ public class GuiRemoteThermoSlider extends GuiButton {
 			thermo.setHeatLevel(newHeatLevel);
 			NetworkHelper nh = new NetworkHelper();
 			try {
-				Method m1 = nh.getClass().getDeclaredMethod(
-						"initiateClientTileEntityEvent");
+				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
 				m1.setAccessible(true);
 				m1.invoke(thermo, newHeatLevel);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// NetworkHelper.initiateClientTileEntityEvent(thermo,
-			// newHeatLevel);
+			// NetworkHelper.initiateClientTileEntityEvent(thermo, newHeatLevel);
 		}
 		displayString = String.format(label, newHeatLevel);
 	}

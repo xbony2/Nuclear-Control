@@ -205,8 +205,7 @@ public class ModelInfoPanel {
 				coordinates[point * 3 + 1], coordinates[point * 3 + 2], u, v);
 	}
 
-	private void drawFacing(int facing, int rotation, Screen screen,
-			TileEntityAdvancedInfoPanel panel, Block block) {
+	private void drawFacing(int facing, int rotation, Screen screen, TileEntityAdvancedInfoPanel panel, Block block) {
 		// TODO: refactor here
 		Tessellator tessellator = Tessellator.instance;
 		int point = 0;

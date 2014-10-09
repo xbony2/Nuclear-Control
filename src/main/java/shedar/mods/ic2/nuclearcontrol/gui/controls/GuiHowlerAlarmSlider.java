@@ -61,8 +61,7 @@ public class GuiHowlerAlarmSlider extends GuiButton {
 			alarm.setRange(newValue);
 			NetworkHelper nh = new NetworkHelper();
 			try {
-				Method m1 = nh.getClass().getDeclaredMethod(
-						"initiateClientTileEntityEvent");
+				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
 				m1.setAccessible(true);
 				m1.invoke(alarm, newValue);
 			} catch (Exception e) {

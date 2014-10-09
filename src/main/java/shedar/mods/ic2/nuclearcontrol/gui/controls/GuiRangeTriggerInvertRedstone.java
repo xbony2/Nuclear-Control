@@ -54,8 +54,7 @@ public class GuiRangeTriggerInvertRedstone extends GuiButton {
 			trigger.setInvertRedstone(checked);
 			NetworkHelper nh = new NetworkHelper();
 			try {
-				Method m1 = nh.getClass().getDeclaredMethod(
-						"initiateClientTileEntityEvent");
+				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
 				m1.setAccessible(true);
 				m1.invoke(trigger, value);
 			} catch (Exception e) {

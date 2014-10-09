@@ -19,11 +19,9 @@ public class CardSettingsWrapperImpl implements ICardSettingsWrapper {
 	private GuiInfoPanel gui;
 	private int slot;
 
-	public CardSettingsWrapperImpl(ItemStack card, TileEntity panel,
-			GuiInfoPanel gui, int slot) {
+	public CardSettingsWrapperImpl(ItemStack card, TileEntity panel, GuiInfoPanel gui, int slot) {
 		if (!(card.getItem() instanceof IPanelDataSource)) {
-			IC2NuclearControl.logger
-					.error("CardHelper sould be used for IPanelDataSource items.");
+			IC2NuclearControl.logger.error("CardHelper sould be used for IPanelDataSource items.");
 		}
 		this.card = card;
 		this.panel = panel;

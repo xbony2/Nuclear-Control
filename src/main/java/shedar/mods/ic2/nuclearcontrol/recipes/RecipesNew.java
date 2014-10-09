@@ -12,6 +12,7 @@ import shedar.mods.ic2.nuclearcontrol.StorageArrayRecipe;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
+import shedar.mods.ic2.nuclearcontrol.utils.LightDamages;
 
 public class RecipesNew {
 
@@ -38,12 +39,12 @@ public class RecipesNew {
 					'R', "dustRedstone", 
 					'H', howler });
 
-		ItemStack lampWhite = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_LIGHT_OFF);
+		/*ItemStack lampWhite = new ItemStack(IC2NuclearControl.blockNuclearControlLight, 1, LightDamages.DAMAGE_WHITE_OFF);
 		Recipes.advRecipes.addRecipe(lampWhite, new Object[] { 
 				"GGG", "GWG", "GLG", 
 					'G', "paneGlass", 
 					'W', "dyeWhite", 
-					'L', Blocks.glowstone});
+					'L', Blocks.glowstone});*/
 
 		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_REMOTE_THERMO), new Object[]{ 
 			"IFI", "IMI", "ITI", 

@@ -1,8 +1,9 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
 import ic2.api.network.NetworkHelper;
+import ic2.core.IC2;
+import ic2.core.network.NetworkManager;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -32,10 +33,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiAdvancedInfoPanel extends GuiInfoPanel {
+public class GuiAdvancedInfoPanel extends GuiInfoPanel{
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIAdvancedInfoPanel.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private static final int ID_LABELS = 1;
 	private static final int ID_SLOPE = 2;
@@ -46,138 +46,133 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel {
 	private byte activeTab;
 	private boolean initialized;
 
-	public GuiAdvancedInfoPanel(Container container) {
+	public GuiAdvancedInfoPanel(Container container){
 		super(container);
 		ySize = 212;
 		activeTab = 0;
 		initialized = false;
-		name = StatCollector
-				.translateToLocal("tile.blockAdvancedInfoPanel.name");
+		name = StatCollector.translateToLocal("tile.blockAdvancedInfoPanel.name");
 		isColored = this.container.panel.getColored();
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2,
-			int var3) {
+	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3){
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(TEXTURE_LOCATION);
 		int left = (width - xSize) / 2;
 		int top = (height - ySize) / 2;
 		drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
-		drawTexturedModalRect(left + 24, top + 62 + activeTab * 14, 182, 0, 1,
-				15);
+		drawTexturedModalRect(left + 24, top + 62 + activeTab * 14, 182, 0, 1, 15);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+	{
 		super.drawGuiContainerForegroundLayer(par1, par2);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void initControls() {
-		ItemStack card = getActiveCard();
-		if ((card == null && prevCard == null && initialized)
-				|| (card != null && card.equals(prevCard)))
+	protected void initControls()
+	{
+		ItemStack card = getActiveCard(); 
+		if ((card == null && prevCard == null && initialized) || (card!=null  && card.equals(prevCard)))
 			return;
 		initialized = true;
 		int h = fontRendererObj.FONT_HEIGHT + 1;
 		buttonList.clear();
 		prevCard = card;
 
-		// labels
-		buttonList.add(new IconButton(ID_LABELS, guiLeft + 83, guiTop + 42, 16,
-				16, TEXTURE_LOCATION, 192 - 16,
+		//labels
+		buttonList.add(new IconButton(ID_LABELS, guiLeft + 83 , guiTop + 42, 16, 16, TEXTURE_LOCATION, 192-16, 
 				getIconLabelsTopOffset(container.panel.getShowLabels())));
-		// slope
-		buttonList.add(new IconButton(ID_SLOPE, guiLeft + 83 + 17 * 1,
-				guiTop + 42, 16, 16, TEXTURE_LOCATION, 192, 15));
-		// colors
-		buttonList.add(new IconButton(ID_COLORS, guiLeft + 83 + 17 * 2,
-				guiTop + 42, 16, 16, TEXTURE_LOCATION, 192, 15 + 16));
-		// power
-		buttonList
-				.add(new IconButton(
-						ID_POWER,
-						guiLeft + 83 + 17 * 3,
-						guiTop + 42,
-						16,
-						16,
-						TEXTURE_LOCATION,
-						192 - 16,
-						getIconPowerTopOffset(((TileEntityAdvancedInfoPanel) container.panel)
-								.getPowerMode())));
+		//slope
+		buttonList.add(new IconButton(ID_SLOPE, guiLeft + 83 + 17*1, guiTop + 42, 16, 16, TEXTURE_LOCATION, 192, 15));
+		//colors
+		buttonList.add(new IconButton(ID_COLORS, guiLeft + 83 + 17*2, guiTop + 42, 16, 16, TEXTURE_LOCATION, 192, 15 + 16));
+		//power
+		buttonList.add(new IconButton(ID_POWER, guiLeft + 83 + 17*3, guiTop + 42, 16, 16, TEXTURE_LOCATION, 192-16, 
+				getIconPowerTopOffset(((TileEntityAdvancedInfoPanel)container.panel).getPowerMode())));
 
-		if (card != null && card.getItem() instanceof IPanelDataSource) {
+		if (card != null && card.getItem() instanceof IPanelDataSource)
+		{
 			byte slot = container.panel.getIndexOfCard(card);
-			IPanelDataSource source = (IPanelDataSource) card.getItem();
-			if (source instanceof IAdvancedCardSettings) {
-				// settings
-				buttonList.add(new IconButton(ID_SETTINGS,
-						guiLeft + 83 + 17 * 4, guiTop + 42, 16, 16,
-						TEXTURE_LOCATION, 192, 15 + 16 * 2));
+			IPanelDataSource source = (IPanelDataSource)card.getItem();
+			if (source instanceof IAdvancedCardSettings)
+			{
+				//settings
+				buttonList.add(new IconButton(ID_SETTINGS, guiLeft + 83 + 17*4, guiTop + 42, 16, 16, TEXTURE_LOCATION, 192, 15 + 16*2));
 			}
 			int row = 0;
 			List<PanelSetting> settingsList = null;
-			if (card.getItem() instanceof IPanelMultiCard) {
-				settingsList = ((IPanelMultiCard) source)
-						.getSettingsList(new CardWrapperImpl(card, activeTab));
-			} else {
+			if (card.getItem() instanceof IPanelMultiCard)
+			{
+				settingsList = ((IPanelMultiCard)source).getSettingsList(new CardWrapperImpl(card, activeTab));
+			}
+			else
+			{
 				settingsList = source.getSettingsList();
 			}
 
 			if (settingsList != null)
-				for (PanelSetting panelSetting : settingsList) {
-					buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32,
-							guiTop + 60 + h * row, panelSetting,
-							container.panel, slot, fontRendererObj));
+				for (PanelSetting panelSetting : settingsList)
+				{
+					buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32, guiTop + 60 + h*row, panelSetting, container.panel, slot, fontRendererObj));
 					row++;
 				}
-			if (!modified) {
+			if (!modified)
+			{
 				textboxTitle = new GuiTextField(fontRendererObj, 7, 16, 162, 18);
 				textboxTitle.setFocused(true);
-				textboxTitle.setText(new CardWrapperImpl(card, activeTab)
-						.getTitle());
+				textboxTitle.setText(new CardWrapperImpl(card, activeTab).getTitle());
 			}
-		} else {
+		}
+		else
+		{
 			modified = false;
 			textboxTitle = null;
 		}
 	}
 
 	@Override
-	protected ItemStack getActiveCard() {
+	protected ItemStack getActiveCard()
+	{
 		return container.panel.getCards().get(activeTab);
 	}
 
 	@Override
-	public void setWorldAndResolution(
-			net.minecraft.client.Minecraft par1Minecraft, int par2, int par3) {
+	public void setWorldAndResolution(net.minecraft.client.Minecraft par1Minecraft, int par2, int par3) 
+	{
 		initialized = false;
 		super.setWorldAndResolution(par1Minecraft, par2, par3);
 	}
 
-	private int getIconLabelsTopOffset(boolean checked) {
-		return checked ? 15 : 31;
+	private int getIconLabelsTopOffset(boolean checked)
+	{
+		return checked?15:31;
 	}
 
-	private int getIconPowerTopOffset(byte mode) {
-		switch (mode) {
+	private int getIconPowerTopOffset(byte mode)
+	{
+		switch (mode)
+		{
 		case TileEntityAdvancedInfoPanel.POWER_REDSTONE:
-			return 15 + 16 * 2;
+			return 15 + 16*2;
 		case TileEntityAdvancedInfoPanel.POWER_INVERTED:
-			return 15 + 16 * 3;
+			return 15 + 16*3;
 		case TileEntityAdvancedInfoPanel.POWER_ON:
-			return 15 + 16 * 4;
+			return 15 + 16*4;
 		case TileEntityAdvancedInfoPanel.POWER_OFF:
-			return 15 + 16 * 5;
+			return 15 + 16*5;
 		}
-		return 15 + 16 * 2;
+		return 15 + 16*2;
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton button) {
-		switch (button.id) {
+	protected void actionPerformed(GuiButton button) 
+	{
+		switch(button.id)
+		{
 		case ID_COLORS:
 			GuiScreen colorGui = new GuiScreenColor(this, container.panel);
 			mc.displayGuiScreen(colorGui);
@@ -186,75 +181,56 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel {
 			ItemStack card = getActiveCard();
 			if (card == null)
 				return;
-			if (card != null && card.getItem() instanceof IAdvancedCardSettings) {
+			if (card != null && card.getItem() instanceof IAdvancedCardSettings)
+			{
 				ICardWrapper helper = new CardWrapperImpl(card, activeTab);
-				Object guiObject = ((IAdvancedCardSettings) card.getItem())
-						.getSettingsScreen(helper);
-				if (!(guiObject instanceof GuiScreen)) {
-					// FMLLog.warning("Invalid card, getSettingsScreen method should return GuiScreen object");
-					IC2NuclearControl.logger
-							.warn("Invalid card, getSettingsScreen method should return GuiScreen object");
+				Object guiObject = ((IAdvancedCardSettings)card.getItem()).getSettingsScreen(helper);
+				if (!(guiObject instanceof GuiScreen))
+				{
+					IC2NuclearControl.logger.warn("Invalid card, getSettingsScreen method should return GuiScreen object");
 					return;
 				}
-				GuiScreen gui = (GuiScreen) guiObject;
-				ICardSettingsWrapper wrapper = new CardSettingsWrapperImpl(
-						card, container.panel, this, activeTab);
-				((ICardGui) gui).setCardSettingsHelper(wrapper);
+				GuiScreen gui = (GuiScreen)guiObject;
+				ICardSettingsWrapper wrapper = new CardSettingsWrapperImpl(card, container.panel, this, activeTab);
+				((ICardGui)gui).setCardSettingsHelper(wrapper);
 				mc.displayGuiScreen(gui);
 			}
 			break;
 		case ID_LABELS:
 			boolean checked = !container.panel.getShowLabels();
-			if (button instanceof IconButton) {
-				IconButton iButton = (IconButton) button;
+			if (button instanceof IconButton)
+			{
+				IconButton iButton = (IconButton)button;
 				iButton.textureTop = getIconLabelsTopOffset(checked);
 			}
-			int value = checked ? -1 : -2;
+			int value = checked?-1:-2;
 			container.panel.setShowLabels(checked);
-			NetworkHelper nh = new NetworkHelper();
-			try {
-				Method m1 = nh.getClass().getDeclaredMethod(
-						"initiateClientTileEntityEvent");
-				m1.setAccessible(true);
-				m1.invoke(container.panel, value);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// NetworkHelper.initiateClientTileEntityEvent(container.panel,
-			// value);
+			//NetworkHelper.initiateClientTileEntityEvent(container.panel, value);
+			((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.panel, value);
 			break;
 		case ID_POWER:
-			byte mode = ((TileEntityAdvancedInfoPanel) container.panel)
-					.getNextPowerMode();
-			if (button instanceof IconButton) {
-				IconButton iButton = (IconButton) button;
+			byte mode = ((TileEntityAdvancedInfoPanel)container.panel).getNextPowerMode();
+			if(button instanceof IconButton)
+			{
+				IconButton iButton = (IconButton)button;
 				iButton.textureTop = getIconPowerTopOffset(mode);
 			}
-			NetworkHelper nh2 = new NetworkHelper();
-			try {
-				Method m1 = nh2.getClass().getDeclaredMethod(
-						"initiateClientTileEntityEvent");
-				m1.setAccessible(true);
-				m1.invoke(container.panel, mode);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// NetworkHelper.initiateClientTileEntityEvent(container.panel,
-			// mode);
+			//NetworkHelper.initiateClientTileEntityEvent(container.panel, mode);
+			((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.panel, mode);
 			break;
 		case ID_SLOPE:
-			GuiPanelSlope slopeGui = new GuiPanelSlope(this,
-					(TileEntityAdvancedInfoPanel) container.panel);
+			GuiPanelSlope slopeGui = new GuiPanelSlope(this, (TileEntityAdvancedInfoPanel)container.panel);
 			mc.displayGuiScreen(slopeGui);
 			break;
 		}
 	}
 
 	@Override
-	protected void mouseClicked(int x, int y, int par3) {
+	protected void mouseClicked(int x, int y, int par3)
+	{
 		super.mouseClicked(x, y, par3);
-		if (x >= guiLeft + 7 && x <= guiLeft + 24 && y >= guiTop + 62
-				&& y <= guiTop + 104) {
+		if (x >= guiLeft+7 && x <= guiLeft + 24 && y >= guiTop + 62 && y <= guiTop + 104)
+		{
 			byte newTab = (byte) ((y - guiTop - 62) / 14);
 			if (newTab > 2)
 				newTab = 2;

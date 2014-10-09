@@ -22,8 +22,7 @@ public class BlockNuclearControlLight extends Block{
 		super(Material.redstoneLight);
 		setHardness(0.3F);
 		setStepSound(soundTypeGlass);
-		setBlockName("blockLight");
-		setCreativeTab(IC2NuclearControl.tabIC2NC);
+		if(!isOn) setCreativeTab(IC2NuclearControl.tabIC2NC);
 		register(LightDamages.DAMAGE_WHITE_OFF, false);
 		register(LightDamages.DAMAGE_WHITE_ON, true);
 	}

@@ -5,6 +5,7 @@ import ic2.api.tile.IWrenchable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -35,7 +36,6 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.HowlerAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanelExtender;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Light;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
@@ -45,8 +45,6 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOff;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityLightOn;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
@@ -428,8 +426,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 		return false;
 	}
 
-	public boolean isIndirectlyPoweringTo(World world, int i, int j, int k,
-			int l) {
+	public boolean isIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
 		return false;
 	}
 
@@ -480,8 +477,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 			break;
 		}
 		TileEntity targetEntity = iblockaccess.getTileEntity(targetX, targetY, targetZ);
-		if (tileentity instanceof TileEntityIC2Thermo
-				&& targetEntity != null
+		if (tileentity instanceof TileEntityIC2Thermo && targetEntity != null
 				&& (NuclearHelper.getReactorAt(tileentity.getWorldObj(), targetX, targetY, targetZ) != null 
 				|| NuclearHelper.getReactorChamberAt(tileentity.getWorldObj(), targetX, targetY, targetZ) != null)) {
 			return 0;
@@ -507,8 +503,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	public IIcon getIcon(IBlockAccess blockaccess, int x, int y, int z, int side) {
 		int blockType = blockaccess.getBlockMetadata(x, y, z);
 		if (subblocks.containsKey(blockType))
-			return subblocks.get(blockType).getBlockTexture(blockaccess, x, y,
-					z, side);
+			return subblocks.get(blockType).getBlockTexture(blockaccess, x, y, z, side);
 		return null;
 	}
 
@@ -560,8 +555,6 @@ public class BlockNuclearControlMain extends BlockContainer {
 				else
 					return 0;
 			}
-		} else if (entity instanceof TileEntityLightOn) {
-			return 15;
 		}
 
 		return getLightValue();

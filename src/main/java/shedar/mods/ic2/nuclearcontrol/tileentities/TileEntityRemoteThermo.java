@@ -32,8 +32,7 @@ import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
-public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
-		IEnergySink, ISlotItemFilter, IRotation, IInventory {
+public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory {
 	public static final int SLOT_CHARGER = 0;
 	public static final int SLOT_CARD = 1;
 	private static final double BASE_PACKET_SIZE = 32.0D;
@@ -94,8 +93,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 
 		int fire;
 		if (energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption) {
-			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord
-					+ deltaX, yCoord + deltaY, zCoord + deltaZ);
+			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord + deltaX, yCoord + deltaY, zCoord + deltaZ);
 			if (reactor != null) {
 				if (tickRate == -1) {
 					tickRate = reactor.getTickRate() / 2;
@@ -114,8 +112,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 
 		if (fire != getOnFire()) {
 			setOnFire(fire);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 	}
 
@@ -130,8 +127,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	public void setTier(int value) {
 		tier = value;
 		if (tier != prevTier) {
-			IC2.network.get().updateTileEntityField(this,
-					"tier");
+			IC2.network.get().updateTileEntityField(this, "tier");
 		}
 		prevTier = tier;
 	}
@@ -140,8 +136,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	public void setRotation(int value) {
 		rotation = value;
 		if (rotation != prevRotation) {
-			IC2.network.get().updateTileEntityField(this,
-					"rotation");
+			IC2.network.get().updateTileEntityField(this, "rotation");
 		}
 		prevRotation = rotation;
 	}
@@ -149,8 +144,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	public void setMaxPacketSize(double value) {
 		maxPacketSize = value;
 		if (maxPacketSize != prevMaxPacketSize) {
-			IC2.network.get().updateTileEntityField(this,
-					"maxPacketSize");
+			IC2.network.get().updateTileEntityField(this, "maxPacketSize");
 		}
 		prevMaxPacketSize = maxPacketSize;
 	}
@@ -158,8 +152,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	public void setMaxStorage(double value) {
 		maxStorage = value;
 		if (maxStorage != prevMaxStorage) {
-			IC2.network.get().updateTileEntityField(this,
-					"maxStorage");
+			IC2.network.get().updateTileEntityField(this, "maxStorage");
 		}
 		prevMaxStorage = maxStorage;
 	}
@@ -172,22 +165,16 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 			if (inventory[SLOT_CHARGER] != null) {
 				if (energy < maxStorage) {
 					if (inventory[SLOT_CHARGER].getItem() instanceof IElectricItem) {
-						IElectricItem ielectricitem = (IElectricItem) inventory[SLOT_CHARGER]
-								.getItem();
+						IElectricItem ielectricitem = (IElectricItem) inventory[SLOT_CHARGER].getItem();
 
-						if (ielectricitem
-								.canProvideEnergy(inventory[SLOT_CHARGER])) {
-							double k = ElectricItem.manager
-									.discharge(inventory[SLOT_CHARGER],
-											maxStorage - energy, tier, false,
-											false, false);
+						if (ielectricitem.canProvideEnergy(inventory[SLOT_CHARGER])) {
+							double k = ElectricItem.manager.discharge(inventory[SLOT_CHARGER], maxStorage - energy, tier, false, false, false);
 							energy += k;
 						}
 					} else if (Item.getIdFromItem(inventory[SLOT_CHARGER]
 							.getItem()) == Item.getIdFromItem((IC2Items
 							.getItem("suBattery")).getItem())) {
-						if (ENERGY_SU_BATTERY <= maxStorage - energy
-								|| energy == 0) {
+						if (ENERGY_SU_BATTERY <= maxStorage - energy || energy == 0) {
 							inventory[SLOT_CHARGER].stackSize--;
 
 							if (inventory[SLOT_CHARGER].stackSize <= 0) {
@@ -217,12 +204,10 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 		if (nbttagcompound.hasKey("rotation")) {
 			prevRotation = rotation = nbttagcompound.getInteger("rotation");
 		}
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items",
-				Constants.NBT.TAG_COMPOUND);
+		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 		inventory = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound compound = nbttaglist
-					.getCompoundTagAt(i);
+			NBTTagCompound compound = nbttaglist.getCompoundTagAt(i);
 			byte slotNum = compound.getByte("Slot");
 
 			if (slotNum >= 0 && slotNum < inventory.length) {
@@ -324,18 +309,14 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& player.getDistanceSq(xCoord + 0.5D,
-						yCoord + 0.5D, zCoord + 0.5D) <= 64D;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
-	public void openInventory() {
-	}
+	public void openInventory(){}
 
 	@Override
-	public void closeInventory() {
-	}
+	public void closeInventory(){}
 
 	@Override
 	public void markDirty() {
@@ -352,8 +333,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 
 			if (itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))) {
 				upgradeCountTransormer += itemStack.stackSize;
-			} else if (itemStack.isItemEqual(IC2Items
-					.getItem("energyStorageUpgrade"))) {
+			} else if (itemStack.isItemEqual(IC2Items.getItem("energyStorageUpgrade"))) {
 				upgradeCountStorage += itemStack.stackSize;
 			} else if (itemStack.getItem() instanceof ItemUpgrade
 					&& itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE) {
@@ -402,8 +382,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	};
 
 	@Override
-	public boolean acceptsEnergyFrom(TileEntity emitter,
-			ForgeDirection direction) {
+	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
 		return true;
 	}
 
@@ -413,13 +392,12 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	}
 
 	@Override
-	public double injectEnergy(ForgeDirection directionFrom, double amount,
-			double voltage) {
-		if (amount > maxPacketSize) {
+	public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
+		/*if (amount > maxPacketSize) {
 			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
 			worldObj.createExplosion(null, xCoord, yCoord, zCoord, 0.8F, false);
 			return 0;
-		}
+		}*/
 
 		energy += amount;
 		double left = 0.0;
@@ -436,13 +414,11 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 	public boolean isItemValid(int slotIndex, ItemStack itemstack) {
 		switch (slotIndex) {
 		case SLOT_CHARGER:
-			if (Item.getIdFromItem(itemstack.getItem()) == Item
-					.getIdFromItem(IC2Items.getItem("suBattery").getItem()))
+			if (Item.getIdFromItem(itemstack.getItem()) == Item.getIdFromItem(IC2Items.getItem("suBattery").getItem()))
 				return true;
 			if (itemstack.getItem() instanceof IElectricItem) {
 				IElectricItem item = (IElectricItem) itemstack.getItem();
-				if (item.canProvideEnergy(itemstack)
-						&& item.getTier(itemstack) <= tier) {
+				if (item.canProvideEnergy(itemstack) && item.getTier(itemstack) <= tier) {
 					return true;
 				}
 			}
@@ -452,10 +428,8 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 		default:
 			return itemstack
 					.isItemEqual(IC2Items.getItem("transformerUpgrade"))
-					|| itemstack.isItemEqual(IC2Items
-							.getItem("energyStorageUpgrade"))
-					|| (itemstack.getItem() instanceof ItemUpgrade && itemstack
-							.getItemDamage() == ItemUpgrade.DAMAGE_RANGE);
+					|| itemstack.isItemEqual(IC2Items.getItem("energyStorageUpgrade"))
+					|| (itemstack.getItem() instanceof ItemUpgrade && itemstack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE);
 		}
 
 	}
@@ -514,8 +488,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_REMOTE_THERMO);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_REMOTE_THERMO);
 	}
 
 	@Override

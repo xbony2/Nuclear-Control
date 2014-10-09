@@ -38,8 +38,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiInfoPanel extends GuiContainer {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIInfoPanel.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	protected String name;
 	protected ContainerInfoPanel container;

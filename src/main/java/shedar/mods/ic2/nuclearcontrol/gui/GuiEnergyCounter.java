@@ -86,15 +86,13 @@ public class GuiEnergyCounter extends GuiContainer {
 		if (guiButton.id == 0) {
 			NetworkHelper nh = new NetworkHelper();
 			try {
-				Method m1 = nh.getClass().getDeclaredMethod(
-						"initiateClientTileEntityEvent");
+				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
 				m1.setAccessible(true);
 				m1.invoke(container.energyCounter, 0);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// NetworkHelper.initiateClientTileEntityEvent(container.energyCounter,
-			// 0);
+			// NetworkHelper.initiateClientTileEntityEvent(container.energyCounter, 0);
 		}
 	}
 }

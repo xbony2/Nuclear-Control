@@ -115,8 +115,7 @@ public class GuiAverageCounter extends GuiContainer {
 		}
 		NetworkHelper nh = new NetworkHelper();
 		try {
-			Method m1 = nh.getClass().getDeclaredMethod(
-					"initiateClientTileEntityEvent");
+			Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
 			m1.setAccessible(true);
 			m1.invoke(container.averageCounter, event);
 		} catch (Exception e) {
