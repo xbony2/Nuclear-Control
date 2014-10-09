@@ -14,9 +14,7 @@ public class BlockDamages {
 	public static final int DAMAGE_RANGE_TRIGGER = 8;
 	public static final int DAMAGE_ADVANCED_PANEL = 9;
 	public static final int DAMAGE_ADVANCED_EXTENDER = 10;
-	public static final int DAMAGE_LIGHT_ON = 11;
-	public static final int DAMAGE_LIGHT_OFF = 12;
 
-	public static final int DAMAGE_MAX = 12;
+	public static final int DAMAGE_MAX = 10;
 
 }
