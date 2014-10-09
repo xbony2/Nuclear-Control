@@ -59,7 +59,6 @@ public class ItemNuclearControlMain extends ItemBlock {
 	@Override
 	public boolean func_150936_a(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack item) {
 		Block block = world.getBlock(x, y, z);
-		//if(Math.round(player.posX) == x && Math.round(player.posZ) == y) TODO
 
 		if (block == Blocks.snow_layer) {
 			side = 1;
@@ -88,6 +87,12 @@ public class ItemNuclearControlMain extends ItemBlock {
 				++x;
 			}
 		}
+		
+		/*if((Math.floor(player.posX) == x || Math.ceil(player.posX) == x) && (Math.floor(player.posZ) == y || Math.ceil(player.posZ) == y)) {
+			if((Math.floor(player.posY) + 2 == y || Math.ceil(player.posY) + 2 == y) || (Math.floor(player.posY) + 2 == y || Math.ceil(player.posY) + 2 == y)){
+				return false;
+			}
+		}*/
 
 		return IC2NuclearControl.blockNuclearControlMain.canPlaceBlockOnSide(world, x, y, z, item.getItemDamage());
 	}

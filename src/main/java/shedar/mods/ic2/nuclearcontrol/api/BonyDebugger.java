@@ -21,5 +21,6 @@ public class BonyDebugger {
 		System.out.println("YOLOYOLYOYOLOYOLYOYLYOYL");
 		System.out.println("YOLOYOLYOYOLOYOLYOYLYOYL");
 		System.out.println("YOLOYOLYOYOLOYOLYOYLYOYL");
+		System.out.println("End of yolo spam.");
 	}
 }

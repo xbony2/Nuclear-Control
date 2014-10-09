@@ -73,8 +73,6 @@ public class BlockNuclearControlMain extends BlockContainer {
 		register(new RangeTrigger());
 		register(new AdvancedInfoPanel());
 		register(new AdvancedInfoPanelExtender());
-		register(new Light(true));
-		register(new Light(false));
 	}
 
 	public void register(Subblock block) {
@@ -194,20 +192,6 @@ public class BlockNuclearControlMain extends BlockContainer {
 		if (metadata > BlockDamages.DAMAGE_MAX) {
 			metadata = 0;
 		}
-		if (metadata == BlockDamages.DAMAGE_LIGHT_ON) {
-			if (!world.isRemote) {
-				if (!world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_OFF, 2);
-				}
-			}
-		}
-		if (metadata == BlockDamages.DAMAGE_LIGHT_OFF) {
-			if (!world.isRemote) {
-				if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_ON, 2);
-				}
-			}
-		}
 
 		if (isSolidBlockRequired(metadata))
 			for (int face = 0; face < 6; face++) {
@@ -263,20 +247,6 @@ public class BlockNuclearControlMain extends BlockContainer {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		if (tileentity instanceof IWrenchable) {
 			side = Facing.oppositeSide[((IWrenchable) tileentity).getFacing()];
-		}
-		if (tileentity instanceof TileEntityLightOn) {
-			if (!world.isRemote) {
-				if (!world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_OFF, 2);
-				}
-			}
-		}
-		if (tileentity instanceof TileEntityLightOff) {
-			if (!world.isRemote) {
-				if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
-					world.setBlock(x, y, z, this, BlockDamages.DAMAGE_LIGHT_ON, 2);
-				}
-			}
 		}
 		int metadata = world.getBlockMetadata(x, y, z);
 
@@ -558,9 +528,6 @@ public class BlockNuclearControlMain extends BlockContainer {
 	@Override
 	public int damageDropped(int i) {
 		if (i > 0 && i <= BlockDamages.DAMAGE_MAX) {
-			if (i == BlockDamages.DAMAGE_LIGHT_ON) {
-				return BlockDamages.DAMAGE_LIGHT_OFF;
-			}
 			return i;
 		} else {
 			return 0;
