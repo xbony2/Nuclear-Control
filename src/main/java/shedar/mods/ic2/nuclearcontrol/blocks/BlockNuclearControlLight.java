@@ -18,17 +18,18 @@ public class BlockNuclearControlLight extends Block{
 	public int damageOff;
 	public int damageOn = damageOff + 1;
 
-	public BlockNuclearControlLight(Material material) {
-		super(material);
+	public BlockNuclearControlLight() {
+		super(Material.redstoneLight);
 		setHardness(0.3F);
 		setStepSound(soundTypeGlass);
 		setBlockName("blockLight");
 		setCreativeTab(IC2NuclearControl.tabIC2NC);
-		
+		register(LightDamages.DAMAGE_WHITE_OFF, false);
+		register(LightDamages.DAMAGE_WHITE_ON, true);
 	}
 	
-	public void register(int damage, boolean onOrOff){
-		isOn = onOrOff;
+	public void register(int damage, boolean on){
+		isOn = on;
 		if(isOn) damageOff = damage - 1;
 		else damageOff = damage;
 	}

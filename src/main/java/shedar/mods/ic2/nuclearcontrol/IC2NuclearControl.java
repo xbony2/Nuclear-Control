@@ -8,6 +8,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.Logger;
 
+import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
@@ -101,6 +102,7 @@ public class IC2NuclearControl {
 	public static Item itemLiquidArrayLocationCard;
 	public static Item itemWindCard;
 	public static BlockNuclearControlMain blockNuclearControlMain;
+	public static BlockNuclearControlLight blockNuclearControlLight;
 	public int modelId;
 	public int alarmRange;
 	public int SMPMaxAlarmRange;
@@ -122,6 +124,7 @@ public class IC2NuclearControl {
 
 	protected void initBlocks() {
 		blockNuclearControlMain = new BlockNuclearControlMain();
+		blockNuclearControlLight = new BlockNuclearControlLight();
 		itemToolThermometer = new ItemToolThermometer().setUnlocalizedName("ItemToolThermometer");
 		itemToolDigitalThermometer = new ItemToolDigitalThermometer(1, 80, 80).setUnlocalizedName("ItemToolDigitalThermometer");
 		itemSensorLocationCard = new ItemCardReactorSensorLocation().setUnlocalizedName("ItemSensorLocationCard");
@@ -139,6 +142,7 @@ public class IC2NuclearControl {
 
 	protected void registerBlocks() {
 		GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
+		GameRegistry.registerBlock(blockNuclearControlLight, "blockNuclearControlLight");
 		GameRegistry.registerItem(itemToolThermometer, "ItemToolThermometer");
 		GameRegistry.registerItem(itemToolDigitalThermometer, "ItemToolDigitalThermometer");
 		GameRegistry.registerItem(itemRemoteSensorKit, "ItemRemoteSensorKit");
