@@ -329,8 +329,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 		TileEntity tileentity = blockAccess.getTileEntity(x, y, z);
 
 		if (subblocks.containsKey(blockType)) {
-			float[] bounds = subblocks.get(blockType)
-					.getBlockBounds(tileentity);
+			float[] bounds = subblocks.get(blockType).getBlockBounds(tileentity);
 			baseX1 = bounds[0];
 			baseY1 = bounds[1];
 			baseZ1 = bounds[2];
@@ -418,8 +417,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 		if (player != null && player.isSneaking()) {
 			return false;
 		}
-		if (subblocks.containsKey(blockType)
-				&& subblocks.get(blockType).hasGui()) {
+		if (subblocks.containsKey(blockType) && subblocks.get(blockType).hasGui()) {
 			if (player instanceof EntityPlayerMP) player.openGui(IC2NuclearControl.instance, blockType, world, x, y, z);
 			return true;
 		}

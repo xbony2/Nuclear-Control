@@ -1,5 +1,11 @@
 package shedar.mods.ic2.nuclearcontrol.utils;
 
+/**
+ * Remember: off is an even interger, on is an odd interger.
+ * 
+ * @author xbony2
+ *
+ */
 public class LightDamages {
 	private LightDamages(){}
 	

@@ -32,7 +32,7 @@ import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
-public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory {
+public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory{
 	public static final int SLOT_CHARGER = 0;
 	public static final int SLOT_CARD = 1;
 	private static final double BASE_PACKET_SIZE = 32.0D;
@@ -190,7 +190,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 			}
 			if (energy >= consumption) {
 				energy -= consumption;
-			} else {
+			}else{
 				energy = 0;
 			}
 			setEnergy(energy);
@@ -333,9 +333,9 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 
 			if (itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))) {
 				upgradeCountTransormer += itemStack.stackSize;
-			} else if (itemStack.isItemEqual(IC2Items.getItem("energyStorageUpgrade"))) {
+			}else if (itemStack.isItemEqual(IC2Items.getItem("energyStorageUpgrade"))) {
 				upgradeCountStorage += itemStack.stackSize;
-			} else if (itemStack.getItem() instanceof ItemUpgrade
+			}else if (itemStack.getItem() instanceof ItemUpgrade
 					&& itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE) {
 				upgradeCountRange += itemStack.stackSize;
 			}
@@ -393,12 +393,6 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 
 	@Override
 	public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
-		/*if (amount > maxPacketSize) {
-			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-			worldObj.createExplosion(null, xCoord, yCoord, zCoord, 0.8F, false);
-			return 0;
-		}*/
-
 		energy += amount;
 		double left = 0.0;
 
@@ -426,8 +420,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 		case SLOT_CARD:
 			return itemstack.getItem() instanceof ItemCardReactorSensorLocation;
 		default:
-			return itemstack
-					.isItemEqual(IC2Items.getItem("transformerUpgrade"))
+			return itemstack.isItemEqual(IC2Items.getItem("transformerUpgrade"))
 					|| itemstack.isItemEqual(IC2Items.getItem("energyStorageUpgrade"))
 					|| (itemstack.getItem() instanceof ItemUpgrade && itemstack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE);
 		}
@@ -448,15 +441,6 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 	public int modifyTextureIndex(int texture) {
 		return texture;
 	}
-
-	/*
-	 * @Override //getStartInventorySide public int func_94127_c(int side) {
-	 * //UP if(side == 1) return 1; return 0; }
-	 * 
-	 * @Override // getSizeInventorySide public int func_94128_d(int side) {
-	 * //DOWN || UP if(side == 0 || side == 1) return 1; return
-	 * inventory.length; }
-	 */
 
 	@Override
 	public void rotate() {

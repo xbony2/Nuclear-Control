@@ -11,12 +11,10 @@ public class CrossRailcraft {
 	private Class _tankTile;
 
 	public CrossRailcraft() {
-		try {
-			_tankTile = Class.forName(
-					"mods.railcraft.common.blocks.machine.ITankTile", false,
-					this.getClass().getClassLoader());
+		try{
+			_tankTile = Class.forName("mods.railcraft.common.blocks.machine.ITankTile", false, this.getClass().getClassLoader());
 			_isApiAvailable = true;
-		} catch (ClassNotFoundException e) {
+		}catch(ClassNotFoundException e){
 			_isApiAvailable = false;
 		}
 	}
@@ -30,10 +28,9 @@ public class CrossRailcraft {
 				FluidTank tank = (FluidTank) method.invoke(entity);
 				if (tank != null)
 					return tank.getInfo();
-
 			}
 			return null;
-		} catch (Exception e) {
+		}catch (Exception e){
 			return null;
 		}
 	}

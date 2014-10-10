@@ -31,13 +31,11 @@ public abstract class Subblock {
 		return getIcon(getMapping()[0][side]);
 	}
 
-	public IIcon getBlockTexture(IBlockAccess blockaccess, int x, int y, int z,
-			int side) {
+	public IIcon getBlockTexture(IBlockAccess blockaccess, int x, int y, int z, int side) {
 		TileEntity tileentity = blockaccess.getTileEntity(x, y, z);
 		int metaSide = 0;
 		if (tileentity instanceof IWrenchable) {
-			metaSide = Facing.oppositeSide[((IWrenchable) tileentity)
-					.getFacing()];
+			metaSide = Facing.oppositeSide[((IWrenchable) tileentity).getFacing()];
 		}
 		int texture = getMapping()[metaSide][side];
 
