@@ -92,7 +92,8 @@ public class ItemNuclearControlMain extends ItemBlock {
 			if((Math.floor(player.posY) + 2 == y || Math.ceil(player.posY) + 2 == y) || (Math.floor(player.posY) + 2 == y || Math.ceil(player.posY) + 2 == y)){
 				return false;
 			}
-		}*/
+		}
+		*/
 
 		return IC2NuclearControl.blockNuclearControlMain.canPlaceBlockOnSide(world, x, y, z, item.getItemDamage());
 	}

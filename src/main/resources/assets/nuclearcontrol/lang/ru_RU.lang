@@ -26,8 +26,8 @@ tile.blockInfoPanel.name=Промышленная информационная �
 tile.blockInfoPanelExtender.name=Расширитель информационной панели
 tile.blockAdvancedInfoPanel.name=Продвинутая информационная панель
 tile.blockAdvancedInfoPanelExtender.name=Расширитель продвинутой информационной панели
-tile.blockLightOn.name=Простой светильник
-tile.blockLightOff.name=Простой светильник
+tile.nclight0.name=White Lamp
+tile.nclight1.name=White Lamp
 
 tile.blockEnergyCounter.name=Энергосчётчик
 tile.blockAverageCounter.name=Стационарный энергосчётчик

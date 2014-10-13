@@ -22,22 +22,19 @@ public class StringUtils {
 		return formatter;
 	}
 
-	public static String getFormatted(String resourceName, String value,
-			boolean showLabels) {
+	public static String getFormatted(String resourceName, String value, boolean showLabels) {
 		if (showLabels)
 			return String.format(LanguageHelper.translate(resourceName), value);
 		else
 			return value;
 	}
 
-	public static String getFormatted(String resourceName, double value,
-			boolean showLabels) {
+	public static String getFormatted(String resourceName, double value, boolean showLabels) {
 		return getFormatted(resourceName, getFormatter().format(value),
 				showLabels);
 	}
 
-	public static String getFormattedKey(String resourceName,
-			Object... arguments) {
+	public static String getFormattedKey(String resourceName, Object... arguments) {
 		return String.format(LanguageHelper.translate(resourceName), arguments);
 	}
 
@@ -45,17 +42,11 @@ public class StringUtils {
 		List<PanelString> result = new LinkedList<PanelString>();
 		PanelString line = new PanelString();
 		switch (state) {
-		case OUT_OF_RANGE:
-			line.textCenter = LanguageHelper
-					.translate("msg.nc.InfoPanelOutOfRange");
+		case OUT_OF_RANGE: line.textCenter = LanguageHelper.translate("msg.nc.InfoPanelOutOfRange");
 			break;
-		case INVALID_CARD:
-			line.textCenter = LanguageHelper
-					.translate("msg.nc.InfoPanelInvalidCard");
+		case INVALID_CARD: line.textCenter = LanguageHelper.translate("msg.nc.InfoPanelInvalidCard");
 			break;
-		case NO_TARGET:
-			line.textCenter = LanguageHelper
-					.translate("msg.nc.InfoPanelNoTarget");
+		case NO_TARGET: line.textCenter = LanguageHelper.translate("msg.nc.InfoPanelNoTarget");
 			break;
 		case CUSTOM_ERROR:
 			break;

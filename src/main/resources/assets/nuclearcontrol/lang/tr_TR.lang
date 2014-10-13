@@ -28,7 +28,8 @@ tile.blockInfoPanel.name=Endüstriyel Bilgi Paneli
 tile.blockInfoPanelExtender.name=Endüstriyel Bilgi Panel Ekranı
 tile.blockAdvancedInfoPanel.name=Gelişmiş Bilgi Paneli
 tile.blockAdvancedInfoPanelExtender.name=Gelişmiş Bilgi Panel Ekranı
-tile.blockLight.name=Industrial Light
+tile.nclight0.name=White Lamp
+tile.nclight1.name=White Lamp
 
 tile.blockEnergyCounter.name=Enerji Counter
 tile.blockAverageCounter.name=Average Counter

@@ -24,6 +24,7 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemCardText;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitEnergySensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitReactorSensor;
+import shedar.mods.ic2.nuclearcontrol.items.ItemNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.items.ItemNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.items.ItemTimeCard;
 import shedar.mods.ic2.nuclearcontrol.items.ItemToolDigitalThermometer;
@@ -45,7 +46,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "IC2NuclearControl", name = "Nuclear Control 2", version = "2.0.0b", dependencies = "required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
+@Mod(modid = "IC2NuclearControl", name = "Nuclear Control 2", version = "2.0.5a-Unicorn", dependencies = "required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl {
 
 	public static final int COLOR_WHITE = 15;
@@ -142,7 +143,7 @@ public class IC2NuclearControl {
 
 	protected void registerBlocks() {
 		GameRegistry.registerBlock(blockNuclearControlMain, ItemNuclearControlMain.class, "blockNuclearControlMain");
-		GameRegistry.registerBlock(blockNuclearControlLight, "blockNuclearControlLight");
+		GameRegistry.registerBlock(blockNuclearControlLight, ItemNuclearControlLight.class,"blockNuclearControlLight");
 		GameRegistry.registerItem(itemToolThermometer, "ItemToolThermometer");
 		GameRegistry.registerItem(itemToolDigitalThermometer, "ItemToolDigitalThermometer");
 		GameRegistry.registerItem(itemRemoteSensorKit, "ItemRemoteSensorKit");
@@ -179,14 +180,14 @@ public class IC2NuclearControl {
 		FMLCommonHandler.instance().bus().register(ServerTickHandler.instance);
 		if (event.getSide().isClient()) {
 			MinecraftForge.EVENT_BUS.register(ClientTickHandler.instance);
-			FMLCommonHandler.instance().bus()
-					.register(ClientTickHandler.instance);
+			FMLCommonHandler.instance().bus().register(ClientTickHandler.instance);
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
+		proxy.cape();
 		crossBC = new CrossBuildcraft();
 		crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();

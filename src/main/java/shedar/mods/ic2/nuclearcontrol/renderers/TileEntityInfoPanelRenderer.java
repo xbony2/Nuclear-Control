@@ -300,16 +300,7 @@ public class TileEntityInfoPanelRenderer extends TileEntitySpecialRenderer {
 											: panel.getColorTextHex());
 				}
 				if (panelString.textRight != null) {
-					fontRenderer
-							.drawString(
-									panelString.textRight,
-									realWidth
-											/ 2
-											- fontRenderer
-													.getStringWidth(panelString.textRight),
-									offsetY - realHeight / 2 + row * lineHeight,
-									panelString.colorRight != 0 ? panelString.colorRight
-											: panel.getColorTextHex());
+					fontRenderer.drawString(panelString.textRight, realWidth/ 2 - fontRenderer.getStringWidth(panelString.textRight), offsetY - realHeight / 2 + row * lineHeight, panelString.colorRight != 0 ? panelString.colorRight : panel.getColorTextHex());
 				}
 				row++;
 			}

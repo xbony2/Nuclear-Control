@@ -9,8 +9,7 @@ import shedar.mods.ic2.nuclearcontrol.IRotation;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class WrenchHelper {
-	public static boolean isWrenchClicked(TileEntity tileEntity,
-			EntityPlayer player, int side) {
+	public static boolean isWrenchClicked(TileEntity tileEntity, EntityPlayer player, int side) {
 		if (player != null && tileEntity != null) {
 			ItemStack equipped = player.getCurrentEquippedItem();
 
@@ -32,7 +31,7 @@ public class WrenchHelper {
 						}
 						return true;
 					}
-				} else if (bcWrench && tileEntity instanceof IWrenchable) {
+				}else if (bcWrench && tileEntity instanceof IWrenchable){
 					IWrenchable wrenchable = (IWrenchable) tileEntity;
 
 					if (player.isSneaking()) {

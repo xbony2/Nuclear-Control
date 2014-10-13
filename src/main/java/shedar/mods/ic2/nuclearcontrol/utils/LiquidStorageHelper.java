@@ -14,8 +14,7 @@ public class LiquidStorageHelper {
 			return null;
 		TileEntity entity = world.getTileEntity(x, y, z);
 		if (entity != null && entity instanceof IFluidHandler) {
-			FluidTankInfo[] tanks = ((IFluidHandler) entity)
-					.getTankInfo(ForgeDirection.UNKNOWN);
+			FluidTankInfo[] tanks = ((IFluidHandler) entity).getTankInfo(ForgeDirection.UNKNOWN);
 			if (tanks == null || tanks.length == 0)
 				return null;
 			return tanks[0];

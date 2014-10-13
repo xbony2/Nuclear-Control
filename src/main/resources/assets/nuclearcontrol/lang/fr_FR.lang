@@ -26,7 +26,8 @@ tile.blockInfoPanel.name=Écran
 tile.blockInfoPanelExtender.name=Extension d'écran
 tile.blockAdvancedInfoPanel.name=Écran avancé
 tile.blockAdvancedInfoPanelExtender.name=Extension d'écran avancé
-tile.blockLight.name=Industrial Light
+tile.nclight0.name=White Lamp
+tile.nclight1.name=White Lamp
 
 tile.blockEnergyCounter.name=Compteur énergétique
 tile.blockAverageCounter.name=Compteur d'arrondi

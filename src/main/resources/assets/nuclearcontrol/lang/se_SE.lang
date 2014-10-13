@@ -31,6 +31,9 @@ tile.blockLightOff.name=Enkelt Ljus
 tile.blockEnergyCounter.name=Energi Räknare
 tile.blockAverageCounter.name=Genomsnittlig Räknare
 tile.blockRangeTrigger.name=Intervalls Trigg
+tile.nclight0.name=White Lamp
+tile.nclight1.name=White Lamp
+
 msg.nc.HowlerAlarmSoundRange=Ljudintervall: %s
 msg.nc.HowlerAlarmSound=Ljud
 msg.nc.ThermalMonitorSave=Spara inställningen

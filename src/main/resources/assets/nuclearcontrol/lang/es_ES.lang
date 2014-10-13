@@ -31,6 +31,8 @@ tile.blockInfoPanel.name=Panel de Información Industrial
 tile.blockInfoPanelExtender.name=Extensor de Panel de Información
 tile.blockAdvancedInfoPanel.name=Panel de Información Avanzado
 tile.blockAdvancedInfoPanelExtender.name=Extensor de Panel Avanzado
+tile.nclight0.name=White Lamp
+tile.nclight1.name=White Lamp
 
 tile.blockEnergyCounter.name=Contador de Energía
 tile.blockAverageCounter.name=Contador Promedio

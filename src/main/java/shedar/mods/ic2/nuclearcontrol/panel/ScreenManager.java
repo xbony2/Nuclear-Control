@@ -252,8 +252,7 @@ public class ScreenManager {
 		for (Screen screen : screensToDestroy) {
 			destroyScreen(screen, extender.getWorldObj());
 		}
-		for (TileEntityInfoPanel panel : unusedPanels.get(getWorldKey(extender
-				.getWorldObj()))) {
+		for (TileEntityInfoPanel panel : unusedPanels.get(getWorldKey(extender.getWorldObj()))) {
 			if (((panel.xCoord == extender.xCoord
 					&& panel.yCoord == extender.yCoord && (panel.zCoord == extender.zCoord + 1 || panel.zCoord == extender.zCoord - 1))
 					|| (panel.xCoord == extender.xCoord
