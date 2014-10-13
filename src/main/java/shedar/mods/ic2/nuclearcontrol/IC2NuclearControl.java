@@ -10,11 +10,11 @@ import org.apache.logging.log4j.Logger;
 
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
-import shedar.mods.ic2.nuclearcontrol.crossmod.rf.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardLiquidArrayLocation;
