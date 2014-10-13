@@ -67,7 +67,7 @@ public class StorageArrayRecipe implements IRecipe {
 		}else if(cardCount == 0 && arrayCount == 1){
 			int cnt = ItemCardEnergyArrayLocation.getCardCount(new CardWrapperImpl(array, -1));
 			if (cnt > 0) {
-				return new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2 * cnt, 0);
+				return new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), cnt, 0);
 			}
 		}else if(arrayCount == 1 && cardCount > 0) {
 			int cnt = ItemCardEnergyArrayLocation.getCardCount(new CardWrapperImpl(array, -1));

@@ -166,26 +166,19 @@ public class RecipesOld {
 						IC2NuclearControl.itemTimeCard, 1), "circuitBasic",
 						Items.clock);
 
-		/*
-		 * Recipes.advRecipes.addShapelessRecipe(new
-		 * ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),
-		 * IC2NuclearControl.itemSensorLocationCard );
-		 * 
-		 * Recipes.advRecipes.addShapelessRecipe(new
-		 * ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),
-		 * IC2NuclearControl.itemEnergySensorLocationCard );
-		 * 
-		 * Recipes.advRecipes.addShapelessRecipe(new
-		 * ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2), new
-		 * ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1,
-		 * ItemKitMultipleSensor.TYPE_COUNTER));
-		 * 
-		 * Recipes.advRecipes.addShapelessRecipe(new
-		 * ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 1), new
-		 * ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1,
-		 * ItemKitMultipleSensor.TYPE_LIQUID));
-		 */
-		CraftingManager.getInstance().getRecipeList()
-				.add(new StorageArrayRecipe());
+		
+		 Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),
+		 IC2NuclearControl.itemSensorLocationCard );
+		
+		 Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2),
+		 IC2NuclearControl.itemEnergySensorLocationCard );
+		 
+		 Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 2), new
+		 ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1, ItemKitMultipleSensor.TYPE_COUNTER));
+		 
+		 Recipes.advRecipes.addShapelessRecipe(new ItemStack(IC2Items.getItem("electronicCircuit").getItem(), 1), new
+		 ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1, ItemKitMultipleSensor.TYPE_LIQUID));
+		 
+		CraftingManager.getInstance().getRecipeList().add(new StorageArrayRecipe());
 	}
 }
