@@ -1,0 +1,118 @@
+item.ItemToolThermometer.name=Termômetro
+item.ItemToolDigitalThermometer.name=Termômetro Digital
+item.ItemRemoteSensorKit.name=Kit de Sensor Remoto
+item.ItemEnergySensorKit.name=Kit de Sensor de Energia
+item.ItemCounterSensorKit.name=Kit de Sensor de Contador
+item.ItemLiquidSensorKit.name=Kit de Sensor de Líquido
+item.ItemSensorLocationCard.name=Cartão do Local do Sensor do Reator
+item.ItemEnergySensorLocationCard.name=Cartão do Local do Sensor de Energia
+item.itemCounterSensorLocationCard.name=Cartão do Local do Sensor de Contador
+item.ItemLiquidSensorLocationCard.name=Cartão do Local do Sensor de Líquido
+item.ItemEnergyArrayLocationCard.name=Cartão do Local dos Sensores de Energia
+item.itemRangeUpgrade.name=Upgrade de Alcance
+item.ItemColorUpgrade.name=Upgrade de Cor
+item.ItemWebUpgrade.name=Upgrade de Internet
+item.ItemTimeCard.name=Cartão de Hora
+item.ItemTextCard.name=Cartão de Texto
+item.ItemGeneratorSensorKit.name=Kit de Sensor de Gerador
+item.ItemGeneratorSensorLocationCard.name=Cartão do Local do Sensor de Gerador
+item.ItemLiquidArrayLocationCard.name=Cartão do Local dos Sensores de Líquido
+
+tile.blockThermalMonitor.name=Monitor de Temperatura
+tile.blockIndustrialAlarm.name=Alarme Industrial
+tile.blockHowlerAlarm.name=Alarme Vibrador
+tile.blockRemoteThermo.name=Monitor de Temperatura Remoto
+tile.blockInfoPanel.name=Painel de Informação Industrial
+tile.blockInfoPanelExtender.name=Extendedor do Painel de Informação
+tile.blockAdvancedInfoPanel.name=Painel de Informação Avançado
+tile.blockAdvancedInfoPanelExtender.name=Extendedor do Painel Avançado
+tile.nclight0.name=Lâmpada Branca
+tile.nclight1.name=Lâmpada Branca
+
+tile.blockEnergyCounter.name=Contador de Energia
+tile.blockAverageCounter.name=Contador da Média
+tile.blockRangeTrigger.name=Gatilho de Alcance
+
+msg.nc.HowlerAlarmSoundRange=Alcance do Som: %s
+msg.nc.HowlerAlarmSound=Som
+msg.nc.ThermalMonitorSave=Salvar Configuração
+msg.nc.ThermalMonitorSignalAt=Sinal a %s de Temp
+msg.nc.Thermo=Temp do Casco: %s
+msg.nc.ThermoDigital=Temp do Casco: %s (Água Evapora em: %s / Derrete em: %s)
+msg.nc.SensorKit=Sensor Remoto Montado, Cartão de Local do Sensor Recebido
+
+msg.nc.InfoPanelOutOfRange=Fora do Alcance
+msg.nc.InfoPanelInvalidCard=Cartão Inválido
+msg.nc.InfoPanelNoTarget=Alvo não Encontrado
+
+msg.nc.InfoPanelOn=On
+msg.nc.InfoPanelOff=Off
+msg.nc.InfoPanelHeat=Temp: %s
+msg.nc.InfoPanelMaxHeat=Temp Max: %s
+msg.nc.InfoPanelMelting=Derretimento: %s
+msg.nc.InfoPanelOutput=Saída: %sEU/t
+msg.nc.InfoPanelOutputMJ=Saída: %sMJ/t
+msg.nc.InfoPanelOutputSteam=Saída: %smB/t
+msg.nc.InfoPanelTimeRemaining=Restando: %s
+
+msg.nc.InfoPanelEnergyCounter=Energia: %sEU
+msg.nc.InfoPanelEnergyCounterMJ=Energia: %sMJ
+
+msg.nc.InfoPanelEnergy=Armazenado: %s
+msg.nc.InfoPanelEnergyFree=Livre: %s
+msg.nc.InfoPanelEnergyStorage=Capacidade: %s
+msg.nc.InfoPanelEnergyPercentage=Porcentagem: %s%%
+
+msg.nc.cbInfoPanelLiquidName=Nome
+msg.nc.cbInfoPanelLiquidAmount=Armazenado
+msg.nc.cbInfoPanelLiquidCapacity=Capacidade
+msg.nc.cbInfoPanelLiquidFree=Livre
+msg.nc.cbInfoPanelLiquidPercentage=Porcentagem
+
+msg.nc.InfoPanelLiquidName=Nome: %s
+msg.nc.InfoPanelLiquidAmount=Armazenado: %s
+msg.nc.InfoPanelLiquidCapacity=Capacidade: %s
+msg.nc.InfoPanelLiquidFree=Livre: %s
+msg.nc.InfoPanelLiquidPercentage=Porcentagem: %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d Não Encontrado
+msg.nc.InfoPanelOutOfRangeN=#%d Fora de Alcance
+msg.nc.InfoPanelEnergyN=#%d Armazenado: %s
+msg.nc.InfoPanelEnergyFreeN=#%d Livre: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Capacidade: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d Porcentagem: %s%%
+msg.nc.InfoPanelLiquidNameN=#%d Nome: %s
+msg.nc.InfoPanelLiquidN=#%d Armazenado: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Livre: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Capacidade: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Porcentagem: %s%%
+
+msg.nc.InfoPanelTime=Hora: %s
+
+msg.nc.cbInfoPanelOnOff=Estado On/Off
+msg.nc.cbInfoPanelHeat=Temp
+msg.nc.cbInfoPanelMaxHeat=MTemp Max
+msg.nc.cbInfoPanelMelting=Temp de Derretimento
+msg.nc.cbInfoPanelOutput=Saída (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=Tempo Para Terminar o Ciclo
+
+msg.nc.cb24h=Modo 24h
+
+msg.nc.cbInfoPanelEnergyCurrent=Energia
+msg.nc.cbInfoPanelEnergyStorage=Capacidade
+msg.nc.cbInfoPanelEnergyFree=Livre
+msg.nc.cbInfoPanelEnergyEach=Cada Informação dos Cartões
+msg.nc.cbInfoPanelEnergyTotal=Sumário
+msg.nc.cbInfoPanelEnergyPercentage=Porcentagem
+msg.nc.EnergyCardQuantity=Quantidade de Cartões: %d
+msg.nc.AverageCounterPeriod=Período: %ssec
+
+msg.nc.LiquidCardQuantity=Quantidade de cartões: %d
+
+msg.nc.cbInfoPanelLiquidEach=Cada Informação dos Cartões
+msg.nc.cbInfoPanelLiquidTotal=Sumário
+
+msg.nc.Reset=Resetar
+msg.nc.ScreenColor=Cor da Tela
+msg.nc.TextColor=Cor do Texto
+msg.nc.None=N/A
