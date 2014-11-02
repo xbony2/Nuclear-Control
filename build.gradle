@@ -31,18 +31,23 @@ repositories {
 		url = "http://maven.ic2.player.to/"
 	}
 	maven { 
-        name = "chickenbones" 
-        url = "http://chickenbones.net/maven/" 
+        	name = "chickenbones" 
+        	url = "http://chickenbones.net/maven/" 
 	}
+	maven {
+        	name "ProfMobius"
+        	url "http://mobiusstrip.eu/maven"
+    	}
 }
 
 dependencies {
-    compile ic2Version
-    compile codeChickenCoreVersion
-    compile notEnoughItemsVersion
-    compile codeChickenLibVersion
+	compile ic2Version
+	compile codeChickenCoreVersion
+	compile notEnoughItemsVersion
+	compile codeChickenLibVersion
 	compile buildcraftVersion
 	compile argoVersion
+	compile wailaVersion
 }
 
 
