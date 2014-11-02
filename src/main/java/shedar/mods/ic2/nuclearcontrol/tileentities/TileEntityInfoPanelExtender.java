@@ -217,9 +217,7 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_INFO_PANEL_EXTENDER);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_INFO_PANEL_EXTENDER);
 	}
 
 	@Override

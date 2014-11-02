@@ -9,8 +9,10 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
+import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 	private byte prevPowerMode;
@@ -267,5 +269,10 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 			i = -(i * 7);
 			setRotateVert((byte) i);
 		}
+	}
+	
+	@Override
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_ADVANCED_PANEL);
 	}
 }

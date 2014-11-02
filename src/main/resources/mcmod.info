@@ -3,7 +3,7 @@
 	"modid": "IC2NuclearControl",
 	"name": "Nuclear Control 2",
 	"description": "Nuclear Control, an Industrial Craft 2 addon that allows you to build efficient monitoring and notification system for your nuclear reactor. Also you can use Howler Alarm and Industrial Alarm in any case when you want industrial-style notification/alarming system.",
-	"version": "2.0.5b-Unicorn",
+	"version": "2.0.6a",
 	"mcversion": "1.7.10",
 	"logoFile": "",
 	"url": "http://forum.industrial-craft.net/index.php?page=Thread&threadID=5915",

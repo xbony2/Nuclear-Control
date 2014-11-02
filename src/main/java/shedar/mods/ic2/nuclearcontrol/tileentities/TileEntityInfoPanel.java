@@ -117,24 +117,18 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 
 	private void setCard(ItemStack value) {
 		card = value;
-		IC2.network.get()
-				.updateTileEntityField(this, "card");
+		IC2.network.get().updateTileEntityField(this, "card");
 	}
 
 	private void setSide(short f) {
 		facing = f;
 		if (prevFacing != f) {
-			if (FMLCommonHandler.instance().getEffectiveSide().isServer()
-					&& !init) {
-				IC2NuclearControl.instance.screenManager
-						.unregisterScreenPart(this);
-				IC2NuclearControl.instance.screenManager
-						.registerInfoPanel(this);
+			if (FMLCommonHandler.instance().getEffectiveSide().isServer() && !init) {
+				IC2NuclearControl.instance.screenManager.unregisterScreenPart(this);
+				IC2NuclearControl.instance.screenManager.registerInfoPanel(this);
 			}
-			IC2.network.get().updateTileEntityField(this,
-					"facing");
+			IC2.network.get().updateTileEntityField(this, "facing");
 		}
-
 		prevFacing = f;
 	}
 
@@ -142,8 +136,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	public void setPowered(boolean p) {
 		powered = p;
 		if (prevPowered != p) {
-			IC2.network.get().updateTileEntityField(this,
-					"powered");
+			IC2.network.get().updateTileEntityField(this, "powered");
 		}
 		prevPowered = powered;
 	}
@@ -156,8 +149,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	public void setColored(boolean c) {
 		colored = c;
 		if (prevColored != c) {
-			IC2.network.get().updateTileEntityField(this,
-					"colored");
+			IC2.network.get().updateTileEntityField(this, "colored");
 		}
 		prevColored = colored;
 	}
@@ -169,8 +161,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	public void setIsWeb(boolean c) {
 		isWeb = c;
 		if (prevIsWeb != c) {
-			IC2.network.get().updateTileEntityField(this,
-					"isWeb");
+			IC2.network.get().updateTileEntityField(this, "isWeb");
 		}
 		prevIsWeb = isWeb;
 	}
@@ -183,8 +174,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		c &= 0xf;
 		colorBackground = c;
 		if (prevColorBackground != c) {
-			IC2.network.get().updateTileEntityField(this,
-					"colorBackground");
+			IC2.network.get().updateTileEntityField(this, "colorBackground");
 		}
 		prevColorBackground = colorBackground;
 	}
@@ -235,11 +225,9 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		ItemStack stack = inventory[slot];
 		if (stack != null) {
 			if (stack.getItem() instanceof IPanelMultiCard) {
-				cardType = ((IPanelMultiCard) stack.getItem())
-						.getCardType(new CardWrapperImpl(stack, slot));
+				cardType = ((IPanelMultiCard) stack.getItem()).getCardType(new CardWrapperImpl(stack, slot));
 			} else if (stack.getItem() instanceof IPanelDataSource) {
-				cardType = ((IPanelDataSource) inventory[slot].getItem())
-						.getCardType();
+				cardType = ((IPanelDataSource) inventory[slot].getItem()).getCardType();
 			}
 		}
 		if (cardType != null) {
@@ -251,11 +239,8 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 									// != settings;
 
 			displaySettings.get(slot).put(cardType, settings);
-			if (update
-					&& FMLCommonHandler.instance().getEffectiveSide()
-							.isServer()) {
-				NuclearNetworkHelper.sendDisplaySettingsUpdate(this,
-						slot, cardType, settings);
+			if (update && FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+				NuclearNetworkHelper.sendDisplaySettingsUpdate(this, slot, cardType, settings);
 			}
 		}
 	}
@@ -372,11 +357,9 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		}
 		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
 			if (screenData == null) {
-				IC2NuclearControl.instance.screenManager
-						.registerInfoPanel(this);
+				IC2NuclearControl.instance.screenManager.registerInfoPanel(this);
 			} else {
-				screen = IC2NuclearControl.instance.screenManager
-						.loadScreen(this);
+				screen = IC2NuclearControl.instance.screenManager.loadScreen(this);
 				if (screen != null) {
 					screen.init(true, worldObj);
 				}
@@ -389,8 +372,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		cardData.clear();
 	}
 
-	public List<PanelString> getCardData(int settings, ItemStack cardStack,
-			ICardWrapper helper) {
+	public List<PanelString> getCardData(int settings, ItemStack cardStack, ICardWrapper helper) {
 		IPanelDataSource card = (IPanelDataSource) cardStack.getItem();
 		int slot = getIndexOfCard(cardStack);
 		List<PanelString> data = cardData.get(slot);
@@ -517,8 +499,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 
 	protected NBTTagList serializeSlotSettings(byte slot) {
 		NBTTagList settingsList = new NBTTagList();
-		for (Map.Entry<UUID, Integer> item : getDisplaySettingsForSlot(slot)
-				.entrySet()) {
+		for (Map.Entry<UUID, Integer> item : getDisplaySettingsForSlot(slot).entrySet()) {
 			NBTTagCompound compound = new NBTTagCompound();
 			compound.setString("key", item.getKey().toString());
 			compound.setInteger("value", item.getValue());
@@ -623,18 +604,15 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& player.getDistanceSq(xCoord + 0.5D,
-						yCoord + 0.5D, zCoord + 0.5D) <= 64D;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && 
+				player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
-	public void openInventory() {
-	}
+	public void openInventory() {}
 
 	@Override
-	public void closeInventory() {
-	}
+	public void closeInventory() {}
 
 	protected ItemStack getRangeUpgrade() {
 		return inventory[SLOT_UPGRADE_RANGE];
@@ -1112,9 +1090,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_INFO_PANEL);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_INFO_PANEL);
 	}
 
 	@Override
