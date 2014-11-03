@@ -116,3 +116,7 @@ msg.nc.Reset=Reset
 msg.nc.ScreenColor=Screen Color
 msg.nc.TextColor=Text Color
 msg.nc.None=N/A
+
+msg.nc.waila.getHeatLevel=Set Heat Level: 
+msg.nc.waila.getEnergy=Energy Stored: 
+msg.nc.waila.getDemandedEnergy=Energy Demanded: 

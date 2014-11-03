@@ -22,8 +22,7 @@ public class IC2NCCreativeTabs extends CreativeTabs {
 	@SideOnly(Side.CLIENT)
 	public ItemStack getIconItemStack() {
 		if (itemToolThermometer == null) {
-			itemToolThermometer = new ItemStack(
-					IC2NuclearControl.itemToolThermometer);
+			itemToolThermometer = new ItemStack(IC2NuclearControl.itemToolThermometer);
 		}
 		return itemToolThermometer;
 	}
