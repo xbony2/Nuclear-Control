@@ -4,6 +4,7 @@ import java.util.List;
 
 import shedar.mods.ic2.nuclearcontrol.api.BonyDebugger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -15,6 +16,7 @@ public class CrossWaila {
 	
 	public static void callbackRegister(IWailaRegistrar register){
 		register.registerBodyProvider(new IC2ThermoProvider(), TileEntityIC2Thermo.class);
+		register.registerBodyProvider(new InfoPanelProvider(), TileEntityInfoPanel.class);
 	}
 
 }

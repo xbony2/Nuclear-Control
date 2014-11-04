@@ -28,7 +28,7 @@ import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
-import shedar.mods.ic2.nuclearcontrol.utils.LanguageHelper;
+import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.LiquidStorageHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
@@ -221,7 +221,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 			int liquidId = card.getInt("liquidId");
 			String name;
 			if (liquidId == 0)
-				name = LanguageHelper.translate("msg.nc.None");
+				name = LangHelper.translate("msg.nc.None");
 			else
 				name = FluidRegistry.getFluidName(liquidId);
 			line = new PanelString();
@@ -310,7 +310,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 
 	public List<PanelSetting> getSettingsListCounter() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(3);
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelEnergyCurrent"), DISPLAY_ENERGY,
 				CARD_TYPE_COUNTER));
 		return result;
@@ -318,19 +318,19 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 
 	public List<PanelSetting> getSettingsListLiquid() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(3);
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelLiquidName"),
 				DISPLAY_LIQUID_NAME, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelLiquidAmount"),
 				DISPLAY_LIQUID_AMOUNT, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelLiquidFree"),
 				DISPLAY_LIQUID_FREE, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelLiquidCapacity"),
 				DISPLAY_LIQUID_CAPACITY, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelLiquidPercentage"),
 				DISPLAY_LIQUID_PERCENTAGE, CARD_TYPE_LIQUID));
 		return result;

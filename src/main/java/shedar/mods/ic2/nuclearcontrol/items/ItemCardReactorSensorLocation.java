@@ -17,7 +17,7 @@ import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
-import shedar.mods.ic2.nuclearcontrol.utils.LanguageHelper;
+import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -151,10 +151,10 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 			boolean reactorPowered = card.getBoolean("reactorPoweredB");
 			if (reactorPowered) {
 				txtColor = 0x00ff00;
-				text = LanguageHelper.translate("msg.nc.InfoPanelOn");
+				text = LangHelper.translate("msg.nc.InfoPanelOn");
 			} else {
 				txtColor = 0xff0000;
-				text = LanguageHelper.translate("msg.nc.InfoPanelOff");
+				text = LangHelper.translate("msg.nc.InfoPanelOff");
 			}
 			if (result.size() > 0) {
 				PanelString firstLine = result.get(0);
@@ -173,20 +173,20 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 	@Override
 	public List<PanelSetting> getSettingsList() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(6);
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelOnOff"), DISPLAY_ONOFF, CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelHeat"), DISPLAY_HEAT, CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelMaxHeat"), DISPLAY_MAXHEAT,
 				CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelMelting"), DISPLAY_MELTING,
 				CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelOutput"), DISPLAY_OUTPUT,
 				CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelTimeRemaining"), DISPLAY_TIME,
 				CARD_TYPE));
 		return result;

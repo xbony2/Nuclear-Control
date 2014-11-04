@@ -117,6 +117,23 @@ msg.nc.ScreenColor=Screen Color
 msg.nc.TextColor=Text Color
 msg.nc.None=N/A
 
-msg.nc.waila.getHeatLevel=Set Heat Level: 
-msg.nc.waila.getEnergy=Energy Stored: 
-msg.nc.waila.getDemandedEnergy=Energy Demanded: 
+msg.nc.waila.getHeatLevel=Heat Maximum Set: 
+
+msg.nc.waila.ColorBackground=Background color: 
+msg.nc.waila.ColorText=Text color: 
+msg.nc.waila.Web=Web Upgrade is installed
+msg.nc.waila.Color=Color Upgrade is installed
+msg.nc.waila.ColorBlack=Black
+msg.nc.waila.ColorRed=Red
+msg.nc.waila.ColorGreen=Green
+msg.nc.waila.ColorBrown=Brown
+msg.nc.waila.ColorDarkBlue=Dark Blue
+msg.nc.waila.ColorPurple=Purple
+msg.nc.waila.ColorLightBlue=Light Blue
+msg.nc.waila.ColorWhite=White
+msg.nc.waila.ColorPink=Pink
+msg.nc.waila.ColorLimeGreen=Lime Green
+msg.nc.waila.ColorYellow=Yellow
+msg.nc.waila.ColorBlue=Blue
+msg.nc.waila.ColorMagenta=Magenta
+msg.nc.waila.ColorOrange=Orange

@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.minecraft.util.ChatComponentText;
 import shedar.mods.ic2.nuclearcontrol.ClientProxy;
-import shedar.mods.ic2.nuclearcontrol.utils.LanguageHelper;
+import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -37,7 +37,7 @@ public class PacketChat implements IMessage,
 	@Override
 	public IMessage onMessage(PacketChat messages, MessageContext ctx) {
 		String[] chunks = messages.message.split(":");
-		messages.message = LanguageHelper.translate("msg.nc." + chunks[0]);
+		messages.message = LangHelper.translate("msg.nc." + chunks[0]);
 		if (chunks.length > 1) {
 			List<String> list = new ArrayList<String>(Arrays.asList(chunks));
 			list.remove(0);

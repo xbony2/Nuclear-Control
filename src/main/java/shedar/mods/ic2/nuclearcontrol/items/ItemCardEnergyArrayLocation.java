@@ -17,7 +17,7 @@ import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.crossmod.data.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.EnergyStorageHelper;
-import shedar.mods.ic2.nuclearcontrol.utils.LanguageHelper;
+import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -261,22 +261,22 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase {
 	@Override
 	public List<PanelSetting> getSettingsList() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(3);
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelEnergyCurrent"), DISPLAY_ENERGY,
 				CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelEnergyStorage"), DISPLAY_STORAGE,
 				CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelEnergyFree"), DISPLAY_FREE,
 				CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelEnergyPercentage"),
 				DISPLAY_PERCENTAGE, CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelEnergyEach"), DISPLAY_EACH,
 				CARD_TYPE));
-		result.add(new PanelSetting(LanguageHelper
+		result.add(new PanelSetting(LangHelper
 				.translate("msg.nc.cbInfoPanelEnergyTotal"), DISPLAY_TOTAL,
 				CARD_TYPE));
 		return result;
@@ -295,7 +295,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase {
 				info.add(title);
 			}
 			String hint = String.format(
-					LanguageHelper.translate("msg.nc.EnergyCardQuantity"),
+					LangHelper.translate("msg.nc.EnergyCardQuantity"),
 					cardCount);
 			info.add(hint);
 		}

@@ -10,7 +10,7 @@ import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
-import shedar.mods.ic2.nuclearcontrol.utils.LanguageHelper;
+import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import cpw.mods.fml.client.FMLClientHandler;
 
@@ -61,7 +61,7 @@ public class ItemTimeCard extends ItemCardBase {
 	@Override
 	public List<PanelSetting> getSettingsList() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(1);
-		result.add(new PanelSetting(LanguageHelper.translate("msg.nc.cb24h"),
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cb24h"),
 				MODE_24H, CARD_TYPE));
 		return result;
 	}
