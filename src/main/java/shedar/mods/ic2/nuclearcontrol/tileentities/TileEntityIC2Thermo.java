@@ -70,10 +70,8 @@ public class TileEntityIC2Thermo extends TileEntity implements
 	public void setInvertRedstone(boolean value) {
 		invertRedstone = value;
 		if (prevInvertRedstone != value) {
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
-			IC2.network.get().updateTileEntityField(this,
-					"invertRedstone");
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			IC2.network.get().updateTileEntityField(this, "invertRedstone");
 		}
 		prevInvertRedstone = value;
 	}
@@ -93,8 +91,7 @@ public class TileEntityIC2Thermo extends TileEntity implements
 
 		if (prevFacing != f) {
 			// NetworkHelper.updateTileEntityField(this, "facing");
-			IC2.network.get().updateTileEntityField(this,
-					"facing");
+			IC2.network.get().updateTileEntityField(this, "facing");
 		}
 
 		prevFacing = f;
@@ -114,8 +111,7 @@ public class TileEntityIC2Thermo extends TileEntity implements
 	public void onNetworkUpdate(String field) {
 		if (field.equals("heatLevel") && prevHeatLevel != heatLevel) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevHeatLevel = heatLevel;
 		}
 		if (field.equals("facing") && prevFacing != facing) {
@@ -124,15 +120,12 @@ public class TileEntityIC2Thermo extends TileEntity implements
 		}
 		if (field.equals("onFire") && prevOnFire != onFire) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevOnFire = onFire;
 		}
-		if (field.equals("invertRedstone")
-				&& prevInvertRedstone != invertRedstone) {
+		if (field.equals("invertRedstone") && prevInvertRedstone != invertRedstone) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevInvertRedstone = invertRedstone;
 		}
 	}
@@ -159,9 +152,7 @@ public class TileEntityIC2Thermo extends TileEntity implements
 	public void setOnFire(int f) {
 		onFire = f;
 		if (prevOnFire != f) {
-			// NetworkHelper.updateTileEntityField(this, "onFire");
-			IC2.network.get().updateTileEntityField(this,
-					"onFire");
+			IC2.network.get().updateTileEntityField(this, "onFire");
 		}
 		prevOnFire = onFire;
 	}
@@ -173,11 +164,9 @@ public class TileEntityIC2Thermo extends TileEntity implements
 	public void setHeatLevel(int h) {
 		heatLevel = h;
 		if (prevHeatLevel != h) {
-			IC2.network.get().updateTileEntityField(this,
-					"heatLevel");
+			IC2.network.get().updateTileEntityField(this, "heatLevel");
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 		prevHeatLevel = heatLevel;
 		mappedHeatLevel = h;
@@ -200,8 +189,7 @@ public class TileEntityIC2Thermo extends TileEntity implements
 			int heat = nbttagcompound.getInteger("heatLevel");
 			setHeatLevelWithoutNotify(heat);
 			prevFacing = facing = nbttagcompound.getShort("facing");
-			prevInvertRedstone = invertRedstone = nbttagcompound
-					.getBoolean("invert");
+			prevInvertRedstone = invertRedstone = nbttagcompound.getBoolean("invert");
 		}
 	}
 
@@ -215,21 +203,18 @@ public class TileEntityIC2Thermo extends TileEntity implements
 
 	protected void checkStatus() {
 		byte fire;
-		IReactorChamber chamber = NuclearHelper.getReactorChamberAroundCoord(
-				worldObj, xCoord, yCoord, zCoord);
+		IReactorChamber chamber = NuclearHelper.getReactorChamberAroundCoord(worldObj, xCoord, yCoord, zCoord);
 		IReactor reactor = null;
 		if (chamber != null) {
 			reactor = chamber.getReactor();
 		}
 		if (reactor == null) {
-			reactor = NuclearHelper.getReactorAroundCoord(worldObj, xCoord,
-					yCoord, zCoord);
+			reactor = NuclearHelper.getReactorAroundCoord(worldObj, xCoord, yCoord, zCoord);
 		}
 		if (reactor != null) {
 			if (tickRate == -1) {
 				tickRate = reactor.getTickRate() / 2;
-				if (tickRate == 0)
-					tickRate = 1;
+				if (tickRate == 0) tickRate = 1;
 				updateTicker = tickRate;
 			}
 			int reactorHeat = reactor.getHeat();
@@ -243,8 +228,7 @@ public class TileEntityIC2Thermo extends TileEntity implements
 		}
 		if (fire != getOnFire()) {
 			setOnFire(fire);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 	}
 
@@ -253,7 +237,6 @@ public class TileEntityIC2Thermo extends TileEntity implements
 		if (!init) {
 			initData();
 		}
-		super.updateEntity();
 		if (!worldObj.isRemote) {
 			if (tickRate != -1 && updateTicker-- > 0)
 				return;

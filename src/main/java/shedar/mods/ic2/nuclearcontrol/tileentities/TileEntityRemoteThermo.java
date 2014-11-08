@@ -171,9 +171,7 @@ public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEner
 							double k = ElectricItem.manager.discharge(inventory[SLOT_CHARGER], maxStorage - energy, tier, false, false, false);
 							energy += k;
 						}
-					} else if (Item.getIdFromItem(inventory[SLOT_CHARGER]
-							.getItem()) == Item.getIdFromItem((IC2Items
-							.getItem("suBattery")).getItem())) {
+					}else if (Item.getIdFromItem(inventory[SLOT_CHARGER].getItem()) == Item.getIdFromItem((IC2Items.getItem("suBattery")).getItem())) {
 						if (ENERGY_SU_BATTERY <= maxStorage - energy || energy == 0) {
 							inventory[SLOT_CHARGER].stackSize--;
 
