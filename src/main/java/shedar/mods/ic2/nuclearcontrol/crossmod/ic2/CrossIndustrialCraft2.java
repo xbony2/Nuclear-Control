@@ -28,25 +28,18 @@ public class CrossIndustrialCraft2 {
 		if (!_isApiAvailable || _isIdInitialized)
 			return;
 		_fuelIds = new int[6];
-		_fuelIds[0] = Item.getIdFromItem(IC2Items.getItem(
-				"reactorUraniumSimple").getItem());
-		_fuelIds[1] = Item.getIdFromItem(IC2Items.getItem("reactorUraniumDual")
-				.getItem());
-		_fuelIds[2] = Item.getIdFromItem(IC2Items.getItem("reactorUraniumQuad")
-				.getItem());
+		_fuelIds[0] = Item.getIdFromItem(IC2Items.getItem("reactorUraniumSimple").getItem());
+		_fuelIds[1] = Item.getIdFromItem(IC2Items.getItem("reactorUraniumDual").getItem());
+		_fuelIds[2] = Item.getIdFromItem(IC2Items.getItem("reactorUraniumQuad").getItem());
 
-		_fuelIds[3] = Item.getIdFromItem(IC2Items.getItem("reactorMOXSimple")
-				.getItem());
-		_fuelIds[4] = Item.getIdFromItem(IC2Items.getItem("reactorMOXDual")
-				.getItem());
-		_fuelIds[5] = Item.getIdFromItem(IC2Items.getItem("reactorMOXQuad")
-				.getItem());
+		_fuelIds[3] = Item.getIdFromItem(IC2Items.getItem("reactorMOXSimple").getItem());
+		_fuelIds[4] = Item.getIdFromItem(IC2Items.getItem("reactorMOXDual").getItem());
+		_fuelIds[5] = Item.getIdFromItem(IC2Items.getItem("reactorMOXQuad").getItem());
 
 		Arrays.sort(_fuelIds);
 
 		_IC2WrenchId = Item.getIdFromItem(IC2Items.getItem("wrench").getItem());
-		_IC2ElectricWrenchId = Item.getIdFromItem(IC2Items.getItem(
-				"electricWrench").getItem());
+		_IC2ElectricWrenchId = Item.getIdFromItem(IC2Items.getItem("electricWrench").getItem());
 		_isIdInitialized = true;
 	}
 
@@ -56,21 +49,16 @@ public class CrossIndustrialCraft2 {
 
 	public boolean isWrench(ItemStack itemStack) {
 		initIds();
-		return _isApiAvailable
-				&& (Item.getIdFromItem(itemStack.getItem()) == _IC2WrenchId || Item
-						.getIdFromItem(itemStack.getItem()) == _IC2ElectricWrenchId);
+		return _isApiAvailable&& (Item.getIdFromItem(itemStack.getItem()) == _IC2WrenchId || Item.getIdFromItem(itemStack.getItem()) == _IC2ElectricWrenchId);
 	}
 
 	@SuppressWarnings("unchecked")
 	public CrossIndustrialCraft2() {
 		try {
-			Class.forName("ic2.api.tile.IEnergyStorage", false, this.getClass()
-					.getClassLoader());
-			_gradItemInt = Class.forName("ic2.core.item.ItemGradualInt", false,
-					this.getClass().getClassLoader());
+			Class.forName("ic2.api.tile.IEnergyStorage", false, this.getClass().getClassLoader());
+			_gradItemInt = Class.forName("ic2.core.item.ItemGradualInt", false, this.getClass().getClassLoader());
 			_getMaxDamageEx = _gradItemInt.getMethod("getMaxDamageEx");
-			_getDamageOfStack = _gradItemInt.getMethod("getDamageOfStack",
-					ItemStack.class);
+			_getDamageOfStack = _gradItemInt.getMethod("getDamageOfStack", ItemStack.class);
 			_isApiAvailable = true;
 		} catch (Exception e) {
 			_isApiAvailable = false;

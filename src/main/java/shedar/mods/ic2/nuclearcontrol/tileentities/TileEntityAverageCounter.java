@@ -131,8 +131,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 
 		if (prevPowerType != p) {
 			// NetworkHelper.updateTileEntityField(this, "powerType");
-			IC2.network.get().updateTileEntityField(this,
-					"powerType");
+			IC2.network.get().updateTileEntityField(this, "powerType");
 		}
 
 		prevPowerType = p;

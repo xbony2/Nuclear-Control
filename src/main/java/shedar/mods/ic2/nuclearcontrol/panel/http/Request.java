@@ -38,11 +38,7 @@ public class Request implements Runnable {
 			array.withElement(unsent.get(key));
 			unsent.remove(key);
 		}
-		builder.withField(
-				"key",
-				JsonNodeBuilders
-						.aStringBuilder(IC2NuclearControl.instance.httpSensorKey))
-				.withField("data", array);
+		builder.withField("key", JsonNodeBuilders.aStringBuilder(IC2NuclearControl.instance.httpSensorKey)).withField("data", array);
 		return JSON_FORMATTER.format(builder.build());
 	}
 
@@ -55,13 +51,11 @@ public class Request implements Runnable {
 			connection.setReadTimeout(5000);
 			boolean isIdRequest = unsent == null;
 			if (isIdRequest) {
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(connection.getInputStream()));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				String line;
 				line = reader.readLine();
 				if (line != null) {
-					HttpCardSender.instance.availableIds.add(Long
-							.parseLong(line.trim()));
+					HttpCardSender.instance.availableIds.add(Long.parseLong(line.trim()));
 				}
 				reader.close();
 			} else {
@@ -69,17 +63,13 @@ public class Request implements Runnable {
 				byte[] bytes = data.getBytes("UTF-8");
 				connection.setDoOutput(true);
 				connection.setRequestMethod("POST");
-				connection.setRequestProperty("Content-Type",
-						"application/x-www-form-urlencoded");
+				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 				connection.setRequestProperty("charset", "utf-8");
-				connection.setRequestProperty("Content-Length", ""
-						+ bytes.length);
-				DataOutputStream outStream = new DataOutputStream(
-						connection.getOutputStream());
+				connection.setRequestProperty("Content-Length", "" + bytes.length);
+				DataOutputStream outStream = new DataOutputStream(connection.getOutputStream());
 				outStream.write(bytes);
 				outStream.flush();
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(connection.getInputStream()));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				reader.readLine();
 				outStream.close();
 				reader.close();

@@ -106,15 +106,9 @@ public class GuiRemoteThermo extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj
-				.drawString(name,
-						(xSize - fontRendererObj.getStringWidth(name)) / 2, 6,
-						0x404040);
-		fontRendererObj.drawString(
-				StatCollector.translateToLocal("container.inventory"), 8,
-				(ySize - 96) + 2, 0x404040);
-		if (textboxHeat != null)
-			textboxHeat.drawTextBox();
+		fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
+		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
+		if (textboxHeat != null) textboxHeat.drawTextBox();
 	}
 
 	@Override
@@ -132,8 +126,7 @@ public class GuiRemoteThermo extends GuiContainer {
 	};
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2,
-			int var3) {
+	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(TEXTURE_LOCATION);
 		int left = (width - xSize) / 2;
@@ -147,8 +140,7 @@ public class GuiRemoteThermo extends GuiContainer {
 		}
 
 		if (chargeWidth > 0) {
-			drawTexturedModalRect(left + 55 - 14, top + 54, 8, 166,
-					chargeWidth, 14);
+			drawTexturedModalRect(left + 55 - 14, top + 54, 8, 166, chargeWidth, 14);
 		}
 
 	}
@@ -159,10 +151,8 @@ public class GuiRemoteThermo extends GuiContainer {
 
 			mc.thePlayer.closeScreen();
 		} else if (par1 == 13) {// Enter
-
 			updateHeat(0);
-		} else if (textboxHeat != null && textboxHeat.isFocused()
-				&& (Character.isDigit(par1) || par1 == 0 || par1 == 8)) {
+		} else if (textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8)) {
 			textboxHeat.textboxKeyTyped(par1, par2);
 		}
 	}

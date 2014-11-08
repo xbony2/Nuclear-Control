@@ -22,24 +22,17 @@ public class CrossBuildcraft {
 
 	@SuppressWarnings("unchecked")
 	public void registerTileEntity() {
-		GameRegistry.registerTileEntity(TileEntityAverageCounterBC.class,
-				"IC2NCAverageCounterBC");
-		GameRegistry.registerTileEntity(TileEntityEnergyCounterBC.class,
-				"IC2NCEnergyCounterBC");
+		GameRegistry.registerTileEntity(TileEntityAverageCounterBC.class, "IC2NCAverageCounterBC");
+		GameRegistry.registerTileEntity(TileEntityEnergyCounterBC.class, "IC2NCEnergyCounterBC");
 	}
 
 	public CrossBuildcraft() {
 		try {
-			Class.forName("buildcraft.api.power.IPowerReceptor", false, this
-					.getClass().getClassLoader());
-			Class.forName("buildcraft.api.power.IPowerEmitter", false, this
-					.getClass().getClassLoader());
-			Class.forName("buildcraft.api.power.PowerHandler", false, this
-					.getClass().getClassLoader());
-			Class.forName("buildcraft.api.tools.IToolWrench", false, this
-					.getClass().getClassLoader());
-			Class.forName("buildcraft.api.transport.IPipeConnection", false,
-					this.getClass().getClassLoader());
+			Class.forName("buildcraft.api.power.IPowerReceptor", false, this.getClass().getClassLoader());
+			Class.forName("buildcraft.api.power.IPowerEmitter", false, this.getClass().getClassLoader());
+			Class.forName("buildcraft.api.power.PowerHandler", false, this.getClass().getClassLoader());
+			Class.forName("buildcraft.api.tools.IToolWrench", false, this.getClass().getClassLoader());
+			Class.forName("buildcraft.api.transport.IPipeConnection", false, this.getClass().getClassLoader());
 			_isApiAvailable = true;
 			registerTileEntity();
 		} catch (ClassNotFoundException e) {
@@ -50,17 +43,14 @@ public class CrossBuildcraft {
 	public void useWrench(ItemStack itemStack, TileEntity target,
 			EntityPlayer player) {
 		if (_isApiAvailable) {
-			((IToolWrench) itemStack.getItem()).wrenchUsed(player,
-					target.xCoord, target.yCoord, target.zCoord);
+			((IToolWrench) itemStack.getItem()).wrenchUsed(player, target.xCoord, target.yCoord, target.zCoord);
 		}
 	}
 
-	public boolean isWrench(ItemStack itemStack, TileEntity target,
-			EntityPlayer player) {
+	public boolean isWrench(ItemStack itemStack, TileEntity target, EntityPlayer player) {
 		return _isApiAvailable
 				&& itemStack.getItem() instanceof IToolWrench
-				&& ((IToolWrench) itemStack.getItem()).canWrench(player,
-						target.xCoord, target.yCoord, target.zCoord);
+				&& ((IToolWrench) itemStack.getItem()).canWrench(player, target.xCoord, target.yCoord, target.zCoord);
 	}
 
 	public boolean isTankContainer(Object obj) {
@@ -70,10 +60,7 @@ public class CrossBuildcraft {
 	public TileEntityAverageCounter getAverageCounter() {
 		if (_isApiAvailable) {
 			try {
-				return (TileEntityAverageCounter) Class
-						.forName(
-								"shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityAverageCounterBC")
-						.newInstance();
+				return (TileEntityAverageCounter) Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityAverageCounterBC").newInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -84,10 +71,7 @@ public class CrossBuildcraft {
 	public TileEntityEnergyCounter getEnergyCounter() {
 		if (_isApiAvailable) {
 			try {
-				return (TileEntityEnergyCounter) Class
-						.forName(
-								"shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityEnergyCounterBC")
-						.newInstance();
+				return (TileEntityEnergyCounter) Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityEnergyCounterBC").newInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -100,8 +84,7 @@ public class CrossBuildcraft {
 			return null;
 		PowerReceiver receiver = null;
 		if (target instanceof IPowerReceptor) {
-			receiver = ((IPowerReceptor) target)
-					.getPowerReceiver(ForgeDirection.UNKNOWN);
+			receiver = ((IPowerReceptor) target).getPowerReceiver(ForgeDirection.UNKNOWN);
 		}
 		if (receiver == null)
 			return null;

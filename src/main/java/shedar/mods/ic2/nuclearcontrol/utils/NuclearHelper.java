@@ -32,8 +32,7 @@ public class NuclearHelper {
 		return (int) Math.floor((eu) * STEAM_PER_EU);
 	}
 
-	public static IReactorChamber getReactorChamberAt(World world, int x,
-			int y, int z) {
+	public static IReactorChamber getReactorChamberAt(World world, int x, int y, int z) {
 		if (world == null)
 			return null;
 		TileEntity entity = world.getTileEntity(x, y, z);
@@ -79,13 +78,11 @@ public class NuclearHelper {
 
 	public static boolean isProducing(IReactor reactor) {
 		ChunkCoordinates position = reactor.getPosition();
-		return reactor.getWorld().isBlockIndirectlyGettingPowered(
-				position.posX, position.posY, position.posZ);
+		return reactor.getWorld().isBlockIndirectlyGettingPowered(position.posX, position.posY, position.posZ);
 	}
 
 	public static int getNuclearCellTimeLeft(ItemStack rStack) {
-		int val = IC2NuclearControl.instance.crossIC2
-				.getNuclearCellTimeLeft(rStack);
+		int val = IC2NuclearControl.instance.crossIC2.getNuclearCellTimeLeft(rStack);
 		// if(val == -1)
 		// {
 		// val =

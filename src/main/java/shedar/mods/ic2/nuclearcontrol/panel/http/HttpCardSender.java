@@ -26,13 +26,11 @@ public class HttpCardSender {
 	public ConcurrentLinkedQueue<Long> availableIds = new ConcurrentLinkedQueue<Long>();
 	private ExecutorService executor = Executors.newFixedThreadPool(2);
 
-	private HttpCardSender() {
-	}
+	private HttpCardSender() {}
 
 	public void requestId() {
 		try {
-			executor.submit(new Request(new URL(ID_URL_TEMPLATE
-					+ IC2NuclearControl.instance.httpSensorKey), null));
+			executor.submit(new Request(new URL(ID_URL_TEMPLATE + IC2NuclearControl.instance.httpSensorKey), null));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -49,23 +47,16 @@ public class HttpCardSender {
 	public void add(NBTTagCompound cardData, UUID cardType, Long id) {
 		JsonObjectNodeBuilder builder = JsonNodeBuilders.anObjectBuilder();
 		builder.withField("id", JsonNodeBuilders.aNumberBuilder(id.toString()));
-		builder.withField(
-				"type",
-				JsonNodeBuilders.aStringBuilder(cardType.toString().replace(
-						"-", "")));
+		builder.withField("type", JsonNodeBuilders.aStringBuilder(cardType.toString().replace("-", "")));
 		Iterator iterator = cardData.func_150296_c().iterator();
 		while (iterator.hasNext()) {
 			String s = (String) iterator.next();
 			NBTBase tag = cardData.getTag(s);
 			if (!s.equals("_webSensorId")) {
 				if (s.equals("energyL") || s.equals("maxStorageL")) {
-					builder.withField(s,
-							JsonNodeBuilders.aStringBuilder(String
-									.valueOf(Double.valueOf(tag.toString())
-											.longValue())));
+					builder.withField(s, JsonNodeBuilders.aStringBuilder(String.valueOf(Double.valueOf(tag.toString()).longValue())));
 				} else {
-					builder.withField(s,
-							JsonNodeBuilders.aStringBuilder(tag.toString()));
+					builder.withField(s, JsonNodeBuilders.aStringBuilder(tag.toString()));
 				}
 			}
 		}

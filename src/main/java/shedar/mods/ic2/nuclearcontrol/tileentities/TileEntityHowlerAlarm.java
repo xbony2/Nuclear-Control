@@ -82,8 +82,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 		range = r;
 		if (prevRange != r) {
 			// NetworkHelper.updateTileEntityField(this, "range");
-			IC2.network.get().updateTileEntityField(this,
-					"range");
+			IC2.network.get().updateTileEntityField(this, "range");
 		}
 		prevRange = range;
 	}
