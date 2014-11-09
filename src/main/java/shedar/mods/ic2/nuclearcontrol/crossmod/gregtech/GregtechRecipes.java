@@ -1,8 +1,11 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.gregtech;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
+import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 
 public class GregtechRecipes {
@@ -24,12 +27,34 @@ public class GregtechRecipes {
 				'M', "plateAluminium"});
 		
 		ItemStack thermalMonitor = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_THERMAL_MONITOR);
-		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[] { 
+		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[]{ 
 				"LLL", "LRL", "CPC",
 					'L', "plateLead",
 					'P', "plateSteel",
 					'C', "circuitAdvanced",
 					'R', "plateRedstone"});
+		
+		ItemStack howler = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_HOWLER_ALARM);
+		Recipes.advRecipes.addRecipe(howler, new Object[]{
+				"INI", "CRC", "GMG",
+					'I', "plateIron",
+					'N', Blocks.noteblock,
+					'C', "circuitBasic",
+					'R', IC2Items.getItem("elemotor"),
+					'G', "cableGt01Gold",
+					'M', IC2Items.getItem("machine")
+		});
+		
+		ItemStack industrialAlarm = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_INDUSTRIAL_ALARM);
+		Recipes.advRecipes.addRecipe(industrialAlarm, new Object[]{
+				"GLG", "RHR", "CMC",
+					'G', IC2Items.getItem("reinforcedGlass"),
+					'L', IC2NuclearControl.blockNuclearControlLight,
+					'R', Items.repeater,
+					'H', howler,
+					'C', "cableGt01Gold",
+					'M', "plateDenseBronze"
+		});
 		//TODO
 	}
 }
