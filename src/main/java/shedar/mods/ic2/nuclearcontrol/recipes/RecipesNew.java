@@ -98,20 +98,18 @@ public class RecipesNew {
 				'F', IC2Items.getItem("frequencyTransmitter"), 
 				'W', "dyeYellow" });
 
-		Recipes.advRecipes.addRecipe(
-				new ItemStack(IC2NuclearControl.itemEnergySensorKit, 1),
-				new Object[] { "RF", "PO", 'P', Items.paper, 'R',
-						"dustRedstone", 'F',
-						IC2Items.getItem("frequencyTransmitter"), 'O',
-						"dyeOrange" });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemEnergySensorKit, 1), new Object[] { 
+			"RF", "PO", 
+				'P', Items.paper, 
+				'R', "dustRedstone", 
+				'F', IC2Items.getItem("frequencyTransmitter"), 
+				'O', "dyeOrange"});
 
-		Recipes.advRecipes.addRecipe(
-				new ItemStack(IC2NuclearControl.itemUpgrade, 1,
-						ItemUpgrade.DAMAGE_RANGE),
-				new Object[] { "CCC", "IFI", 'I',
-						IC2Items.getItem("insulatedCopperCableItem"), 'F',
-						IC2Items.getItem("frequencyTransmitter"), 'C',
-						IC2Items.getItem("reactorCoolantSimple") });
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_RANGE), new Object[] { 
+			"CCC", "IFI", 
+				'I', IC2Items.getItem("insulatedCopperCableItem"), 
+				'F', IC2Items.getItem("frequencyTransmitter"), 
+				'C', IC2Items.getItem("reactorCoolantSimple")});
 
 		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_COLOR), new Object[] { 
 			"RYG", "WCM", "IAB", 
@@ -125,7 +123,7 @@ public class RecipesNew {
 				'A', "dyeCyan", 
 				'B', "dyeBlue" });
 
-		if ((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer)
+		if ((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer) 
 				|| (IC2NuclearControl.isHttpSensorAvailableServer && IC2NuclearControl.isServer)) {
 			Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_WEB), new Object[]{
 				"CGC", "CAC", "CGC",
@@ -134,9 +132,7 @@ public class RecipesNew {
 					'G', "blockGlass"});
 		}
 
-		ItemStack energyCounter = new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_ENERGY_COUNTER);
+		ItemStack energyCounter = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_ENERGY_COUNTER);
 		Recipes.advRecipes.addRecipe(
 				energyCounter,
 				new Object[] { "IAI", "FTF", 'A', "circuitAdvanced", 'F',

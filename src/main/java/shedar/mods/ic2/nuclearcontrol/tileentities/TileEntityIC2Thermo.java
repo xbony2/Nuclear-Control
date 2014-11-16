@@ -23,8 +23,7 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
-public class TileEntityIC2Thermo extends TileEntity implements
-		INetworkDataProvider, INetworkUpdateListener,
+public class TileEntityIC2Thermo extends TileEntity implements INetworkDataProvider, INetworkUpdateListener,
 		INetworkClientTileEntityEventListener, IWrenchable, ITextureHelper {
 	protected boolean init;
 	private int prevHeatLevel;
@@ -57,8 +56,7 @@ public class TileEntityIC2Thermo extends TileEntity implements
 
 	protected void initData() {
 		if (!worldObj.isRemote) {
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 		init = true;
 	}
@@ -218,7 +216,7 @@ public class TileEntityIC2Thermo extends TileEntity implements
 				updateTicker = tickRate;
 			}
 			int reactorHeat = reactor.getHeat();
-			if (reactorHeat >= mappedHeatLevel) {
+			if (reactorHeat >= heatLevel) {//Normally mappedHeatLevel
 				fire = 1;
 			} else {
 				fire = 0;

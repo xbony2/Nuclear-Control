@@ -23,6 +23,7 @@ archivesBaseName = "IC2NuclearControl"
 minecraft {
     version = forgeVersion
 	runDir = "eclipse"
+	replace "@VERSION@", project.version
 }
 
 repositories {
