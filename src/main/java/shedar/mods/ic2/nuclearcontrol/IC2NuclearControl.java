@@ -187,7 +187,7 @@ public class IC2NuclearControl {
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent evt) {
+	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
 		crossBC = new CrossBuildcraft();
 		crossIC2 = new CrossIndustrialCraft2();
@@ -205,13 +205,13 @@ public class IC2NuclearControl {
 
 		if (recipes.equals("gregtech")) {
 			GregtechRecipes.addRecipes();
-			logger.error("Gregtech recipes not complete yet, try again later!");
+			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
 		}
 
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent evt) {
+	public void init(FMLInitializationEvent event) {
 		IC2NuclearControl.instance.screenManager = new ScreenManager();
 		initBlocks();
 		registerBlocks();
