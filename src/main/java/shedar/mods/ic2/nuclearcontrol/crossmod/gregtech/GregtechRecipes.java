@@ -29,7 +29,8 @@ public class GregtechRecipes {
 				'B', "boltTungsten",
 				'G', "plateGlass",
 				'C', "circuitGood",
-				'M', "plateAluminium"});
+				'M', "plateAluminium",
+				'3', IC2NuclearControl.itemToolThermometer});
 		
 		ItemStack thermalMonitor = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_THERMAL_MONITOR);
 		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[]{ 
