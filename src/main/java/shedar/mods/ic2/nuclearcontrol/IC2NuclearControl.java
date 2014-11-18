@@ -194,16 +194,16 @@ public class IC2NuclearControl {
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
 
-		if (recipes.equals("normal")) {
+		if (recipes.toLowerCase().equals("normal")) {
 			RecipesNew.addRecipes();
 		}
 
-		if (recipes.equals("old")) {
+		if (recipes.toLowerCase().equals("old")) {
 			logger.error("Old recipes deprecated!");
 			RecipesOld.addOldRecipes();
 		}
 
-		if (recipes.equals("gregtech")) {
+		if (recipes.toLowerCase().equals("gregtech")) {
 			GregtechRecipes.addRecipes();
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
 		}
