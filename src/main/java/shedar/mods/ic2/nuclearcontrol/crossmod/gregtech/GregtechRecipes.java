@@ -112,7 +112,7 @@ public class GregtechRecipes {
 				'1', new ItemStack(IC2NuclearControl.itemUpgrade, 1, 0),
 				'2', new ItemStack(IC2NuclearControl.itemUpgrade, 1, 1),
 				'P', industrialInformationPanel,
-				"A", "plateAlloyCarbon",
+				'A', "plateAlloyCarbon",
 				'C', "circuitAdvanced",
 				'W', "craftingToolWrench",
 				'H', "craftingToolHardHammer",
