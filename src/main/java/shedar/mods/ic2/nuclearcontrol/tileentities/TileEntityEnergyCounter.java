@@ -36,7 +36,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 		IInventory, ISlotItemFilter, INetworkDataProvider,
 		INetworkUpdateListener {
 	private static final int BASE_PACKET_SIZE = 32;
-
+	//FIXME: this is probably broken
 	private boolean init;
 	private ItemStack inventory[];
 
