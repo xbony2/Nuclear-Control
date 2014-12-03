@@ -108,8 +108,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 
 		if (prevFacing != f) {
 			// NetworkHelper.updateTileEntityField(this, "facing");
-			IC2.network.get().updateTileEntityField(this,
-					"facing");
+			IC2.network.get().updateTileEntityField(this, "facing");
 		}
 
 		prevFacing = f;
@@ -119,9 +118,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 		period = p;
 
 		if (prevPeriod != p) {
-			// NetworkHelper.updateTileEntityField(this, "period");
-			IC2.network.get().updateTileEntityField(this,
-					"period");
+			IC2.network.get().updateTileEntityField(this, "period");
 		}
 		prevPeriod = p;
 	}
@@ -149,16 +146,15 @@ public class TileEntityAverageCounter extends TileEntity implements
 			if (!addedToEnergyNet) {
 				EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
 				MinecraftForge.EVENT_BUS.post(event);
-				// prevTotal = EnergyNet.instance.getTotalEnergyEmitted(this);
 				addedToEnergyNet = true;
 			}
 			index = (index + 1) % DATA_POINTS;
 			data[index] = 0;
-			getAverage();
+			this.getAverage();
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
 
 			data[index] = total;
-			setPowerType(POWER_TYPE_EU);
+			this.setPowerType(POWER_TYPE_EU);
 		}
 		super.updateEntity();
 	}
@@ -289,33 +285,27 @@ public class TileEntityAverageCounter extends TileEntity implements
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& player.getDistanceSq(xCoord + 0.5D,
-						yCoord + 0.5D, zCoord + 0.5D) <= 64D;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && 
+				player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
-	public void openInventory() {
-	}
+	public void openInventory() {}
 
 	@Override
-	public void closeInventory() {
-	}
+	public void closeInventory() {}
 
 	@Override
 	public void markDirty() {
 		super.markDirty();
 		int upgradeCountTransormer = 0;
 		ItemStack itemStack = inventory[0];
-		if (itemStack != null
-				&& itemStack
-						.isItemEqual(IC2Items.getItem("transformerUpgrade"))) {
+		if (itemStack != null && itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))) {
 			upgradeCountTransormer = itemStack.stackSize;
 		}
 		upgradeCountTransormer = Math.min(upgradeCountTransormer, 4);
 		if (worldObj != null && !worldObj.isRemote) {
-			packetSize = BASE_PACKET_SIZE
-					* (int) Math.pow(4D, upgradeCountTransormer);
+			packetSize = BASE_PACKET_SIZE * (int) Math.pow(4D, upgradeCountTransormer);
 
 			if (addedToEnergyNet) {
 				EnergyTileUnloadEvent event = new EnergyTileUnloadEvent(this);
@@ -326,11 +316,10 @@ public class TileEntityAverageCounter extends TileEntity implements
 			MinecraftForge.EVENT_BUS.post(event);
 			addedToEnergyNet = true;
 		}
-	};
+	}
 
 	@Override
-	public boolean acceptsEnergyFrom(TileEntity emitter,
-			ForgeDirection direction) {
+	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
 		return direction.ordinal() == getFacing();
 	}
 
@@ -404,8 +393,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_AVERAGE_COUNTER);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_AVERAGE_COUNTER);
 	}
 
 	@Override

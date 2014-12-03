@@ -35,8 +35,8 @@ public class TileEntityEnergyCounter extends TileEntity implements
 		IEnergyConductor, IWrenchable, INetworkClientTileEntityEventListener,
 		IInventory, ISlotItemFilter, INetworkDataProvider,
 		INetworkUpdateListener {
+	
 	private static final int BASE_PACKET_SIZE = 32;
-	//FIXME: this is probably broken
 	private boolean init;
 	private ItemStack inventory[];
 
@@ -75,9 +75,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 		powerType = p;
 
 		if (prevPowerType != p) {
-			// NetworkHelper.updateTileEntityField(this, "powerType");
-			IC2.network.get().updateTileEntityField(this,
-					"powerType");
+			IC2.network.get().updateTileEntityField(this, "powerType");
 		}
 
 		prevPowerType = p;
@@ -107,9 +105,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 		facing = f;
 
 		if (prevFacing != f) {
-			// NetworkHelper.updateTileEntityField(this, "facing");
-			IC2.network.get().updateTileEntityField(this,
-					"facing");
+			IC2.network.get().updateTileEntityField(this, "facing");
 		}
 
 		prevFacing = f;
@@ -129,11 +125,12 @@ public class TileEntityEnergyCounter extends TileEntity implements
 			}
 			if (updateTicker-- == 0) {
 				updateTicker = tickRate - 1;
-				counter = EnergyNet.instance.getTotalEnergyEmitted(this);
+				counter = EnergyNet.instance.getTotalEnergyEmitted(this); //So sue me
+				//HEYO! ^Maybe this should be +=? Maybe I'm just dumb? Unfortuntly, I cannot test
+				//because forge doesn't like me. (FIXME)
 				setPowerType(TileEntityAverageCounter.POWER_TYPE_EU);
 			}
 		}
-		super.updateEntity();
 	}
 
 	@Override
@@ -143,12 +140,10 @@ public class TileEntityEnergyCounter extends TileEntity implements
 		counter = nbttagcompound.getDouble("counter");
 		powerType = nbttagcompound.getByte("powerType");
 
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items",
-				Constants.NBT.TAG_COMPOUND);
+		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 		inventory = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound compound = nbttaglist
-					.getCompoundTagAt(i);
+			NBTTagCompound compound = nbttaglist.getCompoundTagAt(i);
 			byte slotNum = compound.getByte("Slot");
 
 			if (slotNum >= 0 && slotNum < inventory.length) {
@@ -252,33 +247,27 @@ public class TileEntityEnergyCounter extends TileEntity implements
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& player.getDistanceSq(xCoord + 0.5D,
-						yCoord + 0.5D, zCoord + 0.5D) <= 64D;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && 
+				player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
-	public void openInventory() {
-	}
+	public void openInventory(){}
 
 	@Override
-	public void closeInventory() {
-	}
+	public void closeInventory(){}
 
 	@Override
 	public void markDirty() {
 		super.markDirty();
 		int upgradeCountTransormer = 0;
 		ItemStack itemStack = inventory[0];
-		if (itemStack != null
-				&& itemStack
-						.isItemEqual(IC2Items.getItem("transformerUpgrade"))) {
+		if (itemStack != null && itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))) {
 			upgradeCountTransormer = itemStack.stackSize;
 		}
 		upgradeCountTransormer = Math.min(upgradeCountTransormer, 4);
 		if (worldObj != null && !worldObj.isRemote) {
-			packetSize = BASE_PACKET_SIZE
-					* (int) Math.pow(4D, upgradeCountTransormer);
+			packetSize = BASE_PACKET_SIZE * (int) Math.pow(4D, upgradeCountTransormer);
 
 			if (addedToEnergyNet) {
 				EnergyTileUnloadEvent event = new EnergyTileUnloadEvent(this);
@@ -292,8 +281,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 	};
 
 	@Override
-	public boolean acceptsEnergyFrom(TileEntity emitter,
-			ForgeDirection direction) {
+	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
 		return direction.ordinal() == getFacing();
 	}
 
@@ -337,9 +325,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_ENERGY_COUNTER);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_ENERGY_COUNTER);
 	}
 
 	@Override
