@@ -1,10 +1,12 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.gregtech;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import ic2.core.util.StackUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
@@ -14,29 +16,41 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class GregtechRecipes {
+	public static Item gtmeta1;
+	public static ItemStack gtComputerMonitor;
+	
+	/**
+	 * Grabs all the nessary items/itemstacks from GT indirectly.
+	 * 
+	 * @author xbony2
+	 */
+	public static void grabItems(){
+		gtmeta1 = GameRegistry.findItem("gregtech", "gt.metaitem.01");
+		gtComputerMonitor = new ItemStack(gtmeta1, 1, 32740);
+	}
 	
 	public static void addRecipes(){
+		GregtechRecipes.grabItems();
 		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemToolThermometer), new Object[]{
 			"BG ", "GMG", " GI",
 				'B', "boltIron",
 				'G', "plateGlass",
 				'M', "cellMercury",
 				'I', "stickIron"});
-		
-		ItemStack digitalThermometer = new ItemStack(IC2NuclearControl.itemToolDigitalThermometer, 1);
+		ItemStack digitalThermometer = new ItemStack(IC2NuclearControl.itemToolDigitalThermometer);
 		Recipes.advRecipes.addRecipe(digitalThermometer, new Object[]{
 			"BG ", "CMC", " G3",
 				'B', "boltTungsten",
 				'G', "plateGlass",
 				'C', "circuitGood",
-				'M', "plateAluminium",
+				'M', "gtComputerMonitor",
 				'3', IC2NuclearControl.itemToolThermometer});
 		
 		ItemStack thermalMonitor = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_THERMAL_MONITOR);
 		Recipes.advRecipes.addRecipe(thermalMonitor, new Object[]{ 
 				"LLL", "LRL", "CPC",
 					'L', "plateLead",
-					'P', "plateSteel",
+					'P', gtComputerMonitor,
 					'C', "circuitAdvanced",
 					'R', "plateRedstone"});
 		
@@ -63,7 +77,7 @@ public class GregtechRecipes {
 		ItemStack industrialInformationPanel = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_INFO_PANEL);
 		Recipes.advRecipes.addRecipe(industrialInformationPanel, new Object[]{
 				"APA", "CMC", "IWI",
-					'A', "plateAluminium",
+					'A', gtComputerMonitor,
 					'P', "paneGlassLime",
 					'C', "circuitBasic",
 					'M', IC2Items.getItem("machine"),
@@ -73,7 +87,7 @@ public class GregtechRecipes {
 		ItemStack industrialInfoPanelExtender = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_INFO_PANEL_EXTENDER);
 		Recipes.advRecipes.addRecipe(industrialInfoPanelExtender, new Object[]{
 			"APA", "WWW", "WRW",
-				'A', "plateAluminium",
+				'A', gtComputerMonitor,
 				'P', "paneGlassLime",
 				'W', "plankWood",
 				'R', "cableGt01RedAlloy"});
@@ -81,7 +95,7 @@ public class GregtechRecipes {
 		ItemStack energyCounter = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_ENERGY_COUNTER);
 		Recipes.advRecipes.addRecipe(energyCounter, new Object[]{
 			"IAI", "CMC", "IZI",
-				'A', "plateAluminium",
+				'A', gtComputerMonitor,
 				'I', "plateIron",
 				'C', "cableGt01Platinum",
 				'M', IC2Items.getItem("machine"),
@@ -91,11 +105,11 @@ public class GregtechRecipes {
 		Recipes.advRecipes.addRecipe(averageCounter, new Object[]{
 			"LAL", "WMW", "LCL",
 				'L', "plateLead",
-				'A', "plateAluminium",
+				'A', gtComputerMonitor,
 				'W', "cableGt01Platinum",
 				'M', IC2Items.getItem("machine"),
 				'C', "circuitAdvanced"});
-		
+		//TODO this is where I am in progress
 		ItemStack rangeTrigger = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_RANGE_TRIGGER);
 		Recipes.advRecipes.addRecipe(rangeTrigger, new Object[]{
 			"SAS", "CMC", "ZIZ",
