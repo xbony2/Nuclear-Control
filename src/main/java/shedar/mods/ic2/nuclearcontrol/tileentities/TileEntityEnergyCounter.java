@@ -125,7 +125,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 			}
 			if (updateTicker-- == 0) {
 				updateTicker = tickRate - 1;
-				counter = EnergyNet.instance.getTotalEnergyEmitted(this); //So sue me
+				counter += EnergyNet.instance.getTotalEnergyEmitted(this); //So sue me
 				//HEYO! ^Maybe this should be +=? Maybe I'm just dumb? Unfortuntly, I cannot test
 				//because forge doesn't like me. (FIXME)
 				setPowerType(TileEntityAverageCounter.POWER_TYPE_EU);

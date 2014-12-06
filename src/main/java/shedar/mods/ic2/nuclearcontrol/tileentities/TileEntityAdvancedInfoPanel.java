@@ -64,8 +64,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 		powerMode = p;
 		if (prevPowerMode != p) {
 			// NetworkHelper.updateTileEntityField(this, "powerMode");
-			IC2.network.get().updateTileEntityField(this,
-					"powerMode");
+			IC2.network.get().updateTileEntityField(this, "powerMode");
 
 		}
 		prevPowerMode = powerMode;
