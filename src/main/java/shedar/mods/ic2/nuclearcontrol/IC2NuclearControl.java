@@ -119,7 +119,7 @@ public class IC2NuclearControl {
 	public int rangeTriggerRefreshPeriod;
 	public String recipes;
 
-	public CrossBuildcraft crossBC;
+	//public CrossBuildcraft crossBC;
 	public CrossIndustrialCraft2 crossIC2;
 	public CrossRailcraft crossRailcraft;
 	public CrossRF crossRF;
@@ -189,7 +189,7 @@ public class IC2NuclearControl {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
-		crossBC = new CrossBuildcraft();
+		//crossBC = new CrossBuildcraft(); TODO: hello DMF
 		crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
