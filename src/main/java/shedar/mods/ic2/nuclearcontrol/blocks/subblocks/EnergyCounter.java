@@ -34,10 +34,11 @@ public class EnergyCounter extends Subblock {
 
 	@Override
 	public TileEntity getTileEntity() {
-		TileEntity instance = IC2NuclearControl.instance.crossBC
+		/*TileEntity instance = IC2NuclearControl.instance.crossBC
 				.getEnergyCounter();
 		if (instance == null)
-			instance = new TileEntityEnergyCounter();
+			instance = new TileEntityEnergyCounter();*/
+		TileEntity instance = new TileEntityEnergyCounter();
 		return instance;
 	}
 
