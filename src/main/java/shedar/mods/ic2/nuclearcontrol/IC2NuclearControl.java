@@ -216,6 +216,7 @@ public class IC2NuclearControl {
 		initBlocks();
 		registerBlocks();
 		proxy.registerTileEntities();
+		//Registers waila stuff
 		FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
 	}
 }
