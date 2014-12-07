@@ -32,13 +32,17 @@ repositories {
 		url = "http://maven.ic2.player.to/"
 	}
 	maven { 
-        	name = "chickenbones" 
-        	url = "http://chickenbones.net/maven/" 
+        name = "chickenbones" 
+        url = "http://chickenbones.net/maven/" 
 	}
 	maven {
-        	name "ProfMobius"
-        	url "http://mobiusstrip.eu/maven"
-    	}
+        name "ProfMobius"
+        url "http://mobiusstrip.eu/maven"
+    }
+	maven {
+		name "OC"
+		url "http://maven.cil.li/"
+	}
 }
 
 dependencies {
@@ -49,6 +53,7 @@ dependencies {
 	compile buildcraftVersion
 	compile argoVersion
 	compile wailaVersion
+	compile openCVersion
 }
 
 
