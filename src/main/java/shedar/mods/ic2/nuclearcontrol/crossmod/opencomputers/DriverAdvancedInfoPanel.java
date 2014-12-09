@@ -42,5 +42,12 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 		public Object[] getThickness(final Context context, final Arguments args){
 			return new Object[]{((int)tileEntity.getThickness())};
 		}
+		
+		public Object[] setThickness(final Context context, final Arguments args){
+			final int newThickness = args.checkInteger(0);
+			if(newThickness == tileEntity.getThickness()) return null;
+			//TODO
+			return null;
+		}
 	}
 }

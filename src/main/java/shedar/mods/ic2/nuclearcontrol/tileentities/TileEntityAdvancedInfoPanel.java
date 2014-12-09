@@ -46,7 +46,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 	public static final int OFFSET_ROTATE_VERT = 300;
 
 	public TileEntityAdvancedInfoPanel() {
-		super(4);// 3 cards + range/web upgrade
+		super(4); //3 cards + range/web upgrade
 		colored = true;
 		thickness = 16;
 	}
@@ -63,9 +63,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 	public void setPowerMode(byte p) {
 		powerMode = p;
 		if (prevPowerMode != p) {
-			// NetworkHelper.updateTileEntityField(this, "powerMode");
 			IC2.network.get().updateTileEntityField(this, "powerMode");
-
 		}
 		prevPowerMode = powerMode;
 	}
@@ -73,7 +71,6 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 	public void setThickness(byte p) {
 		thickness = p;
 		if (prevThickness != p) {
-			// NetworkHelper.updateTileEntityField(this, "thickness");
 			IC2.network.get().updateTileEntityField(this, "thickness");
 		}
 		prevThickness = thickness;
@@ -86,9 +83,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 	public void setRotateHor(byte p) {
 		rotateHor = p;
 		if (prevRotateHor != p) {
-			// NetworkHelper.updateTileEntityField(this, "rotateHor");
-			IC2.network.get().updateTileEntityField(this,
-					"rotateHor");
+			IC2.network.get().updateTileEntityField(this, "rotateHor");
 		}
 		prevRotateHor = rotateHor;
 	}
@@ -96,9 +91,7 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 	public void setRotateVert(byte p) {
 		rotateVert = p;
 		if (prevRotateVert != p) {
-			// NetworkHelper.updateTileEntityField(this, "rotateVert");
-			IC2.network.get().updateTileEntityField(this,
-					"rotateVert");
+			IC2.network.get().updateTileEntityField(this, "rotateVert");
 		}
 		prevRotateVert = rotateVert;
 	}
