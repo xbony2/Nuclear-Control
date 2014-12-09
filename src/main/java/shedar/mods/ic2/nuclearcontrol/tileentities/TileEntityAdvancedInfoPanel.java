@@ -74,10 +74,13 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 		thickness = p;
 		if (prevThickness != p) {
 			// NetworkHelper.updateTileEntityField(this, "thickness");
-			IC2.network.get().updateTileEntityField(this,
-					"thickness");
+			IC2.network.get().updateTileEntityField(this, "thickness");
 		}
 		prevThickness = thickness;
+	}
+	
+	public byte getThickness(){
+		return thickness;
 	}
 
 	public void setRotateHor(byte p) {

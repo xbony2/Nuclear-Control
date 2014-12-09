@@ -3,16 +3,19 @@ package shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAdvancedInfoPanel;
 import net.minecraft.world.World;
 import li.cil.oc.api.driver.NamedBlock;
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.ManagedEnvironment;
 import li.cil.oc.api.prefab.DriverTileEntity;
 import li.cil.oc.integration.ManagedTileEntityEnvironment;
 
 public class DriverAdvancedInfoPanel extends DriverTileEntity {
-
+	public static final String NAME = "advanced_info_panel";
+	
 	@Override
 	public ManagedEnvironment createEnvironment(World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Environment((TileEntityAdvancedInfoPanel)world.getTileEntity(x, y, z));
 	}
 
 	@Override
@@ -21,23 +24,23 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 	}
 
 	public static final class Environment extends ManagedTileEntityEnvironment<TileEntityAdvancedInfoPanel> implements NamedBlock{
-
-		public Environment(TileEntityAdvancedInfoPanel tileEntity, String name) {
-			super(tileEntity, name);
-			// TODO Auto-generated constructor stub
+		public Environment(final TileEntityAdvancedInfoPanel tileentity) {
+			super(tileentity, NAME);
 		}
 
 		@Override
 		public String preferredName() {
-			// TODO Auto-generated method stub
-			return null;
+			return NAME;
 		}
 
 		@Override
 		public int priority() {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 		
+		@Callback(doc = "function():number -- gets the thickness of the panel")
+		public Object[] getThickness(final Context context, final Arguments args){
+			return new Object[]{((int)tileEntity.getThickness())};
+		}
 	}
 }

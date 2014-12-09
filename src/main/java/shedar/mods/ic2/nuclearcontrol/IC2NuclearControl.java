@@ -14,6 +14,7 @@ import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
+import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.CrossOpenComputers;
 import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
@@ -123,6 +124,7 @@ public class IC2NuclearControl {
 	public CrossIndustrialCraft2 crossIC2;
 	public CrossRailcraft crossRailcraft;
 	public CrossRF crossRF;
+	public CrossOpenComputers crossOC;
 
 	protected void initBlocks() {
 		blockNuclearControlMain = new BlockNuclearControlMain();
@@ -193,6 +195,7 @@ public class IC2NuclearControl {
 		crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
+		crossOC = new CrossOpenComputers();
 
 		if (recipes.toLowerCase().equals("normal")) {
 			RecipesNew.addRecipes();

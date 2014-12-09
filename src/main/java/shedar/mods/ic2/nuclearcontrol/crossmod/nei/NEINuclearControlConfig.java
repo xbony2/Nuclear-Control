@@ -12,12 +12,12 @@ public class NEINuclearControlConfig implements IConfigureNEI {
 
 	@Override
 	public String getName() {
-		return "Nuclear Control";
+		return "Nuclear Control 2";
 	}
 
 	@Override
 	public String getVersion() {
-		return "1.0";
+		return "1.0.0a";
 	}
 
 }

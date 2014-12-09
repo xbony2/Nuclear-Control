@@ -10,7 +10,7 @@ public class CrossRailcraft {
 	private boolean _isApiAvailable = false;
 	private Class _tankTile;
 
-	public CrossRailcraft() {
+	public CrossRailcraft(){
 		try{
 			_tankTile = Class.forName("mods.railcraft.common.blocks.machine.ITankTile", false, this.getClass().getClassLoader());
 			_isApiAvailable = true;
