@@ -41,7 +41,7 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityHowlerAlarm;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender;
@@ -448,7 +448,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	@Override
 	public int isProvidingStrongPower(IBlockAccess iblockaccess, int x, int y, int z, int direction) {
 		TileEntity tileentity = iblockaccess.getTileEntity(x, y, z);
-		if (!(tileentity instanceof TileEntityIC2Thermo) && !(tileentity instanceof TileEntityRangeTrigger))
+		if (!(tileentity instanceof TileEntityThermo) && !(tileentity instanceof TileEntityRangeTrigger))
 			return 0;
 
 		int targetX = x;
@@ -475,7 +475,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 			break;
 		}
 		TileEntity targetEntity = iblockaccess.getTileEntity(targetX, targetY, targetZ);
-		if (tileentity instanceof TileEntityIC2Thermo && targetEntity != null
+		if (tileentity instanceof TileEntityThermo && targetEntity != null
 				&& (NuclearHelper.getReactorAt(tileentity.getWorldObj(), targetX, targetY, targetZ) != null 
 				|| NuclearHelper.getReactorChamberAt(tileentity.getWorldObj(), targetX, targetY, targetZ) != null)) {
 			return 0;
@@ -487,7 +487,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 		if (tileentity instanceof TileEntityRangeTrigger)
 			return ((TileEntityRangeTrigger) tileentity).getOnFire() > 0
 					^ ((TileEntityRangeTrigger) tileentity).isInvertRedstone() ? 15 : 0;
-		return ((TileEntityIC2Thermo) tileentity).getOnFire() > 0 ^ ((TileEntityIC2Thermo) tileentity).isInvertRedstone() ? 15 : 0;
+		return ((TileEntityThermo) tileentity).getOnFire() > 0 ^ ((TileEntityThermo) tileentity).isInvertRedstone() ? 15 : 0;
 	}
 
 	@Override

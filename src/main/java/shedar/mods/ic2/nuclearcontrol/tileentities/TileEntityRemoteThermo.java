@@ -32,7 +32,7 @@ import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
-public class TileEntityRemoteThermo extends TileEntityIC2Thermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory{
+public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory{
 	public static final int SLOT_CHARGER = 0;
 	public static final int SLOT_CARD = 1;
 	private static final double BASE_PACKET_SIZE = 32.0D;

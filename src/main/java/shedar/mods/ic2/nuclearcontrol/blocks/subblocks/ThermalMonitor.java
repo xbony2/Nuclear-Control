@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerEmpty;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiIC2Thermo;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 public class ThermalMonitor extends Subblock {
@@ -44,7 +44,7 @@ public class ThermalMonitor extends Subblock {
 
 	@Override
 	public TileEntity getTileEntity() {
-		return new TileEntityIC2Thermo();
+		return new TileEntityThermo();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class ThermalMonitor extends Subblock {
 
 	@Override
 	public Object getClientGuiElement(TileEntity tileEntity, EntityPlayer player) {
-		return new GuiIC2Thermo((TileEntityIC2Thermo) tileEntity);
+		return new GuiIC2Thermo((TileEntityThermo) tileEntity);
 	}
 
 	@Override

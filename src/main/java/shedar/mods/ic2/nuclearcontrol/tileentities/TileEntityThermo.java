@@ -23,7 +23,7 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
-public class TileEntityIC2Thermo extends TileEntity implements INetworkDataProvider, INetworkUpdateListener,
+public class TileEntityThermo extends TileEntity implements INetworkDataProvider, INetworkUpdateListener,
 		INetworkClientTileEntityEventListener, IWrenchable, ITextureHelper {
 	protected boolean init;
 	private int prevHeatLevel;
@@ -39,7 +39,7 @@ public class TileEntityIC2Thermo extends TileEntity implements INetworkDataProvi
 	protected int updateTicker;
 	protected int tickRate;
 
-	public TileEntityIC2Thermo() {
+	public TileEntityThermo() {
 		init = false;
 		onFire = 0;
 		prevOnFire = 0;

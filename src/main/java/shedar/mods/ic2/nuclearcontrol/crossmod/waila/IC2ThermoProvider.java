@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.api.BonyDebugger;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -15,9 +15,9 @@ public class IC2ThermoProvider implements IWailaDataProvider{
 	
 	@Override
 	public List<String> getWailaBody(ItemStack itemstack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler handler) {
-		if(accessor.getTileEntity() instanceof TileEntityIC2Thermo){
+		if(accessor.getTileEntity() instanceof TileEntityThermo){
 			currenttip.add(LangHelper.translate("msg.nc.waila.getHeatLevel") + 
-					((TileEntityIC2Thermo)accessor.getTileEntity()).getHeatLevel().toString());
+					((TileEntityThermo)accessor.getTileEntity()).getHeatLevel().toString());
 		}
 		return currenttip;
 	}

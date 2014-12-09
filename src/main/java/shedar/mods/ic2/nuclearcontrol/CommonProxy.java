@@ -16,7 +16,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class CommonProxy implements IGuiHandler {
 
 	public void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityIC2Thermo.class, "IC2Thermo");
+		GameRegistry.registerTileEntity(TileEntityThermo.class, "IC2Thermo");
 		GameRegistry.registerTileEntity(TileEntityHowlerAlarm.class, "IC2HowlerAlarm");
 		GameRegistry.registerTileEntity(TileEntityIndustrialAlarm.class, "IC2IndustrialAlarm");
 		GameRegistry.registerTileEntity(TileEntityRemoteThermo.class, "IC2RemoteThermo");

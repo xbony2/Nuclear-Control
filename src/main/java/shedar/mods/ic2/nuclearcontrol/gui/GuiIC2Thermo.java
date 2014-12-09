@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerEmpty;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.CompactButton;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.GuiThermoInvertRedstone;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -24,11 +24,11 @@ public class GuiIC2Thermo extends GuiContainer {
 	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
 			TEXTURE_FILE);
 
-	private TileEntityIC2Thermo thermo;
+	private TileEntityThermo thermo;
 	private GuiTextField textboxHeat = null;
 	private String name;
 
-	public GuiIC2Thermo(TileEntityIC2Thermo thermo) {
+	public GuiIC2Thermo(TileEntityThermo thermo) {
 		super(new ContainerEmpty(thermo));
 		xSize = 191;
 		ySize = 64;

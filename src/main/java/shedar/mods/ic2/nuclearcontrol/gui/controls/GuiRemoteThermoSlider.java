@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -28,12 +28,12 @@ public class GuiRemoteThermoSlider extends GuiButton {
 	public float sliderValue;
 	public boolean dragging;
 	private String label;
-	private TileEntityIC2Thermo thermo;
+	private TileEntityThermo thermo;
 	private float effectiveWidth;
 	private double sliderValueStep;
 
 	public GuiRemoteThermoSlider(int id, int x, int y, String label,
-			TileEntityIC2Thermo thermo) {
+			TileEntityThermo thermo) {
 		super(id, x, y, 181, 16, label);
 		this.thermo = thermo;
 		dragging = false;

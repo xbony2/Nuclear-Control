@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -19,11 +19,11 @@ public class GuiThermoInvertRedstone extends GuiButton {
 	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
 			TEXTURE_FILE);
 
-	TileEntityIC2Thermo thermo;
+	TileEntityThermo thermo;
 	private boolean checked;
 
 	public GuiThermoInvertRedstone(int id, int x, int y,
-			TileEntityIC2Thermo thermo) {
+			TileEntityThermo thermo) {
 		super(id, x, y, 0, 0, "");
 		height = 15;
 		width = 51;

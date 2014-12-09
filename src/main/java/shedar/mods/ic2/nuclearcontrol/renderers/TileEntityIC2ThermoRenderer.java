@@ -7,17 +7,17 @@ import net.minecraft.util.Facing;
 
 import org.lwjgl.opengl.GL11;
 
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIC2Thermo;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 
 public class TileEntityIC2ThermoRenderer extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y,
 			double z, float f) {
-		boolean isThermo = tileEntity instanceof TileEntityIC2Thermo;
+		boolean isThermo = tileEntity instanceof TileEntityThermo;
 		if (isThermo) {
 			GL11.glPushMatrix();
-			TileEntityIC2Thermo thermo = (TileEntityIC2Thermo) tileEntity;
+			TileEntityThermo thermo = (TileEntityThermo) tileEntity;
 			short side = (short) Facing.oppositeSide[thermo.getFacing()];
 			float var12 = 0.014F;
 			int heat = thermo.getHeatLevel();
