@@ -38,22 +38,27 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 			return 0;
 		}
 		
-		@Callback(doc = "function():number -- gets the thickness of the panel.")
+		@Callback(doc = "function():number -- gets the thickness of the panel")
 		public Object[] getThickness(final Context context, final Arguments args){
 			return new Object[]{((int)tileEntity.getThickness())};
 		}
 		
-		@Callback(doc = "function():number -- gets the horizonal rotation of the panel.")
+		@Callback(doc = "function():number -- gets the horizonal rotation of the panel")
 		public Object[] getRotationHorizonally(final Context context, final Arguments args){
 			return new Object[]{((int)tileEntity.getRotationHor())};
 		}
 		
-		@Callback(doc = "function():number -- gets the vertical rotation of the panel.")
+		@Callback(doc = "function():number -- gets the vertical rotation of the panel")
 		public Object[] getRotationVertically(final Context context, final Arguments args){
 			return new Object[]{((int)tileEntity.getRotationVert())};
 		}
 		
-		@Callback(doc = "function(value:number) -- sets the thickness of the panel. Only input 1-16, otherwise nothing will happen.")
+		@Callback(doc = "function():number -- gets the background color of the panel")
+		public Object[] getBackgroundColor(final Context context, final Arguments args){
+			return new Object[]{(tileEntity.getColorBackground())};
+		}
+		
+		@Callback(doc = "function(value:number) -- sets the thickness of the panel. Only input 1-16, otherwise nothing will happen")
 		public Object[] setThickness(final Context context, final Arguments args){
 			final int newThickness = args.checkInteger(0);
 			if(newThickness <= 0 || newThickness > 16) return null; //invalid input
@@ -62,20 +67,20 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 			return null;
 		}
 		
-		@Callback(doc = "function(value:number) -- sets the horizonal rotation of the panel. Only input 1-16, otherwise nothing will happen.")
+		@Callback(doc = "function(value:number) -- sets the horizonal rotation of the panel. Only input 1-16, otherwise nothing will happen")
 		public Object[] rotateHorizonally(final Context context, final Arguments args){
 			final int newRotation = args.checkInteger(0);
 			if(newRotation <= 0 || newRotation > 16) return null; //invalid input
-			if(newRotation == tileEntity.getRotationHor()) return null; //same as the current thickness
+			if(newRotation == tileEntity.getRotationHor()) return null; //same as the current rotation
 			tileEntity.setRotateHor((byte) newRotation);
 			return null;
 		}
 		
-		@Callback(doc = "function(value:number) -- sets the vertical rotation of the panel. Only input 1-16, otherwise nothing will happen.")
+		@Callback(doc = "function(value:number) -- sets the vertical rotation of the panel. Only input 1-16, otherwise nothing will happen")
 		public Object[] rotateVertically(final Context context, final Arguments args){
 			final int newRotation = args.checkInteger(0);
 			if(newRotation <= 0 || newRotation > 16) return null; //invalid input
-			if(newRotation == tileEntity.getRotationVert()) return null; //same as the current thickness
+			if(newRotation == tileEntity.getRotationVert()) return null; //same as the current rotation
 			tileEntity.setRotateVert((byte) newRotation);
 			return null;
 		}
