@@ -169,24 +169,19 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel{
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton button) 
-	{
-		switch(button.id)
-		{
+	protected void actionPerformed(GuiButton button){
+		switch(button.id){
 		case ID_COLORS:
 			GuiScreen colorGui = new GuiScreenColor(this, container.panel);
 			mc.displayGuiScreen(colorGui);
 			break;
 		case ID_SETTINGS:
 			ItemStack card = getActiveCard();
-			if (card == null)
-				return;
-			if (card != null && card.getItem() instanceof IAdvancedCardSettings)
-			{
+			if (card == null) return;
+			if (card != null && card.getItem() instanceof IAdvancedCardSettings){
 				ICardWrapper helper = new CardWrapperImpl(card, activeTab);
 				Object guiObject = ((IAdvancedCardSettings)card.getItem()).getSettingsScreen(helper);
-				if (!(guiObject instanceof GuiScreen))
-				{
+				if (!(guiObject instanceof GuiScreen)){
 					IC2NuclearControl.logger.warn("Invalid card, getSettingsScreen method should return GuiScreen object");
 					return;
 				}
@@ -198,24 +193,20 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel{
 			break;
 		case ID_LABELS:
 			boolean checked = !container.panel.getShowLabels();
-			if (button instanceof IconButton)
-			{
+			if (button instanceof IconButton){
 				IconButton iButton = (IconButton)button;
 				iButton.textureTop = getIconLabelsTopOffset(checked);
 			}
-			int value = checked?-1:-2;
+			int value = checked ? -1 : -2;
 			container.panel.setShowLabels(checked);
-			//NetworkHelper.initiateClientTileEntityEvent(container.panel, value);
 			((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.panel, value);
 			break;
 		case ID_POWER:
 			byte mode = ((TileEntityAdvancedInfoPanel)container.panel).getNextPowerMode();
-			if(button instanceof IconButton)
-			{
+			if(button instanceof IconButton){
 				IconButton iButton = (IconButton)button;
 				iButton.textureTop = getIconPowerTopOffset(mode);
 			}
-			//NetworkHelper.initiateClientTileEntityEvent(container.panel, mode);
 			((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.panel, mode);
 			break;
 		case ID_SLOPE:

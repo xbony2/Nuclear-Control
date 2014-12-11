@@ -87,6 +87,10 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 		}
 		prevRotateHor = rotateHor;
 	}
+	
+	public byte getRotationHor(){
+		return rotateHor;
+	}
 
 	public void setRotateVert(byte p) {
 		rotateVert = p;
@@ -94,6 +98,10 @@ public class TileEntityAdvancedInfoPanel extends TileEntityInfoPanel {
 			IC2.network.get().updateTileEntityField(this, "rotateVert");
 		}
 		prevRotateVert = rotateVert;
+	}
+	
+	public byte getRotationVert(){
+		return rotateVert;
 	}
 
 	@Override

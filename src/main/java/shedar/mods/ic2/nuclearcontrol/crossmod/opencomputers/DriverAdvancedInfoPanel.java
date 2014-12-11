@@ -38,15 +38,27 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 			return 0;
 		}
 		
-		@Callback(doc = "function():number -- gets the thickness of the panel")
+		@Callback(doc = "function():number -- gets the thickness of the panel.")
 		public Object[] getThickness(final Context context, final Arguments args){
 			return new Object[]{((int)tileEntity.getThickness())};
 		}
 		
+		@Callback(doc = "function():number -- gets the horizonal rotation of the panel.")
+		public Object[] getRotationHorizonally(final Context context, final Arguments args){
+			return new Object[]{((int)tileEntity.getRotationHor())};
+		}
+		
+		@Callback(doc = "function():number -- gets the vertical rotation of the panel.")
+		public Object[] getRotationVertically(final Context context, final Arguments args){
+			return new Object[]{((int)tileEntity.getRotationVert())};
+		}
+		
+		@Callback(doc = "function(value:number) -- sets the thickness of the panel. Only input 1-16, otherwise nothing will happen.")
 		public Object[] setThickness(final Context context, final Arguments args){
 			final int newThickness = args.checkInteger(0);
-			if(newThickness == tileEntity.getThickness()) return null;
-			//TODO
+			if(newThickness <= 0 || newThickness > 16) return null; //invalid input
+			if(newThickness == tileEntity.getThickness()) return null; //same as the current thickness
+			tileEntity.setThickness((byte) newThickness);
 			return null;
 		}
 	}
