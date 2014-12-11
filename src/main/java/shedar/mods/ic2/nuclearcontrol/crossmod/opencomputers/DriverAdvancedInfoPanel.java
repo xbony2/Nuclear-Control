@@ -61,5 +61,23 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 			tileEntity.setThickness((byte) newThickness);
 			return null;
 		}
+		
+		@Callback(doc = "function(value:number) -- sets the horizonal rotation of the panel. Only input 1-16, otherwise nothing will happen.")
+		public Object[] rotateHorizonally(final Context context, final Arguments args){
+			final int newRotation = args.checkInteger(0);
+			if(newRotation <= 0 || newRotation > 16) return null; //invalid input
+			if(newRotation == tileEntity.getRotationHor()) return null; //same as the current thickness
+			tileEntity.setRotateHor((byte) newRotation);
+			return null;
+		}
+		
+		@Callback(doc = "function(value:number) -- sets the vertical rotation of the panel. Only input 1-16, otherwise nothing will happen.")
+		public Object[] rotateVertically(final Context context, final Arguments args){
+			final int newRotation = args.checkInteger(0);
+			if(newRotation <= 0 || newRotation > 16) return null; //invalid input
+			if(newRotation == tileEntity.getRotationVert()) return null; //same as the current thickness
+			tileEntity.setRotateVert((byte) newRotation);
+			return null;
+		}
 	}
 }
