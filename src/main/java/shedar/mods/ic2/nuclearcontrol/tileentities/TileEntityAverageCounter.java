@@ -107,7 +107,6 @@ public class TileEntityAverageCounter extends TileEntity implements
 		facing = f;
 
 		if (prevFacing != f) {
-			// NetworkHelper.updateTileEntityField(this, "facing");
 			IC2.network.get().updateTileEntityField(this, "facing");
 		}
 
@@ -127,7 +126,6 @@ public class TileEntityAverageCounter extends TileEntity implements
 		powerType = p;
 
 		if (prevPowerType != p) {
-			// NetworkHelper.updateTileEntityField(this, "powerType");
 			IC2.network.get().updateTileEntityField(this, "powerType");
 		}
 
