@@ -8,7 +8,7 @@
 	"logoFile": "",
 	"url": "http://forum.industrial-craft.net/index.php?page=Thread&threadID=5915",
 	"updateUrl": "http://modstats.org/",
-	"authorList": ["Shedar","xbony2","Zuxelus"],
+	"authorList": ["Shedar","xbony2","Zuxelus","DMF444"],
 	"credits": "Authored by Shedar, based on an original idea by Nargon and Noosius",
 	"screenshots": [],
 	"dependencies": ["IC2"]
