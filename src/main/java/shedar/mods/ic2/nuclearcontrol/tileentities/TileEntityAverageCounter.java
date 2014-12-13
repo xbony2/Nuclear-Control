@@ -39,7 +39,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 	private static final int DATA_POINTS = 11 * 20;
 
 	public static final byte POWER_TYPE_EU = 0;
-	public static final byte POWER_TYPE_MJ = 1;
+	public static final byte POWER_TYPE_RF = 1;
 
 	private boolean init;
 	private ItemStack inventory[];
@@ -365,7 +365,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 		return clientAverage;
 	}
 
-	private int getAverage() {
+	protected int getAverage() {
 		int start = DATA_POINTS + index - period * 20;
 		double sum = 0;
 		for (int i = 0; i < period * 20; i++) {

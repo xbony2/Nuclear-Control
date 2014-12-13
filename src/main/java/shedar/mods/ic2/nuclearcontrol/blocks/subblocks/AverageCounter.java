@@ -34,11 +34,10 @@ public class AverageCounter extends Subblock {
 
 	@Override
 	public TileEntity getTileEntity() {
-		/*TileEntity instance = IC2NuclearControl.instance.crossBC
-				.getAverageCounter();
-		if (instance == null) TODO: DMF
-			instance = new TileEntityAverageCounter();*/
-		TileEntity instance = new TileEntityAverageCounter();
+		TileEntity instance = IC2NuclearControl.instance.crossRF.getAverageCounter();
+		if (instance == null)
+			instance = new TileEntityAverageCounter();
+		//TileEntity instance = new TileEntityAverageCounter();
 		return instance;
 	}
 

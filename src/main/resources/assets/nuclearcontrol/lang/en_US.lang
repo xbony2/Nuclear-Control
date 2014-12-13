@@ -51,12 +51,12 @@ msg.nc.InfoPanelHeat=T: %s
 msg.nc.InfoPanelMaxHeat=MaxHeat: %s
 msg.nc.InfoPanelMelting=Melting: %s
 msg.nc.InfoPanelOutput=Output: %sEU/t
-msg.nc.InfoPanelOutputMJ=Output: %sMJ/t
+msg.nc.InfoPanelOutputMJ=Output: %s RF/t
 msg.nc.InfoPanelOutputSteam=Output: %smB/t
 msg.nc.InfoPanelTimeRemaining=Remaining: %s
 
 msg.nc.InfoPanelEnergyCounter=Energy: %sEU
-msg.nc.InfoPanelEnergyCounterMJ=Energy: %sMJ
+msg.nc.InfoPanelEnergyCounterMJ=Energy: %s RF
 
 msg.nc.InfoPanelEnergy=Energy: %s
 msg.nc.InfoPanelEnergyFree=Free: %s
