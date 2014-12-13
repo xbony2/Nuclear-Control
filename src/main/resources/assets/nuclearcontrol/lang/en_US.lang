@@ -140,3 +140,5 @@ msg.nc.waila.ColorOrange=Orange
 
 msg.nc.waila.getSoundNames=Sound: 
 msg.nc.waila.getRange=Range: 
+
+msg.nc.waila.getEnergyCount=Energy Count: 

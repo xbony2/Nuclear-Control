@@ -19,8 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiEnergyCounter extends GuiContainer {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIEnergyCounter.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private String name;
 	private ContainerEnergyCounter container;
@@ -34,8 +33,7 @@ public class GuiEnergyCounter extends GuiContainer {
 	@SuppressWarnings("unchecked")
 	private void initControls() {
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, guiLeft + 35, guiTop + 42, 127, 20,
-				StatCollector.translateToLocal("msg.nc.Reset")));
+		buttonList.add(new GuiButton(0, guiLeft + 35, guiTop + 42, 127, 20, StatCollector.translateToLocal("msg.nc.Reset")));
 	}
 
 	@Override
@@ -46,15 +44,9 @@ public class GuiEnergyCounter extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj
-				.drawString(name,
-						(xSize - fontRendererObj.getStringWidth(name)) / 2, 6,
-						0x404040);
-		fontRendererObj.drawString(
-				StatCollector.translateToLocal("container.inventory"), 8,
-				(ySize - 96) + 2, 0x404040);
-		String value = StringUtils.getFormatted("",
-				container.energyCounter.counter, false);
+		fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
+		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
+		String value = StringUtils.getFormatted("", container.energyCounter.counter, false);
 		fontRendererObj.drawString(value,
 				(xSize - fontRendererObj.getStringWidth(value)) / 2, 22,
 				0x404040);
