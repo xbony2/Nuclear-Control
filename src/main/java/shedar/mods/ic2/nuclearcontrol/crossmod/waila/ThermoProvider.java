@@ -11,7 +11,13 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 
-public class IC2ThermoProvider implements IWailaDataProvider{
+/**
+ * Provider for the thermal monitor.
+ * 
+ * @author xbony2
+ *
+ */
+public class ThermoProvider implements IWailaDataProvider{
 	
 	@Override
 	public List<String> getWailaBody(ItemStack itemstack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler handler) {

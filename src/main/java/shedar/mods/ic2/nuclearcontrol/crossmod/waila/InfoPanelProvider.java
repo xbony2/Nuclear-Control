@@ -11,6 +11,12 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 
+/**
+ * Provider for info panel. The color thing is very useful for those color blind.
+ * 
+ * @author xbony2
+ *
+ */
 public class InfoPanelProvider implements IWailaDataProvider{
 	@Override
 	public List<String> getWailaBody(ItemStack itemstack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler handler) {

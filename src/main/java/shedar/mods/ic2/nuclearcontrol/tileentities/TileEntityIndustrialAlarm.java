@@ -7,8 +7,7 @@ import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
-public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements
-		ITextureHelper {
+public class TileEntityIndustrialAlarm extends TileEntityHowlerAlarm implements ITextureHelper {
 	private static final byte[] lightSteps = { 0, 7, 15, 7, 0 };
 
 	protected byte internalFire;

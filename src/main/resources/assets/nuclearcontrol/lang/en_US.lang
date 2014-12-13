@@ -137,3 +137,6 @@ msg.nc.waila.ColorYellow=Yellow
 msg.nc.waila.ColorBlue=Blue
 msg.nc.waila.ColorMagenta=Magenta
 msg.nc.waila.ColorOrange=Orange
+
+msg.nc.waila.getSoundNames=Sound: 
+msg.nc.waila.getRange=Range: 

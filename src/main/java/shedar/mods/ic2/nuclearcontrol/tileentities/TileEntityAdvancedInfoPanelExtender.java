@@ -5,8 +5,7 @@ import net.minecraft.item.ItemStack;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
-public class TileEntityAdvancedInfoPanelExtender extends
-		TileEntityInfoPanelExtender {
+public class TileEntityAdvancedInfoPanelExtender extends TileEntityInfoPanelExtender {
 	
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {

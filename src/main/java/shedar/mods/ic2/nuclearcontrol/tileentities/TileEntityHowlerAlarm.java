@@ -81,7 +81,6 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	public void setRange(int r) {
 		range = r;
 		if (prevRange != r) {
-			// NetworkHelper.updateTileEntityField(this, "range");
 			IC2.network.get().updateTileEntityField(this, "range");
 		}
 		prevRange = range;
@@ -94,8 +93,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	public void setSoundName(String name) {
 		soundName = name;
 		if (prevSoundName != name){
-			IC2.network.get().updateTileEntityField(this,
-					"soundName");
+			IC2.network.get().updateTileEntityField(this, "soundName");
 		}
 		prevSoundName = name;
 	}
@@ -120,9 +118,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 		facing = f;
 
 		if (prevFacing != f) {
-			// NetworkHelper.updateTileEntityField(this, "facing");
-			IC2.network.get().updateTileEntityField(this,
-					"facing");
+			IC2.network.get().updateTileEntityField(this, "facing");
 		}
 
 		prevFacing = f;
@@ -147,11 +143,8 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 		if (prevPowered != value) {
 			if (powered) {
-				if (FMLCommonHandler.instance().getEffectiveSide().isClient()
-						&& soundReceived)
-					sound.playAlarm(xCoord + 0.5D, yCoord + 0.5D,
-							zCoord + 0.5D, SOUND_PREFIX + soundName,
-							getNormalizedRange(), false);
+				if (FMLCommonHandler.instance().getEffectiveSide().isClient() && soundReceived)
+					sound.playAlarm(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, SOUND_PREFIX + soundName, getNormalizedRange(), false);
 			} else {
 				if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 					sound.stopAlarm();
@@ -186,8 +179,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 	private float getNormalizedRange() {
 		if (worldObj.isRemote) {
-			return Math.min(range, IC2NuclearControl.instance.SMPMaxAlarmRange)
-					/ BASE_SOUND_RANGE;
+			return Math.min(range, IC2NuclearControl.instance.SMPMaxAlarmRange) / BASE_SOUND_RANGE;
 		}
 		return range / BASE_SOUND_RANGE;
 	}
@@ -217,14 +209,9 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 			setPoweredNoNotify(powered);
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
-		if (worldObj.isRemote && field.equals("soundName")
-				&& prevSoundName != soundName) {
-			if (IC2NuclearControl.instance.availableAlarms != null
-					&& !IC2NuclearControl.instance.availableAlarms
-							.contains(soundName)) {
-				IC2NuclearControl.logger.info(
-						"Can't set sound '%s' at %d,%d,%d, using default",
-						soundName, xCoord, yCoord, zCoord);
+		if (worldObj.isRemote && field.equals("soundName") && prevSoundName != soundName) {
+			if (IC2NuclearControl.instance.availableAlarms != null && !IC2NuclearControl.instance.availableAlarms.contains(soundName)) {
+				IC2NuclearControl.logger.info("Can't set sound '%s' at %d,%d,%d, using default", soundName, xCoord, yCoord, zCoord);
 				soundName = DEFAULT_SOUND_NAME;
 			}
 			prevSoundName = soundName;
@@ -287,7 +274,6 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_HOWLER_ALARM);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_HOWLER_ALARM);
 	}
 }
