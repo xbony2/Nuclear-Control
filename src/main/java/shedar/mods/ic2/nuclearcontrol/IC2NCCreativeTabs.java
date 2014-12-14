@@ -1,6 +1,6 @@
 /**
  * 
- * @author Zuxelus (I copied him)
+ * @author Zuxelus
  * 
  */
 package shedar.mods.ic2.nuclearcontrol;
@@ -15,7 +15,7 @@ public class IC2NCCreativeTabs extends CreativeTabs {
 	private static ItemStack itemToolThermometer;
 
 	public IC2NCCreativeTabs() {
-		super("IC2 NuclearControl 2");
+		super("Nuclear Control 2");
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class IC2NCCreativeTabs extends CreativeTabs {
 
 	@Override
 	public String getTranslatedTabLabel() {
-		return "IC2 NuclearControl 2";
+		return "Nuclear Control 2";
 	}
 
 }

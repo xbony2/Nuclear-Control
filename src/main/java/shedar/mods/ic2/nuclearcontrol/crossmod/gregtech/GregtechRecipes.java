@@ -109,12 +109,12 @@ public class GregtechRecipes {
 				'W', "cableGt01Platinum",
 				'M', IC2Items.getItem("machine"),
 				'C', "circuitAdvanced"});
-		//TODO this is where I am in progress
+		
 		ItemStack rangeTrigger = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_RANGE_TRIGGER);
 		Recipes.advRecipes.addRecipe(rangeTrigger, new Object[]{
 			"SAS", "CMC", "ZIZ",
 				'S', "plateSteel",
-				'A', "plateAluminium",
+				'A', gtComputerMonitor,
 				'C', "cableGt01Platinum",
 				'M', IC2Items.getItem("machine"),
 				'Z', "circuitAdvanced",
@@ -164,7 +164,7 @@ public class GregtechRecipes {
 				'T', thermometer,
 				'G', "plateGlass",
 				'C', "circuitBasic",
-				'A', "plateAluminium",
+				'A', gtComputerMonitor,
 				'P', IC2Items.getItem("powerunitsmall")});
 		
 		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemRemoteSensorKit, 1), new Object[] { 
