@@ -15,12 +15,10 @@ public class ItemKitReactorSensor extends ItemSensorKitBase {
 	}
 
 	@Override
-	protected ChunkCoordinates getTargetCoordinates(World world, int x, int y,
-			int z, ItemStack stack) {
+	protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack) {
 		IReactor reactor = NuclearHelper.getReactorAt(world, x, y, z);
 		if (reactor == null) {
-			IReactorChamber chamber = NuclearHelper.getReactorChamberAt(world,
-					x, y, z);
+			IReactorChamber chamber = NuclearHelper.getReactorChamberAt(world, x, y, z);
 			if (chamber != null) {
 				reactor = chamber.getReactor();
 			}

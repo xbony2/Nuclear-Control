@@ -42,8 +42,7 @@ public class NuclearHelper {
 		return null;
 	}
 
-	public static IReactor getReactorAroundCoord(World world, int x, int y,
-			int z) {
+	public static IReactor getReactorAroundCoord(World world, int x, int y, int z) {
 		if (world == null)
 			return null;
 		ChunkPosition[] around = { new ChunkPosition(-1, 0, 0),
@@ -53,14 +52,12 @@ public class NuclearHelper {
 		IReactor ent = null;
 		for (int i = 0; i < 6 && ent == null; i++) {
 			ChunkPosition delta = around[i];
-			ent = getReactorAt(world, x + delta.chunkPosX, y + delta.chunkPosY,
-					z + delta.chunkPosZ);
+			ent = getReactorAt(world, x + delta.chunkPosX, y + delta.chunkPosY, z + delta.chunkPosZ);
 		}
 		return ent;
 	}
 
-	public static IReactorChamber getReactorChamberAroundCoord(World world,
-			int x, int y, int z) {
+	public static IReactorChamber getReactorChamberAroundCoord(World world, int x, int y, int z) {
 		if (world == null)
 			return null;
 		ChunkPosition[] around = { new ChunkPosition(-1, 0, 0),
@@ -83,11 +80,6 @@ public class NuclearHelper {
 
 	public static int getNuclearCellTimeLeft(ItemStack rStack) {
 		int val = IC2NuclearControl.instance.crossIC2.getNuclearCellTimeLeft(rStack);
-		// if(val == -1)
-		// {
-		// val =
-		// IC2NuclearControl.instance.crossGregTech.getNuclearCellTimeLeft(rStack);
-		// }
 		return val;
 	}
 

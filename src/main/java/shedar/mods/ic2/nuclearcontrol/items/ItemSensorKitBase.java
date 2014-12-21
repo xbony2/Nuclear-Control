@@ -23,23 +23,19 @@ public abstract class ItemSensorKitBase extends Item {
 		setCreativeTab(IC2NuclearControl.tabIC2NC);
 	}
 
-	abstract protected ChunkCoordinates getTargetCoordinates(World world,
-			int x, int y, int z, ItemStack stack);
+	abstract protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack);
 
 	abstract protected ItemStack getItemStackByDamage(int damage);
 
 	private void setCoordinates(ItemStack itemStack, int x, int y, int z) {
-		NBTTagCompound nbtTagCompound = ItemStackUtils
-				.getTagCompound(itemStack);
+		NBTTagCompound nbtTagCompound = ItemStackUtils.getTagCompound(itemStack);
 		nbtTagCompound.setInteger("x", x);
 		nbtTagCompound.setInteger("y", y);
 		nbtTagCompound.setInteger("z", z);
 	}
 
 	@Override
-	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player,
-			World world, int x, int y, int z, int side, float hitX, float hitY,
-			float hitZ) {
+	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		if (player == null)
 			return false;
 		boolean isServer = player instanceof EntityPlayerMP;
@@ -48,10 +44,8 @@ public abstract class ItemSensorKitBase extends Item {
 		ChunkCoordinates position = getTargetCoordinates(world, x, y, z, stack);
 
 		if (position != null) {
-			ItemStack sensorLocationCard = getItemStackByDamage(stack
-					.getItemDamage());
-			setCoordinates(sensorLocationCard, position.posX, position.posY,
-					position.posZ);
+			ItemStack sensorLocationCard = getItemStackByDamage(stack.getItemDamage());
+			setCoordinates(sensorLocationCard, position.posX, position.posY, position.posZ);
 			player.inventory.mainInventory[player.inventory.currentItem] = sensorLocationCard;
 			if (!world.isRemote) {
 				NuclearNetworkHelper.chatMessage(player, "SensorKit");
