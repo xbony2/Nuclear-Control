@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.crossmod.data.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.utils.EnergyStorageHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;

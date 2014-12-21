@@ -473,12 +473,10 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		}
 		readDisplaySettings(nbttagcompound);
 
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items",
-				Constants.NBT.TAG_COMPOUND);
+		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 		inventory = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound compound = nbttaglist
-					.getCompoundTagAt(i);
+			NBTTagCompound compound = nbttaglist.getCompoundTagAt(i);
 			byte slotNum = compound.getByte("Slot");
 
 			if (slotNum >= 0 && slotNum < inventory.length) {

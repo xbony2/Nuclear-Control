@@ -8,7 +8,7 @@ import ic2.api.tile.IEnergyStorage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import shedar.mods.ic2.nuclearcontrol.crossmod.data.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 
 public class CrossIndustrialCraft2 {
 

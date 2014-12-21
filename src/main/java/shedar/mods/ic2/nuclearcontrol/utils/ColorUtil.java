@@ -1,5 +1,11 @@
 package shedar.mods.ic2.nuclearcontrol.utils;
 
+/**
+ * Some nice color utilities
+ * 
+ * @author Shedar, xbony2
+ *
+ */
 public class ColorUtil {
 	public static final int COLOR_WHITE = 15;
 	public static final int COLOR_ORANGE = 14;

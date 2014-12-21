@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.crossmod.data;
+package shedar.mods.ic2.nuclearcontrol.crossmod;
 
 public class EnergyStorageData {
 	public static final int TARGET_TYPE_UNKNOWN = -1;

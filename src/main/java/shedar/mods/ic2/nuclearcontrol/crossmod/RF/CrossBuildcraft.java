@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
-import shedar.mods.ic2.nuclearcontrol.crossmod.data.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
 import buildcraft.api.tools.IToolWrench;

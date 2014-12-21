@@ -3,7 +3,7 @@ package shedar.mods.ic2.nuclearcontrol.utils;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.crossmod.data.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 
 public class EnergyStorageHelper {
 
