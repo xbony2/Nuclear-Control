@@ -1,9 +1,14 @@
 package shedar.mods.ic2.nuclearcontrol;
 
+import ic2.api.recipe.Recipes;
+
 import java.io.File;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.Logger;
@@ -202,7 +207,7 @@ public class IC2NuclearControl {
 		}
 
 		if (recipes.toLowerCase().equals("old")) {
-			logger.error("Old recipes deprecated!");
+			logger.error("Old recipes deprecated! Many recipes may be missing.");
 			RecipesOld.addOldRecipes();
 		}
 
@@ -210,7 +215,13 @@ public class IC2NuclearControl {
 			GregtechRecipes.addRecipes();
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
 		}
-
+		
+		//My "protest"
+		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
+		dBlock.setStackDisplayName("ERROR: report to skyboy!");
+		Recipes.advRecipes.addRecipe(dBlock, new Object[]{
+			"XXX", "XXX", "XXX",
+				'X', "greggy_greg_do_please_kindly_stuff_a_sock_in_it"});
 	}
 
 	@EventHandler
