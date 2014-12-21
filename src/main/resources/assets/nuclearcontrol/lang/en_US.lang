@@ -142,3 +142,6 @@ msg.nc.waila.getSoundNames=Sound:
 msg.nc.waila.getRange=Range: 
 
 msg.nc.waila.getEnergyCount=Energy Count: 
+
+msg.nc.waila.getEnergyAverage=Energy Average: 
+msg.nc.waila.getPeriod=Over period of: 

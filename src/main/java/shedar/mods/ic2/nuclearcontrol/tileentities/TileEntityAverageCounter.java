@@ -44,7 +44,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 	private boolean init;
 	private ItemStack inventory[];
 
-	// 0 - EU, 1- MJ
+	// 0 - EU, 1- RF
 	private byte prevPowerType;
 	public byte powerType;
 

@@ -3,10 +3,7 @@ package shedar.mods.ic2.nuclearcontrol.crossmod.waila;
 import java.util.List;
 
 import shedar.mods.ic2.nuclearcontrol.api.BonyDebugger;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityHowlerAlarm;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
+import shedar.mods.ic2.nuclearcontrol.tileentities.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -21,6 +18,7 @@ public class CrossWaila {
 		register.registerBodyProvider(new InfoPanelProvider(), TileEntityInfoPanel.class);
 		register.registerBodyProvider(new HowlerAlarmProvider(), TileEntityHowlerAlarm.class);
 		register.registerBodyProvider(new EnergyCounterProvider(), TileEntityEnergyCounter.class);
+		register.registerBodyProvider(new AverageCounterProvider(), TileEntityAverageCounter.class);
 	}
 
 }
