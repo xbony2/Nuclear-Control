@@ -8,7 +8,6 @@ import java.util.List;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.CrossOpenComputers;
@@ -55,23 +53,6 @@ import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "IC2NuclearControl", name = "Nuclear Control 2", version = "@VERSION@", dependencies = "required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl {
-
-	public static final int COLOR_WHITE = 15;
-	public static final int COLOR_ORANGE = 14;
-	public static final int COLOR_MAGENTA = 13;
-	public static final int COLOR_LIGHT_BLUE = 12;
-	public static final int COLOR_YELLOW = 11;
-	public static final int COLOR_LIME = 10;
-	public static final int COLOR_PINK = 9;
-	public static final int COLOR_GRAY = 8;
-	public static final int COLOR_LIGHT_GRAY = 7;
-	public static final int COLOR_CYAN = 6;
-	public static final int COLOR_PURPLE = 5;
-	public static final int COLOR_BLUE = 4;
-	public static final int COLOR_BROWN = 3;
-	public static final int COLOR_GREEN = 2;
-	public static final int COLOR_RED = 1;
-	public static final int COLOR_BLACK = 0;
 
 	// The instance of your mod forge uses
 	@Instance

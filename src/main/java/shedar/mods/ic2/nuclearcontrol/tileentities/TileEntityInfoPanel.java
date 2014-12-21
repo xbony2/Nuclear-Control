@@ -5,7 +5,6 @@ import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
-import ic2.core.network.NetworkManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,12 +34,13 @@ import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelMultiCard;
 import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
+import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.panel.Screen;
 import shedar.mods.ic2.nuclearcontrol.panel.http.HttpCardSender;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
+import shedar.mods.ic2.nuclearcontrol.utils.ColorUtil;
 import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
@@ -326,7 +326,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		rotation = 0;
 		showLabels = true;
 		colored = false;
-		colorBackground = IC2NuclearControl.COLOR_GREEN;
+		colorBackground = ColorUtil.COLOR_GREEN;
 	}
 
 	public TileEntityInfoPanel() {
@@ -465,7 +465,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		} else {
 			// 1.4.1 compatibility
 			colorText = 0;
-			colorBackground = IC2NuclearControl.COLOR_GREEN;
+			colorBackground = ColorUtil.COLOR_GREEN;
 		}
 
 		if (nbttagcompound.hasKey("screenData")) {
