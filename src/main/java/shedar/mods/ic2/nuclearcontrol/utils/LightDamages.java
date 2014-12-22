@@ -11,6 +11,8 @@ public class LightDamages {
 	
 	public static final int DAMAGE_WHITE_OFF = 0;
 	public static final int DAMAGE_WHITE_ON = 1;
+	public static final int DAMAGE_ORANGE_OFF = 2;
+	public static final int DAMAGE_ORANGE_ON = 3;
 	
-	public static final int DAMAGE_MAX = 1;
+	public static final int DAMAGE_MAX = 3;
 }

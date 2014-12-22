@@ -25,11 +25,13 @@ public class BlockNuclearControlLight extends Block{
 	public BlockNuclearControlLight() {
 		super(Material.redstoneLight);
 		subblocks = new HashMap<Integer, Boolean>();
-		setHardness(0.3F);
+		this.setHardness(0.3F);
+		this.setCreativeTab(IC2NuclearControl.tabIC2NC);
 		setStepSound(soundTypeGlass);
-		setCreativeTab(IC2NuclearControl.tabIC2NC);
 		register(LightDamages.DAMAGE_WHITE_OFF, false);
 		register(LightDamages.DAMAGE_WHITE_ON, true);
+		register(LightDamages.DAMAGE_ORANGE_OFF, false);
+		register(LightDamages.DAMAGE_ORANGE_ON, true);
 		icon = new IIcon[subblocks.size() + 1];
 	}
 	
@@ -102,11 +104,8 @@ public class BlockNuclearControlLight extends Block{
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	public void getSubBlocks(Item id, CreativeTabs tab, List itemList) {
-		for (int i = 0; i <= LightDamages.DAMAGE_MAX; i++) {
+		for (int i = 0; i <= LightDamages.DAMAGE_MAX; i++) {	
 			itemList.add(new ItemStack(this, 1, i));
-			/*if(i == 0 || i % 2 == 0){
-				
-			}*/
 		}
 	}
 	

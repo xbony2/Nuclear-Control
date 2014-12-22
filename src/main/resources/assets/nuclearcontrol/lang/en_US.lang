@@ -28,6 +28,8 @@ tile.blockAdvancedInfoPanel.name=Advanced Information Panel
 tile.blockAdvancedInfoPanelExtender.name=Advanced Panel Extender
 tile.nclight0.name=White Lamp
 tile.nclight1.name=White Lamp
+tile.nclight2.name=Orange Lamp
+tile.nclight3.name=Orange Lamp
 
 tile.blockEnergyCounter.name=Energy Counter
 tile.blockAverageCounter.name=Average Counter
