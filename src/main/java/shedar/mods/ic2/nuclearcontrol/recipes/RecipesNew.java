@@ -123,14 +123,14 @@ public class RecipesNew {
 				'A', "dyeCyan", 
 				'B', "dyeBlue" });
 
-		if ((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer) 
+		/*if ((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer) 
 				|| (IC2NuclearControl.isHttpSensorAvailableServer && IC2NuclearControl.isServer)) {
 			Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_WEB), new Object[]{
 				"CGC", "CAC", "CGC",
 					'C', new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_RANGE), 
 					'A', "circuitAdvanced", 
 					'G', "blockGlass"});
-		}
+		}*/
 
 		ItemStack energyCounter = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_ENERGY_COUNTER);
 		Recipes.advRecipes.addRecipe(
