@@ -36,11 +36,11 @@ public class ServerTickHandler {
 				(EntityPlayerMP) event.player);
 	}
 
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public void onTick(TickEvent.ServerTickEvent event) {
 		if (event.type == Type.SERVER && event.side == Side.SERVER
 				&& event.phase == Phase.END) {
 			HttpCardSender.instance.send();
 		}
-	}
+	}*/
 }
