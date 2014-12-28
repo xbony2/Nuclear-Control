@@ -54,6 +54,7 @@ dependencies {
 	compile argoVersion
 	compile wailaVersion
 	compile openCVersion
+	compile files('lib/BigReactors-0.4.1A2.jar')
 }
 
 
