@@ -98,6 +98,10 @@ msg.nc.cbInfoPanelMelting=Melting temp
 msg.nc.cbInfoPanelOutput=Output (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Time to cycle end
 
+msg.nc.InfoPanelRF.EnergyStored=Energy: %s RF
+msg.nc.InfoPanelRF.CreatedEnergy=Output Energy: %s RF/t
+msg.nc.InfoPanelRF.Percentage=Storage Buffer is %s%% Full
+
 msg.nc.cb24h=24h mode
 
 msg.nc.cbInfoPanelEnergyCurrent=Energy

@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
+import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.CrossBigReactors;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
@@ -38,6 +39,7 @@ import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -178,6 +180,7 @@ public class IC2NuclearControl {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
 		//crossBC = new CrossBuildcraft(); TODO: hello DMF
+		CrossBigReactors.isRegistrationInOrder();
 		crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
