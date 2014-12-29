@@ -25,6 +25,11 @@ import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 
 public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 
+	public ItemCardRFSensor() {
+		this.setTextureName("nuclearcontrol:cardRFReactor");
+	}
+	
+	
 	public static final int DISPLAY_ON = 1;
 	public static final int DISPLAY_OUTPUT = 2;
 	public static final int DISPLAY_ENERGY = 4;
@@ -74,7 +79,7 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 		//Temperature
 		if ((displaySettings & DISPLAY_TEMP) > 0) {
 			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted("Core Temp.: %s C", coreTemp, showLabels);
+			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.Temp", coreTemp, showLabels);
 			result.add(line);
 		}
 		
@@ -130,8 +135,8 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 		List<PanelSetting> result = new ArrayList<PanelSetting>(5);
 		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelOnOff"), DISPLAY_ON, CARD_TYPE));
 		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelEnergyCurrent"), DISPLAY_ENERGY, CARD_TYPE));
-		result.add(new PanelSetting(LangHelper.translate("Output (RF/t)"), DISPLAY_OUTPUT, CARD_TYPE));
-		result.add(new PanelSetting(LangHelper.translate("Core Temperature"), DISPLAY_TEMP, CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.InfoPanelRF.Output"), DISPLAY_OUTPUT, CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.InfoPanelRF.TempPROPER"), DISPLAY_TEMP, CARD_TYPE));
 		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelEnergyPercentage"), DISPLAY_PERCENTAGE, CARD_TYPE));
 		return result;
 	}

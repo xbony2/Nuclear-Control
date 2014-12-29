@@ -12,6 +12,9 @@ import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 
 public class ItemKitRFSensor extends ItemKitEnergySensor{
 	
+	public ItemKitRFSensor() {
+		this.setTextureName("nuclearcontrol:kitRFReactor");
+	}
 	
 	@Override
 	protected ItemStack getItemStackByDamage(int damage) {

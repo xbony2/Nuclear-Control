@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors;
 
+import net.minecraft.nbt.NBTTagCompound;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import erogenousbeef.bigreactors.common.multiblock.interfaces.ITickableMultiblockPart;
 import erogenousbeef.bigreactors.common.multiblock.tileentity.TileEntityReactorPartBase;
@@ -45,6 +46,11 @@ public class TileEntityBlockFetcher extends TileEntityReactorPartBase implements
 
 	}
 	
+	@Override
+	public void onMachineBroken() {
+		super.onMachineBroken();
+		
+	}
 	
 	@Override
 	public void onMultiblockServerTick() {
@@ -59,6 +65,16 @@ public class TileEntityBlockFetcher extends TileEntityReactorPartBase implements
 		//NCLog.fatal(this.getReactorController().getActive());//On or Off	
 		//NCLog.fatal(this.getReactorController().getEnergyGeneratedLastTick());//String.format("%.2f flux per tick", this.getReactorController().getEnergyGeneratedLastTick())
 		}
+	}
+	@Override
+	public void readFromNBT(NBTTagCompound tag){
+		super.readFromNBT(tag);
+		shouldBlockCache = tag.getBoolean("Cache");
+	}
+	@Override
+	 public void writeToNBT(NBTTagCompound tag){
+		super.writeToNBT(tag);
+		tag.setBoolean("Cache", shouldBlockCache);
 	}
 	
 	public float getEnergyStored(){

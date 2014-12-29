@@ -4,6 +4,8 @@ item.ItemRemoteSensorKit.name=Remote Sensor Kit
 item.ItemEnergySensorKit.name=Energy Sensor Kit
 item.ItemCounterSensorKit.name=Counter Sensor Kit
 item.ItemLiquidSensorKit.name=Liquid Sensor Kit
+item.RFreactorKit.name=Remote RF Reactor Kit
+item.RFreactorCard.name=RF Reactor Sensor Location Card
 item.ItemSensorLocationCard.name=Reactor Sensor Location Card
 item.ItemEnergySensorLocationCard.name=Energy Sensor Location Card
 item.itemCounterSensorLocationCard.name=Counter Sensor Location Card
@@ -31,6 +33,7 @@ tile.nclight1.name=White Lamp
 tile.nclight2.name=Orange Lamp
 tile.nclight3.name=Orange Lamp
 
+tile.blockBRPart.name=Reactor Monitor
 tile.blockEnergyCounter.name=Energy Counter
 tile.blockAverageCounter.name=Average Counter
 tile.blockRangeTrigger.name=Range Trigger
@@ -98,9 +101,12 @@ msg.nc.cbInfoPanelMelting=Melting temp
 msg.nc.cbInfoPanelOutput=Output (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Time to cycle end
 
+msg.nc.InfoPanelRF.Temp=Core Temp.: %s C
 msg.nc.InfoPanelRF.EnergyStored=Energy: %s RF
 msg.nc.InfoPanelRF.CreatedEnergy=Output Energy: %s RF/t
 msg.nc.InfoPanelRF.Percentage=Storage Buffer is %s%% Full
+msg.nc.InfoPanelRF.Output=Output (RF/t)
+msg.nc.InfoPanelRF.TempPROPER=Core Temperature
 
 msg.nc.cb24h=24h mode
 
