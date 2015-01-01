@@ -24,7 +24,7 @@ public class RecipesNew {
 					'R', "dustRedstone", 
 					'C', "circuitAdvanced" });
 
-		ItemStack howler = new ItemStack( IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_HOWLER_ALARM);
+		ItemStack howler = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_HOWLER_ALARM);
 		Recipes.advRecipes.addRecipe(howler, new Object[]{ 
 				"NNN", "ICI", "IRI", 
 					'I', "plateIron", 

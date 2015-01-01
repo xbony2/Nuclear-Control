@@ -6,6 +6,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.recipes.BigReactorsRecipesNew;
+import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.recipes.BigReactorsRecipesGregtech;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -21,7 +24,6 @@ public class CrossBigReactors {
 		if(Loader.isModLoaded("BigReactors")){
 			NCLog.fatal("We know that there is a foreign reactor installed...");
 			activateOtherModStuff();
-			//GameRegistry.addShapelessRecipe(new ItemStack(Items.diamond,  64), Blocks.dirt); 
 		}
 	}
 	
@@ -33,8 +35,14 @@ public class CrossBigReactors {
 		GameRegistry.registerItem(reactorCard, "NC-BRreactorCard");
 		GameRegistry.registerItem(kitRFsensor, "NC-BRrfsensorKit");
 		GameRegistry.registerTileEntity(TileEntityBlockFetcher.class, "NC-BRinfoFetch");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(kitRFsensor), new Object[] {"it ", "pd ", " r ", 'i', "ingotYellorium", 't', IC2Items.getItem("frequencyTransmitter"), 'p', Items.paper, 'd', "dyeRed", 'r', Items.redstone}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ReactorInfoFetch), new Object[] {"brb", "ycy", "brb", 'b', "reactorCasing", 'r', Items.redstone, 'y', "ingotYellorium", 'c', Items.comparator}));
+		
+		if(IC2NuclearControl.instance.recipes.toLowerCase().equals("normal")){
+			BigReactorsRecipesNew.addRecipes();
+		}
+		
+		if(IC2NuclearControl.instance.recipes.toLowerCase().equals("gregtech")){
+			BigReactorsRecipesGregtech.addRecipes();
+		}
 	}
 
 }
