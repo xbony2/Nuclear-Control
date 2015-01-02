@@ -187,8 +187,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		c &= 0xf;
 		colorText = c;
 		if (prevColorText != c) {
-			IC2.network.get().updateTileEntityField(this,
-					"colorText");
+			IC2.network.get().updateTileEntityField(this, "colorText");
 		}
 		prevColorText = colorText;
 	}

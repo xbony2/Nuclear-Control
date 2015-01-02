@@ -10,6 +10,11 @@ import li.cil.oc.api.network.ManagedEnvironment;
 import li.cil.oc.api.prefab.DriverTileEntity;
 import li.cil.oc.integration.ManagedTileEntityEnvironment;
 
+/**
+ * OC Driver for the advanced info panel.
+ * 
+ * @author xbony2
+ */
 public class DriverAdvancedInfoPanel extends DriverTileEntity {
 	public static final String NAME = "advanced_info_panel";
 	
@@ -57,6 +62,16 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 		public Object[] getBackgroundColor(final Context context, final Arguments args){
 			return new Object[]{(tileEntity.getColorBackground())};
 		}
+		
+		/* TODO: this is broken
+		@Callback(doc = "function(value:number) -- sets the background color of the panel (0-16)")
+		public Object[] setBackgroundColor(final Context context, final Arguments args){
+			final int newColor = args.checkInteger(0);
+			if(newColor < 0 || newColor > 16) return null; //invalid input
+			if(newColor == tileEntity.getColorBackground()) return null; //same as the current background
+			tileEntity.setColorBackground(newColor);
+			return null;
+		}*/
 		
 		@Callback(doc = "function(value:number) -- sets the thickness of the panel. Only input 1-16, otherwise nothing will happen")
 		public Object[] setThickness(final Context context, final Arguments args){
