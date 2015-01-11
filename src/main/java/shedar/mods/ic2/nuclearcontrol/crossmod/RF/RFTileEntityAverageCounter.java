@@ -17,6 +17,8 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
 	protected EnergyStorage storage = new EnergyStorage(32000);
 	private int rec;
 	private int send;
+	private int duration;
+	private int AVG;
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
@@ -79,12 +81,14 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
 			 transferEnergy();
 		 }
 		 if(!worldObj.isRemote){
-			index = (index+1) % 11 * 20;
-			data[index] = 0;
-			double total = getAverage();
-			//NCLog.fatal("Extract: " + send);
-			//NCLog.fatal("RECIEVE: " + rec);
-			data[index] = total;
+				index = (index + 1) % DATA_POINTS;
+				data[index] = 0;
+				duration = period * 20;
+				AVG = duration * send;
+				clientAverage = AVG;
+				data[index] = AVG;
+				//NCLog.fatal(send);
+				//NCLog.fatal(AVG);
 			setPowerType(POWER_TYPE_RF);
 			send = 0;
 			rec = 0;

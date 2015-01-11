@@ -36,7 +36,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 		IInventory, ISlotItemFilter, INetworkDataProvider,
 		INetworkUpdateListener {
 	private static final int BASE_PACKET_SIZE = 32;
-	private static final int DATA_POINTS = 11 * 20;
+	protected static final int DATA_POINTS = 11 * 20;
 
 	public static final byte POWER_TYPE_EU = 0;
 	public static final byte POWER_TYPE_RF = 1;
@@ -59,7 +59,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 	protected int tickRate;
 	protected short prevPeriod;
 	public short period;
-	private int clientAverage = -1;
+	protected int clientAverage = -1;
 
 	public int packetSize;
 
