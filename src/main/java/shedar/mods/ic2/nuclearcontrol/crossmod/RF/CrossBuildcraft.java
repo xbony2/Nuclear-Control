@@ -57,47 +57,6 @@ public class CrossBuildcraft{
     public boolean isTankContainer(Object obj){
         return _isApiAvailable && obj instanceof IFluidHandler;
     }
-    
-    public TileEntityAverageCounter getAverageCounter(){
-        if(_isApiAvailable){
-            try{
-                return (TileEntityAverageCounter)Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityAverageCounterBC").newInstance();
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-    
-    public TileEntityEnergyCounter getEnergyCounter(){
-        if(_isApiAvailable){
-            try{
-                return (TileEntityEnergyCounter)Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityEnergyCounterBC").newInstance();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-    
-  /*  public EnergyStorageData getStorageData(TileEntity target)
-    {
-        if(!_isApiAvailable || target == null)
-            return null;
-        PowerReceiver receiver = null;
-        if (target instanceof IPowerReceptor)
-        {
-            receiver = ((IPowerReceptor)target).getPowerReceiver(ForgeDirection.UNKNOWN);
-        }
-        if(receiver == null)
-            return null;
-        EnergyStorageData result = new EnergyStorageData();
-        result.capacity = receiver.getMaxEnergyStored();
-        result.stored = receiver.getEnergyStored();
-        result.units = "MJ";
-        result.type = EnergyStorageData.TARGET_TYPE_RF;
-        return result;
-    }
-*/
+
+
 }

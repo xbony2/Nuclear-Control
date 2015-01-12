@@ -1,13 +1,9 @@
 package shedar.mods.ic2.nuclearcontrol;
 
-import ic2.api.recipe.Recipes;
-
 import java.io.File;
 import java.util.List;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.Logger;
@@ -15,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.CrossBigReactors;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
@@ -39,7 +36,6 @@ import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
-import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -108,7 +104,7 @@ public class IC2NuclearControl {
 	public int rangeTriggerRefreshPeriod;
 	public String recipes;
 
-	//public CrossBuildcraft crossBC;
+	public CrossBuildcraft crossBC;
 	public CrossIndustrialCraft2 crossIC2;
 	public CrossRailcraft crossRailcraft;
 	public CrossRF crossRF;
@@ -179,7 +175,7 @@ public class IC2NuclearControl {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
-		//crossBC = new CrossBuildcraft(); TODO: hello DMF
+		crossBC = new CrossBuildcraft();
 		CrossBigReactors.isRegistrationInOrder();
 		crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
