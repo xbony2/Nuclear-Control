@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers;
 
+import cpw.mods.fml.common.Loader;
 import li.cil.oc.api.Driver;
 
 public class CrossOpenComputers {
@@ -14,7 +15,7 @@ public class CrossOpenComputers {
 			_isApiAvailable = false;
 		}
 		
-		if(_isApiAvailable) addDrivers();
+		if(_isApiAvailable && Loader.isModLoaded("OpenComputers")) addDrivers();
 	}
 	
 	public static void addDrivers(){
