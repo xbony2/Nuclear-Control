@@ -17,8 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ModelInfoPanel {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/blocks/infoPanel/panelAdvancedSide.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private double[] coordinates = new double[24];
 
@@ -205,9 +204,8 @@ public class ModelInfoPanel {
 				coordinates[point * 3 + 1], coordinates[point * 3 + 2], u, v);
 	}
 
-	private void drawFacing(int facing, int rotation, Screen screen, TileEntityAdvancedInfoPanel panel, Block block) {
+	private void drawFacing(int facing, int rotation, Screen screen, TileEntityAdvancedInfoPanel panel, Block block, Tessellator tess) {
 		// TODO: refactor here
-		Tessellator tessellator = Tessellator.instance;
 		int point = 0;
 		int pointR = 0;
 		int pointB = 0;
@@ -220,7 +218,7 @@ public class ModelInfoPanel {
 		boolean ccw = false;
 		switch (facing) {
 		case 0:
-			Tessellator.instance.setNormal(0, -1, 0);
+			tess.setNormal(0, -1, 0);
 			point = 3;
 			pointR = 0;
 			pointB = 2;
@@ -232,7 +230,7 @@ public class ModelInfoPanel {
 			ccw = true;
 			break;
 		case 1:
-			Tessellator.instance.setNormal(0, 1, 0);
+			tess.setNormal(0, 1, 0);
 			point = 4;
 			pointR = 7;
 			pointB = 5;
@@ -243,7 +241,7 @@ public class ModelInfoPanel {
 			offsetD = 1;
 			break;
 		case 2:
-			Tessellator.instance.setNormal(0, 0, -1);
+			tess.setNormal(0, 0, -1);
 			point = 7;
 			pointR = 4;
 			pointB = 3;
@@ -255,7 +253,7 @@ public class ModelInfoPanel {
 			ccw = rotation == 1 || rotation == 2;
 			break;
 		case 3:
-			Tessellator.instance.setNormal(0, 0, 1);
+			tess.setNormal(0, 0, 1);
 			point = 5;
 			pointR = 6;
 			pointB = 1;
@@ -266,7 +264,7 @@ public class ModelInfoPanel {
 			offsetD = 2;
 			break;
 		case 4:
-			Tessellator.instance.setNormal(-1, 0, 0);
+			tess.setNormal(-1, 0, 0);
 			point = 4;
 			pointR = 5;
 			pointB = 0;
@@ -277,7 +275,7 @@ public class ModelInfoPanel {
 			offsetD = 0;
 			break;
 		case 5:
-			Tessellator.instance.setNormal(1, 0, 0);
+			tess.setNormal(1, 0, 0);
 			point = 6;
 			pointR = 7;
 			pointB = 2;
@@ -360,16 +358,16 @@ public class ModelInfoPanel {
 					u1 = u2;
 					u2 = tu;
 				}
-				tessellator.addVertexWithUV(p[0], p[1], p[2], u1, v1);
+				tess.addVertexWithUV(p[0], p[1], p[2], u1, v1);
 				p[offsetV] += dv;
 				p[offsetD] += ddv;
-				tessellator.addVertexWithUV(p[0], p[1], p[2], u1, v2);
+				tess.addVertexWithUV(p[0], p[1], p[2], u1, v2);
 				p[offsetH] += dh;
 				p[offsetD] += ddh;
-				tessellator.addVertexWithUV(p[0], p[1], p[2], u2, v2);
+				tess.addVertexWithUV(p[0], p[1], p[2], u2, v2);
 				p[offsetV] -= dv;
 				p[offsetD] -= ddv;
-				tessellator.addVertexWithUV(p[0], p[1], p[2], u2, v1);
+				tess.addVertexWithUV(p[0], p[1], p[2], u2, v1);
 
 				sv++;
 			}
@@ -386,20 +384,18 @@ public class ModelInfoPanel {
 		addSlopes(panel, screen, deltas);
 
 		int facing = panel.getFacing();
+		Tessellator tess = Tessellator.instance;
 
-		Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(
-				panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
-		Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
-		drawFacing(facing, panel.getRotation(), screen, panel, block);
-
-		//FIXME: Bug may be contained here
-		Tessellator.instance.draw();
+		tess.setBrightness(block.getMixedBrightnessForBlock(panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
+		tess.setColorOpaque_F(0.5F, 0.5F, 0.5F);
+		drawFacing(facing, panel.getRotation(), screen, panel, block, tess);
+		tess.draw();
+		
+		//SIDES
 		Tessellator.instance.startDrawingQuads();
-		renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
-		Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(
-				panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
+		Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
 		Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
-
+		//GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int dx = screen.getDx() + 1;
@@ -454,12 +450,14 @@ public class ModelInfoPanel {
 			addPoint(7, dz, dy);
 			addPoint(6, 0, dy);
 		}
+		renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
+		//GL11.glDisable(GL11.GL_LIGHTING);
 		Tessellator.instance.draw();
+		
+		//RETURN TO MC DRAWING
 		Tessellator.instance.startDrawingQuads();
-		renderer.minecraftRB.renderEngine
-				.bindTexture(TextureMap.locationBlocksTexture/*
-															 * blocks texture
-															 * atlas
-															 */);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
+		renderer.minecraftRB.renderEngine.bindTexture(TextureMap.locationBlocksTexture/* blocks texture atlas*/);
 	}
 }
