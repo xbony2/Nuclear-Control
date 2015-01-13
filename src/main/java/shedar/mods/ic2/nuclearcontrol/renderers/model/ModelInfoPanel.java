@@ -392,10 +392,10 @@ public class ModelInfoPanel {
 		Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
 		drawFacing(facing, panel.getRotation(), screen, panel, block);
 
-		renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION); //this might break everything, or maybe not.
+		//FIXME: Bug may be contained here
 		Tessellator.instance.draw();
 		Tessellator.instance.startDrawingQuads();
-		//renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
+		renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
 		Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(
 				panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
 		Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
