@@ -14,6 +14,7 @@ import shedar.mods.ic2.nuclearcontrol.StorageArrayRecipe;
 import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
+import shedar.mods.ic2.nuclearcontrol.utils.LightDamages;
 
 public class GregtechRecipes {
 	public static Item gtmeta1;
@@ -144,12 +145,19 @@ public class GregtechRecipes {
 				'H', "craftingToolHardHammer",
 				'D', "craftingToolScrewdriver"});
 		
-		ItemStack whiteLamp = new ItemStack(IC2NuclearControl.blockNuclearControlLight);
-		Recipes.advRecipes.addRecipe(whiteLamp, new Object[]{
+		ItemStack lampWhite = new ItemStack(IC2NuclearControl.blockNuclearControlLight, 1, LightDamages.DAMAGE_WHITE_OFF);
+		Recipes.advRecipes.addRecipe(lampWhite, new Object[]{
 			"GGG", "GRG", "GWG",
 				'G', "paneGlassWhite",
 				'R', Blocks.redstone_lamp,
 				'W', "wireGt01RedAlloy"});
+		
+		ItemStack lampOrange = new ItemStack(IC2NuclearControl.blockNuclearControlLight, 1, LightDamages.DAMAGE_ORANGE_OFF);
+		Recipes.advRecipes.addRecipe(lampOrange, new Object[]{
+				"GGG", "GRG", "GWG",
+					'G', "paneGlassOrange",
+					'R', Blocks.redstone_lamp,
+					'W', "wireGt01RedAlloy"});
 		
 		ItemStack thermometer = new ItemStack(IC2NuclearControl.itemToolThermometer);
 		Recipes.advRecipes.addRecipe(thermometer, new Object[]{
@@ -199,14 +207,14 @@ public class GregtechRecipes {
 				'A', "dyeCyan", 
 				'B', "dyeBlue" });
 
-		if ((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer) 
+		/*if ((IC2NuclearControl.isHttpSensorAvailableClient && !IC2NuclearControl.isServer) 
 				|| (IC2NuclearControl.isHttpSensorAvailableServer && IC2NuclearControl.isServer)) {
 			Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_WEB), new Object[]{
 				"CGC", "CAC", "CGC",
 					'C', new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_RANGE), 
 					'A', "circuitAdvanced", 
 					'G', "blockGlass"});
-		}
+		}*/
 		
 		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemMultipleSensorKit, 1, ItemKitMultipleSensor.TYPE_COUNTER), new Object[] { 
 			"CF", "PR", 
