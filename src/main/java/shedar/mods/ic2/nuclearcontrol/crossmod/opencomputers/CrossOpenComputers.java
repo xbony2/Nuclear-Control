@@ -8,6 +8,7 @@ public class CrossOpenComputers {
 	private Class _driverTile;
 	
 	public CrossOpenComputers(){
+		if(!Loader.isModLoaded("OpenComputers")) return;
 		try{
 			_driverTile = Class.forName("li.cil.oc.api.Driver", false, this.getClass().getClassLoader());
 			_isApiAvailable = true;
@@ -15,7 +16,7 @@ public class CrossOpenComputers {
 			_isApiAvailable = false;
 		}
 		
-		if(_isApiAvailable && Loader.isModLoaded("OpenComputers")) addDrivers();
+		if(_isApiAvailable) addDrivers();
 	}
 	
 	public static void addDrivers(){
