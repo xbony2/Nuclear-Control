@@ -37,6 +37,7 @@ import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -180,7 +181,6 @@ public class IC2NuclearControl {
 		crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
-		crossOC = new CrossOpenComputers();
 
 		if (recipes.toLowerCase().equals("normal")) {
 			RecipesNew.addRecipes();
@@ -211,6 +211,7 @@ public class IC2NuclearControl {
 		initBlocks();
 		registerBlocks();
 		proxy.registerTileEntities();
+		if(Loader.isModLoaded("OpenComputers")) crossOC = new CrossOpenComputers();
 		//Registers waila stuff
 		FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
 	}
