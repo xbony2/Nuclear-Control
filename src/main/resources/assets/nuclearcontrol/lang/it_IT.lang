@@ -1,0 +1,159 @@
+item.ItemToolThermometer.name=Termometro
+item.ItemToolDigitalThermometer.name=Termometro Digitale
+item.ItemRemoteSensorKit.name=Kit di Sensore Remoto
+item.ItemEnergySensorKit.name=Kit di Sensore Energico
+item.ItemCounterSensorKit.name=Kit di Sensore a Conteggio
+item.ItemLiquidSensorKit.name=Kit di Sensore Liquido
+item.RFreactorKit.name=Kit di RF Remoti
+item.RFreactorCard.name=Carta di Sensore Localizzata per RF Remoti
+item.ItemSensorLocationCard.name=Carta di Sensore Localizzata RF 
+item.ItemEnergySensorLocationCard.name=Carta Localizzata per Sensore Energico
+item.itemCounterSensorLocationCard.name=Carta Localizzata per Sensore a Conteggio
+item.ItemLiquidSensorLocationCard.name=Carta Localizzata per Sensore Liquido
+item.ItemEnergyArrayLocationCard.name=Schieramento di Carte Energiche
+item.itemRangeUpgrade.name=Potenziamento Raggio
+item.ItemColorUpgrade.name=Aggiornamento Colori
+item.ItemWebUpgrade.name=Aggiornamento Rete
+item.ItemTimeCard.name=Carta a Tempo
+item.ItemTextCard.name=Carta di Testo
+item.ItemGeneratorSensorKit.name=Kit di Sensore Generatore
+item.ItemGeneratorSensorLocationCard.name=Carta localizzata di Sensore Generatore
+item.ItemLiquidArrayLocationCard.name=Schieramento di Carte a Liquido
+
+tile.blockThermalMonitor.name=Monitor Termale
+tile.blockIndustrialAlarm.name=Allarme Industriale
+tile.blockHowlerAlarm.name=Allarme Tradizionale
+tile.blockRemoteThermo.name=Monitor Termale Remoto
+tile.blockInfoPanel.name=Pannello delle Informazioni Industriali
+tile.blockInfoPanelExtender.name=Estensore delle informazioni
+tile.blockAdvancedInfoPanel.name=Pannello delle Informazioni Avanzato
+tile.blockAdvancedInfoPanelExtender.name=Estensore di Pannello Avanzato
+tile.nclight0.name=Lampada bianca
+tile.nclight1.name=Lamapa Bianca
+tile.nclight2.name=Lampada Arancione
+tile.nclight3.name=Lampada Arancione
+
+tile.blockBRPart.name=Monitor a Reattore
+tile.blockEnergyCounter.name=Contatore di Energia
+tile.blockAverageCounter.name=Contatore della Media
+tile.blockRangeTrigger.name=Rivelatore di Raggio
+
+msg.nc.HowlerAlarmSoundRange=Raggio del Suono: %s
+msg.nc.HowlerAlarmSound=Suono
+msg.nc.ThermalMonitorSave=Salva le impostazioni
+msg.nc.ThermalMonitorSignalAt=Segnale al %s di Calore
+msg.nc.Thermo=Hull heat: %s
+msg.nc.ThermoDigital=Calore di Scafo: %s (Acqua evaporata: %s / Scioglimento: %s)
+msg.nc.SensorKit=Sensore Remoto Montato, Carta Localizzata di Sensore Ricevuta
+
+msg.nc.InfoPanelOutOfRange=Fuori Raggio
+msg.nc.InfoPanelInvalidCard=Carta Non valida
+msg.nc.InfoPanelNoTarget=Obiettivo Non Trovato
+
+msg.nc.InfoPanelOn=Acceso
+msg.nc.InfoPanelOff=Spentp
+msg.nc.InfoPanelHeat=T: %s
+msg.nc.InfoPanelMaxHeat=TemperaturaMassima: %s
+msg.nc.InfoPanelMelting=Scioglimento: %s
+msg.nc.InfoPanelOutput=Risultato: %sEU/t
+msg.nc.InfoPanelOutputMJ=Risultato: %s RF/t
+msg.nc.InfoPanelOutputSteam=Risultato: %smB/t
+msg.nc.InfoPanelTimeRemaining=Rimanente: %s
+
+msg.nc.InfoPanelEnergyCounter=Energia: %sEU
+msg.nc.InfoPanelEnergyCounterMJ=Energia: %s RF
+
+msg.nc.InfoPanelEnergy=Energia: %s
+msg.nc.InfoPanelEnergyFree=Libero: %s
+msg.nc.InfoPanelEnergyStorage=Maganizzato: %s
+msg.nc.InfoPanelEnergyPercentage=Riempito: %s%%
+
+msg.nc.cbInfoPanelLiquidName=Nome Liquido
+msg.nc.cbInfoPanelLiquidAmount=Ammonto
+msg.nc.cbInfoPanelLiquidCapacity=Capacità
+msg.nc.cbInfoPanelLiquidFree=Libero
+msg.nc.cbInfoPanelLiquidPercentage=Percentuale Piena
+
+msg.nc.InfoPanelLiquidName=Nome: %s
+msg.nc.InfoPanelLiquidAmount=Ammonto: %s
+msg.nc.InfoPanelLiquidCapacity=Capacità: %s
+msg.nc.InfoPanelLiquidFree=Libero: %s
+msg.nc.InfoPanelLiquidPercentage=Pieno: %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d Non Trovato
+msg.nc.InfoPanelOutOfRangeN=#%d Fuori dal Raggio
+msg.nc.InfoPanelEnergyN=#%d Energia: %s
+msg.nc.InfoPanelEnergyFreeN=#%d Libero: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Maganizzato: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d Pieno: %s%%
+msg.nc.InfoPanelLiquidNameN=#%d Nome: %s
+msg.nc.InfoPanelLiquidN=#%d Ammonto: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Libero: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Capacità: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Pieno: %s%%
+
+msg.nc.InfoPanelTime=Tempo: %s
+
+msg.nc.cbInfoPanelOnOff=Acceso/Spento Stato
+msg.nc.cbInfoPanelHeat=Livello di Calore
+msg.nc.cbInfoPanelMaxHeat=Massima Temperatura
+msg.nc.cbInfoPanelMelting=Scioglimento
+msg.nc.cbInfoPanelOutput=Risultato (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=Tempo del Ciclo Finale
+
+msg.nc.InfoPanelRF.Temp=Tempo del Nucleo: %s C
+msg.nc.InfoPanelRF.EnergyStored=Energia Maganizzata: %s RF
+msg.nc.InfoPanelRF.CreatedEnergy=Energia Uscita: %s RF/t
+msg.nc.InfoPanelRF.Percentage=L'Intervallo di Magazzino è %s%% Completo
+msg.nc.InfoPanelRF.Output=Risultato (RF/t)
+msg.nc.InfoPanelRF.TempPROPER=Temperatura del Nucleo
+
+msg.nc.cb24h=24h mode
+
+msg.nc.cbInfoPanelEnergyCurrent=Energia Corrente
+msg.nc.cbInfoPanelEnergyStorage=In Magazzino
+msg.nc.cbInfoPanelEnergyFree=Libero
+msg.nc.cbInfoPanelEnergyEach=Info per Ogni Carta
+msg.nc.cbInfoPanelEnergyTotal=Sommario
+msg.nc.cbInfoPanelEnergyPercentage=Percentuale di Riempimento
+msg.nc.EnergyCardQuantity=Quantità di Carte: %d
+msg.nc.AverageCounterPeriod=Periodo: %ssec
+
+msg.nc.LiquidCardQuantity=Quantità di Carte: %d
+
+msg.nc.cbInfoPanelLiquidEach=Info per Ogni Carta
+msg.nc.cbInfoPanelLiquidTotal=Sommario
+
+msg.nc.Reset=Reset
+msg.nc.ScreenColor=Schermo di Colori
+msg.nc.TextColor=Testo Colorato
+msg.nc.None=N/A
+
+msg.nc.waila.getHeatLevel=Impostazioni Calore Massimo: 
+
+msg.nc.waila.ColorBackground=Background dei Colori: 
+msg.nc.waila.ColorText=Testo Colorato: 
+msg.nc.waila.Web=L'aggiornamento Web è Installato
+msg.nc.waila.Color=L'aggiornamento colorato è Installato
+msg.nc.waila.ColorBlack=Nero
+msg.nc.waila.ColorRed=Rosso
+msg.nc.waila.ColorGreen=Verde
+msg.nc.waila.ColorBrown=Marrone
+msg.nc.waila.ColorDarkBlue=Blu Scuro
+msg.nc.waila.ColorPurple=Porpora
+msg.nc.waila.ColorLightBlue=Blu chiaro
+msg.nc.waila.ColorWhite=Bianco
+msg.nc.waila.ColorPink=Rosa
+msg.nc.waila.ColorLimeGreen=Verde Lime
+msg.nc.waila.ColorYellow=Giallo
+msg.nc.waila.ColorBlue=Blu
+msg.nc.waila.ColorMagenta=Magenta
+msg.nc.waila.ColorOrange=Arancione
+
+msg.nc.waila.getSoundNames=Suono: 
+msg.nc.waila.getRange=Raggio: 
+
+msg.nc.waila.getEnergyCount=Conteggio di Energia: 
+
+msg.nc.waila.getEnergyAverage=Media dell'Energia: 
+msg.nc.waila.getPeriod=Oltre il Periodo di: 
