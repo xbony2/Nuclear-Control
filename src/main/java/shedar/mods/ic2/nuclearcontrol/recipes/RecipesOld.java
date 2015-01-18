@@ -167,7 +167,7 @@ public class RecipesOld {
 				IC2NuclearControl.itemEnergySensorKit, 1), new Object[] {
 					"  F", " M ", "P  ",
 					'P', Items.paper,
-					'M', IC2Items.getItem("eumeter"), //Might be "eureader"
+					'M', IC2Items.getItem("ecMeter"),
 					'F', IC2Items.getItem("frequencyTransmitter") });
 
 		Recipes.advRecipes.addRecipe(new ItemStack(
