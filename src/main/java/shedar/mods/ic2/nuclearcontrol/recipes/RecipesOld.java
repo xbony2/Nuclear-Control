@@ -256,6 +256,19 @@ public class RecipesOld {
 		 		new ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1,
 		 						ItemKitMultipleSensor.TYPE_LIQUID));
 		 
+		 Recipes.advRecipes.addShapelessRecipe(new ItemStack(
+		 		IC2Items.getItem("electronicCircuit").getItem(), 1),
+		 		new ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1,
+		 						ItemKitMultipleSensor.TYPE_GENERATOR));
+		 
+		 Recipes.advRecipes.addShapelessRecipe(new ItemStack(
+		 		IC2Items.getItem("electronicCircuit").getItem(), 2),
+		 		new ItemStack(IC2NuclearControl.itemTextCard, 1) );
+		 		
+		 Recipes.advRecipes.addShapelessRecipe(new ItemStack(
+		 		IC2Items.getItem("electronicCircuit").getItem(), 1),
+				new ItemStack(IC2NuclearControl.itemTimeCard, 1) );
+
 		CraftingManager.getInstance().getRecipeList().add(new StorageArrayRecipe());
 	}
 }
