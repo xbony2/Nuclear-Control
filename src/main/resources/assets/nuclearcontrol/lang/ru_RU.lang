@@ -4,6 +4,8 @@ item.ItemRemoteSensorKit.name=Набор с дистанционным датч�
 item.ItemEnergySensorKit.name=Набор для энергетического хранилища
 item.ItemCounterSensorKit.name=Набор для счётчика энергии
 item.ItemLiquidSensorKit.name=Набор для жидкостного хранилища
+item.RFreactorKit.name=Набор для для дистанционного RF-реактора
+item.RFreactorCard.name=Карта-датчик расположения RF-реактора
 item.ItemSensorLocationCard.name=Карта-датчик расположения реактора
 item.ItemEnergySensorLocationCard.name=Карта-датчик расположения энергии
 item.itemCounterSensorLocationCard.name=Карта-датчик расположения счётчика
@@ -26,9 +28,12 @@ tile.blockInfoPanel.name=Промышленная информационная �
 tile.blockInfoPanelExtender.name=Расширитель информационной панели
 tile.blockAdvancedInfoPanel.name=Продвинутая информационная панель
 tile.blockAdvancedInfoPanelExtender.name=Расширитель продвинутой информационной панели
-tile.nclight0.name=White Lamp
-tile.nclight1.name=White Lamp
+tile.nclight0.name=Белый светильник
+tile.nclight1.name=Белый светильник
+tile.nclight2.name=Оранжевый светильник
+tile.nclight3.name=Оранжевый светильник
 
+tile.blockBRPart.name=Реакторный монитор
 tile.blockEnergyCounter.name=Энергосчётчик
 tile.blockAverageCounter.name=Стационарный энергосчётчик
 tile.blockRangeTrigger.name=Дистанционный триггер
@@ -96,6 +101,13 @@ msg.nc.cbInfoPanelMelting=Температура плавления
 msg.nc.cbInfoPanelOutput=Выход (EU/т)
 msg.nc.cbInfoPanelTimeRemaining=Время до окончания цикла
 
+msg.nc.InfoPanelRF.Temp=Темп. ядра: %s C
+msg.nc.InfoPanelRF.EnergyStored=Энергия: %s RF
+msg.nc.InfoPanelRF.CreatedEnergy=Выходная энергия: %s RF/т
+msg.nc.InfoPanelRF.Percentage=Энергохранилище %s%% (Полное)
+msg.nc.InfoPanelRF.Output=Выход (RF/т)
+msg.nc.InfoPanelRF.TempPROPER=Температура ядра
+
 msg.nc.cb24h=24-часовой режим
 
 msg.nc.cbInfoPanelEnergyCurrent=Энергия
@@ -116,3 +128,32 @@ msg.nc.Reset=Сброс
 msg.nc.ScreenColor=Цветной экран
 msg.nc.TextColor=Цветной текст
 msg.nc.None=Н/А
+
+msg.nc.waila.getHeatLevel=Максимальная температура: 
+
+msg.nc.waila.ColorBackground=Фоновый цвет: 
+msg.nc.waila.ColorText=Цвет текста: 
+msg.nc.waila.Web=Улучшение «Сеть» установлено
+msg.nc.waila.Color=Улучшение «Цветность» установлено
+msg.nc.waila.ColorBlack=Чёрный
+msg.nc.waila.ColorRed=Красный
+msg.nc.waila.ColorGreen=Зелёный
+msg.nc.waila.ColorBrown=Коричневый
+msg.nc.waila.ColorDarkBlue=Тёмно-синий
+msg.nc.waila.ColorPurple=Фиолетовый
+msg.nc.waila.ColorLightBlue=Светло-синий
+msg.nc.waila.ColorWhite=Белый
+msg.nc.waila.ColorPink=Розовый
+msg.nc.waila.ColorLimeGreen=Лаймовый
+msg.nc.waila.ColorYellow=Жёлтый
+msg.nc.waila.ColorBlue=Синий
+msg.nc.waila.ColorMagenta=Сиреневый
+msg.nc.waila.ColorOrange=Оранжевый
+
+msg.nc.waila.getSoundNames=Звук: 
+msg.nc.waila.getRange=Дальность: 
+
+msg.nc.waila.getEnergyCount=Энергосчётчик: 
+
+msg.nc.waila.getEnergyAverage=Средняя энергия: 
+msg.nc.waila.getPeriod=За период: 
