@@ -2,7 +2,11 @@ package shedar.mods.ic2.nuclearcontrol.crossmod.waila;
 
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.api.BonyDebugger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
@@ -41,5 +45,10 @@ public class ThermoProvider implements IWailaDataProvider{
 	@Override
 	public List<String> getWailaTail(ItemStack itemstack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler handler) {
 		return currenttip;
+	}
+	
+	@Override
+	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity tileentity, NBTTagCompound tag, World world, int x, int y, int z){
+		return null;
 	}
 }

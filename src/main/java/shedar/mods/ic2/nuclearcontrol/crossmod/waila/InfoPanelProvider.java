@@ -2,7 +2,11 @@ package shedar.mods.ic2.nuclearcontrol.crossmod.waila;
 
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAdvancedInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
@@ -69,5 +73,10 @@ public class InfoPanelProvider implements IWailaDataProvider{
 		case 14: return LangHelper.translate("msg.nc.waila.ColorOrange");
 		default: return "COLOR ERROR REPORT PLZ THX";
 		}
+	}
+	
+	@Override
+	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity tileentity, NBTTagCompound tag, World world, int x, int y, int z){
+		return null;
 	}
 }
