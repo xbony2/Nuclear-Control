@@ -112,43 +112,4 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
 		 return extractEnergy(pFrom, pEnergyHandler.receiveEnergy(pFrom, Math.min(storage.getEnergyStored(), 128), false), false);
 		
 	}
-
-/*
- * @Override
-	public void updateEntity(){
-		if (!init){
-			initData();
-			markDirty();
-		}
-		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
-			return;
-		if (!worldObj.isRemote){
-			if (!addedToEnergyNet){
-				EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
-				MinecraftForge.EVENT_BUS.post(event);
-				prevTotal = EnergyNet.instance.getTotalEnergyEmitted(this);
-				addedToEnergyNet = true;
-			}
-			if (updateTicker-- == 0){
-				updateTicker = tickRate-1;
-				index = (index+1) % DATA_POINTS;
-				data[index] = 0;
-				getAverage();
-				double total = EnergyNet.instance.getTotalEnergyEmitted(this);
-				if(total > 0){
-					if(prevTotal!=-1){
-						total = total - prevTotal;
-						prevTotal += total;
-					}else{
-						prevTotal = total;
-					}
-					if(total>0)
-						data[index] += total;
-					setPowerType(POWER_TYPE_EU);
-				}
-			}
-		}
-		super.updateEntity();
-	}
- */
 }

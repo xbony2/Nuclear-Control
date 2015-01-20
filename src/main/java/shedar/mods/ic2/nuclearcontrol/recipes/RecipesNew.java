@@ -92,20 +92,20 @@ public class RecipesNew {
 				'I', "plateIron", 
 				'W', IC2Items.getItem("waterCell")});
 
-		ItemStack digitalThermometer = new ItemStack(IC2NuclearControl.itemToolDigitalThermometer, 1);
+		ItemStack digitalThermometer = new ItemStack(IC2NuclearControl.itemToolDigitalThermometer);
 		Recipes.advRecipes.addRecipe(digitalThermometer, new Object[] { 
 			"T ", " P", 
 				'T', IC2NuclearControl.itemToolThermometer, 
 				'P', IC2Items.getItem("powerunitsmall")});
 
-		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemRemoteSensorKit, 1), new Object[] { 
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemRemoteSensorKit), new Object[] { 
 			"DF", "PW", 
 				'P', Items.paper, 
 				'D', StackUtil.copyWithWildCard(digitalThermometer), 
 				'F', IC2Items.getItem("frequencyTransmitter"), 
 				'W', "dyeYellow" });
 
-		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemEnergySensorKit, 1), new Object[] { 
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemEnergySensorKit), new Object[] { 
 			"RF", "PO", 
 				'P', Items.paper, 
 				'R', "dustRedstone", 
@@ -140,11 +140,12 @@ public class RecipesNew {
 		}*/
 
 		ItemStack energyCounter = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_ENERGY_COUNTER);
-		Recipes.advRecipes.addRecipe(
-				energyCounter,
-				new Object[] { "IAI", "FTF", 'A', "circuitAdvanced", 'F',
-						IC2Items.getItem("glassFiberCableItem"), 'T',
-						IC2Items.getItem("mvTransformer"), 'I', "plateIron" });
+		Recipes.advRecipes.addRecipe(energyCounter, new Object[] { 
+			"IAI", "FTF", 
+				'A', "circuitAdvanced", 
+				'F', IC2Items.getItem("glassFiberCableItem"), 
+				'T', IC2Items.getItem("mvTransformer"), 
+				'I', "plateIron"});
 
 		ItemStack averageCounter = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_AVERAGE_COUNTER);
 		Recipes.advRecipes.addRecipe( averageCounter, new Object[] { 
