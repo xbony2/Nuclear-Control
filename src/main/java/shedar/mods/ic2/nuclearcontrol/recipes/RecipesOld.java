@@ -31,7 +31,7 @@ public class RecipesOld {
 				BlockDamages.DAMAGE_HOWLER_ALARM);
 		Recipes.advRecipes.addRecipe(howler, new Object[] {
 					"NNN", "ICI", "IRI",
-					'I', "ingotIron",
+					'I', IC2Items.getItem("advIronIngot"),
 					'R', "dustRedstone",
 					'N', Blocks.noteblock,
 					'C', "circuitBasic" });
@@ -145,7 +145,7 @@ public class RecipesOld {
 				IC2NuclearControl.itemToolThermometer, 1), new Object[] {
 					"IG ", "GWG", " GG",
 					'G', "blockGlass",
-					'I', "ingotIron",
+					'I', IC2Items.getItem("advIronIngot"),
 					'W', IC2Items.getItem("waterCell") });
 
 		ItemStack digitalThermometer = new ItemStack(
@@ -153,7 +153,7 @@ public class RecipesOld {
 		Recipes.advRecipes.addRecipe(digitalThermometer, new Object[] {
 					"I  ", "IC ", " GI",
 					'G', "dustGlowstone",
-					'I', "ingotIron",
+					'I', IC2Items.getItem("advIronIngot"),
 					'C', "circuitBasic" });
 
 		Recipes.advRecipes.addRecipe(new ItemStack(
