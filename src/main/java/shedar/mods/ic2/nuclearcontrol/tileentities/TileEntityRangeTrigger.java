@@ -37,7 +37,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEntityRangeTrigger extends TileEntity implements
 		ISlotItemFilter, INetworkDataProvider, INetworkUpdateListener,
-		IWrenchable, ITextureHelper,/* ISidedInventory, */IRotation,
+		IWrenchable, ITextureHelper, IRotation,
 		IInventory, INetworkClientTileEntityEventListener {
 
 	public static final int SLOT_CARD = 0;
@@ -90,29 +90,22 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public void setInvertRedstone(boolean value) {
 		invertRedstone = value;
 		if (prevInvertRedstone != value) {
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
-			// NetworkHelper.updateTileEntityField(this, "invertRedstone");
-			IC2.network.get().updateTileEntityField(this,
-					"invertRedstone");
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			IC2.network.get().updateTileEntityField(this, "invertRedstone");
 		}
 		prevInvertRedstone = value;
 	}
 
 	private void setCard(ItemStack value) {
 		card = value;
-		// NetworkHelper.updateTileEntityField(this, "card");
-		IC2.network.get()
-				.updateTileEntityField(this, "card");
+		IC2.network.get().updateTileEntityField(this, "card");
 	}
 
 	private void setSide(short f) {
 		facing = f;
 
 		if (prevFacing != f) {
-			// NetworkHelper.updateTileEntityField(this, "facing");
-			IC2.network.get().updateTileEntityField(this,
-					"facing");
+			IC2.network.get().updateTileEntityField(this, "facing");
 		}
 
 		prevFacing = f;
@@ -162,9 +155,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public void setOnFire(int f) {
 		onFire = f;
 		if (prevOnFire != f) {
-			// NetworkHelper.updateTileEntityField(this, "onFire");
-			IC2.network.get().updateTileEntityField(this,
-					"onFire");
+			IC2.network.get().updateTileEntityField(this, "onFire");
 		}
 		prevOnFire = onFire;
 	}
@@ -172,9 +163,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public void setLevelStart(double start) {
 		levelStart = start;
 		if (prevLevelStart != start) {
-			// NetworkHelper.updateTileEntityField(this, "levelStart");
-			IC2.network.get().updateTileEntityField(this,
-					"levelStart");
+			IC2.network.get().updateTileEntityField(this, "levelStart");
 		}
 		prevLevelStart = levelStart;
 	}
@@ -182,9 +171,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public void setLevelEnd(double end) {
 		levelEnd = end;
 		if (prevLevelEnd != end) {
-			// NetworkHelper.updateTileEntityField(this, "levelEnd");
-			IC2.network.get().updateTileEntityField(this,
-					"levelEnd");
+			IC2.network.get().updateTileEntityField(this, "levelEnd");
 		}
 		prevLevelEnd = levelEnd;
 	}
@@ -225,8 +212,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 
 	protected void initData() {
 		if (!worldObj.isRemote) {
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 		init = true;
 	}
@@ -250,17 +236,14 @@ public class TileEntityRangeTrigger extends TileEntity implements
 		super.readFromNBT(nbttagcompound);
 		prevRotation = rotation = nbttagcompound.getInteger("rotation");
 		prevFacing = facing = nbttagcompound.getShort("facing");
-		prevInvertRedstone = invertRedstone = nbttagcompound
-				.getBoolean("invert");
+		prevInvertRedstone = invertRedstone = nbttagcompound.getBoolean("invert");
 		levelStart = nbttagcompound.getDouble("levelStart");
 		levelEnd = nbttagcompound.getDouble("levelEnd");
 
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items",
-				Constants.NBT.TAG_COMPOUND);
+		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 		inventory = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound compound = nbttaglist
-					.getCompoundTagAt(i);
+			NBTTagCompound compound = nbttaglist.getCompoundTagAt(i);
 			byte slotNum = compound.getByte("Slot");
 
 			if (slotNum >= 0 && slotNum < inventory.length) {
@@ -359,28 +342,22 @@ public class TileEntityRangeTrigger extends TileEntity implements
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& player.getDistanceSq(xCoord + 0.5D,
-						yCoord + 0.5D, zCoord + 0.5D) <= 64D;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
-	public void openInventory() {
-	}
+	public void openInventory() {}
 
 	@Override
-	public void closeInventory() {
-	}
+	public void closeInventory() {}
 
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		if (worldObj != null
-				&& FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+		if (worldObj != null && FMLCommonHandler.instance().getEffectiveSide().isServer()) {
 			int upgradeCountRange = 0;
 			ItemStack itemStack = inventory[SLOT_UPGRADE];
-			if (itemStack != null && itemStack.getItem() instanceof ItemUpgrade
-					&& itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE) {
+			if (itemStack != null && itemStack.getItem() instanceof ItemUpgrade && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE) {
 				upgradeCountRange = itemStack.stackSize;
 			}
 			ItemStack card = inventory[SLOT_CARD];
@@ -391,10 +368,8 @@ public class TileEntityRangeTrigger extends TileEntity implements
 					boolean needUpdate = true;
 					if (upgradeCountRange > 7)
 						upgradeCountRange = 7;
-					int range = LOCATION_RANGE
-							* (int) Math.pow(2, upgradeCountRange);
-					CardWrapperImpl cardHelper = new CardWrapperImpl(card,
-							SLOT_CARD);
+					int range = LOCATION_RANGE * (int) Math.pow(2, upgradeCountRange);
+					CardWrapperImpl cardHelper = new CardWrapperImpl(card,SLOT_CARD);
 					if (item instanceof IRemoteSensor) {
 						ChunkCoordinates target = cardHelper.getTarget();
 						if (target == null) {
@@ -404,8 +379,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 							int dx = target.posX - xCoord;
 							int dy = target.posY - yCoord;
 							int dz = target.posZ - zCoord;
-							if (Math.abs(dx) > range || Math.abs(dy) > range
-									|| Math.abs(dz) > range) {
+							if (Math.abs(dx) > range || Math.abs(dy) > range || Math.abs(dz) > range) {
 								needUpdate = false;
 								cardHelper.setState(CardState.OUT_OF_RANGE);
 								fire = STATE_UNKNOWN;
@@ -413,33 +387,31 @@ public class TileEntityRangeTrigger extends TileEntity implements
 						}
 					}
 					if (needUpdate) {
-						CardState state = ((IPanelDataSource) item).update(
-								this, cardHelper, range);
+						CardState state = ((IPanelDataSource) item).update(this, cardHelper, range);
 						cardHelper.setState(state);
 						if (state == CardState.OK) {
 							double minV = Math.min(levelStart, levelEnd);
 							double maxV = Math.max(levelStart, levelEnd);
 							double cur = cardHelper.getDouble("energyL");
-							if (cur >= maxV) {
+							if (cur >= maxV){
 								fire = STATE_ACTIVE;
-							} else if (cur < minV) {
+							}else if(cur < minV) {
 								fire = STATE_PASSIVE;
-							} else if (onFire == STATE_UNKNOWN) {
+							}else if(onFire == STATE_UNKNOWN) {
 								fire = STATE_PASSIVE;
-							} else {
+							}else{
 								fire = onFire;
 							}
-						} else {
+						}else{
 							fire = STATE_UNKNOWN;
 						}
 
 					}
 				}
 			}
-			if (fire != getOnFire()) {
+			if(fire != getOnFire()){
 				setOnFire(fire);
-				worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-						worldObj.getBlock(xCoord, yCoord, zCoord));
+				worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			}
 
 		}
@@ -449,11 +421,9 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public boolean isItemValid(int slotIndex, ItemStack itemstack) {
 		switch (slotIndex) {
 		case SLOT_CARD:
-			return itemstack.getItem() instanceof ItemCardEnergySensorLocation
-					|| itemstack.getItem() instanceof ItemCardEnergyArrayLocation;
+			return itemstack.getItem() instanceof ItemCardEnergySensorLocation || itemstack.getItem() instanceof ItemCardEnergyArrayLocation;
 		default:
-			return itemstack.getItem() instanceof ItemUpgrade
-					&& itemstack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE;
+			return itemstack.getItem() instanceof ItemUpgrade && itemstack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE;
 		}
 
 	}
@@ -563,18 +533,14 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public void setRotation(int value) {
 		rotation = value;
 		if (rotation != prevRotation) {
-			// NetworkHelper.updateTileEntityField(this, "rotation");
-			IC2.network.get().updateTileEntityField(this,
-					"rotation");
+			IC2.network.get().updateTileEntityField(this, "rotation");
 		}
 		prevRotation = rotation;
 	}
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(
-				IC2NuclearControl.blockNuclearControlMain, 1,
-				BlockDamages.DAMAGE_RANGE_TRIGGER);
+		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_RANGE_TRIGGER);
 	}
 
 	@Override
