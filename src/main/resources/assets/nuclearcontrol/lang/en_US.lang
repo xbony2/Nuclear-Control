@@ -19,6 +19,7 @@ item.ItemTextCard.name=Text Card
 item.ItemGeneratorSensorKit.name=Generator Sensor Kit
 item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
 item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
+item.Item55ReactorCard.name=5x5 Reactor Sensor Location Card
 
 tile.blockThermalMonitor.name=Thermal Monitor
 tile.blockIndustrialAlarm.name=Industrial Alarm
@@ -107,6 +108,14 @@ msg.nc.InfoPanelRF.CreatedEnergy=Output Energy: %s RF/t
 msg.nc.InfoPanelRF.Percentage=Storage Buffer is %s%% Full
 msg.nc.InfoPanelRF.Output=Output (RF/t)
 msg.nc.InfoPanelRF.TempPROPER=Core Temperature
+
+msg.nc.InfoPanel55.Output=Output: %s Hu/s
+msg.nc.InfoPanel55.Temp=Core Tempurature: %s%%
+msg.nc.InfoPanel55.tarkin=Tank In: %s / 10000 mB
+msg.nc.InfoPanel55.tankout=Tank Out: %s / 10000 mB
+msg.nc.InfoPanel55.Out=Output (Hu/s)
+msg.nc.InfoPanel55.BufferIn=Coolant Storage Tank
+msg.nc.InfoPanel55.BufferOut=Hot Coolant Buffer Tank
 
 msg.nc.cb24h=24h mode
 

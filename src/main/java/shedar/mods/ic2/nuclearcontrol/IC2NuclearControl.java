@@ -17,6 +17,7 @@ import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.CrossOpenComputers;
 import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCard55Reactor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardLiquidArrayLocation;
@@ -89,6 +90,7 @@ public class IC2NuclearControl {
 	public static Item itemTextCard;
 	public static Item itemLiquidArrayLocationCard;
 	public static Item itemWindCard;
+	public static Item item55ReactorCard;
 	public static BlockNuclearControlMain blockNuclearControlMain;
 	public static BlockNuclearControlLight blockNuclearControlLight;
 	public int modelId;
@@ -127,6 +129,7 @@ public class IC2NuclearControl {
 		itemEnergySensorKit = new ItemKitEnergySensor().setUnlocalizedName("ItemEnergySensorKit");
 		itemRemoteSensorKit = new ItemKitReactorSensor().setUnlocalizedName("ItemRemoteSensorKit");
 		itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation().setUnlocalizedName("ItemLiquidArrayLocationCard");
+		item55ReactorCard = new ItemCard55Reactor().setUnlocalizedName("Item55ReactorCard");
 	}
 
 	protected void registerBlocks() {
@@ -145,6 +148,7 @@ public class IC2NuclearControl {
 		GameRegistry.registerItem(itemUpgrade, "ItemUpgrade");
 		GameRegistry.registerItem(itemTextCard, "ItemTextCard");
 		GameRegistry.registerItem(itemLiquidArrayLocationCard, "ItemLiquidArrayLocationCard");
+		GameRegistry.registerItem(item55ReactorCard, "Item55ReactorCard");
 	}
 
 	@EventHandler
