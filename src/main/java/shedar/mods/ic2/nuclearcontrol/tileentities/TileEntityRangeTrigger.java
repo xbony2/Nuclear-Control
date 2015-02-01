@@ -425,8 +425,9 @@ public class TileEntityRangeTrigger extends TileEntity implements
 							double cur = MODE_ENERGY; //default
 							
 							switch(mode){
-							case MODE_ENERGY: cur = cardHelper.getDouble("energyL");
-							case MODE_LIQUID: cur = cardHelper.getInt("amount");
+							case MODE_ENERGY: cur = cardHelper.getDouble("energyL"); break;
+							case MODE_LIQUID: cur = cardHelper.getInt("amount"); break;
+							default: cur = cardHelper.getDouble("energyL"); break;
 							}
 							
 							if (cur >= maxV){
