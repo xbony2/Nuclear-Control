@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -22,8 +23,7 @@ public class GuiRangeTriggerInvertRedstone extends GuiButton {
 	TileEntityRangeTrigger trigger;
 	private boolean checked;
 
-	public GuiRangeTriggerInvertRedstone(int id, int x, int y,
-			TileEntityRangeTrigger trigger) {
+	public GuiRangeTriggerInvertRedstone(int id, int x, int y, TileEntityRangeTrigger trigger) {
 		super(id, x, y, 0, 0, "");
 		height = 15;
 		width = 18;
@@ -60,7 +60,14 @@ public class GuiRangeTriggerInvertRedstone extends GuiButton {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// NetworkHelper.initiateClientTileEntityEvent(trigger, value);
+			/*System.out.println("DEBUG STUFF");
+			try { TODO: didn't work so well
+				Method m1 = nh.getClass().getMethod("initiateClientTileEntityEvent", TileEntity.class, int.class);
+				m1.setAccessible(true);
+				m1.invoke(nh, trigger, value);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}*/
 			return true;
 		} else {
 			return false;

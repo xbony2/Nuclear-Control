@@ -52,12 +52,9 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase {
 
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
-		iconCounter = iconRegister.registerIcon(TextureResolver
-				.getItemTexture(TEXTURE_KIT_COUNTER));
-		iconLiquid = iconRegister.registerIcon(TextureResolver
-				.getItemTexture(TEXTURE_KIT_LIQUID));
-		iconGenerator = iconRegister.registerIcon(TextureResolver
-				.getItemTexture(TEXTURE_KIT_GENERATOR));
+		iconCounter = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_KIT_COUNTER));
+		iconLiquid = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_KIT_LIQUID));
+		iconGenerator = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_KIT_GENERATOR));
 	}
 
 	@Override
@@ -74,29 +71,25 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase {
 	}
 
 	@Override
-	protected ChunkCoordinates getTargetCoordinates(World world, int x, int y,
-			int z, ItemStack stack) {
+	protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack) {
 		int damage = stack.getItemDamage();
 
 		switch (damage) {
 		case TYPE_COUNTER:
 			TileEntity entity = world.getTileEntity(x, y, z);
-			if (entity != null
-					&& (entity instanceof TileEntityEnergyCounter || entity instanceof TileEntityAverageCounter)) {
+			if (entity != null && (entity instanceof TileEntityEnergyCounter || entity instanceof TileEntityAverageCounter)) {
 				return new ChunkCoordinates(x, y, z);
 			}
 			break;
 		case TYPE_LIQUID:
-			FluidTankInfo tank = LiquidStorageHelper.getStorageAt(world, x, y,
-					z);
+			FluidTankInfo tank = LiquidStorageHelper.getStorageAt(world, x, y, z);
 			if (tank != null) {
 				return new ChunkCoordinates(x, y, z);
 			}
 			break;
 		case TYPE_GENERATOR:
 			TileEntity tileentity = world.getTileEntity(x, y, z);
-			if (tileentity != null
-					&& tileentity instanceof TileEntityBaseGenerator) {
+			if (tileentity != null && tileentity instanceof TileEntityBaseGenerator) {
 				return new ChunkCoordinates(x, y, z);
 			}
 			break;
@@ -110,17 +103,11 @@ public class ItemKitMultipleSensor extends ItemSensorKitBase {
 	protected ItemStack getItemStackByDamage(int damage) {
 		switch (damage) {
 		case TYPE_COUNTER:
-			return new ItemStack(
-					IC2NuclearControl.itemMultipleSensorLocationCard,
-					1, TYPE_COUNTER);
+			return new ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1, TYPE_COUNTER);
 		case TYPE_LIQUID:
-			return new ItemStack(
-					IC2NuclearControl.itemMultipleSensorLocationCard,
-					1, TYPE_LIQUID);
+			return new ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1, TYPE_LIQUID);
 		case TYPE_GENERATOR:
-			return new ItemStack(
-					IC2NuclearControl.itemMultipleSensorLocationCard,
-					1, TYPE_GENERATOR);
+			return new ItemStack(IC2NuclearControl.itemMultipleSensorLocationCard, 1, TYPE_GENERATOR);
 		}
 		return null;
 	}

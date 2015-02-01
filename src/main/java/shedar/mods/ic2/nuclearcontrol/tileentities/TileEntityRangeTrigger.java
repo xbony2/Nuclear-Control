@@ -24,12 +24,15 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.IRotation;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
 import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
+import shedar.mods.ic2.nuclearcontrol.api.BonyDebugger;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCardMultipleSensorLocation;
+import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
@@ -47,6 +50,9 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	private static final int STATE_UNKNOWN = -1;
 	private static final int STATE_PASSIVE = 0;
 	private static final int STATE_ACTIVE = 1;
+	
+	private static final int MODE_ENERGY = 0;
+	private static final int MODE_LIQUID = 1;
 
 	protected int updateTicker;
 	protected int tickRate;
@@ -71,6 +77,9 @@ public class TileEntityRangeTrigger extends TileEntity implements
 
 	private double prevLevelEnd;
 	public double levelEnd;
+	
+	private int prevMode;
+	private int mode;
 
 	@Override
 	public short getFacing() {
@@ -81,6 +90,18 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public void setFacing(short f) {
 		setSide((short) Facing.oppositeSide[f]);
 
+	}	
+	
+	public void setMode(int m) {
+		mode = m;
+		if (prevMode != m) {
+			IC2.network.get().updateTileEntityField(this, "mode");
+		}
+		prevMode = mode;
+	}
+	
+	public int getMode(){
+		return mode;
 	}
 
 	public boolean isInvertRedstone() {
@@ -90,7 +111,8 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public void setInvertRedstone(boolean value) {
 		invertRedstone = value;
 		if (prevInvertRedstone != value) {
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			//worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlockChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			IC2.network.get().updateTileEntityField(this, "invertRedstone");
 		}
 		prevInvertRedstone = value;
@@ -123,15 +145,14 @@ public class TileEntityRangeTrigger extends TileEntity implements
 			prevRotation = rotation;
 		} else if (field.equals("onFire") && prevOnFire != onFire) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevOnFire = onFire;
-		} else if (field.equals("invertRedstone")
-				&& prevInvertRedstone != invertRedstone) {
+		} else if (field.equals("invertRedstone") && prevInvertRedstone != invertRedstone) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord,
-					worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevInvertRedstone = invertRedstone;
+		}else if(field.equals("mode") && prevMode != mode){
+			prevMode = mode;
 		}
 
 	}
@@ -195,6 +216,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 		prevInvertRedstone = invertRedstone = false;
 		levelStart = 10000000;
 		levelEnd = 9000000;
+		mode = this.MODE_ENERGY;
 	}
 
 	@Override
@@ -207,6 +229,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 		list.add("invertRedstone");
 		list.add("levelStart");
 		list.add("levelEnd");
+		list.add("mode");
 		return list;
 	}
 
@@ -239,6 +262,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 		prevInvertRedstone = invertRedstone = nbttagcompound.getBoolean("invert");
 		levelStart = nbttagcompound.getDouble("levelStart");
 		levelEnd = nbttagcompound.getDouble("levelEnd");
+		mode = nbttagcompound.getInteger("mode");
 
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 		inventory = new ItemStack[getSizeInventory()];
@@ -269,6 +293,7 @@ public class TileEntityRangeTrigger extends TileEntity implements
 		nbttagcompound.setBoolean("invert", isInvertRedstone());
 		nbttagcompound.setDouble("levelStart", levelStart);
 		nbttagcompound.setDouble("levelEnd", levelEnd);
+		nbttagcompound.setInteger("mode", mode);
 
 		NBTTagList nbttaglist = new NBTTagList();
 		for (int i = 0; i < inventory.length; i++) {
@@ -365,6 +390,11 @@ public class TileEntityRangeTrigger extends TileEntity implements
 			if (card != null) {
 				Item item = card.getItem();
 				if (item instanceof IPanelDataSource) {
+					if(item instanceof ItemCardEnergySensorLocation || item instanceof ItemCardEnergyArrayLocation){ 
+						this.setMode(MODE_ENERGY);
+					}else if(item instanceof ItemCardMultipleSensorLocation && card.getItemDamage() == ItemKitMultipleSensor.TYPE_LIQUID){
+						this.setMode(MODE_LIQUID);
+					}
 					boolean needUpdate = true;
 					if (upgradeCountRange > 7)
 						upgradeCountRange = 7;
@@ -392,7 +422,13 @@ public class TileEntityRangeTrigger extends TileEntity implements
 						if (state == CardState.OK) {
 							double minV = Math.min(levelStart, levelEnd);
 							double maxV = Math.max(levelStart, levelEnd);
-							double cur = cardHelper.getDouble("energyL");
+							double cur = MODE_ENERGY; //default
+							
+							switch(mode){
+							case MODE_ENERGY: cur = cardHelper.getDouble("energyL");
+							case MODE_LIQUID: cur = cardHelper.getInt("amount");
+							}
+							
 							if (cur >= maxV){
 								fire = STATE_ACTIVE;
 							}else if(cur < minV) {
@@ -421,7 +457,10 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	public boolean isItemValid(int slotIndex, ItemStack itemstack) {
 		switch (slotIndex) {
 		case SLOT_CARD:
-			return itemstack.getItem() instanceof ItemCardEnergySensorLocation || itemstack.getItem() instanceof ItemCardEnergyArrayLocation;
+			return itemstack.getItem() instanceof ItemCardEnergySensorLocation 
+					|| itemstack.getItem() instanceof ItemCardEnergyArrayLocation
+					|| (itemstack.getItem() instanceof ItemCardMultipleSensorLocation 
+							&& itemstack.getItemDamage() == ItemKitMultipleSensor.TYPE_LIQUID);
 		default:
 			return itemstack.getItem() instanceof ItemUpgrade && itemstack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE;
 		}

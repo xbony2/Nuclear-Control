@@ -35,8 +35,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCardMultipleSensorLocation extends ItemCardBase implements
-		IRemoteSensor, IPanelMultiCard {
+public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRemoteSensor, IPanelMultiCard {
 	private static final String HINT_TEMPLATE = "x: %d, y: %d, z: %d";
 
 	public static final int DISPLAY_ENERGY = 1;
@@ -48,10 +47,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 	public static final int DISPLAY_LIQUID_PERCENTAGE = 16;
 
 	private static final UUID CARD_TYPE_COUNTER = new UUID(0, 4);
-	private static final UUID CARD_TYPE_LIQUID = UUID
-			.fromString("210dc1f0-118c-48ee-9d08-42bfbee1ea15");
-	private static final UUID CARD_TYPE_GENERATOR = UUID
-			.fromString("210dc1f0-118c-48ee-9d08-42bfbee1ea16");
+	private static final UUID CARD_TYPE_LIQUID = UUID.fromString("210dc1f0-118c-48ee-9d08-42bfbee1ea15");
+	private static final UUID CARD_TYPE_GENERATOR = UUID.fromString("210dc1f0-118c-48ee-9d08-42bfbee1ea16");
 
 	private static final String TEXTURE_CARD_COUNTER = "cardCounter";
 	private static final String TEXTURE_CARD_LIQUID = "cardLiquid";
@@ -67,12 +64,9 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
-		iconCounter = iconRegister.registerIcon(TextureResolver
-				.getItemTexture(TEXTURE_CARD_COUNTER));
-		iconLiquid = iconRegister.registerIcon(TextureResolver
-				.getItemTexture(TEXTURE_CARD_LIQUID));
-		iconGenerator = iconRegister.registerIcon(TextureResolver
-				.getItemTexture(TEXTURE_CARD_GENERATOR));
+		iconCounter = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_CARD_COUNTER));
+		iconLiquid = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_CARD_LIQUID));
+		iconGenerator = iconRegister.registerIcon(TextureResolver.getItemTexture(TEXTURE_CARD_GENERATOR));
 	}
 
 	@Override
@@ -105,8 +99,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 
 	public CardState updateLiquid(TileEntity panel, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
-		FluidTankInfo storage = LiquidStorageHelper.getStorageAt(
-				panel.getWorldObj(), target.posX, target.posY, target.posZ);
+		FluidTankInfo storage = LiquidStorageHelper.getStorageAt(panel.getWorldObj(), target.posX, target.posY, target.posZ);
 		if (storage != null) {
 			int capacity = storage.capacity;
 			int amount = 0;
@@ -129,18 +122,15 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 		}
 	}
 
-	public CardState updateCounter(TileEntity panel, ICardWrapper card,
-			int range) {
+	public CardState updateCounter(TileEntity panel, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
-		TileEntity tileEntity = panel.getWorldObj().getTileEntity(target.posX,
-				target.posY, target.posZ);
+		TileEntity tileEntity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
 		if (tileEntity != null && tileEntity instanceof TileEntityEnergyCounter) {
 			TileEntityEnergyCounter counter = (TileEntityEnergyCounter) tileEntity;
 			card.setDouble("energy", counter.counter);
 			card.setInt("powerType", (int) counter.powerType);
 			return CardState.OK;
-		} else if (tileEntity != null
-				&& tileEntity instanceof TileEntityAverageCounter) {
+		} else if (tileEntity != null && tileEntity instanceof TileEntityAverageCounter) {
 			TileEntityAverageCounter avgCounter = (TileEntityAverageCounter) tileEntity;
 			card.setInt("average", avgCounter.getClientAverage());
 			card.setInt("powerType", (int) avgCounter.powerType);
@@ -150,15 +140,12 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 		}
 	}
 
-	public CardState updateGenerator(TileEntity panel, ICardWrapper card,
-			int range) {
+	public CardState updateGenerator(TileEntity panel, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
-		TileEntity entity = panel.getWorldObj().getTileEntity(target.posX,
-				target.posY, target.posZ);
+		TileEntity entity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
 		if (entity instanceof TileEntityBaseGenerator) {
 			// int production = ((TileEntityBaseGenerator)entity).production;
-			int production = (int) EnergyNet.instance
-					.getTotalEnergyEmitted(entity);// TODO deprecated for now
+			int production = (int) EnergyNet.instance.getTotalEnergyEmitted(entity);// TODO deprecated
 			card.setInt("production", production);
 			return CardState.OK;
 		} else {
@@ -209,8 +196,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 		return null;
 	}
 
-	public List<PanelString> getStringDataLiquid(int displaySettings,
-			ICardWrapper card, boolean showLabels) {
+	public List<PanelString> getStringDataLiquid(int displaySettings, ICardWrapper card, boolean showLabels) {
 		List<PanelString> result = new LinkedList<PanelString>();
 		PanelString line;
 
@@ -225,72 +211,61 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 			else
 				name = FluidRegistry.getFluidName(liquidId);
 			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted(
-					"msg.nc.InfoPanelLiquidName", name, showLabels);
+			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidName", name, showLabels);
 			result.add(line);
 		}
 		if ((displaySettings & DISPLAY_LIQUID_AMOUNT) > 0) {
 			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted(
-					"msg.nc.InfoPanelLiquidAmount", amount, showLabels);
+			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidAmount", amount, showLabels);
 			result.add(line);
 		}
 		if ((displaySettings & DISPLAY_LIQUID_FREE) > 0) {
 			line = new PanelString();
-			line.textLeft = StringUtils
-					.getFormatted("msg.nc.InfoPanelLiquidFree", capacity
-							- amount, showLabels);
+			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidFree", capacity - amount, showLabels);
 			result.add(line);
 		}
 		if ((displaySettings & DISPLAY_LIQUID_CAPACITY) > 0) {
 			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted(
-					"msg.nc.InfoPanelLiquidCapacity", capacity, showLabels);
+			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidCapacity", capacity, showLabels);
 			result.add(line);
 		}
 		if ((displaySettings & DISPLAY_LIQUID_PERCENTAGE) > 0) {
 			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted(
-					"msg.nc.InfoPanelLiquidPercentage", capacity == 0 ? 100
-							: (amount * 100 / capacity), showLabels);
+			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidPercentage", 
+					capacity == 0 ? 100 : (amount * 100 / capacity), showLabels);
 			result.add(line);
 		}
 		return result;
 	}
 
-	public List<PanelString> getStringDataCounter(int displaySettings,
-			ICardWrapper card, boolean showLabels) {
+	public List<PanelString> getStringDataCounter(int displaySettings, ICardWrapper card, boolean showLabels) {
 		List<PanelString> result = new LinkedList<PanelString>();
 		PanelString line;
 		if (card.hasField("average")) {// average counter
 			if ((displaySettings & DISPLAY_ENERGY) > 0) {
 				line = new PanelString();
-				String key = card.getInt("powerType") == TileEntityAverageCounter.POWER_TYPE_EU ? "msg.nc.InfoPanelOutput"
-						: "msg.nc.InfoPanelOutputMJ";
-				line.textLeft = StringUtils.getFormatted(key,
-						card.getInt("average"), showLabels);
+				String key = card.getInt("powerType") == TileEntityAverageCounter.POWER_TYPE_EU ? 
+						"msg.nc.InfoPanelOutput" : "msg.nc.InfoPanelOutputMJ";
+				line.textLeft = StringUtils.getFormatted(key, card.getInt("average"), showLabels);
 				result.add(line);
 			}
 		} else {// energy counter
 			if ((displaySettings & DISPLAY_ENERGY) > 0) {
 				double energy = card.getDouble("energy");
 				line = new PanelString();
-				String key = card.getInt("powerType") == TileEntityAverageCounter.POWER_TYPE_EU ? "msg.nc.InfoPanelEnergyCounter"
-						: "msg.nc.InfoPanelEnergyCounterMJ";
-				line.textLeft = StringUtils.getFormatted(key, energy,
-						showLabels);
+				String key = card.getInt("powerType") == TileEntityAverageCounter.POWER_TYPE_EU ? 
+						"msg.nc.InfoPanelEnergyCounter" : "msg.nc.InfoPanelEnergyCounterMJ";
+				line.textLeft = StringUtils.getFormatted(key, energy, showLabels);
 				result.add(line);
 			}
 		}
 		return result;
 	}
 
-	public List<PanelString> getStringDataGenerator(int displaySettings,
-			ICardWrapper card, boolean showLabels) {
+	public List<PanelString> getStringDataGenerator(int displaySettings, ICardWrapper card, boolean showLabels) {
 		List<PanelString> result = new LinkedList<PanelString>();
 		PanelString line = new PanelString();
-		line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelOutput",
-				card.getInt("production"), showLabels);
+		line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelOutput", card.getInt("production"), showLabels);
 		result.add(line);
 		return result;
 	}
@@ -310,28 +285,22 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 
 	public List<PanelSetting> getSettingsListCounter() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(3);
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelEnergyCurrent"), DISPLAY_ENERGY,
-				CARD_TYPE_COUNTER));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelEnergyCurrent"), 
+				DISPLAY_ENERGY, CARD_TYPE_COUNTER));
 		return result;
 	}
 
 	public List<PanelSetting> getSettingsListLiquid() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(3);
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidName"),
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidName"), 
 				DISPLAY_LIQUID_NAME, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidAmount"),
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidAmount"), 
 				DISPLAY_LIQUID_AMOUNT, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidFree"),
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidFree"),
 				DISPLAY_LIQUID_FREE, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidCapacity"),
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidCapacity"),
 				DISPLAY_LIQUID_CAPACITY, CARD_TYPE_LIQUID));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidPercentage"),
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidPercentage"),
 				DISPLAY_LIQUID_PERCENTAGE, CARD_TYPE_LIQUID));
 		return result;
 	}
@@ -343,8 +312,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 	@Override
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean advanced) {
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean advanced) {
 		CardWrapperImpl helper = new CardWrapperImpl(itemStack, -1);
 		ChunkCoordinates target = helper.getTarget();
 		if (target != null) {
@@ -352,8 +320,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements
 			if (title != null && !title.isEmpty()) {
 				info.add(title);
 			}
-			String hint = String.format(HINT_TEMPLATE, target.posX,
-					target.posY, target.posZ);
+			String hint = String.format(HINT_TEMPLATE, target.posX, target.posY, target.posZ);
 			info.add(hint);
 		}
 	}

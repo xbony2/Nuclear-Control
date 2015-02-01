@@ -140,8 +140,7 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 	}
 
 	@Override
-	public List<PanelString> getStringData(int displaySettings,
-			ICardWrapper card, boolean showLabels) {
+	public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels) {
 		List<PanelString> result = new LinkedList<PanelString>();
 		PanelString line;
 		double totalAmount = 0;
@@ -167,86 +166,59 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 			if (showEach) {
 				if (isOutOfRange) {
 					line = new PanelString();
-					line.textLeft = StringUtils.getFormattedKey(
-							"msg.nc.InfoPanelOutOfRangeN", i + 1);
+					line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelOutOfRangeN", i + 1);
 					result.add(line);
 				} else if (isNotFound) {
 					line = new PanelString();
-					line.textLeft = StringUtils.getFormattedKey(
-							"msg.nc.InfoPanelNotFoundN", i + 1);
+					line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelNotFoundN", i + 1);
 					result.add(line);
 				} else {
 					if (showName) {
 						line = new PanelString();
 						if (showLabels)
-							line.textLeft = StringUtils
-									.getFormattedKey(
-											"msg.nc.InfoPanelLiquidNameN",
-											i + 1, card.getString(String
-													.format("_%dname", i)));
+							line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelLiquidNameN", 
+									i + 1, card.getString(String.format("_%dname", i)));
 						else
-							line.textLeft = StringUtils.getFormatted("",
-									amount, false);
+							line.textLeft = StringUtils.getFormatted("", amount, false);
 						result.add(line);
 					}
 					if (showAmount) {
 						line = new PanelString();
 						if (showLabels)
-							line.textLeft = StringUtils
-									.getFormattedKey("msg.nc.InfoPanelLiquidN",
-											i + 1, StringUtils.getFormatted("",
-													amount, false));
+							line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelLiquidN", 
+									i + 1, StringUtils.getFormatted("", amount, false));
 						else
-							line.textLeft = StringUtils.getFormatted("",
-									amount, false);
+							line.textLeft = StringUtils.getFormatted("", amount, false);
 						result.add(line);
 					}
 					if (showFree) {
 						line = new PanelString();
 						if (showLabels)
-							line.textLeft = StringUtils.getFormattedKey(
-									"msg.nc.InfoPanelLiquidFreeN",
-									i + 1,
-									StringUtils.getFormatted("", capacity
-											- amount, false));
+							line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelLiquidFreeN", 
+									i + 1, StringUtils.getFormatted("", capacity - amount, false));
 						else
-							line.textLeft = StringUtils.getFormatted("",
-									capacity - amount, false);
+							line.textLeft = StringUtils.getFormatted("", capacity - amount, false);
 
 						result.add(line);
 					}
 					if (showCapacity) {
 						line = new PanelString();
 						if (showLabels)
-							line.textLeft = StringUtils.getFormattedKey(
-									"msg.nc.InfoPanelLiquidCapacityN", i + 1,
-									StringUtils.getFormatted("", capacity,
-											false));
+							line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelLiquidCapacityN", 
+									i + 1, StringUtils.getFormatted("", capacity, false));
 						else
-							line.textLeft = StringUtils.getFormatted("",
-									capacity, false);
+							line.textLeft = StringUtils.getFormatted("", capacity, false);
 						result.add(line);
 					}
 					if (showPercentage) {
 						line = new PanelString();
 						if (showLabels)
-							line.textLeft = StringUtils
-									.getFormattedKey(
-											"msg.nc.InfoPanelLiquidPercentageN",
-											i + 1,
-											StringUtils
-													.getFormatted(
-															"",
-															capacity == 0 ? 100
-																	: (((double) amount) * 100L / capacity),
-															false));
+							line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelLiquidPercentageN", 
+									i + 1, StringUtils.getFormatted("", 
+											capacity == 0 ? 100 : (((double) amount) * 100L / capacity), false));
 						else
-							line.textLeft = StringUtils
-									.getFormatted(
-											"",
-											capacity == 0 ? 100
-													: (((double) amount) * 100L / capacity),
-											false);
+							line.textLeft = StringUtils.getFormatted("", 
+									capacity == 0 ? 100 : (((double) amount) * 100L / capacity), false);
 						result.add(line);
 					}
 				}
@@ -255,32 +227,24 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 		if (showSummary) {
 			if (showAmount) {
 				line = new PanelString();
-				line.textLeft = StringUtils
-						.getFormatted("msg.nc.InfoPanelLiquidAmount",
-								totalAmount, showLabels);
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidAmount", totalAmount, showLabels);
 				result.add(line);
 			}
 			if (showFree) {
 				line = new PanelString();
-				line.textLeft = StringUtils.getFormatted(
-						"msg.nc.InfoPanelLiquidFree", totalCapacity
-								- totalAmount, showLabels);
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidFree", 
+						totalCapacity - totalAmount, showLabels);
 				result.add(line);
 			}
 			if (showName) {
 				line = new PanelString();
-				line.textLeft = StringUtils.getFormatted(
-						"msg.nc.InfoPanelLiquidCapacity", totalCapacity,
-						showLabels);
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidCapacity", totalCapacity, showLabels);
 				result.add(line);
 			}
 			if (showPercentage) {
 				line = new PanelString();
-				line.textLeft = StringUtils.getFormatted(
-						"msg.nc.InfoPanelLiquidPercentage",
-						totalCapacity == 0 ? 100
-								: (totalAmount * 100 / totalCapacity),
-						showLabels);
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidPercentage", 
+						totalCapacity == 0 ? 100 : (totalAmount * 100 / totalCapacity), showLabels);
 				result.add(line);
 			}
 		}
@@ -290,35 +254,22 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 	@Override
 	public List<PanelSetting> getSettingsList() {
 		List<PanelSetting> result = new ArrayList<PanelSetting>(3);
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidName"), DISPLAY_NAME,
-				CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidName"), DISPLAY_NAME, CARD_TYPE));
 		// result.add(new
 		// PanelSetting(LanguageHelper.translate("msg.nc.cbInfoPanelLiquidAmount"),
 		// DISPLAY_AMOUNT, CARD_TYPE));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidFree"), DISPLAY_FREE,
-				CARD_TYPE));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidCapacity"),
-				DISPLAY_CAPACITY, CARD_TYPE));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidPercentage"),
-				DISPLAY_PERCENTAGE, CARD_TYPE));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidEach"), DISPLAY_EACH,
-				CARD_TYPE));
-		result.add(new PanelSetting(LangHelper
-				.translate("msg.nc.cbInfoPanelLiquidTotal"), DISPLAY_TOTAL,
-				CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidFree"), DISPLAY_FREE, CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidCapacity"), DISPLAY_CAPACITY, CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidPercentage"), DISPLAY_PERCENTAGE, CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidEach"), DISPLAY_EACH, CARD_TYPE));
+		result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelLiquidTotal"), DISPLAY_TOTAL, CARD_TYPE));
 		return result;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean advanced) {
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean advanced) {
 		CardWrapperImpl card = new CardWrapperImpl(itemStack, -1);
 		int cardCount = getCardCount(card);
 		if (cardCount > 0) {
@@ -326,9 +277,7 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 			if (title != null && !title.isEmpty()) {
 				info.add(title);
 			}
-			String hint = String.format(
-					LangHelper.translate("msg.nc.LiquidCardQuantity"),
-					cardCount);
+			String hint = String.format(LangHelper.translate("msg.nc.LiquidCardQuantity"), cardCount);
 			info.add(hint);
 		}
 	}
