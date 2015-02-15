@@ -47,22 +47,22 @@ public class DriverInfoPanel extends DriverTileEntity {
 		
 		@Callback(doc = "function():number -- gets the background color of the panel")
 		public Object[] getBackgroundColor(final Context context, final Arguments args){
-			return new Object[]{(tileEntity.getColorBackground())};
+			return new Object[]{tileEntity.getColorBackground()};
 		}
 		
 		@Callback(doc = "function():number -- gets the text color of the panel")
 		public Object[] getTextColor(final Context context, final Arguments args){
-			return new Object[]{(tileEntity.getColorText())};
+			return new Object[]{tileEntity.getColorText()};
 		}
 		
 		@Callback(doc = "function():boolean -- checks if the color upgrade is installed")
 		public Object[] hasColorUpgrade(final Context context, final Arguments args){
-			return new Object[]{(tileEntity.getColored())};
+			return new Object[]{tileEntity.getColored()};
 		}
 		
 		@Callback(doc = "function():boolean -- checks if the web upgrade is installed (should be false most of the time)")
 		public Object[] hasWebUpgrade(final Context context, final Arguments args){
-			return new Object[]{(tileEntity.getIsWeb())};
+			return new Object[]{tileEntity.getIsWeb()};
 		}
 	}
 }

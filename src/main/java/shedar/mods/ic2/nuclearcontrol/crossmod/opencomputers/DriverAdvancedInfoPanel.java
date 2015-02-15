@@ -60,12 +60,17 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 		
 		@Callback(doc = "function():number -- gets the background color of the panel")
 		public Object[] getBackgroundColor(final Context context, final Arguments args){
-			return new Object[]{(tileEntity.getColorBackground())};
+			return new Object[]{tileEntity.getColorBackground()};
 		}
 		
 		@Callback(doc = "function():number -- gets the text color of the panel")
 		public Object[] getTextColor(final Context context, final Arguments args){
-			return new Object[]{(tileEntity.getColorText())};
+			return new Object[]{tileEntity.getColorText()};
+		}
+		
+		@Callback(doc = "function():boolean -- checks if the web upgrade is installed (should be false most of the time)")
+		public Object[] hasWebUpgrade(final Context context, final Arguments args){
+			return new Object[]{tileEntity.getIsWeb()};
 		}
 		
 		/* TODO: this is broken
@@ -103,11 +108,6 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 			if(newRotation == tileEntity.getRotationVert()) return null; //same as the current rotation
 			tileEntity.setRotateVert((byte) newRotation);
 			return null;
-		}
-		
-		@Callback(doc = "function():boolean -- checks if the web upgrade is installed (should be false most of the time)")
-		public Object[] hasWebUpgrade(final Context context, final Arguments args){
-			return new Object[]{(tileEntity.getIsWeb())};
 		}
 	}
 }
