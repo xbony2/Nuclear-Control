@@ -20,7 +20,7 @@ public class BigReactorsRecipesNew {
 		Recipes.advRecipes.addRecipe(new ItemStack(CrossBigReactors.ReactorInfoFetch), new Object[]{
 			"BRB", "YCY", "BRB", 
 				'B', "reactorCasing", 
-				'R', Items.redstone, 
+				'R', "dustRedstone", 
 				'Y', "ingotYellorium", 
 				'C', Items.comparator});
 	}

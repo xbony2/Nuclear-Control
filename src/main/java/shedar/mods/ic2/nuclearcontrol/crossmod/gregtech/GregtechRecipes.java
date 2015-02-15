@@ -17,8 +17,10 @@ import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.LightDamages;
 
 public class GregtechRecipes {
-	public static Item gtmeta1;
-	public static ItemStack gtComputerMonitor;
+	private static Item gtmeta1;
+	private static ItemStack gtComputerMonitor;
+	private static ItemStack gtSensor;
+	private static ItemStack gtEmitter;
 	
 	/**
 	 * Grabs all the nessary items/itemstacks from GT indirectly.
@@ -28,6 +30,8 @@ public class GregtechRecipes {
 	public static void grabItems(){
 		gtmeta1 = GameRegistry.findItem("gregtech", "gt.metaitem.01");
 		gtComputerMonitor = new ItemStack(gtmeta1, 1, 32740);
+		gtSensor = new ItemStack(gtmeta1, 1, 32690);
+		gtEmitter = new ItemStack(gtmeta1, 1, 32680);
 	}
 	
 	public static void addRecipes(){
@@ -38,6 +42,7 @@ public class GregtechRecipes {
 				'G', "plateGlass",
 				'M', "cellMercury",
 				'I', "stickIron"});
+		
 		ItemStack digitalThermometer = new ItemStack(IC2NuclearControl.itemToolDigitalThermometer);
 		Recipes.advRecipes.addRecipe(digitalThermometer, new Object[]{
 			"BG ", "CMC", " G3",
@@ -54,6 +59,17 @@ public class GregtechRecipes {
 					'P', gtComputerMonitor,
 					'C', "circuitAdvanced",
 					'R', "plateRedstone"});
+		
+		ItemStack remoteThermalMonitor = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_REMOTE_THERMO);
+		Recipes.advRecipes.addRecipe(remoteThermalMonitor, new Object[]{ 
+				"SGE", "CMC", "BTB",
+					'S', gtSensor,
+					'G', "glassReinforced",
+					'E', gtEmitter,
+					'C', gtComputerMonitor,
+					'M', IC2Items.getItem("machine"),
+					'B', "circuitBasic",
+					'T', thermalMonitor});
 		
 		ItemStack howler = new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_HOWLER_ALARM);
 		Recipes.advRecipes.addRecipe(howler, new Object[]{
@@ -180,7 +196,7 @@ public class GregtechRecipes {
 				'P', Items.paper, 
 				'D', StackUtil.copyWithWildCard(digitalThermometer), 
 				'F', IC2Items.getItem("frequencyTransmitter"), 
-				'W', "dyeYellow" });
+				'W', "dyeYellow"});
 
 		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemEnergySensorKit, 1), new Object[] { 
 			"RF", "PO", 
