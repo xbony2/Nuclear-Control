@@ -63,6 +63,11 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 			return new Object[]{(tileEntity.getColorBackground())};
 		}
 		
+		@Callback(doc = "function():number -- gets the text color of the panel")
+		public Object[] getTextColor(final Context context, final Arguments args){
+			return new Object[]{(tileEntity.getColorText())};
+		}
+		
 		/* TODO: this is broken
 		@Callback(doc = "function(value:number) -- sets the background color of the panel (0-16)")
 		public Object[] setBackgroundColor(final Context context, final Arguments args){
@@ -98,6 +103,11 @@ public class DriverAdvancedInfoPanel extends DriverTileEntity {
 			if(newRotation == tileEntity.getRotationVert()) return null; //same as the current rotation
 			tileEntity.setRotateVert((byte) newRotation);
 			return null;
+		}
+		
+		@Callback(doc = "function():boolean -- checks if the web upgrade is installed (should be false most of the time)")
+		public Object[] hasWebUpgrade(final Context context, final Arguments args){
+			return new Object[]{(tileEntity.getIsWeb())};
 		}
 	}
 }
