@@ -60,7 +60,7 @@ public class DriverThermalMonitor extends DriverTileEntity {
 		@Callback(doc = "function(number) -- sets the heat level of the reactor")
 		public Object[] setHeatLevel(final Context context, final Arguments args){
 			final int newHeatLevel = args.checkInteger(0);
-			if(newHeatLevel == tileEntity.getHeatLevel() || newHeatLevel < 0)
+			if(newHeatLevel == tileEntity.getHeatLevel() || newHeatLevel < 0 || newHeatLevel > 1000000)
 				return null;
 			tileEntity.setHeatLevel(newHeatLevel);	
 			return null;
