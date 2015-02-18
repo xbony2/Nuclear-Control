@@ -22,6 +22,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelMultiCard;
+import shedar.mods.ic2.nuclearcontrol.api.IRangeTriggerable;
 import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
@@ -35,7 +36,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRemoteSensor, IPanelMultiCard {
+public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRemoteSensor, IPanelMultiCard, IRangeTriggerable {
 	private static final String HINT_TEMPLATE = "x: %d, y: %d, z: %d";
 
 	public static final int DISPLAY_ENERGY = 1;
@@ -116,6 +117,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 			card.setInt("amount", amount);
 			card.setInt("liquidId", liquidId);
 			card.setTag("liquidTag", liquidTag);
+			card.setDouble("range_trigger_amount", (double)amount);
 			return CardState.OK;
 		} else {
 			return CardState.NO_TARGET;
@@ -128,11 +130,13 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 		if (tileEntity != null && tileEntity instanceof TileEntityEnergyCounter) {
 			TileEntityEnergyCounter counter = (TileEntityEnergyCounter) tileEntity;
 			card.setDouble("energy", counter.counter);
+			card.setDouble("range_trigger_amount", counter.counter);
 			card.setInt("powerType", (int) counter.powerType);
 			return CardState.OK;
 		} else if (tileEntity != null && tileEntity instanceof TileEntityAverageCounter) {
 			TileEntityAverageCounter avgCounter = (TileEntityAverageCounter) tileEntity;
 			card.setInt("average", avgCounter.getClientAverage());
+			card.setDouble("range_trigger_amount", (double)avgCounter.getClientAverage());
 			card.setInt("powerType", (int) avgCounter.powerType);
 			return CardState.OK;
 		} else {
@@ -147,6 +151,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 			// int production = ((TileEntityBaseGenerator)entity).production;
 			int production = (int) EnergyNet.instance.getTotalEnergyEmitted(entity);// TODO deprecated
 			card.setInt("production", production);
+			card.setDouble("range_trigger_amount", (double)production);
 			return CardState.OK;
 		} else {
 			return CardState.NO_TARGET;
@@ -182,8 +187,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 	}
 
 	@Override
-	public List<PanelString> getStringData(int displaySettings,
-			ICardWrapper card, boolean showLabels) {
+	public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels) {
 		int damage = card.getItemStack().getItemDamage();
 		switch (damage) {
 		case ItemKitMultipleSensor.TYPE_COUNTER:

@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
+import shedar.mods.ic2.nuclearcontrol.api.IRangeTriggerable;
 import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
@@ -22,8 +23,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCardEnergySensorLocation extends ItemCardBase implements
-		IRemoteSensor {
+public class ItemCardEnergySensorLocation extends ItemCardBase implements IRemoteSensor, IRangeTriggerable {
 	private static final String HINT_TEMPLATE = "x: %d, y: %d, z: %d";
 
 	public static final int DISPLAY_ENERGY = 1;
@@ -47,6 +47,7 @@ public class ItemCardEnergySensorLocation extends ItemCardBase implements
 		if (storage != null) {
 			card.setDouble("energyL", storage.stored);
 			card.setDouble("maxStorageL", storage.capacity);
+			card.setDouble("range_trigger_amount", storage.stored);
 			return CardState.OK;
 		} else {
 			return CardState.NO_TARGET;
