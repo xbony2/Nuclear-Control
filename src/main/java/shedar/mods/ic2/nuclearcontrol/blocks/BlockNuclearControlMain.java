@@ -28,18 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AdvancedInfoPanel;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AdvancedInfoPanelExtender;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.AverageCounter;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.EnergyCounter;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.HowlerAlarm;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.IndustrialAlarm;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanelExtender;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RangeTrigger;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.RemoteThermo;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
-import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
+import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.*;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityHowlerAlarm;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityIndustrialAlarm;
@@ -406,8 +395,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z,
-			EntityPlayer player, int side, float f1, float f2, float f3) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f1, float f2, float f3) {
 		int blockType = world.getBlockMetadata(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 
@@ -433,15 +421,13 @@ public class BlockNuclearControlMain extends BlockContainer {
 	 * box can change after the pool has been cleared to be reused)
 	 */
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x,
-			int y, int z) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		this.setBlockBoundsBasedOnState(world, x, y, z);
 		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess iblockaccess, int x, int y,
-			int z, int direction) {
+	public int isProvidingWeakPower(IBlockAccess iblockaccess, int x, int y, int z, int direction) {
 		return isProvidingStrongPower(iblockaccess, x, y, z, direction);
 	}
 
@@ -546,8 +532,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 		} else if (entity instanceof TileEntityInfoPanelExtender) {
 			TileEntityInfoPanelExtender extender = (TileEntityInfoPanelExtender) entity;
 			if (extender.getScreen() != null) {
-				TileEntityInfoPanel core = extender.getScreen().getCore(
-						extender.getWorldObj());
+				TileEntityInfoPanel core = extender.getScreen().getCore(extender.getWorldObj());
 				if (core != null && core.getPowered())
 					return 7;
 				else
