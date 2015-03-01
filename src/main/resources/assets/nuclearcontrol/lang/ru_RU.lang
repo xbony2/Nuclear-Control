@@ -19,6 +19,7 @@ item.ItemTextCard.name=Текстовая карта
 item.ItemGeneratorSensorKit.name=Набор для генератора
 item.ItemGeneratorSensorLocationCard.name=Карта-датчик расположения генератора
 item.ItemLiquidArrayLocationCard.name=Карта-датчик расположения массива жидкости
+item.Item55ReactorCard.name=Карта-датчик расположения 5x5 реактора
 
 tile.blockThermalMonitor.name=Датчик температуры
 tile.blockIndustrialAlarm.name=Промышленная сирена
@@ -61,7 +62,7 @@ msg.nc.InfoPanelOutputSteam=Выход: %smB/т
 msg.nc.InfoPanelTimeRemaining=Осталось: %s
 
 msg.nc.InfoPanelEnergyCounter=Энергия: %sEU
-msg.nc.InfoPanelEnergyCounterMJ=Энергия: %sMJ
+msg.nc.InfoPanelEnergyCounterMJ=Энергия: %s RF
 
 msg.nc.InfoPanelEnergy=Энергия: %s
 msg.nc.InfoPanelEnergyFree=Свободно: %s
@@ -104,9 +105,17 @@ msg.nc.cbInfoPanelTimeRemaining=Время до окончания цикла
 msg.nc.InfoPanelRF.Temp=Темп. ядра: %s C
 msg.nc.InfoPanelRF.EnergyStored=Энергия: %s RF
 msg.nc.InfoPanelRF.CreatedEnergy=Выходная энергия: %s RF/т
-msg.nc.InfoPanelRF.Percentage=Энергохранилище %s%% (Полное)
+msg.nc.InfoPanelRF.Percentage=Энергохранилище заполнено на %s%%
 msg.nc.InfoPanelRF.Output=Выход (RF/т)
 msg.nc.InfoPanelRF.TempPROPER=Температура ядра
+
+msg.nc.InfoPanel55.Output=Выход: %s Hu/сек
+msg.nc.InfoPanel55.Temp=Температура ядра: %s%%
+msg.nc.InfoPanel55.tarkin=Внутренний резервуар: %s / 10000 мВ
+msg.nc.InfoPanel55.tankout=Внешний резервуар: %s / 10000 мВ
+msg.nc.InfoPanel55.Out=Выход (Hu/сек)
+msg.nc.InfoPanel55.BufferIn=Резервуар хладагента
+msg.nc.InfoPanel55.BufferOut=Резервуар горячего хладагента
 
 msg.nc.cb24h=24-часовой режим
 
