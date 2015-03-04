@@ -18,25 +18,14 @@ public class CrossBuildcraft{
         return _isApiAvailable;
     }
     
-    @SuppressWarnings("unchecked")
-    public void registerTileEntity(){
-        try{
-            GameRegistry.registerTileEntity((Class<? extends TileEntity>)Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityAverageCounterBC"), "IC2NCAverageCounterBC");
-            GameRegistry.registerTileEntity((Class<? extends TileEntity>)Class.forName("shedar.mods.ic2.nuclearcontrol.crossmod.buildcraft.TileEntityEnergyCounterBC"), "IC2NCEnergyCounterBC");
-        } catch(ClassNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-    
     public CrossBuildcraft(){
         try{
-            Class.forName("buildcraft.api.power.IPowerReceptor", false, this.getClass().getClassLoader());
-            Class.forName("buildcraft.api.power.IPowerEmitter", false, this.getClass().getClassLoader());
-            Class.forName("buildcraft.api.power.PowerHandler", false, this.getClass().getClassLoader());
+            //Class.forName("buildcraft.api.power.IPowerReceptor", false, this.getClass().getClassLoader());
+            //Class.forName("buildcraft.api.power.IPowerEmitter", false, this.getClass().getClassLoader());
+            //Class.forName("buildcraft.api.power.PowerHandler", false, this.getClass().getClassLoader());
             Class.forName("buildcraft.api.tools.IToolWrench", false, this.getClass().getClassLoader());
-            Class.forName("buildcraft.api.transport.IPipeConnection", false, this.getClass().getClassLoader());
+            //Class.forName("buildcraft.api.transport.IPipeConnection", false, this.getClass().getClassLoader());
             _isApiAvailable = true;
-            registerTileEntity();
         } catch (ClassNotFoundException e){
             _isApiAvailable = false;
         }
