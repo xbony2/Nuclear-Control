@@ -11,12 +11,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class BigReactorsRecipesNew {
 	public static void addRecipes(){
 		Recipes.advRecipes.addRecipe(new ItemStack(CrossBigReactors.kitRFsensor), new Object[]{
-			"IT ", "PD ", " R ", 
+			"IT", "PD", 
 				'I', "ingotYellorium", 
 				'T', IC2Items.getItem("frequencyTransmitter"), 
 				'P', Items.paper, 
-				'D', "dyeRed", 
-				'R', "dustRedstone"});
+				'D', "dyeRed"});
 		Recipes.advRecipes.addRecipe(new ItemStack(CrossBigReactors.ReactorInfoFetch), new Object[]{
 			"BRB", "YCY", "BRB", 
 				'B', "reactorCasing", 
