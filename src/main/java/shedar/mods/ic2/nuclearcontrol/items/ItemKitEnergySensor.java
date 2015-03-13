@@ -20,33 +20,26 @@ public class ItemKitEnergySensor extends ItemSensorKitBase {
 
 	@Override
 	protected ItemStack getItemStackByDamage(int damage) {
-		return new ItemStack(
-				IC2NuclearControl.itemEnergySensorLocationCard, 1, 0);
+		return new ItemStack(IC2NuclearControl.itemEnergySensorLocationCard);
 	}
 
 	@Override
-	protected ChunkCoordinates getTargetCoordinates(World world, int x, int y,
-			int z, ItemStack stack) {
+	protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack) {
 		return null;
 	}
 
 	@Override
-	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player,
-			World world, int x, int y, int z, int side, float hitX, float hitY,
-			float hitZ) {
+	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		if (player == null)
 			return false;
 		boolean isServer = player instanceof EntityPlayerMP;
 		if (!isServer)
 			return false;
-		EnergyStorageData storage = EnergyStorageHelper.getStorageAt(world, x,
-				y, z, EnergyStorageData.TARGET_TYPE_UNKNOWN);
+		EnergyStorageData storage = EnergyStorageHelper.getStorageAt(world, x, y, z, EnergyStorageData.TARGET_TYPE_UNKNOWN);
 		if (storage != null) {
-			ItemStack sensorLocationCard = getItemStackByDamage(stack
-					.getItemDamage());
+			ItemStack sensorLocationCard = getItemStackByDamage(stack.getItemDamage());
 
-			NBTTagCompound nbtTagCompound = ItemStackUtils
-					.getTagCompound(sensorLocationCard);
+			NBTTagCompound nbtTagCompound = ItemStackUtils.getTagCompound(sensorLocationCard);
 			nbtTagCompound.setInteger("x", x);
 			nbtTagCompound.setInteger("y", y);
 			nbtTagCompound.setInteger("z", z);

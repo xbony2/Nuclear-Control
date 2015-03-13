@@ -54,13 +54,13 @@ public class CrossRF {
     {
         if(!_RFModPresent || target == null)
             return null;
-        	RFTileEntityAverageCounter tile = new RFTileEntityAverageCounter();
+        RFTileEntityAverageCounter tile = new RFTileEntityAverageCounter();
         if(tile.storage == null)
             return null;
         EnergyStorageData result = new EnergyStorageData();
         result.capacity = tile.storage.getMaxEnergyStored();
         result.stored = tile.storage.getEnergyStored();
-        result.units = "RF";
+        result.units = EnergyStorageData.UNITS_RF;
         result.type = EnergyStorageData.TARGET_TYPE_RF;
         return result;
     }

@@ -1,14 +1,14 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.ic2;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
-
 import ic2.api.item.IC2Items;
 import ic2.api.tile.IEnergyStorage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class CrossIndustrialCraft2 {
 
@@ -57,8 +57,8 @@ public class CrossIndustrialCraft2 {
 		try {
 			Class.forName("ic2.api.tile.IEnergyStorage", false, this.getClass().getClassLoader());
 			_gradItemInt = Class.forName("ic2.core.item.ItemGradualInt", false, this.getClass().getClassLoader());
-			_getMaxDamageEx = _gradItemInt.getMethod("getMaxDamageEx");
-			_getDamageOfStack = _gradItemInt.getMethod("getDamageOfStack", ItemStack.class);
+			_getMaxDamageEx = _gradItemInt.getMethod("getMaxCustomDamage", ItemStack.class);
+			_getDamageOfStack = _gradItemInt.getMethod("getControlTagOfStack", ItemStack.class);
 			_isApiAvailable = true;
 		} catch (Exception e) {
 			_isApiAvailable = false;
@@ -73,7 +73,7 @@ public class CrossIndustrialCraft2 {
 			EnergyStorageData result = new EnergyStorageData();
 			result.capacity = storage.getCapacity();
 			result.stored = storage.getStored();
-			result.units = "EU";
+			result.units = EnergyStorageData.UNITS_EU;
 			result.type = EnergyStorageData.TARGET_TYPE_IC2;
 			return result;
 		}
@@ -87,10 +87,8 @@ public class CrossIndustrialCraft2 {
 		if (Arrays.binarySearch(_fuelIds, Item.getIdFromItem(stack.getItem())) >= 0) {
 			int delta;
 			try {
-				int maxDamage = (Integer) _getMaxDamageEx.invoke(stack
-						.getItem());
-				int damage = (Integer) _getDamageOfStack.invoke(
-						stack.getItem(), stack);
+				int maxDamage = (Integer) _getMaxDamageEx.invoke(stack.getItem());
+				int damage = (Integer) _getDamageOfStack.invoke(stack.getItem(), stack);
 				delta = maxDamage - damage;
 			} catch (Exception e) {
 				delta = stack.getMaxDamage() - stack.getItemDamage();

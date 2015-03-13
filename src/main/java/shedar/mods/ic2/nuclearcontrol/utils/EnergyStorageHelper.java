@@ -15,10 +15,10 @@ public class EnergyStorageHelper {
 		case EnergyStorageData.TARGET_TYPE_IC2:
 			return IC2NuclearControl.instance.crossIC2.getStorageData(entity);
 		case EnergyStorageData.TARGET_TYPE_RF:
-			return IC2NuclearControl.instance.crossRF.getStorageData(entity); //TODO: DMF
+			return IC2NuclearControl.instance.crossRF.getStorageData(entity);
 		case EnergyStorageData.TARGET_TYPE_UNKNOWN:
 			EnergyStorageData data = IC2NuclearControl.instance.crossIC2.getStorageData(entity);
-			if (data == null) {
+			if (data == null) { //XXX: there's probably a better way to do this for future integration
 				data = IC2NuclearControl.instance.crossRF.getStorageData(entity);
 			}
 			return data;
