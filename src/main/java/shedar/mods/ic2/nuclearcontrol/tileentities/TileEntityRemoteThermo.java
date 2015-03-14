@@ -428,7 +428,7 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int face) {
 		return !entityPlayer.isSneaking() && getFacing() != face;
-	};
+	}
 
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
