@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors;
+package shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

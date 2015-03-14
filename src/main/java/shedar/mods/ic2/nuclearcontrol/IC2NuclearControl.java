@@ -1,16 +1,15 @@
 package shedar.mods.ic2.nuclearcontrol;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.CrossBigReactors;
+
 import java.io.File;
 import java.util.List;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-
 import org.apache.logging.log4j.Logger;
-
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
-import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.CrossBigReactors;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;

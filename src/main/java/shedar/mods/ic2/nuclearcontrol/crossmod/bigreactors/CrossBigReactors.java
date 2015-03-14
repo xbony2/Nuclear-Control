@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors;
+package shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors;
 
 import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
@@ -7,8 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.recipes.BigReactorsRecipesNew;
-import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.recipes.BigReactorsRecipesGregtech;
+import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.recipes.BigReactorsRecipesNew;
+import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.recipes.BigReactorsRecipesGregtech;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;

@@ -1,10 +1,11 @@
-package shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.recipes;
+package shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.recipes;
+
+import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.CrossBigReactors;
 
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors.CrossBigReactors;
 
 public class BigReactorsRecipesGregtech {
 	public static void addRecipes(){

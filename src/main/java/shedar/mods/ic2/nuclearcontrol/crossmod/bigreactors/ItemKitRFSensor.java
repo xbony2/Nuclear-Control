@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors;
+package shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

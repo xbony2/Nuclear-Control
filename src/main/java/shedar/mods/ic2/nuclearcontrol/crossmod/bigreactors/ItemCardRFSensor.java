@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.crossmod.BigReactors;
+package shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
