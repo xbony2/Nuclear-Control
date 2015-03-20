@@ -199,13 +199,13 @@ public class IC2NuclearControl {
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
 		}
 		
-		/*
+
 		//I'm very tempted to uncomment this
 		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
 		dBlock.setStackDisplayName("ERROR: report to skyboy!");
 		Recipes.advRecipes.addRecipe(dBlock, new Object[]{
 			"GGG", "GGG", "GGG",
-				'G', "greggy_greg_do_please_kindly_stuff_a_sock_in_it"});*/
+				'G', "greggy_greg_do_please_kindly_stuff_a_sock_in_it"});
 	}
 
 	@EventHandler

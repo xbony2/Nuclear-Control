@@ -1,4 +1,9 @@
 *.class
+\out
+\eclipse
+*.iml
+*.ipr
+*.iws
 
 # If this doesn't work, everything will blow up :D
 .DS_Store
