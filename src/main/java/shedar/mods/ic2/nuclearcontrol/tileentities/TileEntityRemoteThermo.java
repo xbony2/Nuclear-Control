@@ -8,6 +8,7 @@ import ic2.api.item.IElectricItem;
 import ic2.api.item.IC2Items;
 import ic2.api.reactor.IReactor;
 import ic2.core.IC2;
+import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
 import ic2.core.network.NetworkManager;
 
 import java.util.List;
@@ -26,6 +27,8 @@ import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.IRotation;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
+import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCard55Reactor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardReactorSensorLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
@@ -94,7 +97,21 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 		int fire;
 		if (energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption) {
 			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord + deltaX, yCoord + deltaY, zCoord + deltaZ);
-			if (reactor != null) {
+            TileEntityReactorChamberElectric FiveSQReactor = null;
+            if(reactor == null){
+                cardType = ((IPanelDataSource) card.getItem()).getCardType();
+                ChunkCoordinates target = new CardWrapperImpl(inventory[SLOT_CARD], SLOT_CARD).getTarget();
+                if(target != null) {
+                    int x = target.posX;
+                    int y = target.posY;
+                    int z = target.posZ;
+                    FiveSQReactor = (TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(worldObj, x, y, z);
+                }
+            }
+			if (reactor != null || TileEntityThermo.testThis(reactor, FiveSQReactor)) {
+                if(FiveSQReactor != null){
+                    reactor = FiveSQReactor.getReactor();
+                }
 				if (tickRate == -1) {
 					tickRate = reactor.getTickRate() / 2;
 					if (tickRate == 0)
@@ -377,7 +394,7 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 				energy = maxStorage;
 			setEnergy(energy);
 		}
-	};
+	}
 
 	@Override
 	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
@@ -416,7 +433,8 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 			}
 			return false;
 		case SLOT_CARD:
-			return itemstack.getItem() instanceof ItemCardReactorSensorLocation;
+			return itemstack.getItem() instanceof ItemCardReactorSensorLocation
+                    || itemstack.getItem() instanceof ItemCard55Reactor;
 		default:
 			return itemstack.isItemEqual(IC2Items.getItem("transformerUpgrade"))
 					|| itemstack.isItemEqual(IC2Items.getItem("energyStorageUpgrade"))

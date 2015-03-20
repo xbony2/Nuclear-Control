@@ -200,7 +200,8 @@ public class IC2NuclearControl {
 		}
 		
 
-		/*//I'm very tempted to uncomment this
+		/*
+		//I'm very tempted to uncomment this
 		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
 		dBlock.setStackDisplayName("ERROR: report to skyboy!");
 		Recipes.advRecipes.addRecipe(dBlock, new Object[]{

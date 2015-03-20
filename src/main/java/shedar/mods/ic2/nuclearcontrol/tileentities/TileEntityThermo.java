@@ -7,6 +7,7 @@ import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
+import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
 import ic2.core.network.NetworkManager;
 
 import java.util.List;
@@ -20,7 +21,9 @@ import net.minecraft.util.Facing;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCard55Reactor;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
 public class TileEntityThermo extends TileEntity implements INetworkDataProvider, INetworkUpdateListener,
@@ -35,6 +38,7 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 	public short facing;
 	private boolean prevInvertRedstone;
 	private boolean invertRedstone;
+    private static int[] Coords = new int[3];
 
 	protected int updateTicker;
 	protected int tickRate;
@@ -203,13 +207,24 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 		byte fire;
 		IReactorChamber chamber = NuclearHelper.getReactorChamberAroundCoord(worldObj, xCoord, yCoord, zCoord);
 		IReactor reactor = null;
+        TileEntityReactorChamberElectric NR = null;
 		if (chamber != null) {
 			reactor = chamber.getReactor();
 		}
 		if (reactor == null) {
 			reactor = NuclearHelper.getReactorAroundCoord(worldObj, xCoord, yCoord, zCoord);
 		}
-		if (reactor != null) {
+        if(reactor == null && chamber == null){
+            //NCLog.fatal("CALLED");
+            //NCLog.error(this.getFacing());
+            decodeSides(xCoord, yCoord, zCoord);
+            NR = (TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(worldObj, Coords[0], Coords[1], Coords[2]);
+        }
+
+		if (reactor != null || testThis(reactor, NR)) {
+            if(NR != null){
+                reactor = NR.getReactor();
+            }
 			if (tickRate == -1) {
 				tickRate = reactor.getTickRate() / 2;
 				if (tickRate == 0) tickRate = 1;
@@ -229,6 +244,53 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 	}
+    //There has to be a better way than this... please fix it if you know one!
+    protected void decodeSides(int x, int y, int z){
+        switch(this.getFacing()){
+            case 0:
+                Coords[0] = x;
+                Coords[1] =  y + 1;
+                Coords[2] = z;
+                break;
+            case 1:
+                Coords[0] = x;
+                Coords[1] = y - 1;
+                Coords[2] = z;
+                break;
+            case 2:
+                Coords[0] = x;
+                Coords[1] = y;
+                Coords[2] = z + 1;
+                break;
+            case 3:
+                Coords[0] = x;
+                Coords[1] = y;
+                Coords[2] = z - 1;
+                break;
+            case 4:
+                Coords[0] = x + 1;
+                Coords[1] = y;
+                Coords[2] = z;
+                break;
+            case 5:
+                Coords[0] = x - 1;
+                Coords[1] = y;
+                Coords[2] = z;
+                break;
+            default:
+                Coords[0] = x;
+                Coords[1] = y;
+                Coords[2] = z;
+                break;
+        }
+    }
+    protected static boolean testThis(IReactor reactors, TileEntityReactorChamberElectric chamber){
+        if(reactors == null && chamber != null)
+            return true;
+        else
+            return false;
+
+    }
 
 	@Override
 	public void updateEntity() {

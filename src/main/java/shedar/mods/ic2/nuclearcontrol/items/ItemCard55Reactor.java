@@ -63,7 +63,7 @@ public class ItemCard55Reactor extends ItemCardEnergySensorLocation{
 		}
 	}
 	/*This is taken directly from IC2's code, because I couldn't find a better way to do it || All credits to IC2 for this function*/
-	private TileEntity getReactor(World world, int xCoord, int yCoord, int zCoord){
+	public static TileEntity getReactor(World world, int xCoord, int yCoord, int zCoord){
 		for(int xoffset = -1; xoffset < 2; xoffset++){
 			for(int yoffset = -1; yoffset < 2; yoffset++){
 				for(int zoffset = -1; zoffset < 2; zoffset++){
