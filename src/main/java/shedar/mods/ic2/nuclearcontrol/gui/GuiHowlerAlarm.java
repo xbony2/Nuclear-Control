@@ -60,7 +60,7 @@ public class GuiHowlerAlarm extends GuiContainer {
 		buttonList.add(slider);
 		buttonList.add(listBox);
 
-	};
+	}
 
 	@Override
 	public boolean doesGuiPauseGame() {
