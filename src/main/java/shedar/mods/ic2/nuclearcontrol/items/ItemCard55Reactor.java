@@ -16,14 +16,11 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import shedar.mods.ic2.nuclearcontrol.api.CardState;
-import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
-import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
-import shedar.mods.ic2.nuclearcontrol.api.PanelString;
+import shedar.mods.ic2.nuclearcontrol.api.*;
 import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 
-public class ItemCard55Reactor extends ItemCardEnergySensorLocation{
+public class ItemCard55Reactor extends ItemCardEnergySensorLocation implements IRemoteSensor{
 
 	public ItemCard55Reactor() {
 		this.setTextureName("nuclearcontrol:cardReactor");

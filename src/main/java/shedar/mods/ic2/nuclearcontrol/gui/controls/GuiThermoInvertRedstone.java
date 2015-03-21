@@ -1,6 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui.controls;
 
 import java.lang.reflect.Method;
+import java.security.spec.ECField;
 
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.Minecraft;
@@ -9,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -53,13 +55,16 @@ public class GuiThermoInvertRedstone extends GuiButton {
 			int value = checked ? -2 : -1;
 			thermo.setInvertRedstone(checked);
 			NetworkHelper nh = new NetworkHelper();
-			try {
+			/*try {
 				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
 				m1.setAccessible(true);
 				m1.invoke(thermo, value);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
+            try{
+            NetworkHelper.initiateClientTileEntityEvent(new TileEntityThermo().getClass().newInstance(), value);
+            }catch (Exception e){e.printStackTrace();}
 			return true;
 		} else {
 			return false;
