@@ -8,11 +8,6 @@ import ic2.api.reactor.IReactorChamber;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
 import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
-import ic2.core.network.NetworkManager;
-
-import java.util.List;
-import java.util.Vector;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,8 +18,10 @@ import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCard55Reactor;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
-import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
+
+import java.util.List;
+import java.util.Vector;
 
 public class TileEntityThermo extends TileEntity implements INetworkDataProvider, INetworkUpdateListener,
 		INetworkClientTileEntityEventListener, IWrenchable, ITextureHelper {
@@ -284,7 +281,7 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
                 break;
         }
     }
-    protected static boolean testThis(IReactor reactors, TileEntityReactorChamberElectric chamber){
+    public static boolean testThis(IReactor reactors, TileEntityReactorChamberElectric chamber){
         if(reactors == null && chamber != null)
             return true;
         else

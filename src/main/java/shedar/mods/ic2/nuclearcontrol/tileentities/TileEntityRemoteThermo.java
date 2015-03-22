@@ -4,14 +4,11 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
 import ic2.api.item.IC2Items;
+import ic2.api.item.IElectricItem;
 import ic2.api.reactor.IReactor;
 import ic2.core.IC2;
 import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
-
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -20,9 +17,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.IRotation;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
@@ -32,6 +29,8 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
+
+import java.util.List;
 
 public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory{
 	public static final int SLOT_CHARGER = 0;
@@ -98,8 +97,6 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
             TileEntityReactorChamberElectric FiveSQReactor = null;
             //UUID cardType = null;
             if(reactor == null){
-                //cardType = ((IPanelDataSource) card.getItem()).getCardType();
-                //cardType.
                 if (inventory[SLOT_CARD] != null) {
                     ChunkCoordinates target = new CardWrapperImpl(inventory[SLOT_CARD], SLOT_CARD).getTarget();
 
