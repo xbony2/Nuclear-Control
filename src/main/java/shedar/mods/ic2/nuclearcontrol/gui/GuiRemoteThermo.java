@@ -1,5 +1,8 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import ic2.core.IC2;
+import ic2.core.network.NetworkManager;
+
 import java.lang.reflect.Method;
 
 import ic2.api.network.NetworkHelper;
@@ -9,9 +12,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.CompactButton;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.GuiThermoInvertRedstone;
@@ -21,8 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiRemoteThermo extends GuiContainer {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIRemoteThermo.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private ContainerRemoteThermo container;
 	private GuiTextField textboxHeat = null;
@@ -58,8 +58,7 @@ public class GuiRemoteThermo extends GuiContainer {
 		textboxHeat = new GuiTextField(fontRendererObj, 70, 16, 51, 12);
 		textboxHeat.setFocused(true);
 		textboxHeat.setText(container.remoteThermo.getHeatLevel().toString());
-
-	};
+	}
 
 	private void updateHeat(int delta) {
 		if (textboxHeat != null) {
@@ -78,15 +77,7 @@ public class GuiRemoteThermo extends GuiContainer {
 				heat = 1000000;
 			if (container.remoteThermo.getHeatLevel().intValue() != heat) {
 				container.remoteThermo.setHeatLevel(heat);
-				NetworkHelper nh = new NetworkHelper();
-				try {
-					Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
-					m1.setAccessible(true);
-					m1.invoke(container.remoteThermo, heat);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				// NetworkHelper.initiateClientTileEntityEvent(container.remoteThermo, heat);
+				((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.remoteThermo, heat);
 			}
 			textboxHeat.setText(new Integer(heat).toString());
 		}
