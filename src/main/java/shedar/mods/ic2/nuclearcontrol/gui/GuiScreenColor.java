@@ -67,16 +67,10 @@ public class GuiScreenColor extends GuiScreen {
 		int left = (width - xSize) / 2;
 		int top = (height - ySize) / 2;
 		drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
-		drawTexturedModalRect(left + 5 + colorBack * 14, top + 30, 226, 0, 14,
-				14);
-		drawTexturedModalRect(left + 5 + colorText * 14, top + 61, 226, 0, 14,
-				14);
-		fontRendererObj.drawString(
-				LangHelper.translate("msg.nc.ScreenColor"), guiLeft + 8,
-				guiTop + 20, 0x404040);
-		fontRendererObj.drawString(
-				LangHelper.translate("msg.nc.TextColor"), guiLeft + 8,
-				guiTop + 52, 0x404040);
+		drawTexturedModalRect(left + 5 + colorBack * 14, top + 30, 226, 0, 14, 14);
+		drawTexturedModalRect(left + 5 + colorText * 14, top + 61, 226, 0, 14, 14);
+		fontRendererObj.drawString(LangHelper.translate("msg.nc.ScreenColor"), guiLeft + 8, guiTop + 20, 0x404040);
+		fontRendererObj.drawString(LangHelper.translate("msg.nc.TextColor"), guiLeft + 8, guiTop + 52, 0x404040);
 
 		super.drawScreen(par1, par2, par3);
 	}

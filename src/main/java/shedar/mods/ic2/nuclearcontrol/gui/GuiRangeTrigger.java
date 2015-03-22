@@ -37,18 +37,15 @@ public class GuiRangeTrigger extends GuiContainer {
 
 	@SuppressWarnings("unchecked")
 	private void initControls() {
-		ItemStack card = container.getSlot(TileEntityRangeTrigger.SLOT_CARD)
-				.getStack();
+		ItemStack card = container.getSlot(TileEntityRangeTrigger.SLOT_CARD).getStack();
 		if (card != null && card.equals(prevCard))
 			return;
 		buttonList.clear();
 		prevCard = card;
 		// ten digits, up to 10 billions
 		for (int i = 0; i < 10; i++) {
-			buttonList.add(new CompactButton(i * 10, guiLeft + 30 + i * 12
-					+ (i + 2) / 3 * 6, guiTop + 20, 12, 12, "-"));
-			buttonList.add(new CompactButton(i * 10 + 1, guiLeft + 30 + i * 12
-					+ (i + 2) / 3 * 6, guiTop + 42, 12, 12, "+"));
+			buttonList.add(new CompactButton(i * 10, guiLeft + 30 + i * 12 + (i + 2) / 3 * 6, guiTop + 20, 12, 12, "-"));
+			buttonList.add(new CompactButton(i * 10 + 1, guiLeft + 30 + i * 12 + (i + 2) / 3 * 6, guiTop + 42, 12, 12, "+"));
 		}
 		for (int i = 0; i < 10; i++) {
 			buttonList.add(new CompactButton(100 + i * 10, guiLeft + 30 + i
@@ -64,7 +61,7 @@ public class GuiRangeTrigger extends GuiContainer {
 	public void initGui() {
 		super.initGui();
 		initControls();
-	};
+	}
 
 	private void renderValue(double value, int x, int y) {
 		x += 114;

@@ -9,8 +9,7 @@ import java.util.Set;
 public class GuiFactory implements IModGuiFactory {
 
 	@Override
-	public void initialize(Minecraft minecraftInstance) {
-	}
+	public void initialize(Minecraft minecraftInstance) {}
 
 	@Override
 	public Class<? extends GuiScreen> mainConfigGuiClass() {
@@ -23,8 +22,7 @@ public class GuiFactory implements IModGuiFactory {
 	}
 
 	@Override
-	public RuntimeOptionGuiHandler getHandlerFor(
-			RuntimeOptionCategoryElement element) {
+	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) {
 		return null;
 	}
 }

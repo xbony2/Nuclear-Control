@@ -1,5 +1,8 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import ic2.core.IC2;
+import ic2.core.network.NetworkManager;
+
 import java.lang.reflect.Method;
 
 import ic2.api.network.NetworkHelper;
@@ -8,9 +11,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerEnergyCounter;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -75,16 +76,7 @@ public class GuiEnergyCounter extends GuiContainer {
 
 	@Override
 	protected void actionPerformed(GuiButton guiButton) {
-		if (guiButton.id == 0) {
-			NetworkHelper nh = new NetworkHelper();
-			try {
-				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
-				m1.setAccessible(true);
-				m1.invoke(container.energyCounter, 0);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// NetworkHelper.initiateClientTileEntityEvent(container.energyCounter, 0);
-		}
+		if (guiButton.id == 0)
+			((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.energyCounter, 0);
 	}
 }
