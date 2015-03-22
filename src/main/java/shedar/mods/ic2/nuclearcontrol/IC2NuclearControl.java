@@ -199,6 +199,7 @@ public class IC2NuclearControl {
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
 		}
 		
+
 		/*
 		//I'm very tempted to uncomment this
 		ItemStack dBlock = new ItemStack(Blocks.diamond_block);

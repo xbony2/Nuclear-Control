@@ -1,22 +1,19 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
-import java.lang.reflect.Method;
-
-import ic2.api.network.NetworkHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ic2.core.IC2;
+import ic2.core.network.NetworkManager;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteThermo;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.CompactButton;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.GuiThermoInvertRedstone;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiRemoteThermo extends GuiContainer {
@@ -78,14 +75,15 @@ public class GuiRemoteThermo extends GuiContainer {
 				heat = 1000000;
 			if (container.remoteThermo.getHeatLevel().intValue() != heat) {
 				container.remoteThermo.setHeatLevel(heat);
-				NetworkHelper nh = new NetworkHelper();
+                ((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.remoteThermo, heat);
+				/*NetworkHelper nh = new NetworkHelper();
 				try {
 					Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
 					m1.setAccessible(true);
 					m1.invoke(container.remoteThermo, heat);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}*/
 				// NetworkHelper.initiateClientTileEntityEvent(container.remoteThermo, heat);
 			}
 			textboxHeat.setText(new Integer(heat).toString());
@@ -123,7 +121,7 @@ public class GuiRemoteThermo extends GuiContainer {
 			return;
 		int delta = Integer.parseInt(button.displayString.replace("+", ""));
 		updateHeat(delta);
-	};
+	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
