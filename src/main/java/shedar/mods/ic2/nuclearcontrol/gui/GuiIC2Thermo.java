@@ -1,5 +1,8 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import ic2.core.IC2;
+import ic2.core.network.NetworkManager;
+
 import java.lang.reflect.Method;
 
 import ic2.api.network.NetworkHelper;
@@ -8,9 +11,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerEmpty;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.CompactButton;
 import shedar.mods.ic2.nuclearcontrol.gui.controls.GuiThermoInvertRedstone;
@@ -53,15 +54,7 @@ public class GuiIC2Thermo extends GuiContainer {
 				heat = 1000000;
 			if (thermo.getHeatLevel().intValue() != heat) {
 				thermo.setHeatLevel(heat);
-				NetworkHelper nh = new NetworkHelper();
-				try {
-					Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
-					m1.setAccessible(true);
-					m1.invoke(thermo, heat);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				// NetworkHelper.initiateClientTileEntityEvent(thermo, heat);
+				((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(thermo, heat);
 			}
 			textboxHeat.setText(new Integer(heat).toString());
 		}

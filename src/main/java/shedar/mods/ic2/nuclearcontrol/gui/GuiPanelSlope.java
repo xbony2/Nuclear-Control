@@ -1,6 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
-import ic2.api.network.NetworkHelper;
 import ic2.core.IC2;
 import ic2.core.network.NetworkManager;
 import net.minecraft.client.gui.GuiScreen;
