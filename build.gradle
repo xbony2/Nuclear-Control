@@ -43,10 +43,6 @@ repositories {
 		name "OC"
 		url "http://maven.cil.li/"
 	}
-	ivy {
-		name "CoFHCore"
-		artifactPattern 'http://addons.cursecdn.com/files/2221/835/[module]-[revision].[ext]'
-	}
 }
 
 dependencies {
@@ -58,7 +54,7 @@ dependencies {
 	compile argoVersion
 	compile wailaVersion
 	compile openCVersion
-	compile files('libCoFHCore-[1.7.10]3.0.0RC7-211-dev.jar')
+	compile files('lib/CoFHCore-[1.7.10]3.0.0RC7-211-dev.jar')
 	compile files('lib/BigReactors-0.4.1A2.jar')
 }
 
