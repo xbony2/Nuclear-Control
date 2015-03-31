@@ -29,7 +29,7 @@ public class ConfigurationHandler {
 			//IC2NuclearControl.isHttpSensorAvailableClient = configuration.getBoolean("isHttpSensorAvailableClient", Configuration.CATEGORY_GENERAL, false, "Turns on/off the recipes for the web upgrade client side");
 			//IC2NuclearControl.isHttpSensorAvailableServer = configuration.getBoolean("isHttpSensorAvailableServer", Configuration.CATEGORY_GENERAL, true, "Turns on/off the recipes for the web upgrade server side");
 			//IC2NuclearControl.instance.httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();
-			IC2NuclearControl.instance.recipes = configuration.getString("recipes", Configuration.CATEGORY_GENERAL, "normal", "Valid inputs: normal or old");
+			IC2NuclearControl.instance.recipes = configuration.getString("recipes", Configuration.CATEGORY_GENERAL, "normal", "Valid inputs: normal, old or gregtech");
 		}catch(Exception e) {
 			IC2NuclearControl.logger.error(
 					"Mod has a problem loading it's configuration", e);
