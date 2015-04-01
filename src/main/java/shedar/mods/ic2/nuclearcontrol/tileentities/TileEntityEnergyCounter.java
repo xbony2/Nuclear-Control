@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -48,7 +50,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 	private short prevFacing;
 	public short facing;
 
-	// 0 - EU, 1- MJ
+	// check out shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData
 	private byte prevPowerType;
 	public byte powerType;
 
@@ -74,9 +76,8 @@ public class TileEntityEnergyCounter extends TileEntity implements
 	public void setPowerType(byte p) {
 		powerType = p;
 
-		if (prevPowerType != p) {
+		if (prevPowerType != p)
 			IC2.network.get().updateTileEntityField(this, "powerType");
-		}
 
 		prevPowerType = p;
 	}
@@ -104,9 +105,8 @@ public class TileEntityEnergyCounter extends TileEntity implements
 	private void setSide(short f) {
 		facing = f;
 
-		if (prevFacing != f) {
+		if (prevFacing != f)
 			IC2.network.get().updateTileEntityField(this, "facing");
-		}
 
 		prevFacing = f;
 	}
@@ -126,7 +126,7 @@ public class TileEntityEnergyCounter extends TileEntity implements
 			if (updateTicker-- == 0) {
 				updateTicker = tickRate - 1;
 				counter += EnergyNet.instance.getTotalEnergyEmitted(this); //So sue me
-				this.setPowerType(TileEntityAverageCounter.POWER_TYPE_EU);
+				this.setPowerType((byte)EnergyStorageData.TARGET_TYPE_IC2);
 			}
 		}
 	}

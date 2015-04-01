@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
 import ic2.api.energy.EnergyNet;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -77,7 +79,7 @@ public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implement
 				//if (updateTicker-- == 0) {
 				//	updateTicker = tickRate - 1;
 					counter += rec; //If rec / 2
-					this.setPowerType(TileEntityAverageCounter.POWER_TYPE_RF);
+					this.setPowerType((byte)EnergyStorageData.TARGET_TYPE_RF);
 				//}
 					rec = 0;
 		 }

@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import net.minecraft.nbt.NBTTagCompound;
@@ -89,7 +91,7 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
 				data[index] = AVG;
 				//NCLog.fatal(send);
 				//NCLog.fatal(AVG);
-			setPowerType(POWER_TYPE_RF);
+			setPowerType((byte)EnergyStorageData.TARGET_TYPE_RF);
 			send = 0;
 			rec = 0;
 		 }

@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -38,13 +40,10 @@ public class TileEntityAverageCounter extends TileEntity implements
 	private static final int BASE_PACKET_SIZE = 32;
 	protected static final int DATA_POINTS = 11 * 20;
 
-	public static final byte POWER_TYPE_EU = 0;
-	public static final byte POWER_TYPE_RF = 1;
-
 	private boolean init;
 	private ItemStack inventory[];
 
-	// 0 - EU, 1- RF
+	// check out shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData
 	private byte prevPowerType;
 	public byte powerType;
 
@@ -76,7 +75,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 		tickRate = 20;
 		updateTicker = tickRate;
 		prevPeriod = period = 1;
-		powerType = POWER_TYPE_EU;
+		powerType = EnergyStorageData.TARGET_TYPE_IC2;
 	}
 
 	protected void initData() {
@@ -152,7 +151,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
 
 			data[index] = total;
-			this.setPowerType(POWER_TYPE_EU);
+			this.setPowerType((byte)EnergyStorageData.TARGET_TYPE_IC2);
 		}
 		super.updateEntity();
 	}
