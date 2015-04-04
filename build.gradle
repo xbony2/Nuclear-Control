@@ -58,8 +58,9 @@ dependencies {
 	compile argoVersion
 	compile wailaVersion
 	compile openCVersion
-	compile files('libCoFHCore-[1.7.10]3.0.0RC7-211-dev.jar')
+	compile files('libCoFHCore-[1.7.10]3.0.0RC1-181-dev.jar')
 	compile files('lib/BigReactors-0.4.1A2.jar')
+    compile "appeng:appliedenergistics2:rv2-beta-22:dev"
 }
 
 

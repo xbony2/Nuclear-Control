@@ -1,16 +1,11 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
-import ic2.api.energy.EnergyNet;
-import ic2.api.energy.event.EnergyTileLoadEvent;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
-import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 
 public class RFTileEntityAverageCounter extends TileEntityAverageCounter implements IEnergyHandler{
 
@@ -77,24 +72,36 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
 	 public void updateEntity(){
 		 super.updateEntity();
 		 //NCLog.error(storage.getEnergyStored());
-		 if(storage.getEnergyStored() > 0){
-			 transferEnergy();
-		 }
-		 if(!worldObj.isRemote){
-				index = (index + 1) % DATA_POINTS;
-				data[index] = 0;
-				duration = period * 20;
-				AVG = duration * send;
-				clientAverage = AVG;
-				data[index] = AVG;
-				//NCLog.fatal(send);
-				//NCLog.fatal(AVG);
-			setPowerType(POWER_TYPE_RF);
-			send = 0;
-			rec = 0;
-		 }
-				
+         if(getNeibough()) {
+             if (storage.getEnergyStored() > 0) {
+                 transferEnergy();
+             }
+             if (!worldObj.isRemote) {
+                 index = (index + 1) % DATA_POINTS;
+                 data[index] = 0;
+                 duration = period * 20;
+                 AVG = duration * send;
+                 clientAverage = AVG;
+                 data[index] = AVG;
+                 //NCLog.fatal(send);
+                 //NCLog.fatal(AVG);
+                 setPowerType(POWER_TYPE_RF);
+                 send = 0;
+                 rec = 0;
+             }
+         }
 	 }
+    private boolean getNeibough(){
+        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity tile = getWorldObj().getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            if (!(tile instanceof RFTileEntityAverageCounter)) {
+                if (tile instanceof IEnergyHandler) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 	 protected void transferEnergy() {
 			for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
 				TileEntity tile = getWorldObj().getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
