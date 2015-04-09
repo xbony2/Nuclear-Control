@@ -20,7 +20,7 @@ public class CrossBigReactors {
 	public static Item reactorCard;
 	public static Item kitRFsensor;
 	
-	public static void isRegistrationInOrder(){
+	public static void doStuff(){
 		if(Loader.isModLoaded("BigReactors")){
 			NCLog.fatal("We know that there is a foreign reactor installed...");
 			activateOtherModStuff();
