@@ -177,39 +177,6 @@ public class IC2NuclearControl {
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		proxy.cape();
-		crossBC = new CrossBuildcraft();
-		CrossBigReactors.isRegistrationInOrder();
-		crossIC2 = new CrossIndustrialCraft2();
-		crossRailcraft = new CrossRailcraft();
-		crossRF = new CrossRF();
-
-		if (recipes.toLowerCase().equals("normal")) {
-			RecipesNew.addRecipes();
-		}
-
-		if (recipes.toLowerCase().equals("old")) {
-			logger.error("Old recipes deprecated! Many recipes may be missing.");
-			RecipesOld.addOldRecipes();
-		}
-
-		if (recipes.toLowerCase().equals("gregtech")) {
-			GregtechRecipes.addRecipes();
-			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
-		}
-		
-
-		/*
-		//I'm very tempted to uncomment this
-		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
-		dBlock.setStackDisplayName("ERROR: report to skyboy!");
-		Recipes.advRecipes.addRecipe(dBlock, new Object[]{
-			"GGG", "GGG", "GGG",
-				'G', "greggy_greg_do_please_kindly_stuff_a_sock_in_it"});*/
-	}
-
-	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		IC2NuclearControl.instance.screenManager = new ScreenManager();
 		initBlocks();
@@ -218,5 +185,38 @@ public class IC2NuclearControl {
 		if(Loader.isModLoaded("OpenComputers")) crossOC = new CrossOpenComputers();
 		//Registers waila stuff
 		FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
+		CrossBigReactors.doStuff();
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		proxy.cape();
+		crossBC = new CrossBuildcraft();
+		crossIC2 = new CrossIndustrialCraft2();
+		crossRailcraft = new CrossRailcraft();
+		crossRF = new CrossRF();
+
+		if (recipes.equalsIgnoreCase("normal")) {
+			RecipesNew.addRecipes();
+		}
+
+		if (recipes.equalsIgnoreCase("old")) {
+			logger.error("Old recipes deprecated! Many recipes may be missing.");
+			RecipesOld.addOldRecipes();
+		}
+
+		if (recipes.equalsIgnoreCase("gregtech") || recipes.equalsIgnoreCase("gregtech5")) {
+			GregtechRecipes.addRecipes();
+			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
+		}
+		
+
+		/*
+		//I thought about doing this, but I didn't :P
+		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
+		dBlock.setStackDisplayName("ERROR: report to skyboy!");
+		Recipes.advRecipes.addRecipe(dBlock, new Object[]{
+			"GGG", "GGG", "GGG",
+				'G', "greggy_greg_do_please_kindly_stuff_a_sock_in_it"});*/
 	}
 }
