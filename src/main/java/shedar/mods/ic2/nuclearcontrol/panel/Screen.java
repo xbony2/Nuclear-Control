@@ -58,8 +58,7 @@ public class Screen {
 			for (int y = minY; y <= maxY; y++) {
 				for (int z = minZ; z <= maxZ; z++) {
 					TileEntity tileEntity = world.getTileEntity(x, y, z);
-					if (tileEntity == null
-							|| !(tileEntity instanceof IScreenPart))
+					if (tileEntity == null || !(tileEntity instanceof IScreenPart))
 						continue;
 					((IScreenPart) tileEntity).setScreen(this);
 					if (powered || force) {
@@ -113,6 +112,7 @@ public class Screen {
 			for (int y = minY; y <= maxY; y++) {
 				for (int z = minZ; z <= maxZ; z++) {
 					world.markBlockForUpdate(x, y, z);
+                    world.func_147451_t(x, y, z);
 				}
 			}
 		}
