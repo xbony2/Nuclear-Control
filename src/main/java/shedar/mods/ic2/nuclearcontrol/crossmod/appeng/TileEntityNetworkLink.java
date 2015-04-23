@@ -2,16 +2,21 @@ package shedar.mods.ic2.nuclearcontrol.crossmod.appeng;
 
 import appeng.api.AEApi;
 import appeng.api.implementations.tiles.IChestOrDrive;
-import appeng.api.networking.*;
+import appeng.api.networking.GridFlags;
+import appeng.api.networking.IGrid;
+import appeng.api.networking.IGridHost;
+import appeng.api.networking.IGridNode;
 import appeng.api.storage.ICellInventory;
 import appeng.api.storage.ICellInventoryHandler;
 import appeng.api.storage.IMEInventoryHandler;
 import appeng.api.storage.StorageChannel;
 import appeng.api.util.AECableType;
 import appeng.api.util.DimensionalCoord;
+import appeng.me.helpers.AENetworkProxy;
 import appeng.tile.TileEvent;
 import appeng.tile.events.TileEventType;
 import appeng.tile.grid.AENetworkTile;
+import appeng.tile.storage.TileChest;
 import appeng.tile.storage.TileDrive;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -27,8 +32,15 @@ import java.util.List;
  */
 public class TileEntityNetworkLink extends AENetworkTile {
 
+    private static int TOTALBYTES = 0;
+    private static int USEDBYTES = 0;
+    private static int ITEMTYPETOTAL = 0;
+    private static int USEDITEMTYPE = 0;
+    private static AENetworkProxy gridProxys;
+
     public TileEntityNetworkLink(){
         this.gridProxy.setFlags( GridFlags.REQUIRE_CHANNEL );
+        gridProxys = this.gridProxy;
     }
 
 
@@ -42,15 +54,14 @@ public class TileEntityNetworkLink extends AENetworkTile {
         return AECableType.SMART;
     }
 
-    @TileEvent( TileEventType.TICK )
-    public void tickingTile(){
-        int TOTALBYTES = 0;
+    @TileEvent(TileEventType.TICK)
+    public static void updateNetworkCache(){
         List<TileEntity> tileEntity = getTiles();
         NCLog.fatal("SIZE: " + tileEntity.size());
         for(int i = 0; i < tileEntity.size(); i++){
             TileEntity tile = tileEntity.get(i);
-            NCLog.error(tile);
-            NCLog.fatal("x: " + tile.xCoord + " y: " + tile.yCoord + " z: " + tile.zCoord);
+            //NCLog.error(tile);
+            //NCLog.fatal("x: " + tile.xCoord + " y: " + tile.yCoord + " z: " + tile.zCoord);
             //NCLog.fatal(tileEntity.get(1).xCoord +"."+tileEntity.get(1).yCoord +"."+tileEntity.get(1).zCoord);
             if(tile instanceof TileDrive){
                 TileDrive drive = (TileDrive) tile;
@@ -67,24 +78,44 @@ public class TileEntityNetworkLink extends AENetworkTile {
                             ICellInventory cellInventory = handler.getCellInv();
                             //ICellInventory inv = (ICellInventory) is.getItem();
                             if( cellInventory != null ) {
+
                                 TOTALBYTES += cellInventory.getTotalBytes();
+                                USEDBYTES += cellInventory.getUsedBytes();
+                                ITEMTYPETOTAL += cellInventory.getTotalItemTypes();
+                                USEDITEMTYPE += cellInventory.getStoredItemTypes();
                             }
+                        }
+                    }
+                }
+            } else if(tile instanceof TileChest){
+                TileChest chest = (TileChest) tile;
+                ItemStack is = chest.getInternalInventory().getStackInSlot(0);
+                if(is != null){
+                    IMEInventoryHandler inventory = AEApi.instance().registries().cell().getCellInventory( is, null, StorageChannel.ITEMS );
+                    if(inventory instanceof ICellInventoryHandler){
+                        ICellInventoryHandler handler = (ICellInventoryHandler) inventory;
+                        ICellInventory cellInventory = handler.getCellInv();
+                        if(cellInventory != null){
+                            TOTALBYTES += cellInventory.getTotalBytes();
+                            USEDBYTES += cellInventory.getUsedBytes();
+                            ITEMTYPETOTAL += cellInventory.getTotalItemTypes();
+                            USEDITEMTYPE += cellInventory.getStoredItemTypes();
                         }
                     }
                 }
             }
         }
-        NCLog.fatal(TOTALBYTES);
+        NCLog.fatal("Total: " + TOTALBYTES);
     }
 
-    private List<TileEntity> getTiles(){
+    private static List<TileEntity> getTiles(){
         //List<ICellContainer> list = new ArrayList<ICellContainer>();
         List<TileEntity> list = new ArrayList<TileEntity>();
 
-        IGridNode gridNode = this.getGridNode(ForgeDirection.UNKNOWN);
+        //IGridNode gridNode = this.getGridNode(ForgeDirection.UNKNOWN);
         try {
             //IGrid grid = gridNode.getGrid();
-            IGrid grid = this.gridProxy.getNode().getGrid();
+            IGrid grid = gridProxys.getNode().getGrid();
             for (Class<? extends IGridHost> clazz : grid.getMachinesClasses()) {
                 for (Class clazz2 : clazz.getInterfaces()) {
                     //NCLog.fatal("Passed Class 2");
@@ -92,10 +123,9 @@ public class TileEntityNetworkLink extends AENetworkTile {
                     if (clazz2 == IChestOrDrive.class) {
                         //NCLog.fatal("Passed If is IChestorDrive");
                         //NCLog.fatal(grid.getMachines(TileDrive.class));
-                        grid.getMachines(TileDrive.class);
                         for (IGridNode con : grid.getMachines(TileDrive.class)) {
                             //list.add((ICellContainer) con.getMachine());
-                            list.add(getBaseTileEntity(con));//.getMachine().getGridNode(ForgeDirection.UNKNOWN)
+                            list.add(getBaseTileEntity(con.getGridBlock().getLocation()));//.getMachine().getGridNode(ForgeDirection.UNKNOWN)
                         }
                     }
                 }
@@ -103,23 +133,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
         }catch (Exception e){}
         return list;
     }
-    private TileEntity getBaseTileEntity(IGridNode node){
-        IGrid grid = node.getGrid();
-        if(grid == null) {
-            NCLog.fatal("Grid is null");
-            return null;
-        }
-        IGridNode pivot = grid.getPivot();
-	    if(pivot == null) {
-            NCLog.fatal("Pivot is null");
-            return null;
-        }
-		IGridBlock block = pivot.getGridBlock();
-	    if(block == null) {
-            NCLog.fatal("Block is Null");
-            return null;
-        }
-		DimensionalCoord coord = block.getLocation();
+    private static TileEntity getBaseTileEntity(DimensionalCoord coord){
 	    if(coord == null) {
             NCLog.fatal("Coord is null");
             return null;
