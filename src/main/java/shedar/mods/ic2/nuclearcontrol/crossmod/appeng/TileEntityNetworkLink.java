@@ -56,6 +56,10 @@ public class TileEntityNetworkLink extends AENetworkTile {
 
     @TileEvent(TileEventType.TICK)
     public static void updateNetworkCache(){
+        int CacheByteT = 0;
+        int CacheByte = 0;
+        int CacheItemT = 0;
+        int CacheItem = 0;
         List<TileEntity> tileEntity = getTiles();
         NCLog.fatal("SIZE: " + tileEntity.size());
         for(int i = 0; i < tileEntity.size(); i++){
@@ -79,10 +83,10 @@ public class TileEntityNetworkLink extends AENetworkTile {
                             //ICellInventory inv = (ICellInventory) is.getItem();
                             if( cellInventory != null ) {
 
-                                TOTALBYTES += cellInventory.getTotalBytes();
-                                USEDBYTES += cellInventory.getUsedBytes();
-                                ITEMTYPETOTAL += cellInventory.getTotalItemTypes();
-                                USEDITEMTYPE += cellInventory.getStoredItemTypes();
+                                CacheByteT += cellInventory.getTotalBytes();
+                                CacheByte += cellInventory.getUsedBytes();
+                                CacheItemT += cellInventory.getTotalItemTypes();
+                                CacheItem += cellInventory.getStoredItemTypes();
                             }
                         }
                     }
@@ -96,15 +100,23 @@ public class TileEntityNetworkLink extends AENetworkTile {
                         ICellInventoryHandler handler = (ICellInventoryHandler) inventory;
                         ICellInventory cellInventory = handler.getCellInv();
                         if(cellInventory != null){
-                            TOTALBYTES += cellInventory.getTotalBytes();
-                            USEDBYTES += cellInventory.getUsedBytes();
-                            ITEMTYPETOTAL += cellInventory.getTotalItemTypes();
-                            USEDITEMTYPE += cellInventory.getStoredItemTypes();
+                            CacheByteT += cellInventory.getTotalBytes();
+                            CacheByte += cellInventory.getUsedBytes();
+                            CacheItemT += cellInventory.getTotalItemTypes();
+                            CacheItem += cellInventory.getStoredItemTypes();
                         }
                     }
                 }
             }
         }
+        if(CacheByteT != TOTALBYTES)
+            TOTALBYTES = CacheByteT;
+        if(CacheByte != USEDBYTES)
+            USEDBYTES = CacheByte;
+        if(CacheItemT != ITEMTYPETOTAL)
+            ITEMTYPETOTAL = CacheItemT;
+        if(CacheItem != USEDITEMTYPE)
+            USEDITEMTYPE = CacheItem;
         NCLog.fatal("Total: " + TOTALBYTES);
     }
 
