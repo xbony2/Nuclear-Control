@@ -1,17 +1,18 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.appeng;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.item.Item;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
-/**
- * Created by Dmf444 on 4/4/2015.
- */
+
 public class CrossAppeng {
 
     public static Block networklink;
+    public static Item kitAppeng;
+    public static Item cardAppeng;
 
     public static void isRegistrationInOrder(){
         if(Loader.isModLoaded("appliedenergistics2")){
@@ -20,10 +21,14 @@ public class CrossAppeng {
         }
     }
 
+    @Optional.Method(modid = "appliedenergistics2")
     private static void addBlocksItemsTiles(){
         networklink = new BlockNetworkLink();
+        kitAppeng = new ItemKitAppeng();
+        cardAppeng = new ItemCardAppeng();
         GameRegistry.registerBlock(networklink, "networkLink");
+        GameRegistry.registerItem(kitAppeng, "KitAppeng");
+        GameRegistry.registerItem(cardAppeng, "CardAppeng");
         GameRegistry.registerTileEntity(TileEntityNetworkLink.class, "networkLink");
-        MinecraftForge.EVENT_BUS.register(new MEupdateEvent());
     }
 }

@@ -6,19 +6,23 @@ import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGrid;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
+import appeng.api.networking.events.MENetworkCellArrayUpdate;
+import appeng.api.networking.events.MENetworkEventSubscribe;
+import appeng.api.networking.events.MENetworkStorageEvent;
 import appeng.api.storage.ICellInventory;
 import appeng.api.storage.ICellInventoryHandler;
 import appeng.api.storage.IMEInventoryHandler;
 import appeng.api.storage.StorageChannel;
 import appeng.api.util.AECableType;
 import appeng.api.util.DimensionalCoord;
-import appeng.me.helpers.AENetworkProxy;
-import appeng.tile.TileEvent;
-import appeng.tile.events.TileEventType;
 import appeng.tile.grid.AENetworkTile;
 import appeng.tile.storage.TileChest;
 import appeng.tile.storage.TileDrive;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -27,20 +31,16 @@ import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by David on 4/4/2015.
- */
+
 public class TileEntityNetworkLink extends AENetworkTile {
 
     private static int TOTALBYTES = 0;
     private static int USEDBYTES = 0;
     private static int ITEMTYPETOTAL = 0;
     private static int USEDITEMTYPE = 0;
-    private static AENetworkProxy gridProxys;
 
     public TileEntityNetworkLink(){
         this.gridProxy.setFlags( GridFlags.REQUIRE_CHANNEL );
-        gridProxys = this.gridProxy;
     }
 
 
@@ -54,8 +54,8 @@ public class TileEntityNetworkLink extends AENetworkTile {
         return AECableType.SMART;
     }
 
-    @TileEvent(TileEventType.TICK)
-    public static void updateNetworkCache(){
+    //@TileEvent(TileEventType.TICK)
+    public void updateNetworkCache(){
         int CacheByteT = 0;
         int CacheByte = 0;
         int CacheItemT = 0;
@@ -120,14 +120,13 @@ public class TileEntityNetworkLink extends AENetworkTile {
         NCLog.fatal("Total: " + TOTALBYTES);
     }
 
-    private static List<TileEntity> getTiles(){
+    private List<TileEntity> getTiles(){
         //List<ICellContainer> list = new ArrayList<ICellContainer>();
         List<TileEntity> list = new ArrayList<TileEntity>();
-
         //IGridNode gridNode = this.getGridNode(ForgeDirection.UNKNOWN);
         try {
             //IGrid grid = gridNode.getGrid();
-            IGrid grid = gridProxys.getNode().getGrid();
+            IGrid grid = this.gridProxy.getNode().getGrid();
             for (Class<? extends IGridHost> clazz : grid.getMachinesClasses()) {
                 for (Class clazz2 : clazz.getInterfaces()) {
                     //NCLog.fatal("Passed Class 2");
@@ -155,8 +154,56 @@ public class TileEntityNetworkLink extends AENetworkTile {
             NCLog.fatal("World is null?");
             return null;
         }
-        NCLog.fatal("RETURNED Safely");
+       // NCLog.fatal("RETURNED Safely");
  		return world.getTileEntity(coord.x, coord.y, coord.z);
  	}
 
+    @MENetworkEventSubscribe
+    public void updateviaCellEvent(MENetworkCellArrayUpdate e){
+        NCLog.error("THE CALL!");
+        this.updateNetworkCache();
+    }
+    @MENetworkEventSubscribe
+    public void updateviaStorageEvent(MENetworkStorageEvent e){
+        NCLog.error("THE CALL!");
+        this.updateNetworkCache();
+    }
+
+    @Override
+    public Packet getDescriptionPacket()
+    {
+        NBTTagCompound syncData = new NBTTagCompound();
+        syncData.setInteger("TotalBytes", TOTALBYTES);
+        syncData.setInteger("UsedBytes", USEDBYTES);
+        syncData.setInteger("TotalItems", ITEMTYPETOTAL);
+        syncData.setInteger("UsedItems", USEDITEMTYPE);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+        TOTALBYTES = pkt.func_148857_g().getInteger("TotalBytes");
+        USEDBYTES = pkt.func_148857_g().getInteger("UsedBytes");
+        ITEMTYPETOTAL = pkt.func_148857_g().getInteger("TotalItems");
+        USEDITEMTYPE = pkt.func_148857_g().getInteger("UsedItems");
+    }
+
+    public static int getTOTALBYTES() {
+        return TOTALBYTES;
+    }
+
+    public static int getUSEDBYTES() {
+        return USEDBYTES;
+    }
+
+    public static int getITEMTYPETOTAL() {
+        return ITEMTYPETOTAL;
+    }
+
+    public static int getUSEDITEMTYPE() {
+        return USEDITEMTYPE;
+    }
 }
+
+
