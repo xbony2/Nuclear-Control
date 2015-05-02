@@ -14,8 +14,7 @@ public class CrossIndustrialCraft2Classic{
 			try{
 				Class classicClass = Class.forName("ic2classic.core.IC2");
 				type = IC2ClassicType.IMMIBIS;
-				NCLog.warn("IC2 Classic detected: issues may occur. Especially since Immibis "
-						+ "doesn't know how to created new packages :P");
+				NCLog.warn("IC2 Classic detected: issues may occur. Especially since Immibis doesn't know how to created new packages :P");
 			}catch(ClassNotFoundException e1){
 				type = IC2ClassicType.NONE;
 			}
@@ -24,5 +23,9 @@ public class CrossIndustrialCraft2Classic{
 	
 	public IC2ClassicType getClassicType(){
 		return type;
+	}
+	
+	public boolean doesIC2ClassicExist(){
+		return type != IC2ClassicType.NONE;
 	}
 }
