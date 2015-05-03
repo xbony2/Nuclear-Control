@@ -61,7 +61,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
         int CacheItemT = 0;
         int CacheItem = 0;
         List<TileEntity> tileEntity = getTiles();
-        NCLog.fatal("SIZE: " + tileEntity.size());
+        //NCLog.fatal("SIZE: " + tileEntity.size());
         for(int i = 0; i < tileEntity.size(); i++){
             TileEntity tile = tileEntity.get(i);
             //NCLog.error(tile);
@@ -117,7 +117,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
             ITEMTYPETOTAL = CacheItemT;
         if(CacheItem != USEDITEMTYPE)
             USEDITEMTYPE = CacheItem;
-        NCLog.fatal("Total: " + TOTALBYTES);
+        //NCLog.fatal("Total: " + TOTALBYTES);
     }
 
     private List<TileEntity> getTiles(){
@@ -138,6 +138,9 @@ public class TileEntityNetworkLink extends AENetworkTile {
                             //list.add((ICellContainer) con.getMachine());
                             list.add(getBaseTileEntity(con.getGridBlock().getLocation()));//.getMachine().getGridNode(ForgeDirection.UNKNOWN)
                         }
+                        //for (IGridNode con : grid.getMachines(TileChest.class)) {
+                        //    list.add(getBaseTileEntity(con.getGridBlock().getLocation()));
+                        //}
                     }
                 }
             }
@@ -160,12 +163,12 @@ public class TileEntityNetworkLink extends AENetworkTile {
 
     @MENetworkEventSubscribe
     public void updateviaCellEvent(MENetworkCellArrayUpdate e){
-        NCLog.error("THE CALL!");
+        //NCLog.error("THE CALL!");
         this.updateNetworkCache();
     }
     @MENetworkEventSubscribe
     public void updateviaStorageEvent(MENetworkStorageEvent e){
-        NCLog.error("THE CALL!");
+        //NCLog.error("THE CALL!");
         this.updateNetworkCache();
     }
 

@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.appeng;
 
+import appeng.block.crafting.BlockCraftingMonitor;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,6 +15,7 @@ public class ItemKitAppeng extends ItemKitEnergySensor{
 
     public ItemKitAppeng() {
         //this.setTextureName("nuclearcontrol:kitRFReactor");
+        this.setUnlocalizedName("AppengKit");
     }
 
     @Override
@@ -44,7 +46,22 @@ public class ItemKitAppeng extends ItemKitEnergySensor{
                 NuclearNetworkHelper.chatMessage(player, "SensorKit");
             }
             return true;
+        } else if(theBlock instanceof BlockCraftingMonitor/*AEApi.instance().definitions().blocks().craftingMonitor()*/){
+            ItemStack sensorLocationCard = getItemStackByDamage(stack.getItemDamage());
+
+            NBTTagCompound nbtTagCompound = ItemStackUtils.getTagCompound(sensorLocationCard);
+            nbtTagCompound.setInteger("x", x);
+            nbtTagCompound.setInteger("y", y);
+            nbtTagCompound.setInteger("z", z);
+            nbtTagCompound.setInteger("targetType", 2);
+
+            player.inventory.mainInventory[player.inventory.currentItem] = sensorLocationCard;
+            if (!world.isRemote) {
+                NuclearNetworkHelper.chatMessage(player, "SensorKit");
+            }
+            return true;
         }
+
         return false;
     }
 }

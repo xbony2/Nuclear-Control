@@ -1,11 +1,13 @@
+#Tab Name
+nc.itemgroup.tab=Nuclear Control 2
+
+#Internal Items
 item.ItemToolThermometer.name=Thermometer
 item.ItemToolDigitalThermometer.name=Digital Thermometer
 item.ItemRemoteSensorKit.name=Remote Sensor Kit
 item.ItemEnergySensorKit.name=Energy Sensor Kit
 item.ItemCounterSensorKit.name=Counter Sensor Kit
 item.ItemLiquidSensorKit.name=Liquid Sensor Kit
-item.RFreactorKit.name=Remote RF Reactor Kit
-item.RFreactorCard.name=RF Reactor Sensor Location Card
 item.ItemSensorLocationCard.name=Reactor Sensor Location Card
 item.ItemEnergySensorLocationCard.name=Energy Sensor Location Card
 item.itemCounterSensorLocationCard.name=Counter Sensor Location Card
@@ -21,6 +23,13 @@ item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
 item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
 item.Item55ReactorCard.name=5x5 Reactor Sensor Location Card
 
+#Integration Items
+item.RFreactorKit.name=Remote RF Reactor Kit
+item.RFreactorCard.name=RF Reactor Sensor Location Card
+item.AppengCard.name=Applied Energistics Card
+item.AppengKit.name=Applied Energistics Monitor Kit
+
+#Internal Blocks
 tile.blockThermalMonitor.name=Thermal Monitor
 tile.blockIndustrialAlarm.name=Industrial Alarm
 tile.blockHowlerAlarm.name=Howler Alarm
@@ -33,12 +42,15 @@ tile.nclight0.name=White Lamp
 tile.nclight1.name=White Lamp
 tile.nclight2.name=Orange Lamp
 tile.nclight3.name=Orange Lamp
-
-tile.blockBRPart.name=Reactor Monitor
 tile.blockEnergyCounter.name=Energy Counter
 tile.blockAverageCounter.name=Average Counter
 tile.blockRangeTrigger.name=Range Trigger
 
+#Integration Blocks
+tile.blockBRPart.name=Reactor Monitor
+tile.NetworkLink.name=ME Network Monitor
+
+#Original Screen Messages
 msg.nc.HowlerAlarmSoundRange=Sound range: %s
 msg.nc.HowlerAlarmSound=Sound
 msg.nc.ThermalMonitorSave=Save setting
@@ -56,12 +68,12 @@ msg.nc.InfoPanelOff=Off
 msg.nc.InfoPanelHeat=T: %s
 msg.nc.InfoPanelMaxHeat=MaxHeat: %s
 msg.nc.InfoPanelMelting=Melting: %s
-msg.nc.InfoPanelOutput=Output: %sEU/t
+msg.nc.InfoPanelOutput=Output: %s EU/t
 msg.nc.InfoPanelOutputMJ=Output: %s RF/t
-msg.nc.InfoPanelOutputSteam=Output: %smB/t
+msg.nc.InfoPanelOutputSteam=Output: %s mB/t
 msg.nc.InfoPanelTimeRemaining=Remaining: %s
 
-msg.nc.InfoPanelEnergyCounter=Energy: %sEU
+msg.nc.InfoPanelEnergyCounter=Energy: %s EU
 msg.nc.InfoPanelEnergyCounterMJ=Energy: %s RF
 
 msg.nc.InfoPanelEnergy=Energy: %s
@@ -101,22 +113,6 @@ msg.nc.cbInfoPanelMaxHeat=Max heat
 msg.nc.cbInfoPanelMelting=Melting temp
 msg.nc.cbInfoPanelOutput=Output (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Time to cycle end
-
-msg.nc.InfoPanelRF.Temp=Core Temp.: %s C
-msg.nc.InfoPanelRF.EnergyStored=Energy: %s RF
-msg.nc.InfoPanelRF.CreatedEnergy=Output Energy: %s RF/t
-msg.nc.InfoPanelRF.Percentage=Storage Buffer is %s%% Full
-msg.nc.InfoPanelRF.Output=Output (RF/t)
-msg.nc.InfoPanelRF.TempPROPER=Core Temperature
-
-msg.nc.InfoPanel55.Output=Output: %s Hu/s
-msg.nc.InfoPanel55.Temp=Core Tempurature: %s%%
-msg.nc.InfoPanel55.tarkin=Tank In: %s / 10000 mB
-msg.nc.InfoPanel55.tankout=Tank Out: %s / 10000 mB
-msg.nc.InfoPanel55.Out=Output (Hu/s)
-msg.nc.InfoPanel55.BufferIn=Coolant Storage Tank
-msg.nc.InfoPanel55.BufferOut=Hot Coolant Buffer Tank
-
 msg.nc.cb24h=24h mode
 
 msg.nc.cbInfoPanelEnergyCurrent=Energy
@@ -138,8 +134,36 @@ msg.nc.ScreenColor=Screen Color
 msg.nc.TextColor=Text Color
 msg.nc.None=N/A
 
-msg.nc.waila.getHeatLevel=Heat Maximum Set: 
+#Big Reactor Messages
+msg.nc.InfoPanelRF.Temp=Core Temp.: %s C
+msg.nc.InfoPanelRF.EnergyStored=Energy: %s RF
+msg.nc.InfoPanelRF.CreatedEnergy=Output Energy: %s RF/t
+msg.nc.InfoPanelRF.Percentage=Storage Buffer is %s%% Full
+msg.nc.InfoPanelRF.Output=Output (RF/t)
+msg.nc.InfoPanelRF.TempPROPER=Core Temperature
 
+#5x5 Reactor Messages
+msg.nc.InfoPanel55.Output=Output: %s Hu/s
+msg.nc.InfoPanel55.Temp=Core Tempurature: %s%%
+msg.nc.InfoPanel55.tarkin=Tank In: %s / 10000 mB
+msg.nc.InfoPanel55.tankout=Tank Out: %s / 10000 mB
+msg.nc.InfoPanel55.Out=Output (Hu/s)
+msg.nc.InfoPanel55.BufferIn=Coolant Storage Tank
+msg.nc.InfoPanel55.BufferOut=Hot Coolant Buffer Tank
+
+#AE INTERGRATION
+msg.null.craft=Nothing
+msg.nc.InfoPanelAE.CraftItemMake=Currently Crafting: %s
+msg.nc.InfoPanelAE.CraftAMT=Crafting Amount: %s
+msg.nc.InfoPanelAE.Bytes=Bytes Used/Total
+msg.nc.InfoPanelAE.Items=Items Used/Total
+msg.nc.InfoPanelAE.CraftItem=Current Item Crafting
+msg.nc.InfoPanelAE.CraftStack=Number of Items Crafting
+msg.nc.InfoPanelAE.DisplayBytes=%s / %s Bytes
+msg.nc.InfoPanelAE.DisplayItem=%s / %s Item types
+
+#WAILA Integration
+msg.nc.waila.getHeatLevel=Heat Maximum Set: 
 msg.nc.waila.ColorBackground=Background color: 
 msg.nc.waila.ColorText=Text color: 
 msg.nc.waila.Web=Web Upgrade is installed
@@ -158,11 +182,8 @@ msg.nc.waila.ColorYellow=Yellow
 msg.nc.waila.ColorBlue=Blue
 msg.nc.waila.ColorMagenta=Magenta
 msg.nc.waila.ColorOrange=Orange
-
 msg.nc.waila.getSoundNames=Sound: 
 msg.nc.waila.getRange=Range: 
-
 msg.nc.waila.getEnergyCount=Energy Count: 
-
 msg.nc.waila.getEnergyAverage=Energy Average: 
 msg.nc.waila.getPeriod=Over period of: 
