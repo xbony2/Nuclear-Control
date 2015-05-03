@@ -241,46 +241,19 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 	}
-    //There has to be a better way than this... please fix it if you know one!
-    protected void decodeSides(int x, int y, int z){
-        switch(this.getFacing()){
-            case 0:
-                Coords[0] = x;
-                Coords[1] =  y + 1;
-                Coords[2] = z;
-                break;
-            case 1:
-                Coords[0] = x;
-                Coords[1] = y - 1;
-                Coords[2] = z;
-                break;
-            case 2:
-                Coords[0] = x;
-                Coords[1] = y;
-                Coords[2] = z + 1;
-                break;
-            case 3:
-                Coords[0] = x;
-                Coords[1] = y;
-                Coords[2] = z - 1;
-                break;
-            case 4:
-                Coords[0] = x + 1;
-                Coords[1] = y;
-                Coords[2] = z;
-                break;
-            case 5:
-                Coords[0] = x - 1;
-                Coords[1] = y;
-                Coords[2] = z;
-                break;
-            default:
-                Coords[0] = x;
-                Coords[1] = y;
-                Coords[2] = z;
-                break;
+
+    protected void decodeSides ( int x, int y, int z ) {
+        ForgeDirection facing;
+        if (this.getFacing () > 5) {
+            facing = ForgeDirection.UNKNOWN;
+        } else {
+	    ForgeDirection facing = ForgeDirection.VALID_DIRECTIONS[this.getFacing()].getOpposite();
         }
+        Coords[0] = x + facing.offsetX;
+        Coords[1] = y + facing.offsetY;
+        Coords[2] = z + facing.offsetZ;
     }
+    
     public static boolean testThis(IReactor reactors, TileEntityReactorChamberElectric chamber){
         if(reactors == null && chamber != null)
             return true;
