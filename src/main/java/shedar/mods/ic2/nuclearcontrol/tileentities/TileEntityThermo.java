@@ -243,10 +243,12 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 	}
 
     protected void decodeSides ( int x, int y, int z ) {
+        ForgeDirection facing;
         if (this.getFacing () > 5) {
-            return;
+            facing = ForgeDirection.UNKNOWN;
+        } else {
+	    ForgeDirection facing = ForgeDirection.VALID_DIRECTIONS[this.getFacing()].getOpposite();
         }
-        ForgeDirection facing = ForgeDirection.VALID_DIRECTIONS[this.getFacing()].getOpposite();
         Coords[0] = x + facing.offsetX;
         Coords[1] = y + facing.offsetY;
         Coords[2] = z + facing.offsetZ;
