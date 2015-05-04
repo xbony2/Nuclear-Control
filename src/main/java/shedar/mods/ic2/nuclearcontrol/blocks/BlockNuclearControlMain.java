@@ -111,12 +111,12 @@ public class BlockNuclearControlMain extends BlockContainer {
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
 		super.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, metadata);
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
-		ForgeDirection oposite = dir.getOpposite();
+		ForgeDirection opposite = dir.getOpposite();
 		if (metadata > BlockDamages.DAMAGE_MAX) {
 			metadata = 0;
 		}
 
-		if(isSolidBlockRequired(metadata) && !world.isSideSolid(x + oposite.offsetX, y + oposite.offsetY, z + oposite.offsetZ, dir)){
+		if(isSolidBlockRequired(metadata) && !world.isSideSolid(x + opposite.offsetX, y + opposite.offsetY, z + opposite.offsetZ, dir)){
 			side = 1;
 		}
 		return metadata + (side << 8);
