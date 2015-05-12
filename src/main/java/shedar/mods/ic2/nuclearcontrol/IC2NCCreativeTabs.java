@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.StatCollector;
 
 public class IC2NCCreativeTabs extends CreativeTabs {
 	private static ItemStack itemToolThermometer;
@@ -35,7 +36,7 @@ public class IC2NCCreativeTabs extends CreativeTabs {
 
 	@Override
 	public String getTranslatedTabLabel() {
-		return "Nuclear Control 2";
+		return StatCollector.translateToLocal("nc.itemgroup.tab");
 	}
 
 }

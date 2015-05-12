@@ -389,13 +389,14 @@ public class ModelInfoPanel {
 		tess.setBrightness(block.getMixedBrightnessForBlock(panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
 		tess.setColorOpaque_F(0.5F, 0.5F, 0.5F);
 		drawFacing(facing, panel.getRotation(), screen, panel, block, tess);
+        //
 		tess.draw();
 		
 		//SIDES
 		Tessellator.instance.startDrawingQuads();
+        renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
 		Tessellator.instance.setBrightness(block.getMixedBrightnessForBlock(panel.getWorldObj(), panel.xCoord, panel.yCoord, panel.zCoord));
 		Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
-		//GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int dx = screen.getDx() + 1;
@@ -450,14 +451,13 @@ public class ModelInfoPanel {
 			addPoint(7, dz, dy);
 			addPoint(6, 0, dy);
 		}
-		renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
-		//GL11.glDisable(GL11.GL_LIGHTING);
+        renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
 		Tessellator.instance.draw();
 		
 		//RETURN TO MC DRAWING
 		Tessellator.instance.startDrawingQuads();
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
 		renderer.minecraftRB.renderEngine.bindTexture(TextureMap.locationBlocksTexture/* blocks texture atlas*/);
 	}
 }

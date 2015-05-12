@@ -1,13 +1,12 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
-import ic2.api.energy.EnergyNet;
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
-import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyHandler;
 
 public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implements IEnergyHandler{
 
@@ -72,20 +71,31 @@ public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implement
 	 public void updateEntity(){
 		 super.updateEntity();
 		 //NCLog.error(storage.getEnergyStored());
-
-		 if(!worldObj.isRemote){
-				//if (updateTicker-- == 0) {
-				//	updateTicker = tickRate - 1;
-					counter += rec; //If rec / 2
-					this.setPowerType(TileEntityAverageCounter.POWER_TYPE_RF);
-				//}
-					rec = 0;
-		 }
-		if(storage.getEnergyStored() > 0){
-			 transferEnergy();
-		 } 
-				
+        if(getNeibough()) {
+            if (!worldObj.isRemote) {
+                //if (updateTicker-- == 0) {
+                //	updateTicker = tickRate - 1;
+                counter += rec; //If rec / 2
+                this.setPowerType(TileEntityAverageCounter.POWER_TYPE_RF);
+                //}
+                rec = 0;
+            }
+            if (storage.getEnergyStored() > 0) {
+                transferEnergy();
+            }
+        }
 	 }
+    private boolean getNeibough() {
+        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity tile = getWorldObj().getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            if (!(tile instanceof RFTileEntityEnergyCounter)) {
+                if (tile instanceof IEnergyHandler) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 	 protected void transferEnergy() {
 			for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
 				TileEntity tile = getWorldObj().getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
