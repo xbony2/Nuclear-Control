@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
+import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ITextureHelper;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
@@ -247,7 +248,7 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
         if (this.getFacing () > 5) {
             facing = ForgeDirection.UNKNOWN;
         } else {
-	    ForgeDirection facing = ForgeDirection.VALID_DIRECTIONS[this.getFacing()].getOpposite();
+	    facing = ForgeDirection.VALID_DIRECTIONS[this.getFacing()].getOpposite();
         }
         Coords[0] = x + facing.offsetX;
         Coords[1] = y + facing.offsetY;
