@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
 import ic2.api.network.NetworkHelper;
 import ic2.core.IC2;
 import ic2.core.network.NetworkManager;
@@ -8,9 +10,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
@@ -50,7 +50,7 @@ public class GuiAverageCounter extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int par1, int par2){
 		fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
-		String key = container.averageCounter.powerType == TileEntityAverageCounter.POWER_TYPE_EU?"msg.nc.InfoPanelOutput":"msg.nc.InfoPanelOutputMJ";
+		String key = container.averageCounter.powerType == (byte)EnergyStorageData.TARGET_TYPE_IC2 ? "msg.nc.InfoPanelOutput":"msg.nc.InfoPanelOutputMJ";
 		String value = StringUtils.getFormatted(key, container.averageCounter.getClientAverage(), true);
 		fontRendererObj.drawString(value, (xSize - fontRendererObj.getStringWidth(value)) / 2, 22, 0x404040);
 		value = StringUtils.getFormatted("msg.nc.AverageCounterPeriod", container.averageCounter.period, true);

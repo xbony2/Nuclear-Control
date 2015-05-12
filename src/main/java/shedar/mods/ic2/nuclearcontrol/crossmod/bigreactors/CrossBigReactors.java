@@ -1,18 +1,13 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors;
 
-import ic2.api.item.IC2Items;
-import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.recipes.BigReactorsRecipesNew;
-import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.recipes.BigReactorsRecipesGregtech;
-import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import erogenousbeef.bigreactors.common.BigReactors;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.recipes.BigReactorsRecipesGregtech;
+import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.recipes.BigReactorsRecipesNew;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 public class CrossBigReactors {
 	
@@ -20,7 +15,7 @@ public class CrossBigReactors {
 	public static Item reactorCard;
 	public static Item kitRFsensor;
 	
-	public static void isRegistrationInOrder(){
+	public static void doStuff(){
 		if(Loader.isModLoaded("BigReactors")){
 			NCLog.fatal("We know that there is a foreign reactor installed...");
 			activateOtherModStuff();

@@ -43,10 +43,6 @@ repositories {
 		name "OC"
 		url "http://maven.cil.li/"
 	}
-	ivy {
-		name "CoFHCore"
-		artifactPattern 'http://addons.cursecdn.com/files/2221/835/[module]-[revision].[ext]'
-	}
 }
 
 dependencies {

@@ -18,7 +18,7 @@ public class EnergyStorageHelper {
 			return IC2NuclearControl.instance.crossRF.getStorageData(entity);
 		case EnergyStorageData.TARGET_TYPE_UNKNOWN:
 			EnergyStorageData data = IC2NuclearControl.instance.crossIC2.getStorageData(entity);
-			if (data == null) { //XXX: there's probably a better way to do this for future integration
+			if (data == null) { //TODO: there's probably a better way to do this for future integration
 				data = IC2NuclearControl.instance.crossRF.getStorageData(entity);
 			}
 			return data;

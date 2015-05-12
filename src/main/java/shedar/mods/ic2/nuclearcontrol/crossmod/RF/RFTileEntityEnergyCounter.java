@@ -1,7 +1,13 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
+<<<<<<< HEAD
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
+=======
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
+import ic2.api.energy.EnergyNet;
+>>>>>>> e6ae77558767eb46d7e6a84aea33fec2ba61162b
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -71,6 +77,7 @@ public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implement
 	 public void updateEntity(){
 		 super.updateEntity();
 		 //NCLog.error(storage.getEnergyStored());
+<<<<<<< HEAD
         if(getNeibough()) {
             if (!worldObj.isRemote) {
                 //if (updateTicker-- == 0) {
@@ -84,6 +91,21 @@ public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implement
                 transferEnergy();
             }
         }
+=======
+
+		 if(!worldObj.isRemote){
+				//if (updateTicker-- == 0) {
+				//	updateTicker = tickRate - 1;
+					counter += rec; //If rec / 2
+					this.setPowerType((byte)EnergyStorageData.TARGET_TYPE_RF);
+				//}
+					rec = 0;
+		 }
+		if(storage.getEnergyStored() > 0){
+			 transferEnergy();
+		 } 
+				
+>>>>>>> e6ae77558767eb46d7e6a84aea33fec2ba61162b
 	 }
     private boolean getNeibough() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {

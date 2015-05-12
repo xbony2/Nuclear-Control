@@ -92,26 +92,27 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 		markDirty();
 
 		int fire;
-		if (energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption) {
+		if (energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption){
 			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord + deltaX, yCoord + deltaY, zCoord + deltaZ);
             TileEntityReactorChamberElectric FiveSQReactor = null;
             //UUID cardType = null;
             if(reactor == null){
-                if (inventory[SLOT_CARD] != null) {
+                if (inventory[SLOT_CARD] != null){
                     ChunkCoordinates target = new CardWrapperImpl(inventory[SLOT_CARD], SLOT_CARD).getTarget();
 
-                if(target != null) {
-                    int x = target.posX;
-                    int y = target.posY;
-                    int z = target.posZ;
-                    FiveSQReactor = (TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(worldObj, x, y, z);
-                }}
+                    if(target != null){
+                    	int x = target.posX;
+                    	int y = target.posY;
+                    	int z = target.posZ;
+                    	FiveSQReactor = (TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(worldObj, x, y, z);
+                    }
+                }
             }
-			if (reactor != null || TileEntityThermo.testThis(reactor, FiveSQReactor)) {
+			if (reactor != null || TileEntityThermo.testThis(reactor, FiveSQReactor)){
                 if(FiveSQReactor != null){
                     reactor = FiveSQReactor.getReactor();
                 }
-				if (tickRate == -1) {
+				if (tickRate == -1){
 					tickRate = reactor.getTickRate() / 2;
 					if (tickRate == 0)
 						tickRate = 1;
@@ -119,20 +120,20 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 				}
 				int reactorHeat = reactor.getHeat();
 				fire = reactorHeat;
-			} else {
+			}else{
 				fire = -1;
 			}
-		} else {
+		}else{
 			fire = -2;
 		}
 
-		if (fire != getOnFire()) {
+		if (fire != getOnFire()){
 			setOnFire(fire);
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 	}
 
-	public double getEnergy() {
+	public double getEnergy(){
 		return energy;
 	}
 
@@ -176,7 +177,7 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!worldObj.isRemote) {
+		if (!worldObj.isRemote) { //If is server
 			int consumption = IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption;
 			if (inventory[SLOT_CHARGER] != null) {
 				if (energy < maxStorage) {
@@ -187,7 +188,7 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 							double k = ElectricItem.manager.discharge(inventory[SLOT_CHARGER], maxStorage - energy, tier, false, false, false);
 							energy += k;
 						}
-					}else if (Item.getIdFromItem(inventory[SLOT_CHARGER].getItem()) == Item.getIdFromItem((IC2Items.getItem("suBattery")).getItem())) {
+					}else if (Item.getIdFromItem(inventory[SLOT_CHARGER].getItem()) == Item.getIdFromItem((IC2Items.getItem("suBattery")).getItem())){
 						if (ENERGY_SU_BATTERY <= maxStorage - energy || energy == 0) {
 							inventory[SLOT_CHARGER].stackSize--;
 
@@ -202,6 +203,7 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 					}
 				}
 			}
+			
 			if (energy >= consumption) {
 				energy -= consumption;
 			}else{
@@ -214,7 +216,8 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
-		energy = nbttagcompound.getInteger("energy");
+		
+		energy = nbttagcompound.getDouble("energy"); //I'm not sure why it was getInt instead of double...
 		if (nbttagcompound.hasKey("rotation")) {
 			prevRotation = rotation = nbttagcompound.getInteger("rotation");
 		}
@@ -229,6 +232,24 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 			}
 		}
 		markDirty();
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
+		super.writeToNBT(nbttagcompound);
+		nbttagcompound.setDouble("energy", energy);
+		nbttagcompound.setInteger("rotation", rotation);
+
+		NBTTagList nbttaglist = new NBTTagList();
+		for (int i = 0; i < inventory.length; i++) {
+			if (inventory[i] != null) {
+				NBTTagCompound compound = new NBTTagCompound();
+				compound.setByte("Slot", (byte) i);
+				inventory[i].writeToNBT(compound);
+				nbttaglist.appendTag(compound);
+			}
+		}
+		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
 	@Override
@@ -249,24 +270,6 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 		}
 
 		super.invalidate();
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-		nbttagcompound.setDouble("energy", energy);
-		nbttagcompound.setInteger("rotation", rotation);
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			if (inventory[i] != null) {
-				NBTTagCompound compound = new NBTTagCompound();
-				compound.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(compound);
-				nbttaglist.appendTag(compound);
-			}
-		}
-		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
 	@Override
@@ -312,7 +315,7 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getInventoryName(){
 		return "block.RemoteThermo";
 	}
 
@@ -349,32 +352,28 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 				upgradeCountTransormer += itemStack.stackSize;
 			}else if (itemStack.isItemEqual(IC2Items.getItem("energyStorageUpgrade"))) {
 				upgradeCountStorage += itemStack.stackSize;
-			}else if (itemStack.getItem() instanceof ItemUpgrade
-					&& itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE) {
+			}else if (itemStack.getItem() instanceof ItemUpgrade && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE) {
 				upgradeCountRange += itemStack.stackSize;
 			}
 		}
 		if (inventory[SLOT_CARD] != null) {
-			ChunkCoordinates target = new CardWrapperImpl(inventory[SLOT_CARD],
-					SLOT_CARD).getTarget();
+			ChunkCoordinates target = new CardWrapperImpl(inventory[SLOT_CARD], SLOT_CARD).getTarget();
 			if (target != null) {
 				deltaX = target.posX - xCoord;
 				deltaY = target.posY - yCoord;
 				deltaZ = target.posZ - zCoord;
 				if (upgradeCountRange > 7)
 					upgradeCountRange = 7;
-				int range = LOCATION_RANGE
-						* (int) Math.pow(2, upgradeCountRange);
-				if (Math.abs(deltaX) > range || Math.abs(deltaY) > range
-						|| Math.abs(deltaZ) > range) {
+				int range = LOCATION_RANGE * (int) Math.pow(2, upgradeCountRange);
+				if (Math.abs(deltaX) > range || Math.abs(deltaY) > range || Math.abs(deltaZ) > range) {
 					deltaX = deltaY = deltaZ = 0;
 				}
-			} else {
+			}else{
 				deltaX = 0;
 				deltaY = 0;
 				deltaZ = 0;
 			}
-		} else {
+		}else{
 			deltaX = 0;
 			deltaY = 0;
 			deltaZ = 0;
@@ -383,11 +382,9 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 		if (worldObj != null && !worldObj.isRemote) {
 			tier = upgradeCountTransormer + 1;
 			setTier(tier);
-			maxPacketSize = BASE_PACKET_SIZE
-					* Math.pow(4D, upgradeCountTransormer);
+			maxPacketSize = BASE_PACKET_SIZE * Math.pow(4D, upgradeCountTransormer);
 			setMaxPacketSize(maxPacketSize);
-			maxStorage = BASE_STORAGE + STORAGE_PER_UPGRADE
-					* upgradeCountStorage;
+			maxStorage = BASE_STORAGE + STORAGE_PER_UPGRADE * upgradeCountStorage;
 			setMaxStorage(maxStorage);
 			if (energy > maxStorage)
 				energy = maxStorage;
