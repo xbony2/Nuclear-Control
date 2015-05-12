@@ -1,18 +1,14 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
-<<<<<<< HEAD
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
+
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
-=======
-import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 
-import ic2.api.energy.EnergyNet;
-import ic2.api.energy.event.EnergyTileLoadEvent;
->>>>>>> e6ae77558767eb46d7e6a84aea33fec2ba61162b
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 
 public class RFTileEntityAverageCounter extends TileEntityAverageCounter implements IEnergyHandler{
 
@@ -79,7 +75,6 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
 	 public void updateEntity(){
 		 super.updateEntity();
 		 //NCLog.error(storage.getEnergyStored());
-<<<<<<< HEAD
          if(getNeibough()) {
              if (storage.getEnergyStored() > 0) {
                  transferEnergy();
@@ -93,30 +88,11 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
                  data[index] = AVG;
                  //NCLog.fatal(send);
                  //NCLog.fatal(AVG);
-                 setPowerType(POWER_TYPE_RF);
+                 setPowerType((byte) EnergyStorageData.TARGET_TYPE_RF);
                  send = 0;
                  rec = 0;
              }
          }
-=======
-		 if(storage.getEnergyStored() > 0){
-			 transferEnergy();
-		 }
-		 if(!worldObj.isRemote){
-				index = (index + 1) % DATA_POINTS;
-				data[index] = 0;
-				duration = period * 20;
-				AVG = duration * send;
-				clientAverage = AVG;
-				data[index] = AVG;
-				//NCLog.fatal(send);
-				//NCLog.fatal(AVG);
-			setPowerType((byte)EnergyStorageData.TARGET_TYPE_RF);
-			send = 0;
-			rec = 0;
-		 }
-				
->>>>>>> e6ae77558767eb46d7e6a84aea33fec2ba61162b
 	 }
     private boolean getNeibough(){
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {

@@ -1,7 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
-import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
-
+import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -12,11 +11,6 @@ import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
-import ic2.core.network.NetworkManager;
-
-import java.util.List;
-import java.util.Vector;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -25,13 +19,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
-import cpw.mods.fml.common.FMLCommonHandler;
+
+import java.util.List;
+import java.util.Vector;
 
 public class TileEntityAverageCounter extends TileEntity implements
 		IEnergyConductor, IWrenchable, INetworkClientTileEntityEventListener,
