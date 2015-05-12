@@ -22,7 +22,7 @@ import java.util.UUID;
 public class ItemCardAppeng extends ItemCardEnergySensorLocation {
 
     public ItemCardAppeng() {
-        //this.setTextureName("nuclearcontrol:cardRFReactor");
+        this.setTextureName("nuclearcontrol:cardAEMonitor");
         this.setUnlocalizedName("AppengCard");
     }
 

@@ -14,7 +14,7 @@ import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 public class ItemKitAppeng extends ItemKitEnergySensor{
 
     public ItemKitAppeng() {
-        //this.setTextureName("nuclearcontrol:kitRFReactor");
+        this.setTextureName("nuclearcontrol:kitAEMonitor");
         this.setUnlocalizedName("AppengKit");
     }
 
