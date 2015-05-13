@@ -18,7 +18,7 @@ public class AppengRecipes {
                 'I', AEApi.instance().definitions().materials().fluixCrystal().maybeItem().get(),
                 'T', IC2Items.getItem("frequencyTransmitter"),
                 'P', Items.paper,
-                'D', "dyeBlack"});
+                'D', "dyePurple"});
         //AE Monitor
         Recipes.advRecipes.addRecipe(new ItemStack(CrossAppeng.networklink), new Object[]{
                 "BRB", "YCY", "BRB",
@@ -36,11 +36,11 @@ public class AppengRecipes {
                 'I', AEApi.instance().definitions().materials().fluixCrystal().maybeItem().get(),
                 'T', IC2Items.getItem("frequencyTransmitter"),
                 'P', Items.paper,
-                'D', "dyeBlack"});
+                'D', "dyePurple"});
         //AE Monitor
         Recipes.advRecipes.addRecipe(new ItemStack(CrossAppeng.networklink), new Object[]{
                 "BRB", "YCY", "BRB",
-                'B', "ingotIron",
+                'B', "plateIron",
                 'R', AEApi.instance().definitions().materials().calcProcessor().maybeItem().get(),
                 'Y', AEApi.instance().definitions().parts().cableGlass().item(AEColor.Transparent),
                 'C', Items.comparator});
