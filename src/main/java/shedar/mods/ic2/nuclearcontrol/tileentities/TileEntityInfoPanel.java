@@ -47,7 +47,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		INetworkDataProvider, INetworkUpdateListener,
 		INetworkClientTileEntityEventListener, IWrenchable, IRedstoneConsumer,
 		ITextureHelper, IScreenPart, /* ISidedInventory, */IRotation, IInventory {
-	private static final int[] COLORS_HEX = { 0, 0xe93535, 0x82e306, 0x702b14,
+	private static final int[] COLORS_HEX = { 0x000000, 0xe93535, 0x82e306, 0x702b14,
 			0x1f3ce7, 0x8f1fea, 0x1fd7e9, 0xcbcbcb, 0x222222, 0xe60675,
 			0x1fe723, 0xe9cc1f, 0x06aee4, 0xb006e3, 0xe7761f };
 
