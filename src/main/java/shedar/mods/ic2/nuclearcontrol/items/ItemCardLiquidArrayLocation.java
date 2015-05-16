@@ -99,16 +99,14 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 							card.setInt(String.format("_%damount", i),
 									storage.fluid.amount);
 
-							if (storage.fluid.fluidID != 0
+							if (storage.fluid.getFluidID() != 0
 									&& storage.fluid.amount > 0) {
-								liquidId = storage.fluid.fluidID;
+								liquidId = storage.fluid.getFluidID();
 							}
 							if (liquidId == 0)
-								card.setString(String.format("_%dname", i),
-										LangHelper.translate("msg.nc.None"));
+								card.setString(String.format("_%dname", i), LangHelper.translate("msg.nc.None"));
 							else
-								card.setString(String.format("_%dname", i),
-										FluidRegistry.getFluidName(liquidId));
+								card.setString(String.format("_%dname", i), FluidRegistry.getFluidName(storage.fluid));
 						}
 						card.setInt(String.format("_%dcapacity", i),
 								storage.capacity);
