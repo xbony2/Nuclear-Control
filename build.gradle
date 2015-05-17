@@ -59,7 +59,7 @@ dependencies {
 	compile argoVersion
 	compile wailaVersion
 	compile openCVersion
-	compile aeVersion
+	compile files(aeVersion)
 	compile files(cofhCoreVersion)
 	compile files(brVersion)  
 }
