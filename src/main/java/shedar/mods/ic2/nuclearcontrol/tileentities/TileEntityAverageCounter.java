@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -10,11 +11,6 @@ import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
-import ic2.core.network.NetworkManager;
-
-import java.util.List;
-import java.util.Vector;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -23,13 +19,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.MinecraftForge;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
-import cpw.mods.fml.common.FMLCommonHandler;
+
+import java.util.List;
+import java.util.Vector;
 
 public class TileEntityAverageCounter extends TileEntity implements
 		IEnergyConductor, IWrenchable, INetworkClientTileEntityEventListener,
@@ -38,13 +37,10 @@ public class TileEntityAverageCounter extends TileEntity implements
 	private static final int BASE_PACKET_SIZE = 32;
 	protected static final int DATA_POINTS = 11 * 20;
 
-	public static final byte POWER_TYPE_EU = 0;
-	public static final byte POWER_TYPE_RF = 1;
-
 	private boolean init;
 	private ItemStack inventory[];
 
-	// 0 - EU, 1- RF
+	// check out shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData
 	private byte prevPowerType;
 	public byte powerType;
 
@@ -76,7 +72,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 		tickRate = 20;
 		updateTicker = tickRate;
 		prevPeriod = period = 1;
-		powerType = POWER_TYPE_EU;
+		powerType = EnergyStorageData.TARGET_TYPE_IC2;
 	}
 
 	protected void initData() {
@@ -152,7 +148,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
 
 			data[index] = total;
-			this.setPowerType(POWER_TYPE_EU);
+			this.setPowerType((byte)EnergyStorageData.TARGET_TYPE_IC2);
 		}
 		super.updateEntity();
 	}
@@ -283,8 +279,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && 
-				player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
@@ -298,9 +293,8 @@ public class TileEntityAverageCounter extends TileEntity implements
 		super.markDirty();
 		int upgradeCountTransormer = 0;
 		ItemStack itemStack = inventory[0];
-		if (itemStack != null && itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade"))) {
+		if (itemStack != null && itemStack.isItemEqual(IC2Items.getItem("transformerUpgrade")))
 			upgradeCountTransormer = itemStack.stackSize;
-		}
 		upgradeCountTransormer = Math.min(upgradeCountTransormer, 4);
 		if (worldObj != null && !worldObj.isRemote) {
 			packetSize = BASE_PACKET_SIZE * (int) Math.pow(4D, upgradeCountTransormer);
@@ -359,34 +353,31 @@ public class TileEntityAverageCounter extends TileEntity implements
 		clientAverage = value;
 	}
 
-	public int getClientAverage() {
+	public int getClientAverage(){
 		if (clientAverage == -1)
 			return getAverage();
 		return clientAverage;
 	}
 
-	protected int getAverage() {
+	protected int getAverage(){
 		int start = DATA_POINTS + index - period * 20;
 		double sum = 0;
-		for (int i = 0; i < period * 20; i++) {
+		for (int i = 0; i < period * 20; i++)
 			sum += data[(start + i) % DATA_POINTS];
-		}
 		clientAverage = (int) Math.round(sum / period / 20);
 		return clientAverage;
 	}
 
 	@Override
 	public void onNetworkEvent(EntityPlayer player, int event) {
-		if (event == 0) {
-			for (int i = 0; i < DATA_POINTS; i++) {
+		if (event == 0){
+			for (int i = 0; i < DATA_POINTS; i++)
 				data[i] = 0;
-			}
 
 			updateTicker = tickRate;
 			index = 0;
-		} else {
+		}else
 			setPeriod((short) event);
-		}
 	}
 
 	@Override
@@ -415,11 +406,11 @@ public class TileEntityAverageCounter extends TileEntity implements
 	}
 
 	@Override
-	public void removeInsulation() {
+	public void removeInsulation(){
 	}
 
 	@Override
-	public void removeConductor() {
+	public void removeConductor(){
 		worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air, 0, 3);
 		worldObj.createExplosion(null, xCoord, yCoord, zCoord, 0.8F, false);
 	}

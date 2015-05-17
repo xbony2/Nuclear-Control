@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+
 import ic2.api.energy.EnergyNet;
 import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
 
@@ -248,7 +250,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 		if (card.hasField("average")) {// average counter
 			if ((displaySettings & DISPLAY_ENERGY) > 0) {
 				line = new PanelString();
-				String key = card.getInt("powerType") == TileEntityAverageCounter.POWER_TYPE_EU ? 
+				String key = card.getInt("powerType") == EnergyStorageData.TARGET_TYPE_IC2 ? 
 						"msg.nc.InfoPanelOutput" : "msg.nc.InfoPanelOutputMJ";
 				line.textLeft = StringUtils.getFormatted(key, card.getInt("average"), showLabels);
 				result.add(line);
@@ -257,7 +259,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 			if ((displaySettings & DISPLAY_ENERGY) > 0) {
 				double energy = card.getDouble("energy");
 				line = new PanelString();
-				String key = card.getInt("powerType") == TileEntityAverageCounter.POWER_TYPE_EU ? 
+				String key = card.getInt("powerType") == EnergyStorageData.TARGET_TYPE_IC2 ? 
 						"msg.nc.InfoPanelEnergyCounter" : "msg.nc.InfoPanelEnergyCounterMJ";
 				line.textLeft = StringUtils.getFormatted(key, energy, showLabels);
 				result.add(line);

@@ -4,18 +4,15 @@ import ic2.api.item.IC2Items;
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
 import ic2.core.Ic2Items;
-import ic2.core.block.reactor.tileentity.TileEntityReactorRedstonePort;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
-import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 

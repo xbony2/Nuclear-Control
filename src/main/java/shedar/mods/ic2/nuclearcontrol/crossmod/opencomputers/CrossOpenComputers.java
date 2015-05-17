@@ -22,5 +22,8 @@ public class CrossOpenComputers {
 	public static void addDrivers(){
 		Driver.add(new DriverAdvancedInfoPanel());
 		Driver.add(new DriverInfoPanel());
+		Driver.add(new DriverThermalMonitor());
+		Driver.add(new DriverHowlerAlarm());
+		Driver.add(new DriverAverageCounter());
 	}
 }

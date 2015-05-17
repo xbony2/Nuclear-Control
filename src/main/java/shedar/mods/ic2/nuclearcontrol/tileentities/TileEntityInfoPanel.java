@@ -1,17 +1,11 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -38,13 +32,16 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.InfoPanel;
 import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.panel.Screen;
-import shedar.mods.ic2.nuclearcontrol.panel.http.HttpCardSender;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.ColorUtil;
-import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
-import cpw.mods.fml.common.FMLCommonHandler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		INetworkDataProvider, INetworkUpdateListener,
@@ -655,19 +652,16 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	protected long getIdForCard(CardWrapperImpl cardHelper) {
 		long id = cardHelper.getLong("_webSensorId");
 		if (id <= 0) {
-			if (id <= -10) {
+			/*if (id <= -10)
 				id += 10;
-			}
-			if (id == 0) {
+			if (id == 0)
 				HttpCardSender.instance.requestId();
-			}
 			Long newId = HttpCardSender.instance.availableIds.poll();
-			if (newId == null) {
+			if (newId == null)
 				id--;
-			} else {
+			else
 				id = newId;
-			}
-			cardHelper.setLong("_webSensorId", id);
+			cardHelper.setLong("_webSensorId", id);*/
 		}
 		return id;
 	}
@@ -686,15 +680,14 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 			CardWrapperImpl cardHelper = new CardWrapperImpl(card, slot);
 
 			if (isWeb) {
-				long id = getIdForCard(cardHelper);
+				/*long id = getIdForCard(cardHelper);
 				if (id > 0) {
-					UUID cardType = card.getItem() instanceof IPanelMultiCard ? ((IPanelMultiCard) card
-							.getItem()).getCardType(cardHelper)
-							: ((IPanelDataSource) card.getItem()).getCardType();
+					UUID cardType = card.getItem() instanceof IPanelMultiCard ? 
+						((IPanelMultiCard) card.getItem()).getCardType(cardHelper) : 
+						((IPanelDataSource) card.getItem()).getCardType();
 
-					HttpCardSender.instance.add(
-							ItemStackUtils.getTagCompound(card), cardType, id);
-				}
+					HttpCardSender.instance.add(ItemStackUtils.getTagCompound(card), cardType, id);
+				}*/
 			}
 
 			if (item instanceof IRemoteSensor) {

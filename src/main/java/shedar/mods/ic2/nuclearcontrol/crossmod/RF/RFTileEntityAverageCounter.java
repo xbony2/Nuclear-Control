@@ -1,11 +1,14 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
+
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
 
 public class RFTileEntityAverageCounter extends TileEntityAverageCounter implements IEnergyHandler{
 
@@ -85,7 +88,7 @@ public class RFTileEntityAverageCounter extends TileEntityAverageCounter impleme
                  data[index] = AVG;
                  //NCLog.fatal(send);
                  //NCLog.fatal(AVG);
-                 setPowerType(POWER_TYPE_RF);
+                 setPowerType((byte) EnergyStorageData.TARGET_TYPE_RF);
                  send = 0;
                  rec = 0;
              }

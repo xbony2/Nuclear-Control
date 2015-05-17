@@ -5,8 +5,9 @@ import cofh.api.energy.IEnergyHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
+
 
 public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implements IEnergyHandler{
 
@@ -76,7 +77,7 @@ public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implement
                 //if (updateTicker-- == 0) {
                 //	updateTicker = tickRate - 1;
                 counter += rec; //If rec / 2
-                this.setPowerType(TileEntityAverageCounter.POWER_TYPE_RF);
+                this.setPowerType((byte) EnergyStorageData.TARGET_TYPE_RF);
                 //}
                 rec = 0;
             }
@@ -84,6 +85,7 @@ public class RFTileEntityEnergyCounter extends TileEntityEnergyCounter implement
                 transferEnergy();
             }
         }
+
 	 }
     private boolean getNeibough() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {

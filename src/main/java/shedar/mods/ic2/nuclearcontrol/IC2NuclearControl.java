@@ -1,8 +1,9 @@
 package shedar.mods.ic2.nuclearcontrol;
 
+import cpw.mods.fml.common.Mod;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
@@ -13,6 +14,13 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.CrossIndustrialCraft2Classic;
+
+import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.CrossBigReactors;
+
+import java.io.File;
+import java.util.List;
+
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +29,6 @@ import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.appeng.CrossAppeng;
-import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.CrossBigReactors;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.CrossOpenComputers;
@@ -29,11 +36,11 @@ import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
 import shedar.mods.ic2.nuclearcontrol.items.*;
 import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
+
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
 
-import java.io.File;
-import java.util.List;
+
 
 @Mod(modid = "IC2NuclearControl", name = "Nuclear Control 2", version = "@VERSION@", dependencies = "required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl {
@@ -96,6 +103,7 @@ public class IC2NuclearControl {
 	public CrossRailcraft crossRailcraft;
 	public CrossRF crossRF;
 	public CrossOpenComputers crossOC;
+	public CrossIndustrialCraft2Classic crossClassic;
 
 	protected void initBlocks() {
 		blockNuclearControlMain = new BlockNuclearControlMain();
@@ -162,40 +170,6 @@ public class IC2NuclearControl {
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		proxy.cape();
-		crossBC = new CrossBuildcraft();
-        CrossAppeng.isRegistrationInOrder();
-		CrossBigReactors.isRegistrationInOrder();
-		crossIC2 = new CrossIndustrialCraft2();
-		crossRailcraft = new CrossRailcraft();
-		crossRF = new CrossRF();
-
-		if (recipes.toLowerCase().equals("normal")) {
-			RecipesNew.addRecipes();
-		}
-
-		if (recipes.toLowerCase().equals("old")) {
-			logger.error("Old recipes deprecated! Many recipes may be missing.");
-			RecipesOld.addOldRecipes();
-		}
-
-		if (recipes.toLowerCase().equals("gregtech")) {
-			GregtechRecipes.addRecipes();
-			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
-		}
-		
-
-		/*
-		//I'm very tempted to uncomment this
-		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
-		dBlock.setStackDisplayName("ERROR: report to skyboy!");
-		Recipes.advRecipes.addRecipe(dBlock, new Object[]{
-			"GGG", "GGG", "GGG",
-				'G', "greggy_greg_do_please_kindly_stuff_a_sock_in_it"});*/
-	}
-
-	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		IC2NuclearControl.instance.screenManager = new ScreenManager();
 		initBlocks();
@@ -204,5 +178,41 @@ public class IC2NuclearControl {
 		if(Loader.isModLoaded("OpenComputers")) crossOC = new CrossOpenComputers();
 		//Registers waila stuff
 		FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
+		CrossBigReactors.doStuff();
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		proxy.cape();
+		crossBC = new CrossBuildcraft();
+        CrossAppeng.isRegistrationInOrder();
+
+		crossIC2 = new CrossIndustrialCraft2();
+		crossRailcraft = new CrossRailcraft();
+		crossRF = new CrossRF();
+		crossClassic = new CrossIndustrialCraft2Classic();
+
+		if (recipes.equalsIgnoreCase("normal")) {
+			RecipesNew.addRecipes();
+		}
+
+		if (recipes.equalsIgnoreCase("old")) {
+			logger.error("Old recipes deprecated! Many recipes may be missing.");
+			RecipesOld.addOldRecipes();
+		}
+
+		if (recipes.equalsIgnoreCase("gregtech") || recipes.equalsIgnoreCase("gregtech5")) {
+			GregtechRecipes.addRecipes();
+			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
+		}
+		
+
+		/*
+		//I thought about doing this, but I didn't :P
+		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
+		dBlock.setStackDisplayName("ERROR: report to skyboy!");
+		Recipes.advRecipes.addRecipe(dBlock, new Object[]{
+			"GGG", "GGG", "GGG",
+				'G', "greggy_greg_do_please_kindly_stuff_a_sock_in_it"});*/
 	}
 }
