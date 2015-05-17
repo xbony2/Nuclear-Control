@@ -106,7 +106,10 @@ public class ItemCardAppeng extends ItemCardEnergySensorLocation {
         } else if(TYPE == 2){
             int stackSize = card.getInt("STACKSIZE");
             Item item = Item.getItemById(card.getInt("ITEMSTACK"));
-            String localName = StatCollector.translateToLocal(item.getUnlocalizedName() + ".name");
+            String localName = "item.null.name";
+            try {
+                localName = StatCollector.translateToLocal(item.getUnlocalizedName() + ".name");
+            }catch(NullPointerException e){}
             if(localName == "item.null.name" || localName.equals("Applied Energistics Card")){
                 localName = StatCollector.translateToLocal("msg.null.craft");}
 
