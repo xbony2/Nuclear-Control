@@ -110,8 +110,8 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 			NBTTagCompound liquidTag = null;
 			if (storage.fluid != null) {
 				amount = storage.fluid.amount;
-				if (storage.fluid.fluidID != 0 && amount > 0) {
-					liquidId = storage.fluid.fluidID;
+				if (storage.fluid.getFluidID() != 0 && amount > 0) {
+					liquidId = storage.fluid.getFluidID();
 					liquidTag = storage.fluid.tag;
 				}
 			}

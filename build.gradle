@@ -59,24 +59,23 @@ dependencies {
 	compile argoVersion
 	compile wailaVersion
 	compile openCVersion
-	compile files('libCoFHCore-[1.7.10]3.0.0RC1-181-dev.jar')
-	compile files('lib/BigReactors-0.4.1A2.jar')
-    compile files('lib/appliedenergistics2-rv2-beta-32-dev.jar')
+	compile aeVersion
+	compile files(cofhCoreVersion)
+	compile files(brVersion)  
 }
 
 
-processResources
-{
+processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    from(sourceSets.main.resources.srcDirs) {
+    from(sourceSets.main.resources.srcDirs){
         include 'mcmod.info'
                 
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
-    from(sourceSets.main.resources.srcDirs) {
+    from(sourceSets.main.resources.srcDirs){
         exclude 'mcmod.info'
     }
 }
