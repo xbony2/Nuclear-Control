@@ -3,10 +3,9 @@ package shedar.mods.ic2.nuclearcontrol.items;
 import ic2.api.item.IC2Items;
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
-import ic2.core.block.reactor.tileentity.TileEntityReactorAccessHatch;
-import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
-import ic2.core.block.reactor.tileentity.TileEntityReactorRedstonePort;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +15,12 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import shedar.mods.ic2.nuclearcontrol.api.*;
+import net.minecraftforge.fluids.FluidTank;
+import shedar.mods.ic2.nuclearcontrol.api.CardState;
+import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
+import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
+import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
+import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 
@@ -43,14 +47,14 @@ public class ItemCard55Reactor extends ItemCardEnergySensorLocation implements I
 		ChunkCoordinates target = card.getTarget();
 		//int targetType = card.getInt("targetType");
 		TileEntity check = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
-		if(check instanceof TileEntityReactorRedstonePort || check instanceof TileEntityReactorAccessHatch || panel.getWorldObj().getBlock(target.posX, target.posY, target.posZ) == Block.getBlockFromItem(IC2Items.getItem("reactorvessel").getItem())){
-			TileEntityReactorChamberElectric NR = (TileEntityReactorChamberElectric) this.getReactor(panel.getWorldObj(), target.posX, target.posY, target.posZ);
+		if(isReactorPart(check) || panel.getWorldObj().getBlock(target.posX, target.posY, target.posZ) == Block.getBlockFromItem(IC2Items.getItem("reactorvessel").getItem())){
+			IReactor NR = this.getReactor(panel.getWorldObj(), target.posX, target.posY, target.posZ);
 			if(NR != null){
-			card.setBoolean("Online", NR.getReactor().getActive());
-			card.setInt("outputTank", NR.getReactor().getoutputtank().getFluidAmount());
-			card.setInt("inputTank", NR.getReactor().getinputtank().getFluidAmount());
-			card.setInt("HeatUnits", NR.getReactor().EmitHeat);
-			card.setInt("CoreTempurature", (NR.getReactor().getHeat() *100) / NR.getReactor().getMaxHeat());
+			card.setBoolean("Online", getMethode(Boolean.class, NR, "getActive"));
+			card.setInt("outputTank", getMethode(FluidTank.class, NR, "getoutputtank").getFluidAmount());
+			card.setInt("inputTank", getMethode(FluidTank.class, NR, "getinputtank").getFluidAmount());
+			card.setInt("HeatUnits", getField(Integer.class, NR, "EmitHeat"));
+			card.setInt("CoreTempurature", (NR.getHeat() *100) / NR.getMaxHeat());
 			return CardState.OK;
 			}else{
 				return CardState.INVALID_CARD;
@@ -59,20 +63,83 @@ public class ItemCard55Reactor extends ItemCardEnergySensorLocation implements I
 			return CardState.NO_TARGET;
 		}
 	}
+	
+	private <T> T getMethode(Class<T> par1, Object instance, String functionName)
+	{
+		try
+		{
+			Class clz = Class.forName("ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric");
+			if(clz != null)
+			{
+				Method methode = clz.getMethod(functionName, void.class);
+				if(methode != null)
+				{
+					methode.setAccessible(true);
+					return (T)methode.invoke(instance, void.class);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private <T> T getField(Class<T> par1, Object instance, String fieldName)
+	{
+		try
+		{
+			Class clz = Class.forName("ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric");
+			if(clz != null)
+			{
+				Field field = clz.getField(fieldName);
+				if(field != null)
+				{
+					field.setAccessible(true);
+					return (T)field.get(instance);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 	/*This is taken directly from IC2's code, because I couldn't find a better way to do it || All credits to IC2 for this function*/
-	public static TileEntity getReactor(World world, int xCoord, int yCoord, int zCoord){
+	public static IReactor getReactor(World world, int xCoord, int yCoord, int zCoord){
 		for(int xoffset = -1; xoffset < 2; xoffset++){
 			for(int yoffset = -1; yoffset < 2; yoffset++){
 				for(int zoffset = -1; zoffset < 2; zoffset++){
 					TileEntity te = world.getTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset);
-					if((te instanceof IReactorChamber) || (te instanceof IReactor))
-						return te;
+					if((te instanceof IReactor))
+					{
+						return (IReactor)te;
+					}
+					if((te instanceof IReactorChamber))
+					{
+						return ((IReactorChamber)te).getReactor();
+					}
                 }
 			}
 		}
 		return null;
 	}
 
+	private boolean isReactorPart(TileEntity par1)
+	{
+		if(par1 == null)
+		{
+			return false;
+		}
+		String name = par1.getClass().getSimpleName();
+		if(name.equals("TileEntityReactorAccessHatch") || name.equals("TileEntityReactorRedstonePort"))
+		{
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels) {

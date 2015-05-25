@@ -37,6 +37,7 @@ public class ThermalMonitor extends Subblock {
 					I_FACE_GREEN, I_BACK } };
 
 	private IIcon[] icons = new IIcon[6];
+	
 
 	public ThermalMonitor() {
 		super(DAMAGE, "tile.blockThermalMonitor");

@@ -22,7 +22,7 @@ public class BlockNetworkLink extends BlockContainer {
     public BlockNetworkLink() {
         super(Material.iron);
         this.setBlockName("NetworkLink");
-        this.setBlockHardness(1.0F);
+        this.setHardness(1.0F);
         this.setCreativeTab(IC2NuclearControl.tabIC2NC);
     }
 
