@@ -8,7 +8,6 @@ import ic2.api.item.IC2Items;
 import ic2.api.item.IElectricItem;
 import ic2.api.reactor.IReactor;
 import ic2.core.IC2;
-import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -31,6 +30,8 @@ import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 
 import java.util.List;
+
+import cpw.mods.fml.common.FMLLog;
 
 public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergySink, ISlotItemFilter, IRotation, IInventory{
 	public static final int SLOT_CHARGER = 0;
@@ -94,7 +95,6 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 		int fire;
 		if (energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption){
 			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord + deltaX, yCoord + deltaY, zCoord + deltaZ);
-            TileEntityReactorChamberElectric FiveSQReactor = null;
             //UUID cardType = null;
             if(reactor == null){
                 if (inventory[SLOT_CARD] != null){
@@ -104,14 +104,11 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
                     	int x = target.posX;
                     	int y = target.posY;
                     	int z = target.posZ;
-                    	FiveSQReactor = (TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(worldObj, x, y, z);
+                    	reactor = ItemCard55Reactor.getReactor(worldObj, x, y, z);
                     }
                 }
             }
-			if (reactor != null || TileEntityThermo.testThis(reactor, FiveSQReactor)){
-                if(FiveSQReactor != null){
-                    reactor = FiveSQReactor.getReactor();
-                }
+			if (reactor != null){
 				if (tickRate == -1){
 					tickRate = reactor.getTickRate() / 2;
 					if (tickRate == 0)

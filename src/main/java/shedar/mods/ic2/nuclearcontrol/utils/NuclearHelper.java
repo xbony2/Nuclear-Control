@@ -21,10 +21,13 @@ public class NuclearHelper {
 			return (IReactor) entity;
 		return null;
 	}
-
+	
+	
 	public static boolean isSteam(IReactor reactor) {
 		// no more steam reactors. Liquid container will be used for coolant
 		// liquids.
+		
+		//TODO Sooner or later Classic will have Steam Reactors
 		return false;// IC2NuclearControl.instance.crossBC.isTankContainer(reactor);
 	}
 

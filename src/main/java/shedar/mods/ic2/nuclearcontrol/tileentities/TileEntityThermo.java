@@ -7,7 +7,10 @@ import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
-import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
+
+import java.util.List;
+import java.util.Vector;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,9 +23,6 @@ import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.ThermalMonitor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCard55Reactor;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
-
-import java.util.List;
-import java.util.Vector;
 
 public class TileEntityThermo extends TileEntity implements INetworkDataProvider, INetworkUpdateListener,
 		INetworkClientTileEntityEventListener, IWrenchable, ITextureHelper {
@@ -205,7 +205,6 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 		byte fire;
 		IReactorChamber chamber = NuclearHelper.getReactorChamberAroundCoord(worldObj, xCoord, yCoord, zCoord);
 		IReactor reactor = null;
-        TileEntityReactorChamberElectric NR = null;
 		if (chamber != null) {
 			reactor = chamber.getReactor();
 		}
@@ -216,13 +215,10 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
             //NCLog.fatal("CALLED");
             //NCLog.error(this.getFacing());
             decodeSides(xCoord, yCoord, zCoord);
-            NR = (TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(worldObj, Coords[0], Coords[1], Coords[2]);
+            reactor = ItemCard55Reactor.getReactor(worldObj, Coords[0], Coords[1], Coords[2]);
         }
 
-		if (reactor != null || testThis(reactor, NR)) {
-            if(NR != null){
-                reactor = NR.getReactor();
-            }
+		if (reactor != null) {
 			if (tickRate == -1) {
 				tickRate = reactor.getTickRate() / 2;
 				if (tickRate == 0) tickRate = 1;
@@ -253,14 +249,6 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
         Coords[0] = x + facing.offsetX;
         Coords[1] = y + facing.offsetY;
         Coords[2] = z + facing.offsetZ;
-    }
-    
-    public static boolean testThis(IReactor reactors, TileEntityReactorChamberElectric chamber){
-        if(reactors == null && chamber != null)
-            return true;
-        else
-            return false;
-
     }
 
 	@Override

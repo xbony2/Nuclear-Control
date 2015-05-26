@@ -2,14 +2,12 @@ package shedar.mods.ic2.nuclearcontrol.items;
 
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
-import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityThermo;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.TextureResolver;
@@ -39,20 +37,16 @@ public class ItemToolThermometer extends Item {
 			return false;
 		}
 		IReactor reactor = NuclearHelper.getReactorAt(world, x, y, z);
-        TileEntityReactorChamberElectric reactorChamber5x5 = null;
 		if (reactor == null) {
 			IReactorChamber chamber = NuclearHelper.getReactorChamberAt(world, x, y, z);
 			if (chamber != null) {
 				reactor = chamber.getReactor();
 			}
             if(reactor == null && chamber == null){
-                reactorChamber5x5 = (TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(world, x, y, z);
+            	reactor = ItemCard55Reactor.getReactor(world, x, y, z);
             }
 		}
-		if (reactor != null || TileEntityThermo.testThis(reactor, reactorChamber5x5)) {
-            if(reactorChamber5x5 != null){
-                reactor = reactorChamber5x5.getReactor();
-            }
+		if (reactor != null) {
 			messagePlayer(player, reactor);
 			damage(itemstack, 1, player);
 			return true;
