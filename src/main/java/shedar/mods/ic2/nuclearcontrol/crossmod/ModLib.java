@@ -7,4 +7,5 @@ public class ModLib {
     public static final String TE = "ThermalExpansion";
     public static final String AE2 = "appliedenergistics2";
     public static final String BigReactor = "BigReactors";
+    public static final String Eio = "EnderIO";
 }
