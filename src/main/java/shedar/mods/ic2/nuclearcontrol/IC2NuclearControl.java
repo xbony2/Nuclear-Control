@@ -7,7 +7,6 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -18,11 +17,9 @@ import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
+import shedar.mods.ic2.nuclearcontrol.crossmod.CrossModLoader;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossTE;
-import shedar.mods.ic2.nuclearcontrol.crossmod.appeng.CrossAppeng;
-import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.CrossBigReactors;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.CrossIndustrialCraft2Classic;
@@ -164,6 +161,7 @@ public class IC2NuclearControl {
 			FMLCommonHandler.instance().bus().register(ClientTickHandler.instance);
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+        CrossModLoader.preinit();
 	}
 
 	@EventHandler
@@ -172,19 +170,19 @@ public class IC2NuclearControl {
 		initBlocks();
 		registerBlocks();
 		proxy.registerTileEntities();
+        CrossModLoader.init();
 		if(Loader.isModLoaded("OpenComputers")) crossOC = new CrossOpenComputers();
 		//Registers waila stuff
-		FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
-		CrossBigReactors.doStuff();
-        CrossAppeng.RegistrationCheck();
+		//FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
+		//CrossBigReactors.doStuff();
+        //CrossAppeng.RegistrationCheck();
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
+        CrossModLoader.postinit();
 		crossBC = new CrossBuildcraft();
-
-        CrossTE.intergrateTE();
         crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
