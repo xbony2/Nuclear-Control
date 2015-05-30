@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -8,6 +9,8 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ModLib;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossTE;
 import shedar.mods.ic2.nuclearcontrol.utils.EnergyStorageHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
@@ -22,6 +25,15 @@ public class ItemKitEnergySensor extends ItemSensorKitBase {
 	protected ItemStack getItemStackByDamage(int damage) {
 		return new ItemStack(IC2NuclearControl.itemEnergySensorLocationCard);
 	}
+    protected ItemStack getItemStackbyType(EnergyStorageData storageData){
+        if(storageData.type == EnergyStorageData.TARGET_TYPE_RF){
+            if(Loader.isModLoaded(ModLib.TE)){
+                return new ItemStack(CrossTE.RFSensorCard);
+            }
+           return new ItemStack(IC2NuclearControl.itemEnergySensorLocationCard);
+        }
+        return new ItemStack(IC2NuclearControl.itemEnergySensorLocationCard);
+    }
 
 	@Override
 	protected ChunkCoordinates getTargetCoordinates(World world, int x, int y, int z, ItemStack stack) {
@@ -37,7 +49,7 @@ public class ItemKitEnergySensor extends ItemSensorKitBase {
 			return false;
 		EnergyStorageData storage = EnergyStorageHelper.getStorageAt(world, x, y, z, EnergyStorageData.TARGET_TYPE_UNKNOWN);
 		if (storage != null) {
-			ItemStack sensorLocationCard = getItemStackByDamage(stack.getItemDamage());
+			ItemStack sensorLocationCard = getItemStackbyType(storage);
 
 			NBTTagCompound nbtTagCompound = ItemStackUtils.getTagCompound(sensorLocationCard);
 			nbtTagCompound.setInteger("x", x);
