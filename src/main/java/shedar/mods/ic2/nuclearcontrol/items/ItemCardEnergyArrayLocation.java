@@ -210,14 +210,14 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase {
 													.getFormatted(
 															"",
 															storage == 0 ? 100
-																	: (((double) energy) * 100L / storage),
+																	: (int)(((double)energy / storage) * 100D),
 															false));
 						else
 							line.textLeft = StringUtils
 									.getFormatted(
 											"",
 											storage == 0 ? 100
-													: (((double) energy) * 100L / storage),
+													: (int)(((double)energy / storage) * 100D),
 											false);
 						result.add(line);
 					}
@@ -250,7 +250,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase {
 				line.textLeft = StringUtils.getFormatted(
 						"msg.nc.InfoPanelEnergyPercentage",
 						totalStorage == 0 ? 100
-								: (totalEnergy * 100 / totalStorage),
+								: ((totalEnergy / totalStorage) * 100),
 						showLabels);
 				result.add(line);
 			}
