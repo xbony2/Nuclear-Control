@@ -151,7 +151,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 		TileEntity entity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
 		if (entity instanceof TileEntityBaseGenerator) {
 			// int production = ((TileEntityBaseGenerator)entity).production;
-			int production = (int) EnergyNet.instance.getTotalEnergyEmitted(entity);// TODO deprecated
+			int production = (int) EnergyNet.instance.getNodeStats(entity).getEnergyOut();
 			card.setInt("production", production);
 			card.setDouble("range_trigger_amount", (double)production);
 			return CardState.OK;
@@ -215,7 +215,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 			if (liquidId == 0)
 				name = LangHelper.translate("msg.nc.None");
 			else
-				name = FluidRegistry.getFluidName(liquidId);
+				name = FluidRegistry.getFluidName(liquidId); //TODO deprecated
 			line = new PanelString();
 			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidName", name, showLabels);
 			result.add(line);

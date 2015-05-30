@@ -103,7 +103,7 @@ public class ItemCardEnergySensorLocation extends ItemCardBase implements IRemot
 			line = new PanelString();
 			line.textLeft = StringUtils.getFormatted(
 					"msg.nc.InfoPanelEnergyPercentage", storage == 0 ? 100
-							: (energy * 100 / storage), showLabels);
+							: ((energy / storage) * 100), showLabels);
 			result.add(line);
 		}
 		return result;

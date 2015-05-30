@@ -213,10 +213,10 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 						if (showLabels)
 							line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelLiquidPercentageN", 
 									i + 1, StringUtils.getFormatted("", 
-											capacity == 0 ? 100 : (((double) amount) * 100L / capacity), false));
+											capacity == 0 ? 100 : (((double) amount / capacity) * 100), false));
 						else
 							line.textLeft = StringUtils.getFormatted("", 
-									capacity == 0 ? 100 : (((double) amount) * 100L / capacity), false);
+									capacity == 0 ? 100 : (((double) amount / capacity) * 100), false);
 						result.add(line);
 					}
 				}
@@ -242,7 +242,7 @@ public class ItemCardLiquidArrayLocation extends ItemCardBase {
 			if (showPercentage) {
 				line = new PanelString();
 				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelLiquidPercentage", 
-						totalCapacity == 0 ? 100 : (totalAmount * 100 / totalCapacity), showLabels);
+						totalCapacity == 0 ? 100 : ((totalAmount / totalCapacity) * 100), showLabels);
 				result.add(line);
 			}
 		}
