@@ -1,30 +1,25 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import shedar.mods.ic2.nuclearcontrol.api.CardState;
-import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
-import shedar.mods.ic2.nuclearcontrol.api.IRangeTriggerable;
-import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
-import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
-import shedar.mods.ic2.nuclearcontrol.api.PanelString;
+import shedar.mods.ic2.nuclearcontrol.api.*;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.EnergyStorageHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 
 public class ItemCardEnergySensorLocation extends ItemCardBase implements IRemoteSensor, IRangeTriggerable {
-	private static final String HINT_TEMPLATE = "x: %d, y: %d, z: %d";
+	protected static final String HINT_TEMPLATE = "x: %d, y: %d, z: %d";
 
 	public static final int DISPLAY_ENERGY = 1;
 	public static final int DISPLAY_FREE = 2;

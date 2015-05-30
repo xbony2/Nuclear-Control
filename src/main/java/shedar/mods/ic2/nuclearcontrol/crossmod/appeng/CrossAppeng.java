@@ -6,6 +6,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ModLib;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 
@@ -15,14 +16,14 @@ public class CrossAppeng {
     public static Item kitAppeng;
     public static Item cardAppeng;
 
-    public static void isRegistrationInOrder(){
-        if(Loader.isModLoaded("appliedenergistics2")){
+    public static void RegistrationCheck(){
+        if(Loader.isModLoaded(ModLib.AE2)){
             NCLog.fatal("Large Storage System? We can help to monitor that!");
             addBlocksItemsTiles();
         }
     }
 
-    @Optional.Method(modid = "appliedenergistics2")
+    @Optional.Method(modid = ModLib.AE2)
     private static void addBlocksItemsTiles(){
         networklink = new BlockNetworkLink();
         kitAppeng = new ItemKitAppeng();

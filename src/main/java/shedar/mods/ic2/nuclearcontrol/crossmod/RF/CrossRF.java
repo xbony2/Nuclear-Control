@@ -1,12 +1,12 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.tileentity.TileEntity;
+import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ModLib;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
 
 public class CrossRF {
 
@@ -14,7 +14,7 @@ public class CrossRF {
 	
 	
 	public CrossRF(){
-		if(Loader.isModLoaded("ThermalExpansion") || Loader.isModLoaded("BuildCraft")){
+		if(Loader.isModLoaded(ModLib.TE) || Loader.isModLoaded(ModLib.BC)){
 			_RFModPresent = true;
 			registerTiles();
 		} else {
