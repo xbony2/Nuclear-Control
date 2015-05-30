@@ -1,44 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol;
 
-import java.io.File;
-import java.util.List;
-
-import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
-
-import org.apache.logging.log4j.Logger;
-
-import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
-import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
-import shedar.mods.ic2.nuclearcontrol.crossmod.appeng.CrossAppeng;
-import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.CrossBigReactors;
-import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
-import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
-import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.CrossIndustrialCraft2Classic;
-import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.CrossOpenComputers;
-import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCard55Reactor;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergyArrayLocation;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardLiquidArrayLocation;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardMultipleSensorLocation;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardReactorSensorLocation;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardText;
-import shedar.mods.ic2.nuclearcontrol.items.ItemKitEnergySensor;
-import shedar.mods.ic2.nuclearcontrol.items.ItemKitMultipleSensor;
-import shedar.mods.ic2.nuclearcontrol.items.ItemKitReactorSensor;
-import shedar.mods.ic2.nuclearcontrol.items.ItemNuclearControlLight;
-import shedar.mods.ic2.nuclearcontrol.items.ItemNuclearControlMain;
-import shedar.mods.ic2.nuclearcontrol.items.ItemTimeCard;
-import shedar.mods.ic2.nuclearcontrol.items.ItemToolDigitalThermometer;
-import shedar.mods.ic2.nuclearcontrol.items.ItemToolThermometer;
-import shedar.mods.ic2.nuclearcontrol.items.ItemUpgrade;
-import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
-import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
-import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
-import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -46,12 +7,32 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
+import org.apache.logging.log4j.Logger;
+import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
+import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
+import shedar.mods.ic2.nuclearcontrol.crossmod.CrossModLoader;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
+import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.CrossIndustrialCraft2Classic;
+import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.CrossOpenComputers;
+import shedar.mods.ic2.nuclearcontrol.crossmod.railcraft.CrossRailcraft;
+import shedar.mods.ic2.nuclearcontrol.items.*;
+import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
+import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
+import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
+import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
+
+import java.io.File;
+import java.util.List;
 
 
 
@@ -180,6 +161,7 @@ public class IC2NuclearControl {
 			FMLCommonHandler.instance().bus().register(ClientTickHandler.instance);
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+        CrossModLoader.preinit();
 	}
 
 	@EventHandler
@@ -188,19 +170,20 @@ public class IC2NuclearControl {
 		initBlocks();
 		registerBlocks();
 		proxy.registerTileEntities();
+        CrossModLoader.init();
 		if(Loader.isModLoaded("OpenComputers")) crossOC = new CrossOpenComputers();
 		//Registers waila stuff
-		FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
-		CrossBigReactors.doStuff();
+		//FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
+		//CrossBigReactors.doStuff();
+        //CrossAppeng.RegistrationCheck();
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
+        CrossModLoader.postinit();
 		crossBC = new CrossBuildcraft();
-        CrossAppeng.isRegistrationInOrder();
-
-		crossIC2 = new CrossIndustrialCraft2();
+        crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
 		crossClassic = new CrossIndustrialCraft2Classic();

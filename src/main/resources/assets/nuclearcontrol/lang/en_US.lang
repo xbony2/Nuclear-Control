@@ -28,6 +28,7 @@ item.RFreactorKit.name=Remote RF Reactor Kit
 item.RFreactorCard.name=RF Reactor Sensor Location Card
 item.AppengCard.name=Applied Energistics Card
 item.AppengKit.name=Applied Energistics Monitor Kit
+item.RFenergyCard.name=RF Energy Sensor Location Card
 
 #Internal Blocks
 tile.blockThermalMonitor.name=Thermal Monitor
