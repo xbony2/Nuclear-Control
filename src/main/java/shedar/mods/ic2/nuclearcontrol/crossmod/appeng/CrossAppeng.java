@@ -16,7 +16,7 @@ public class CrossAppeng {
     public static Item kitAppeng;
     public static Item cardAppeng;
 
-    public static void RegistrationCheck(){
+    public static void registrationCheck(){
         if(Loader.isModLoaded(ModLib.AE2)){
             NCLog.fatal("Large Storage System? We can help to monitor that!");
             addBlocksItemsTiles();
