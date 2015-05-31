@@ -12,7 +12,7 @@ public class CrossTE {
     public static Item RFSensorCard;
 
     public static void intergrateTE(){
-        if(Loader.isModLoaded(ModLib.TE ) || Loader.isModLoaded(ModLib.Eio)){
+        if(Loader.isModLoaded(ModLib.TE ) || Loader.isModLoaded(ModLib.ENDER_IO)){
             registerThermalExpansion();
             NCLog.fatal("Another Energy System is Loaded. Adding Intergration!");
         }
