@@ -9,6 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.Subblock;
+import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
+import shedar.mods.ic2.nuclearcontrol.gui.GuiRemoteMonitor;
 import shedar.mods.ic2.nuclearcontrol.tileentities.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -31,6 +33,9 @@ public class CommonProxy implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if(ID == GuiRemoteMonitor.REMOTEMONITOR_GUI){
+            return new ContainerRemoteMonitor(player.inventory, player.getHeldItem(),  new InventoryItem(player.getHeldItem()));
+        }
 		Subblock block = IC2NuclearControl.blockNuclearControlMain.getSubblock(ID);
 		if (block == null)
 			return null;
