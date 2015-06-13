@@ -48,8 +48,6 @@ public class PacketServerUpdate implements IMessage{
             if(stack != null && stack.getItem() instanceof ItemCardBase){
                 CardWrapperImpl helper = new CardWrapperImpl(stack, 0);
                 CardState state = ((IPanelDataSource) stack.getItem()).update(ContainerRemoteMonitor.panel, helper, 100);
-                //helper.setDouble("energyL", 17.89);
-                NCLog.error(helper.getUpdateSet());
                 return new PacketClientRemoteMonitor(helper.getUpdateSet());
             }
             return null;

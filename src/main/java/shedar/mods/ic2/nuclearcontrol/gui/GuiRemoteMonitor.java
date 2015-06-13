@@ -51,11 +51,13 @@ public class GuiRemoteMonitor extends GuiContainer{
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        List<PanelString> joinedData = new LinkedList<PanelString>();
+        boolean anyCardFound = false;
 
         if (inv.getStackInSlot(0) != null) {
+            inv.markDirty();
+            panel.updateEntity();
             ItemStack card = inv.getStackInSlot(0);
-            boolean anyCardFound = false;
-            List<PanelString> joinedData = new LinkedList<PanelString>();
             ChannelHandler.network.sendToServer(new PacketServerUpdate(card));
             this.processCard(card, 10, 0, panel);
             if (card == null || !(card.getItem() instanceof IPanelDataSource)) {
@@ -79,9 +81,13 @@ public class GuiRemoteMonitor extends GuiContainer{
             joinedData.addAll(data);
             anyCardFound = true;
             drawCardStuff(anyCardFound, joinedData);
+        } else {
+            inv.markDirty();
+            anyCardFound = false;
         }
     }
     private void drawCardStuff(Boolean anyCardFound, List<PanelString> joinedData){
+       // NCLog.error("wat?");
             if (!anyCardFound) {
                 NCLog.fatal("HERE?");
                 return;
@@ -195,7 +201,7 @@ public class GuiRemoteMonitor extends GuiContainer{
             }
 
             //cardHelper.getUpdateSet();
-            for (Map.Entry<String, Object> entry : cardHelper.getUpdateSet().entrySet()) {
+            /*for (Map.Entry<String, Object> entry : cardHelper.getUpdateSet().entrySet()) {
                 String name = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof Long) {
@@ -220,43 +226,11 @@ public class GuiRemoteMonitor extends GuiContainer{
                     NCLog.fatal("Null: "+ name);
                     //helper.clearField(name);
                 }
-            }
+            }*/
             //cardHelper.commit(this);
         }
 
     }
 }
-/*    class GuiRemoteMonitorHelper {
-        private final Map<Integer, List<PanelString>> cardData = new HashMap<Integer, List<PanelString>>();
-        private boolean showLabels = true;
-        private boolean prevShowLabels;
 
-        public List<PanelString> getCardData(int settings, ItemStack cardStack, ICardWrapper helper) {
-            IPanelDataSource card = (IPanelDataSource) cardStack.getItem();
-            int slot = 0;
-            List<PanelString> data = cardData.get(slot);
-            if (data == null) {
-                data = card.getStringData(settings, helper, getShowLabels());
-                String title = helper.getTitle();
-                if (data != null && title != null && !title.isEmpty()) {
-                    PanelString titleString = new PanelString();
-                    titleString.textCenter = title;
-                    data.add(0, titleString);
-                }
-                cardData.put(slot, data);
-            }
-            return data;
-        }
-        public void setShowLabels(boolean p) {
-            showLabels = p;
-            if (prevShowLabels != p) {
-                //IC2.network.get().updateTileEntityField(this, "showLabels");
-            }
-            prevShowLabels = showLabels;
-        }
-
-        public boolean getShowLabels() {
-            return showLabels;
-        }
-    }*/
 
