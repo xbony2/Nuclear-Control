@@ -47,7 +47,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if(ID == GuiRemoteMonitor.REMOTEMONITOR_GUI){
-            return new GuiRemoteMonitor(player.inventory, player.getCurrentEquippedItem(),  new InventoryItem(player.getHeldItem()));
+            return new GuiRemoteMonitor(player.inventory, player.getCurrentEquippedItem(),  new InventoryItem(player.getHeldItem()), player);
         }
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		Subblock block = IC2NuclearControl.blockNuclearControlMain.getSubblock(ID);

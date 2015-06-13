@@ -38,5 +38,9 @@ public class ChannelHandler {
 				PacketDispSettingsAll.class, 9, Side.CLIENT);
 		network.registerMessage(PacketDispSettingsUpdate.class,
 				PacketDispSettingsUpdate.class, 10, Side.CLIENT);
+		network.registerMessage(PacketServerUpdate.Handler.class,
+				PacketServerUpdate.class, 11, Side.SERVER);
+		network.registerMessage(PacketClientRemoteMonitor.Handler.class,
+				PacketClientRemoteMonitor.class, 12, Side.CLIENT);
 	}
 }
