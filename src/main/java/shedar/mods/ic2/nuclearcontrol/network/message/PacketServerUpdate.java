@@ -6,25 +6,31 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import shedar.mods.ic2.nuclearcontrol.api.CardState;
+import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
+import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardBase;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 
 public class PacketServerUpdate implements IMessage{
 
     //private Map<String, Object> tag;
-    private ItemStack itemstack;
+    public ItemStack itemstack;
 
-    PacketServerUpdate(){
+    public PacketServerUpdate(){
         //DO NOTHING...
     }
 
     public PacketServerUpdate(ItemStack card){
         this.itemstack = card;
+        //NCLog.error(card);
     }
     @Override
     public void fromBytes(ByteBuf buf) {
-        ByteBufUtils.readItemStack(buf);
+       itemstack = ByteBufUtils.readItemStack(buf);
     }
 
     @Override
@@ -38,8 +44,12 @@ public class PacketServerUpdate implements IMessage{
         @Override
         public IMessage onMessage(PacketServerUpdate message, MessageContext ctx) {
             ItemStack stack = message.itemstack;
-            if(stack.getItem() instanceof ItemCardBase){
-                CardWrapperImpl helper = new CardWrapperImpl(stack, -1);
+           // NCLog.error(stack);
+            if(stack != null && stack.getItem() instanceof ItemCardBase){
+                CardWrapperImpl helper = new CardWrapperImpl(stack, 0);
+                CardState state = ((IPanelDataSource) stack.getItem()).update(ContainerRemoteMonitor.panel, helper, 100);
+                //helper.setDouble("energyL", 17.89);
+                NCLog.error(helper.getUpdateSet());
                 return new PacketClientRemoteMonitor(helper.getUpdateSet());
             }
             return null;

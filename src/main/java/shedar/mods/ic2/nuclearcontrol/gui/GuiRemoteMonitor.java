@@ -30,11 +30,13 @@ public class GuiRemoteMonitor extends GuiContainer{
     public static final int REMOTEMONITOR_GUI = 17;
     private InventoryItem inv;
     private EntityPlayer e;
+    public TileEntityInfoPanel panel;
 
-    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player){
-        super(new ContainerRemoteMonitor(inv, stack, inventoryItem));
+    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel){
+        super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel));
         this.inv = inventoryItem;
         this.e = player;
+        this.panel = panel;
     }
 
     @Override
@@ -50,7 +52,6 @@ public class GuiRemoteMonitor extends GuiContainer{
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
 
-        TileEntityInfoPanel panel = new TileEntityInfoPanel();
         if (inv.getStackInSlot(0) != null) {
             ItemStack card = inv.getStackInSlot(0);
             boolean anyCardFound = false;

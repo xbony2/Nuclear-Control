@@ -19,6 +19,7 @@ import shedar.mods.ic2.nuclearcontrol.renderers.MainBlockRenderer;
 import shedar.mods.ic2.nuclearcontrol.renderers.TileEntityIC2ThermoRenderer;
 import shedar.mods.ic2.nuclearcontrol.renderers.TileEntityInfoPanelRenderer;
 import shedar.mods.ic2.nuclearcontrol.renderers.TileEntityRemoteThermoRenderer;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 
 public class ClientProxy extends CommonProxy {
 
@@ -47,7 +48,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if(ID == GuiRemoteMonitor.REMOTEMONITOR_GUI){
-            return new GuiRemoteMonitor(player.inventory, player.getCurrentEquippedItem(),  new InventoryItem(player.getHeldItem()), player);
+            return new GuiRemoteMonitor(player.inventory, player.getCurrentEquippedItem(),  new InventoryItem(player.getHeldItem()), player, new TileEntityInfoPanel());
         }
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		Subblock block = IC2NuclearControl.blockNuclearControlMain.getSubblock(ID);
