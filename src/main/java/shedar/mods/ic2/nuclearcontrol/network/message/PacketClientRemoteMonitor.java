@@ -4,6 +4,8 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
-import shedar.mods.ic2.nuclearcontrol.items.ItemRemoteMonitor;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 
@@ -134,6 +135,7 @@ public class PacketClientRemoteMonitor implements IMessage {
     public static class Handler implements IMessageHandler<PacketClientRemoteMonitor, IMessage> {
 
         @Override
+        @SideOnly(Side.CLIENT)
         public IMessage onMessage(PacketClientRemoteMonitor message, MessageContext ctx) {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if(player.getHeldItem().getItem() == IC2NuclearControl.itemRemoteMonitor){

@@ -1,21 +1,22 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
 
-import ic2.core.IC2;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
-import shedar.mods.ic2.nuclearcontrol.api.*;
+import shedar.mods.ic2.nuclearcontrol.api.CardState;
+import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
+import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
+import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardBase;
 import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.network.message.PacketServerUpdate;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
@@ -23,7 +24,8 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GuiRemoteMonitor extends GuiContainer{
 
@@ -32,8 +34,8 @@ public class GuiRemoteMonitor extends GuiContainer{
     private EntityPlayer e;
     public TileEntityInfoPanel panel;
 
-    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel){
-        super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel));
+    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel, World world){
+        super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel, world));
         this.inv = inventoryItem;
         this.e = player;
         this.panel = panel;
@@ -56,7 +58,8 @@ public class GuiRemoteMonitor extends GuiContainer{
 
         if (inv.getStackInSlot(0) != null) {
             inv.markDirty();
-            panel.updateEntity();
+            ContainerRemoteMonitor.updateTile();
+            //panel.updateEntity();
             ItemStack card = inv.getStackInSlot(0);
             ChannelHandler.network.sendToServer(new PacketServerUpdate(card));
             this.processCard(card, 10, 0, panel);

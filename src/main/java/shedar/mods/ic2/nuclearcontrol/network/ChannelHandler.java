@@ -26,6 +26,10 @@ public class ChannelHandler {
 				PacketClientSound.class, 7, Side.SERVER);
 		network.registerMessage(PacketClientRequest.class,
 				PacketClientRequest.class, 8, Side.SERVER);
+        network.registerMessage(PacketDispSettingsAll.class,
+                PacketDispSettingsAll.class, 9, Side.CLIENT);
+        network.registerMessage(PacketDispSettingsUpdate.class,
+                PacketDispSettingsUpdate.class, 10, Side.CLIENT);
 		network.registerMessage(PacketClientRangeTrigger.class,
 				PacketClientRangeTrigger.class, 11, Side.SERVER);
 		network.registerMessage(PacketClientSensor.class,
@@ -34,13 +38,9 @@ public class ChannelHandler {
 				PacketClientColor.class, 13, Side.SERVER);
 		network.registerMessage(PacketClientDisplaySettings.class,
 				PacketClientDisplaySettings.class, 14, Side.SERVER);
-		network.registerMessage(PacketDispSettingsAll.class,
-				PacketDispSettingsAll.class, 9, Side.CLIENT);
-		network.registerMessage(PacketDispSettingsUpdate.class,
-				PacketDispSettingsUpdate.class, 10, Side.CLIENT);
 		network.registerMessage(PacketServerUpdate.Handler.class,
-				PacketServerUpdate.class, 11, Side.SERVER);
+				PacketServerUpdate.class, 15, Side.SERVER);
 		network.registerMessage(PacketClientRemoteMonitor.Handler.class,
-				PacketClientRemoteMonitor.class, 12, Side.CLIENT);
+				PacketClientRemoteMonitor.class, 16, Side.CLIENT);
 	}
 }

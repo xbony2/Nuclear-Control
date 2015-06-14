@@ -7,6 +7,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
 import shedar.mods.ic2.nuclearcontrol.SlotFilter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
@@ -18,13 +20,23 @@ public class ContainerRemoteMonitor extends Container{
     public static TileEntityInfoPanel panel;
 
     public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile){
+        this(inv, stack, iItem, tile, MinecraftServer.getServer().getEntityWorld());
+    }
+    public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile, World world){
         this.is = stack;
         this.item = iItem;
         this.panel = tile;
-        this.panel.setWorldObj(MinecraftServer.getServer().getEntityWorld());
+        if(IC2NuclearControl.isServer){
+            this.panel.setWorldObj(world);
+        }else{
+            this.panel.setWorldObj(MinecraftServer.getServer().getEntityWorld());
+        }
 
         this.addSlotToContainer(new SlotFilter(this.item, 0, 177, 21));
         bindPlayerInventory(inv);
+    }
+    public static void updateTile(){
+        panel.updateEntity();
     }
 
     protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
