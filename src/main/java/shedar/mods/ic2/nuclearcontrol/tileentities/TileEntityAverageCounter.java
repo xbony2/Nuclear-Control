@@ -56,6 +56,8 @@ public class TileEntityAverageCounter extends TileEntity implements
 	protected short prevPeriod;
 	public short period;
 	protected int clientAverage = -1;
+	//Nessesary
+	private double lastReceivedPower = 0;
 
 	public int packetSize;
 
@@ -146,8 +148,16 @@ public class TileEntityAverageCounter extends TileEntity implements
 			data[index] = 0;
 			this.getAverage();
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
-
-			data[index] = total;
+			if(IC2NuclearControl.crossClassic.getClassicType() == IC2ClassicType.SPEIGER)
+			{
+				double realTotal = total - lastReceivedPower;
+				lastReceivedPower = total;
+				data[index] = realTotal
+			}
+			else
+			{
+				data[index] = total;
+			}
 			this.setPowerType((byte)EnergyStorageData.TARGET_TYPE_IC2);
 		}
 		super.updateEntity();
