@@ -1,17 +1,18 @@
 package shedar.mods.ic2.nuclearcontrol.containers;
 
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
 import shedar.mods.ic2.nuclearcontrol.SlotFilter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
+import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
 
 public class ContainerRemoteMonitor extends Container{
 
@@ -19,24 +20,40 @@ public class ContainerRemoteMonitor extends Container{
     protected InventoryItem item;
     public static TileEntityInfoPanel panel;
 
-    public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile){
-        this(inv, stack, iItem, tile, MinecraftServer.getServer().getEntityWorld());
-    }
+
     public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile, World world){
         this.is = stack;
         this.item = iItem;
         this.panel = tile;
-        if(IC2NuclearControl.isServer){
-            this.panel.setWorldObj(world);
-        }else{
-            this.panel.setWorldObj(MinecraftServer.getServer().getEntityWorld());
-        }
+        this.panel.setWorldObj(world);
+
 
         this.addSlotToContainer(new SlotFilter(this.item, 0, 177, 21));
         bindPlayerInventory(inv);
     }
+
+    protected static void initData() {
+        if(panel.getWorldObj() != null) {
+            if (!panel.getWorldObj().isRemote) {
+                RedstoneHelper.checkPowered(panel.getWorldObj(), panel);
+            }
+        }
+            if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+                if (panel.screenData == null) {
+                    IC2NuclearControl.instance.screenManager.registerInfoPanel(panel);
+                } else {
+                    panel.setScreen(IC2NuclearControl.instance.screenManager.loadScreen(panel));
+                    if (panel.getScreen() != null) {
+                        panel.getScreen().init(true, panel.getWorldObj());
+                    }
+                }
+            }
+            panel.init = true;
+    }
     public static void updateTile(){
+        initData();
         panel.updateEntity();
+        panel.init = false;
     }
 
     protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {

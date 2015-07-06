@@ -4,17 +4,13 @@ package shedar.mods.ic2.nuclearcontrol.gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
-import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
 import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
@@ -55,14 +51,15 @@ public class GuiRemoteMonitor extends GuiContainer{
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         List<PanelString> joinedData = new LinkedList<PanelString>();
         boolean anyCardFound = false;
+        InventoryItem ivz = new InventoryItem(e.getCurrentEquippedItem());
+       // NCLog.fatal("GUI RECEIVE: " + ItemStackUtils.getTagCompound(ivz.getStackInSlot(0)).getInteger("energyL"));
+        if (ivz.getStackInSlot(0) != null) {
+             ivz.markDirty();
 
-        if (inv.getStackInSlot(0) != null) {
-            inv.markDirty();
-            ContainerRemoteMonitor.updateTile();
-            //panel.updateEntity();
-            ItemStack card = inv.getStackInSlot(0);
+            ItemStack card = ivz.getStackInSlot(0);
             ChannelHandler.network.sendToServer(new PacketServerUpdate(card));
-            this.processCard(card, 10, 0, panel);
+            //this.processCard(card, 10, 0, panel);
+
             if (card == null || !(card.getItem() instanceof IPanelDataSource)) {
                 drawCardStuff(anyCardFound, joinedData);
             }
@@ -96,37 +93,6 @@ public class GuiRemoteMonitor extends GuiContainer{
                 return;
             }
 
-            //MIND THE COPYPASTA...
-            int maxWidth = 1;
-            float displayWidth = 1 - 2F / 16;
-            float displayHeight = 1 - 2F / 16;
-            for (PanelString panelString : joinedData) {
-                String currentString = implodeArray(new String[] {panelString.textLeft, panelString.textCenter, panelString.textRight }, " ");
-                maxWidth = Math.max(fontRendererObj.getStringWidth(currentString), maxWidth);
-            }
-            maxWidth += 4;
-
-            int lineHeight = fontRendererObj.FONT_HEIGHT + 2;
-            int requiredHeight = lineHeight * joinedData.size();
-            float scaleX = displayWidth / maxWidth;
-            float scaleY = displayHeight / requiredHeight;
-            float scale = Math.min(scaleX, scaleY);
-            //GL11.glScalef(scale, -scale, scale);
-            //GL11.glDepthMask(false);
-
-            int offsetX;
-            int offsetY;
-
-            int realHeight = (int) Math.floor(displayHeight / scale);
-            int realWidth = (int) Math.floor(displayWidth / scale);
-
-            if (scaleX < scaleY) {
-                offsetX = 2;
-                offsetY = (realHeight - requiredHeight) / 2;
-            } else {
-                offsetX = (realWidth - maxWidth) / 2 + 2;
-                offsetY = 0;
-            }
             //NCLog.fatal("HERE");
             //GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -134,42 +100,23 @@ public class GuiRemoteMonitor extends GuiContainer{
             for (PanelString panelString : joinedData) {
                 if (panelString.textLeft != null) {
                     //NCLog.fatal("HERE1");
-                    fontRendererObj.drawString(panelString.textLeft,( offsetX - realWidth / 2) + 53,( 1 + offsetY - realHeight / 2 + row * lineHeight) + 30, 0x06aee4);
+                    fontRendererObj.drawString(panelString.textLeft, (int) (this.guiTop + (row * 0.5)), this.ySize + 30, 0x06aee4);
                 }
                 if (panelString.textCenter != null) {
                     //NCLog.fatal("HERE2");
-                    fontRendererObj.drawString(panelString.textCenter, -fontRendererObj.getStringWidth(panelString.textCenter) / 2, offsetY - realHeight / 2 + row * lineHeight, 0x06aee4);
+                    fontRendererObj.drawString(panelString.textCenter,this.xSize, this.ySize + 30, 0x06aee4);
                 }
                 if (panelString.textRight != null) {
                     //NCLog.fatal("HERE3");
-                    this.fontRendererObj.drawString(panelString.textRight, (offsetX - realWidth / 2) + 120, (1 + offsetY - realHeight / 2 + row * lineHeight) + 20, 0x06aee4);
+                    this.fontRendererObj.drawString(panelString.textRight, this.xSize, this.ySize + 30, 0x06aee4);
                 }
                 row++;
             }
 
-            //GL11.glEnable(GL11.GL_LIGHTING);
-        //fontRendererObj.drawString("BHATODKK", 8, ySize - 96 + 2, 4210752);
         }
 
 
-    private static String implodeArray(String[] inputArray, String glueString) {
-        String output = "";
-        if (inputArray.length > 0) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < inputArray.length; i++) {
-                if (inputArray[i] == null || inputArray[i].isEmpty())
-                    continue;
-                sb.append(glueString);
-                sb.append(inputArray[i]);
-            }
-            output = sb.toString();
-            if (output.length() > 1)
-                output = output.substring(1);
-        }
-        return output;
-    }
-
-    public void processCard(ItemStack card, int upgradeCountRange, int slot, TileEntity panel) {
+   /* public void processCard(ItemStack card, int upgradeCountRange, int slot, TileEntity panel) {
         if (card == null) {
             return;
         }
@@ -229,11 +176,11 @@ public class GuiRemoteMonitor extends GuiContainer{
                     NCLog.fatal("Null: "+ name);
                     //helper.clearField(name);
                 }
-            }*/
+            }
             //cardHelper.commit(this);
         }
 
-    }
+    }*/
 }
 
 

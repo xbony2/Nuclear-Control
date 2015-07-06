@@ -15,6 +15,7 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
 
 import java.io.*;
@@ -141,10 +142,12 @@ public class PacketClientRemoteMonitor implements IMessage {
             if(player.getHeldItem().getItem() == IC2NuclearControl.itemRemoteMonitor){
                 //ItemRemoteMonitor remote = (ItemRemoteMonitor) player.getHeldItem().getItem();
                 InventoryItem itemInv = new InventoryItem(player.getHeldItem());
+                //NCLog.fatal(itemInv.getStackInSlot(0));
                 if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IPanelDataSource)) {
                     return null;
                 }
                 CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), 0);
+                NCLog.fatal(message.fields.entrySet());
                 for (Map.Entry<String, Object> entry : message.fields.entrySet()) {
                     String name = entry.getKey();
                     Object value = entry.getValue();
@@ -153,6 +156,7 @@ public class PacketClientRemoteMonitor implements IMessage {
                     } else if (value instanceof Double) {
                         helper.setDouble(name, (Double) value);
                     } else if (value instanceof Integer) {
+                        NCLog.fatal(name + " " + value);
                         helper.setInt(name, (Integer) value);
                     } else if (value instanceof String) {
                         helper.setString(name, (String) value);
@@ -164,6 +168,7 @@ public class PacketClientRemoteMonitor implements IMessage {
                         helper.clearField(name);
                     }
                 }
+                //NCLog.fatal("CLIENT RECIEVE: " + ItemStackUtils.getTagCompound(itemInv.getStackInSlot(0)).getInteger("energyL"));
             }
 
             return null;

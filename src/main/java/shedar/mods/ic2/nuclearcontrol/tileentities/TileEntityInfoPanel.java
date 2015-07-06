@@ -68,7 +68,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	protected int updateTicker;
 	protected int dataTicker;
 	protected int tickRate;
-	protected boolean init;
+	public boolean init;
 	public ItemStack inventory[];
 	public NBTTagCompound screenData;
 	protected Screen screen;
