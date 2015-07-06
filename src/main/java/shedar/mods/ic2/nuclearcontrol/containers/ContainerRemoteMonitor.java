@@ -24,7 +24,7 @@ public class ContainerRemoteMonitor extends Container{
     public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile, World world){
         this.is = stack;
         this.item = iItem;
-        this.panel = tile;
+        this.panel = new TileEntityInfoPanel();
         this.panel.setWorldObj(world);
 
 

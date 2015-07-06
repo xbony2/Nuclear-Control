@@ -29,6 +29,7 @@ public class GuiRemoteMonitor extends GuiContainer{
     private InventoryItem inv;
     private EntityPlayer e;
     public TileEntityInfoPanel panel;
+    int ticks;
 
     public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel, World world){
         super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel, world));
@@ -49,6 +50,7 @@ public class GuiRemoteMonitor extends GuiContainer{
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        ticks++;
         List<PanelString> joinedData = new LinkedList<PanelString>();
         boolean anyCardFound = false;
         InventoryItem ivz = new InventoryItem(e.getCurrentEquippedItem());
@@ -57,7 +59,10 @@ public class GuiRemoteMonitor extends GuiContainer{
              ivz.markDirty();
 
             ItemStack card = ivz.getStackInSlot(0);
-            ChannelHandler.network.sendToServer(new PacketServerUpdate(card));
+            if((ticks & 1) == 0) {
+                ChannelHandler.network.sendToServer(new PacketServerUpdate(card));
+                NCLog.fatal("CALLEd");
+            }
             //this.processCard(card, 10, 0, panel);
 
             if (card == null || !(card.getItem() instanceof IPanelDataSource)) {
@@ -88,10 +93,34 @@ public class GuiRemoteMonitor extends GuiContainer{
     }
     private void drawCardStuff(Boolean anyCardFound, List<PanelString> joinedData){
        // NCLog.error("wat?");
-            if (!anyCardFound) {
-                NCLog.fatal("HERE?");
-                return;
-            }
+        if (!anyCardFound) {
+            NCLog.fatal("HERE?");
+            return;
+        }
+        float displayWidth = 1 - 2F / 16;
+        float displayHeight = 1 - 2F / 16;
+        int maxWidth = 1;
+        int lineHeight = fontRendererObj.FONT_HEIGHT + 2;
+        int requiredHeight = lineHeight * joinedData.size();
+        float scaleX = displayWidth / maxWidth;
+        float scaleY = displayHeight / requiredHeight;
+        float scale = Math.min(scaleX, scaleY);
+        GL11.glScalef(scale, -scale, scale);
+        GL11.glDepthMask(false);
+
+        int offsetX;
+        int offsetY;
+
+        int realHeight = (int) Math.floor(displayHeight / scale);
+        int realWidth = (int) Math.floor(displayWidth / scale);
+
+        if (scaleX < scaleY) {
+            offsetX = 2;
+            offsetY = (realHeight - requiredHeight) / 2;
+        } else {
+            offsetX = (realWidth - maxWidth) / 2 + 2;
+            offsetY = 0;
+        }
 
             //NCLog.fatal("HERE");
             //GL11.glDisable(GL11.GL_LIGHTING);
@@ -100,7 +129,7 @@ public class GuiRemoteMonitor extends GuiContainer{
             for (PanelString panelString : joinedData) {
                 if (panelString.textLeft != null) {
                     //NCLog.fatal("HERE1");
-                    fontRendererObj.drawString(panelString.textLeft, (int) (this.guiTop + (row * 0.5)), this.ySize + 30, 0x06aee4);
+                    fontRendererObj.drawString(panelString.textLeft,  offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + row * lineHeight, 0x06aee4);
                 }
                 if (panelString.textCenter != null) {
                     //NCLog.fatal("HERE2");
