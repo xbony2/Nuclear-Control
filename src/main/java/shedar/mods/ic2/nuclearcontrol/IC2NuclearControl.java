@@ -177,7 +177,7 @@ public class IC2NuclearControl {
 		//CrossBigReactors.doStuff();
         //CrossAppeng.RegistrationCheck();
 	}
-	
+
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
@@ -187,10 +187,9 @@ public class IC2NuclearControl {
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
 		crossClassic = new CrossIndustrialCraft2Classic();
-		
-		if (recipes.equalsIgnoreCase("normal")) {
+
+		if (recipes.equalsIgnoreCase("normal"))
 			RecipesNew.addRecipes();
-		}
 
 		if (recipes.equalsIgnoreCase("old")) {
 			logger.error("Old recipes deprecated! Many recipes may be missing.");
@@ -201,8 +200,6 @@ public class IC2NuclearControl {
 			GregtechRecipes.addRecipes();
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
 		}
-		
-		
 
 		/*
 		//I thought about doing this, but I didn't :P
