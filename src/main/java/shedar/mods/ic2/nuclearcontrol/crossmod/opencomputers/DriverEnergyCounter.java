@@ -1,7 +1,9 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers;
 
-import li.cil.oc.api.network.ManagedEnvironment;
+import li.cil.oc.api.machine.Context;
 
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.network.ManagedEnvironment;
 import li.cil.oc.api.machine.Callback;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
 import li.cil.oc.api.driver.NamedBlock;
@@ -38,14 +40,14 @@ public class DriverEnergyCounter extends DriverTileEntity {
 			return 0;
 		}
 		
-		@Callback(doc = "function():number -- gets the period (in seconds) of the average counter.")
-		public Object[] getPeriod(final Context context, final Arguments args){
-			return new Object[]{((int)tileEntity.period)};
+		@Callback(doc = "function():number -- gets the count of the counter.")
+		public Object[] getCount(final Context context, final Arguments args){
+			return new Object[]{((int)tileEntity.counter)};
 		}
 		
-		@Callback(doc = "function():number -- gets the average of the counter.")
-		public Object[] getAverage(final Context context, final Arguments args){
-			return new Object[]{((int)tileEntity.getClientAverage())};
+		@Callback(doc = "function():number -- gets the energy type (0 for EU, 1 for RF, -1 for unknown/nil)")
+		public Object[] getEnergyType(final Context context, final Arguments args){
+			return new Object[]{((int)tileEntity.powerType)};
 		}
 	}
 }

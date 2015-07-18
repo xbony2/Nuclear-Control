@@ -1,7 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers;
 
 import li.cil.oc.api.machine.Callback;
-
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.driver.NamedBlock;
@@ -53,6 +52,11 @@ public class DriverAverageCounter extends DriverTileEntity{
 		@Callback(doc = "function():number -- gets the average of the counter.")
 		public Object[] getAverage(final Context context, final Arguments args){
 			return new Object[]{((int)tileEntity.getClientAverage())};
+		}
+		
+		@Callback(doc = "function():number -- gets the energy type (0 for EU, 1 for RF, -1 for unknown/nil)")
+		public Object[] getEnergyType(final Context context, final Arguments args){
+			return new Object[]{((int)tileEntity.powerType)};
 		}
 	}
 }
