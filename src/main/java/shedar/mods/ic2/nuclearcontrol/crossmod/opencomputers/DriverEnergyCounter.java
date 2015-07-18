@@ -1,37 +1,30 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers;
 
-import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.network.ManagedEnvironment;
 
-import li.cil.oc.api.machine.Arguments;
-import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.machine.Callback;
+import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityEnergyCounter;
 import li.cil.oc.api.driver.NamedBlock;
 import li.cil.oc.integration.ManagedTileEntityEnvironment;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityAverageCounter;
-import li.cil.oc.api.network.ManagedEnvironment;
-import net.minecraft.world.World;
 import li.cil.oc.api.prefab.DriverTileEntity;
+import net.minecraft.world.World;
 
-/**
- * OC Driver for the average counter.
- * 
- * @author xbony2
- */
-public class DriverAverageCounter extends DriverTileEntity{
-	public static final String NAME = "average_counter";
-
+public class DriverEnergyCounter extends DriverTileEntity {
+	public static final String NAME = "energy_counter";
+	
 	@Override
 	public ManagedEnvironment createEnvironment(World world, int x, int y, int z){
-		return new Environment((TileEntityAverageCounter)world.getTileEntity(x, y, z));
+		return new Environment((TileEntityEnergyCounter)world.getTileEntity(x, y, z));
 	}
 
 	@Override
 	public Class<?> getTileEntityClass(){
-		return TileEntityAverageCounter.class;
+		return TileEntityEnergyCounter.class;
 	}
 	
-	public static final class Environment extends ManagedTileEntityEnvironment<TileEntityAverageCounter> implements NamedBlock{
-		public Environment(final TileEntityAverageCounter tileentity) {
+	public static final class Environment extends ManagedTileEntityEnvironment<TileEntityEnergyCounter> implements NamedBlock{
+		public Environment(final TileEntityEnergyCounter tileentity) {
 			super(tileentity, NAME);
 		}
 
