@@ -1,7 +1,5 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
-import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.IC2ClassicType;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
@@ -27,6 +25,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.CrossIndustrialCraft2Classic;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
 
 import java.util.List;
@@ -151,7 +150,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 			this.getAverage();
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
 
-			if(IC2NuclearControl.instance.crossClassic.getClassicType() == IC2ClassicType.SPEIGER){
+			if(CrossIndustrialCraft2Classic.isClassicSpeiger){
 				double realTotal = total - lastReceivedPower;
 				lastReceivedPower = total;
 				data[index] = realTotal;
