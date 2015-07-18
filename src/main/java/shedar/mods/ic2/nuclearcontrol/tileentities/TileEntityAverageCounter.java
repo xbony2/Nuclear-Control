@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.IC2ClassicType;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
@@ -56,6 +58,8 @@ public class TileEntityAverageCounter extends TileEntity implements
 	protected short prevPeriod;
 	public short period;
 	protected int clientAverage = -1;
+	
+	private double lastReceivedPower = 0; //#blameclassic
 
 	public int packetSize;
 
@@ -136,8 +140,8 @@ public class TileEntityAverageCounter extends TileEntity implements
 		}
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
 			return;
-		if (!worldObj.isRemote) {
-			if (!addedToEnergyNet) {
+		if (!worldObj.isRemote){
+			if (!addedToEnergyNet){
 				EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
 				MinecraftForge.EVENT_BUS.post(event);
 				addedToEnergyNet = true;
@@ -147,7 +151,13 @@ public class TileEntityAverageCounter extends TileEntity implements
 			this.getAverage();
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
 
-			data[index] = total;
+			if(IC2NuclearControl.instance.crossClassic.getClassicType() == IC2ClassicType.SPEIGER){
+				double realTotal = total - lastReceivedPower;
+				lastReceivedPower = total;
+				data[index] = realTotal;
+			}else
+				data[index] = total;
+			
 			this.setPowerType((byte)EnergyStorageData.TARGET_TYPE_IC2);
 		}
 		super.updateEntity();

@@ -1,9 +1,13 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic;
 
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 public class CrossIndustrialCraft2Classic{
 	private IC2ClassicType type;
+	
+	public static final boolean isClassicSpeiger = IC2NuclearControl.crossClassic.getClassicType() == IC2ClassicType.SPEIGER;
 	
 	public CrossIndustrialCraft2Classic(){
 		try{
