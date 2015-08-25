@@ -18,7 +18,9 @@ import shedar.mods.ic2.nuclearcontrol.api.IRemoteSensor;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.ItemCardRFEnergyLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardBase;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 
 public class PacketServerUpdate implements IMessage{
@@ -53,17 +55,19 @@ public class PacketServerUpdate implements IMessage{
            // NCLog.error(stack);
 
             if(stack != null && stack.getItem() instanceof ItemCardBase){
-                CardWrapperImpl helper = new CardWrapperImpl(stack, 0);
-                CardState state = ((IPanelDataSource) stack.getItem()).update(ContainerRemoteMonitor.panel, helper, 100);
-                this.processCard(stack, 10, 0, ContainerRemoteMonitor.panel);
-                return new PacketClientRemoteMonitor(helper.getUpdateSet());
+                CardWrapperImpl helper = this.processCard(stack, 10, 0);
+                //CardState state = ((IPanelDataSource) stack.getItem()).update(ContainerRemoteMonitor.panel, helper, 100);
+                if(helper != null) {
+                    //NCLog.fatal(helper.getUpdateSet().entrySet());
+                    return new PacketClientRemoteMonitor(helper.getUpdateSet());
+                }
             }
             return null;
         }
 
-        private void processCard(ItemStack card, int upgradeCountRange, int slot, TileEntity panel) {
+        private CardWrapperImpl processCard(ItemStack card, int upgradeCountRange, int slot) {
             if (card == null) {
-                return;
+                return null;
             }
             Item item = card.getItem();
             if (item instanceof IPanelDataSource) {
@@ -85,14 +89,17 @@ public class PacketServerUpdate implements IMessage{
                 }
                 if (needUpdate) {
                     CardState state = null;
-                    if(item instanceof ItemCardRFEnergyLocation){
-                        state = ((ItemCardRFEnergyLocation) item).update(MinecraftServer.getServer().worldServers[0], cardHelper, range);
+                    if(item instanceof ItemCardEnergySensorLocation){
+                        state = ((ItemCardEnergySensorLocation) item).update(MinecraftServer.getServer().worldServers[0], cardHelper, range);
                     }else {
-                        state = ((IPanelDataSource) item).update(panel, cardHelper, range);
+                        state = ((IPanelDataSource) item).update(null, cardHelper, range);
                     }
                     cardHelper.setInt("state", state.getIndex());
+
                 }
+                return cardHelper;
             }
+            return null;
         }
     }
 }

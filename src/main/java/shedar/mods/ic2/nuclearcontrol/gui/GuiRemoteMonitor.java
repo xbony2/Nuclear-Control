@@ -5,6 +5,7 @@ import ic2.core.IC2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,13 +39,15 @@ public class GuiRemoteMonitor extends GuiContainer{
     public static final int REMOTEMONITOR_GUI = 17;
     private InventoryItem inv;
     private EntityPlayer e;
+    private World world;
     public TileEntityInfoPanel panel;
 
-    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel){
+    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel, World world){
         super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel, Minecraft.getMinecraft().theWorld));
         this.inv = inventoryItem;
         this.e = player;
         this.panel = panel;
+        this.world = world;
     }
 
     @Override
@@ -63,15 +66,20 @@ public class GuiRemoteMonitor extends GuiContainer{
         boolean anyCardFound = true;
         if (inv.getStackInSlot(0) != null) {
             if(inv.getStackInSlot(0).getItem().equals(IC2NuclearControl.itemEnergySensorLocationCard)){
+                InventoryItem itemInv = new InventoryItem(e.getHeldItem());
+
                 ItemCardEnergySensorLocation card = (ItemCardEnergySensorLocation) inv.getStackInSlot(0).getItem();
-                CardWrapperImpl helper = new CardWrapperImpl(inv.getStackInSlot(0), -1);
-                ChunkCoordinates target = helper.getTarget();
-                joinedData.clear();
-                World world = MinecraftServer.getServer().worldServers[0];
-                TileEntity tile = world.getTileEntity(target.posX,target.posY, target.posZ);
-                tile.getDescriptionPacket();
-                tile.markDirty();
-                card.update(e.worldObj, helper, 8 * (int) Math.pow(2, 7));
+                CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
+                //ChunkCoordinates target = helper.getTarget();
+                //joinedData.clear();
+                //World world = MinecraftServer.getServer().worldServers[0];
+                //TileEntity tile = world.getTileEntity(target.posX,target.posY, target.posZ);
+                //tile.getDescriptionPacket();
+                //tile.markDirty();
+                //card.update(e.worldObj, helper, 8 * (int) Math.pow(2, 7));
+
+                ChannelHandler.network.sendToServer(new PacketServerUpdate(inv.getStackInSlot(0)));
+               // this.processCard(inv.getStackInSlot(0),7, 0, null);
                 joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
                 drawCardStuff(anyCardFound, joinedData);
             }
@@ -214,8 +222,14 @@ public class GuiRemoteMonitor extends GuiContainer{
                 }
             }
             if (needUpdate) {
-                CardState state = ((IPanelDataSource) item).update(panel, cardHelper, range);
+                CardState state = null;
+                if(item instanceof ItemCardEnergySensorLocation){
+                    state = ((ItemCardEnergySensorLocation) item).update(world, cardHelper, range);
+                }else {
+                    state = ((IPanelDataSource) item).update(panel, cardHelper, range);
+                }
                 cardHelper.setInt("state", state.getIndex());
+
             }
 
             //cardHelper.getUpdateSet();

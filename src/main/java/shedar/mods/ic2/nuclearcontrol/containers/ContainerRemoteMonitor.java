@@ -21,21 +21,10 @@ public class ContainerRemoteMonitor extends Container{
 
     protected ItemStack is;
     protected InventoryItem item;
-    public static TileEntityInfoPanel panel;
 
     public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile, World world){
         this.is = stack;
         this.item = iItem;
-        this.panel = tile;
-        if(world.isRemote) {
-            if(MinecraftServer.getServer() != null && MinecraftServer.getServer().worldServers != null) {
-                this.panel.setWorldObj(MinecraftServer.getServer().getEntityWorld()); //MinecraftServer.getServer().getEntityWorld()
-            } else{
-                NCLog.error(FMLClientHandler.instance().getServer().worldServers.length);
-            }
-        }else{
-            this.panel.setWorldObj(world);
-        }
 
         this.addSlotToContainer(new SlotFilter(this.item, 0, 177, 21));
         bindPlayerInventory(inv);

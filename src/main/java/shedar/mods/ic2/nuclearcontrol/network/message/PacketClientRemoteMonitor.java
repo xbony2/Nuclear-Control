@@ -146,17 +146,17 @@ public class PacketClientRemoteMonitor implements IMessage {
                 if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IPanelDataSource)) {
                     return null;
                 }
-                CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), 0);
-                NCLog.fatal(message.fields.entrySet());
+                CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
+                NCLog.fatal("PACKET SIDE:" + message.fields.entrySet());
                 for (Map.Entry<String, Object> entry : message.fields.entrySet()) {
                     String name = entry.getKey();
                     Object value = entry.getValue();
                     if (value instanceof Long) {
                         helper.setLong(name, (Long) value);
                     } else if (value instanceof Double) {
+                        NCLog.fatal(name + " " + value);
                         helper.setDouble(name, (Double) value);
                     } else if (value instanceof Integer) {
-                        NCLog.fatal(name + " " + value);
                         helper.setInt(name, (Integer) value);
                     } else if (value instanceof String) {
                         helper.setString(name, (String) value);

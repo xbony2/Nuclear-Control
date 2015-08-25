@@ -15,9 +15,6 @@ import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardBase;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
 
-/**
- * Created by David on 8/24/2015.
- */
 public class PacketClientUpdate implements IMessage {
 
     //private Map<String, Object> tag;
