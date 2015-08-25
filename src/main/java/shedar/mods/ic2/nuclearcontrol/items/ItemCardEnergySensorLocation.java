@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.api.*;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
@@ -49,6 +50,19 @@ public class ItemCardEnergySensorLocation extends ItemCardBase implements IRemot
 		}
 	}
 
+	public CardState update(World world, ICardWrapper card, int range) {
+		ChunkCoordinates target = card.getTarget();
+		int targetType = card.getInt("targetType");
+		EnergyStorageData storage = EnergyStorageHelper.getStorageAt(world, target.posX, target.posY, target.posZ, targetType);
+		if (storage != null) {
+			card.setDouble("energyL", storage.stored);
+			card.setDouble("maxStorageL", storage.capacity);
+			card.setDouble("range_trigger_amount", storage.stored);
+			return CardState.OK;
+		} else {
+			return CardState.NO_TARGET;
+		}
+	}
 	@Override
 	public UUID getCardType() {
 		return CARD_TYPE;

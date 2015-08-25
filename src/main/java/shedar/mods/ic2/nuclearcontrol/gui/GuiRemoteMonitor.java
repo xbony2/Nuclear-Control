@@ -2,20 +2,28 @@ package shedar.mods.ic2.nuclearcontrol.gui;
 
 
 import ic2.core.IC2;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
+import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
 import shedar.mods.ic2.nuclearcontrol.api.*;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossTE;
+import shedar.mods.ic2.nuclearcontrol.crossmod.RF.ItemCardRFEnergyLocation;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardBase;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.network.message.PacketServerUpdate;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
@@ -33,7 +41,7 @@ public class GuiRemoteMonitor extends GuiContainer{
     public TileEntityInfoPanel panel;
 
     public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel){
-        super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel));
+        super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel, Minecraft.getMinecraft().theWorld));
         this.inv = inventoryItem;
         this.e = player;
         this.panel = panel;
@@ -52,10 +60,22 @@ public class GuiRemoteMonitor extends GuiContainer{
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         List<PanelString> joinedData = new LinkedList<PanelString>();
-        boolean anyCardFound = false;
-
+        boolean anyCardFound = true;
         if (inv.getStackInSlot(0) != null) {
-            inv.markDirty();
+            if(inv.getStackInSlot(0).getItem().equals(IC2NuclearControl.itemEnergySensorLocationCard)){
+                ItemCardEnergySensorLocation card = (ItemCardEnergySensorLocation) inv.getStackInSlot(0).getItem();
+                CardWrapperImpl helper = new CardWrapperImpl(inv.getStackInSlot(0), -1);
+                ChunkCoordinates target = helper.getTarget();
+                joinedData.clear();
+                World world = MinecraftServer.getServer().worldServers[0];
+                TileEntity tile = world.getTileEntity(target.posX,target.posY, target.posZ);
+                tile.getDescriptionPacket();
+                tile.markDirty();
+                card.update(e.worldObj, helper, 8 * (int) Math.pow(2, 7));
+                joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
+                drawCardStuff(anyCardFound, joinedData);
+            }
+            /*inv.markDirty();
             panel.updateEntity();
             ItemStack card = inv.getStackInSlot(0);
             ChannelHandler.network.sendToServer(new PacketServerUpdate(card));
@@ -81,9 +101,7 @@ public class GuiRemoteMonitor extends GuiContainer{
             joinedData.addAll(data);
             anyCardFound = true;
             drawCardStuff(anyCardFound, joinedData);
-        } else {
-            inv.markDirty();
-            anyCardFound = false;
+            */
         }
     }
     private void drawCardStuff(Boolean anyCardFound, List<PanelString> joinedData){
@@ -94,9 +112,9 @@ public class GuiRemoteMonitor extends GuiContainer{
             }
 
             //MIND THE COPYPASTA...
-            int maxWidth = 1;
-            float displayWidth = 1 - 2F / 16;
-            float displayHeight = 1 - 2F / 16;
+            int maxWidth = 40;
+            float displayWidth = this.width;
+            float displayHeight = this.height;
             for (PanelString panelString : joinedData) {
                 String currentString = implodeArray(new String[] {panelString.textLeft, panelString.textCenter, panelString.textRight }, " ");
                 maxWidth = Math.max(fontRendererObj.getStringWidth(currentString), maxWidth);

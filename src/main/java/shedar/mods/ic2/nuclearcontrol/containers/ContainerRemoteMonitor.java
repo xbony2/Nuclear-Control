@@ -1,15 +1,21 @@
 package shedar.mods.ic2.nuclearcontrol.containers;
 
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.server.FMLServerHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dedicated.DedicatedServer;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
 import shedar.mods.ic2.nuclearcontrol.SlotFilter;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 public class ContainerRemoteMonitor extends Container{
 
@@ -17,11 +23,19 @@ public class ContainerRemoteMonitor extends Container{
     protected InventoryItem item;
     public static TileEntityInfoPanel panel;
 
-    public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile){
+    public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile, World world){
         this.is = stack;
         this.item = iItem;
         this.panel = tile;
-        this.panel.setWorldObj(MinecraftServer.getServer().getEntityWorld());
+        if(world.isRemote) {
+            if(MinecraftServer.getServer() != null && MinecraftServer.getServer().worldServers != null) {
+                this.panel.setWorldObj(MinecraftServer.getServer().getEntityWorld()); //MinecraftServer.getServer().getEntityWorld()
+            } else{
+                NCLog.error(FMLClientHandler.instance().getServer().worldServers.length);
+            }
+        }else{
+            this.panel.setWorldObj(world);
+        }
 
         this.addSlotToContainer(new SlotFilter(this.item, 0, 177, 21));
         bindPlayerInventory(inv);
