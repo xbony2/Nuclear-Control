@@ -3,6 +3,7 @@ package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
 import cofh.api.energy.IEnergyHandler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
@@ -38,6 +39,21 @@ public class ItemCardRFEnergyLocation extends ItemCardEnergySensorLocation {
                 card.setInt("maxStorageL", iEnergyStorage.getMaxEnergyStored(ForgeDirection.UNKNOWN));
                 card.setInt("range_trigger_amount", iEnergyStorage.getEnergyStored(ForgeDirection.UNKNOWN));
                 return CardState.OK;
+        } else {
+            return CardState.NO_TARGET;
+        }
+    }
+
+    public CardState update(World world, ICardWrapper card, int range) {
+        ChunkCoordinates target = card.getTarget();
+        TileEntity tile = world.getTileEntity(target.posX, target.posY, target.posZ);
+        //NCLog.fatal(tile instanceof IEnergyHandler);
+        if(tile instanceof IEnergyHandler) {
+            IEnergyHandler iEnergyStorage = (IEnergyHandler) tile;
+            card.setInt("energyL", iEnergyStorage.getEnergyStored(ForgeDirection.UNKNOWN));
+            card.setInt("maxStorageL", iEnergyStorage.getMaxEnergyStored(ForgeDirection.UNKNOWN));
+            card.setInt("range_trigger_amount", iEnergyStorage.getEnergyStored(ForgeDirection.UNKNOWN));
+            return CardState.OK;
         } else {
             return CardState.NO_TARGET;
         }
