@@ -123,7 +123,7 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase {
 
 	@Override
 	public CardState update(World world, ICardWrapper card, int range) {
-		return null;
+		return CardState.CUSTOM_ERROR;
 	}
 
 	@Override

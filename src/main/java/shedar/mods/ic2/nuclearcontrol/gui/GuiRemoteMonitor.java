@@ -70,53 +70,23 @@ public class GuiRemoteMonitor extends GuiContainer{
                 if (itemInv.getStackInSlot(0).getItem() instanceof IPanelDataSource) {
                     IPanelDataSource card = (IPanelDataSource) itemInv.getStackInSlot(0).getItem();
                     CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
-                    //ChunkCoordinates target = helper.getTarget();
-                    //joinedData.clear();
-                    //World world = MinecraftServer.getServer().worldServers[0];
-                    //TileEntity tile = world.getTileEntity(target.posX,target.posY, target.posZ);
-                    //tile.getDescriptionPacket();
-                    //tile.markDirty();
-                    //card.update(e.worldObj, helper, 8 * (int) Math.pow(2, 7));
 
                     ChannelHandler.network.sendToServer(new PacketServerUpdate(inv.getStackInSlot(0)));
                     // this.processCard(inv.getStackInSlot(0),7, 0, null);
-                    joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
-
+                    joinedData.clear();
+                    if(helper.getState() != CardState.OK){
+                        joinedData = StringUtils.getStateMessage(helper.getState());
+                    }else {
+                        joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
+                    }
                 }
-            /*inv.markDirty();
-            panel.updateEntity();
-            ItemStack card = inv.getStackInSlot(0);
-            ChannelHandler.network.sendToServer(new PacketServerUpdate(card));
-            this.processCard(card, 10, 0, panel);
-            if (card == null || !(card.getItem() instanceof IPanelDataSource)) {
-                drawCardStuff(anyCardFound, joinedData);
-            }
-            int displaySettings = panel.getDisplaySettingsByCard(card);
-            if (displaySettings == 0) {
-                drawCardStuff(anyCardFound, joinedData);
-            }
-            CardWrapperImpl helper = new CardWrapperImpl(card, -1);
-            CardState state = helper.getState();
-            List<PanelString> data;
-            if (state != CardState.OK && state != CardState.CUSTOM_ERROR) {
-                data = StringUtils.getStateMessage(state);
-            } else {
-                data = panel.getCardData(displaySettings, card, helper);
-            }
-            if (data == null) {
-                drawCardStuff(anyCardFound, joinedData);
-            }
-            joinedData.addAll(data);
-            anyCardFound = true;
-            drawCardStuff(anyCardFound, joinedData);
-            */
             }
         drawCardStuff(anyCardFound, joinedData);
     }
     private void drawCardStuff(Boolean anyCardFound, List<PanelString> joinedData){
        // NCLog.error("wat?");
             if (!anyCardFound) {
-                NCLog.fatal("HERE?");
+                NCLog.fatal("This should never happen. If you see this report immediately to NC2 repo. Include GuiRemoteMonitorError-123 in the report!");
                 return;
             }
 
@@ -129,6 +99,8 @@ public class GuiRemoteMonitor extends GuiContainer{
                 maxWidth = Math.max(fontRendererObj.getStringWidth(currentString), maxWidth);
             }
             maxWidth += 4;
+            int x = ((width - xSize) / 2) - 50;
+            int y = ((height - ySize) / 2);
 
             int lineHeight = fontRendererObj.FONT_HEIGHT + 2;
             int requiredHeight = lineHeight * joinedData.size();
@@ -158,15 +130,15 @@ public class GuiRemoteMonitor extends GuiContainer{
             for (PanelString panelString : joinedData) {
                 if (panelString.textLeft != null) {
                     //NCLog.fatal("HERE1");
-                    fontRendererObj.drawString(panelString.textLeft,( offsetX - realWidth / 2) + 53,( 1 + offsetY - realHeight / 2 + row * lineHeight) + 30, 0x06aee4);
+                    fontRendererObj.drawString(panelString.textLeft, 9, (row * 10) + 20, 0x06aee4);
                 }
                 if (panelString.textCenter != null) {
                     //NCLog.fatal("HERE2");
-                    fontRendererObj.drawString(panelString.textCenter, -fontRendererObj.getStringWidth(panelString.textCenter) / 2, offsetY - realHeight / 2 + row * lineHeight, 0x06aee4);
+                    fontRendererObj.drawString(panelString.textCenter, (168 - fontRendererObj.getStringWidth(panelString.textCenter)) /2, (row * 10) + 20, 0x06aee4);
                 }
                 if (panelString.textRight != null) {
                     //NCLog.fatal("HERE3");
-                    this.fontRendererObj.drawString(panelString.textRight, (offsetX - realWidth / 2) + 120, (1 + offsetY - realHeight / 2 + row * lineHeight) + 20, 0x06aee4);
+                    this.fontRendererObj.drawString(panelString.textRight, 168 - fontRendererObj.getStringWidth(panelString.textRight), ((row-1) * 10) + 20, 0x06aee4);
                 }
                 row++;
             }

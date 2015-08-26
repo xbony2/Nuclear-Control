@@ -92,23 +92,32 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 		int damage = card.getItemStack().getItemDamage();
 		switch (damage) {
 		case ItemKitMultipleSensor.TYPE_COUNTER:
-			return updateCounter(panel, card, range);
+			return updateCounter(panel.getWorldObj(), card, range);
 		case ItemKitMultipleSensor.TYPE_LIQUID:
-			return updateLiquid(panel, card, range);
+			return updateLiquid(panel.getWorldObj(), card, range);
 		case ItemKitMultipleSensor.TYPE_GENERATOR:
-			return updateGenerator(panel, card, range);
+			return updateGenerator(panel.getWorldObj(), card, range);
 		}
 		return CardState.INVALID_CARD;
 	}
 
 	@Override
 	public CardState update(World world, ICardWrapper card, int range) {
-		return null;
+		int damage = card.getItemStack().getItemDamage();
+		switch (damage) {
+			case ItemKitMultipleSensor.TYPE_COUNTER:
+				return updateCounter(world, card, range);
+			case ItemKitMultipleSensor.TYPE_LIQUID:
+				return updateLiquid(world, card, range);
+			case ItemKitMultipleSensor.TYPE_GENERATOR:
+				return updateGenerator(world, card, range);
+		}
+		return CardState.INVALID_CARD;
 	}
 
-	public CardState updateLiquid(TileEntity panel, ICardWrapper card, int range) {
+	public CardState updateLiquid(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
-		FluidTankInfo storage = LiquidStorageHelper.getStorageAt(panel.getWorldObj(), target.posX, target.posY, target.posZ);
+		FluidTankInfo storage = LiquidStorageHelper.getStorageAt(world, target.posX, target.posY, target.posZ);
 		if (storage != null) {
 			int capacity = storage.capacity;
 			int amount = 0;
@@ -132,9 +141,9 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 		}
 	}
 
-	public CardState updateCounter(TileEntity panel, ICardWrapper card, int range) {
+	public CardState updateCounter(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
-		TileEntity tileEntity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
+		TileEntity tileEntity = world.getTileEntity(target.posX, target.posY, target.posZ);
 		if (tileEntity != null && tileEntity instanceof TileEntityEnergyCounter) {
 			TileEntityEnergyCounter counter = (TileEntityEnergyCounter) tileEntity;
 			card.setDouble("energy", counter.counter);
@@ -152,9 +161,9 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 		}
 	}
 
-	public CardState updateGenerator(TileEntity panel, ICardWrapper card, int range) {
+	public CardState updateGenerator(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
-		TileEntity entity = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
+		TileEntity entity = world.getTileEntity(target.posX, target.posY, target.posZ);
 		if (entity instanceof TileEntityBaseGenerator) {
 			// int production = ((TileEntityBaseGenerator)entity).production;
 			int production = (int) EnergyNet.instance.getTotalEnergyEmitted(entity);// TODO deprecated
