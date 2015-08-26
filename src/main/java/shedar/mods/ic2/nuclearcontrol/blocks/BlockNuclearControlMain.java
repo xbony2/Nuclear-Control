@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.tile.IWrenchable;
 
 import java.util.HashMap;
@@ -16,9 +18,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -38,10 +42,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
-import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
-import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
-import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
-import shedar.mods.ic2.nuclearcontrol.utils.WrenchHelper;
+import shedar.mods.ic2.nuclearcontrol.utils.*;
 
 public class BlockNuclearControlMain extends BlockContainer {
 	public static Map<Integer, Subblock> subblocks;
@@ -400,7 +401,21 @@ public class BlockNuclearControlMain extends BlockContainer {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f1, float f2, float f3) {
 		int blockType = world.getBlockMetadata(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
-
+		if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemDye){
+			if(tileEntity instanceof TileEntityHowlerAlarm){
+				//NCLog.error(ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
+				((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
+				world.markBlockForUpdate(x,y,z);
+				if(!player.capabilities.isCreativeMode) {
+					if (player.inventory.getCurrentItem().stackSize == 1) {
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+					} else {
+						player.inventory.getCurrentItem().stackSize--;
+					}
+				}
+				return true;
+			}
+		}
 		if (WrenchHelper.isWrenchClicked(tileEntity, player, side)) {
 			return true;
 		}
@@ -608,6 +623,23 @@ public class BlockNuclearControlMain extends BlockContainer {
 
 	}
 
+	@SideOnly(Side.CLIENT)
+	public int colorMultiplier(IBlockAccess world, int x, int y, int z)
+	{
+		if(world.getBlock(x,y,z).equals(this) && world.getBlockMetadata(x,y,z) == BlockDamages.DAMAGE_HOWLER_ALARM && world.getTileEntity(x,y,z) instanceof TileEntityHowlerAlarm) {
+			return ((TileEntityHowlerAlarm) world.getTileEntity(x, y, z)).getColor();
+		}else{
+			return 16777215;
+		}
+	}
+	//Color testing code - Unused
+	private int RGBToInt(final int r, final int g, final int b) {
+		int color = 0;
+		color = color | b;
+		color = color | g << 8;
+		color = color | r << 16;
 
+		return color;
+	}
 
 }
