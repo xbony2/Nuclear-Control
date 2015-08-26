@@ -7,6 +7,7 @@ import java.util.UUID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.api.CardHelper;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.IAdvancedCardSettings;
@@ -28,6 +29,11 @@ public class ItemCardText extends ItemCardBase implements IAdvancedCardSettings 
 
 	@Override
 	public CardState update(TileEntity panel, ICardWrapper card, int range) {
+		return CardState.OK;
+	}
+
+	@Override
+	public CardState update(World world, ICardWrapper card, int range) {
 		return CardState.OK;
 	}
 

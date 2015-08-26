@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
@@ -37,6 +38,45 @@ public class ItemCardAppeng extends ItemCardEnergySensorLocation {
     @Override
     public UUID getCardType() {
         return CARD_TYPE1;
+    }
+
+    @Override
+    public CardState update(World world, ICardWrapper card, int range) {
+        ChunkCoordinates target = card.getTarget();
+        int targetType = card.getInt("targetType");
+        if(targetType == 1) {
+            TileEntity check = world.getTileEntity(target.posX, target.posY, target.posZ);
+            if (check instanceof TileEntityNetworkLink) {
+                TileEntityNetworkLink tileNetworkLink = (TileEntityNetworkLink) check;
+                card.setInt("ByteTotal", tileNetworkLink.getTOTALBYTES());
+                card.setInt("UsedBytes", tileNetworkLink.getUSEDBYTES());
+                card.setInt("ItemsTotal", tileNetworkLink.getITEMTYPETOTAL());
+                card.setInt("UsedItems", tileNetworkLink.getUSEDITEMTYPE());
+                return CardState.OK;
+            } else {
+                return CardState.NO_TARGET;
+            }
+        } else if(targetType == 2){
+            TileEntity check = world.getTileEntity(target.posX, target.posY, target.posZ);
+            if(check instanceof TileCraftingMonitorTile){
+                TileCraftingMonitorTile monitorTile = (TileCraftingMonitorTile) check;
+                Item crafter;
+                int size;
+                if(monitorTile.getJobProgress() != null){
+                    crafter = monitorTile.getJobProgress().getItemStack().getItem();
+                    size = (int) monitorTile.getJobProgress().getStackSize();
+                }else{
+                    crafter = CrossAppeng.cardAppeng;
+                    size = 0;
+                }
+                card.setInt("ITEMSTACK", Item.getIdFromItem(crafter));
+                card.setInt("STACKSIZE", size);
+                return CardState.OK;
+            }
+        } else{
+            return CardState.NO_TARGET;
+        }
+        return CardState.NO_TARGET;
     }
 
     @Override

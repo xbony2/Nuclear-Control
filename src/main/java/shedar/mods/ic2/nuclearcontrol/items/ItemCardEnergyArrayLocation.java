@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
@@ -118,6 +119,11 @@ public class ItemCardEnergyArrayLocation extends ItemCardBase {
 			}
 			return CardState.OK;
 		}
+	}
+
+	@Override
+	public CardState update(World world, ICardWrapper card, int range) {
+		return null;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 /**
  * Custom card for Industrial Information Panel is class, inherited from Item,
@@ -28,6 +29,21 @@ public interface IPanelDataSource {
 	 *         details.
 	 */
 	CardState update(TileEntity panel, ICardWrapper card, int maxRange);
+
+	/**
+	 * Method to update card's data in Remote Monitor. Method called on server side.
+	 *
+	 * @param world
+	 *            World, to get a Tile Entity's Location
+	 * @param card
+	 *            Wrapper object, to update fields and get access to ItemStack
+	 * @param maxRange
+	 *            max allowed range to the target object, based on Range
+	 *            Upgrades count.
+	 * @return State of the card after update. Check {@link CardState} for
+	 *         details.
+	 */
+	CardState update(World world, ICardWrapper card, int maxRange);
 
 	/**
 	 * Method returns text representation of card's data. Each line is presented

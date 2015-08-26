@@ -89,11 +89,7 @@ public class PacketServerUpdate implements IMessage{
                 }
                 if (needUpdate) {
                     CardState state = null;
-                    if(item instanceof ItemCardEnergySensorLocation){
-                        state = ((ItemCardEnergySensorLocation) item).update(MinecraftServer.getServer().worldServers[0], cardHelper, range);
-                    }else {
-                        state = ((IPanelDataSource) item).update(null, cardHelper, range);
-                    }
+                        state = ((IPanelDataSource) item).update(MinecraftServer.getServer().worldServers[0], cardHelper, range);
                     cardHelper.setInt("state", state.getIndex());
 
                 }

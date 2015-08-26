@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.tileentity.TileEntity;
-
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
@@ -25,6 +25,11 @@ public class ItemTimeCard extends ItemCardBase {
 
 	@Override
 	public CardState update(TileEntity panel, ICardWrapper card, int range) {
+		return CardState.OK;
+	}
+
+	@Override
+	public CardState update(World world, ICardWrapper card, int range) {
 		return CardState.OK;
 	}
 

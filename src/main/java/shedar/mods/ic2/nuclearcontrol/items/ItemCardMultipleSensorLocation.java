@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.items;
 
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 
 import ic2.api.energy.EnergyNet;
@@ -98,6 +99,11 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 			return updateGenerator(panel, card, range);
 		}
 		return CardState.INVALID_CARD;
+	}
+
+	@Override
+	public CardState update(World world, ICardWrapper card, int range) {
+		return null;
 	}
 
 	public CardState updateLiquid(TileEntity panel, ICardWrapper card, int range) {

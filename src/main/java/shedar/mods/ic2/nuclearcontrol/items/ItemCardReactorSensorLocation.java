@@ -11,6 +11,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.api.CardHelper;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
@@ -70,6 +71,38 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 			return CardState.NO_TARGET;
 		}
 	}
+
+	@Override
+	public CardState update(World world, ICardWrapper card, int range) {
+		ChunkCoordinates target = card.getTarget();
+		IReactor reactor = NuclearHelper.getReactorAt(world,
+				target.posX, target.posY, target.posZ);
+		if (reactor != null) {
+			card.setInt("heat", reactor.getHeat());
+			card.setInt("maxHeat", reactor.getMaxHeat());
+			card.setBoolean("reactorPoweredB",
+					NuclearHelper.isProducing(reactor));
+			card.setInt("output",
+					(int) Math.round(reactor.getReactorEUEnergyOutput()));
+			card.setBoolean("isSteam", NuclearHelper.isSteam(reactor));
+
+			IInventory inventory = (IInventory) reactor;
+			int slotCount = inventory.getSizeInventory();
+			int timeLeft = 0;
+			for (int i = 0; i < slotCount; i++) {
+				ItemStack rStack = inventory.getStackInSlot(i);
+				if (rStack != null) {
+					timeLeft = Math.max(timeLeft,
+							NuclearHelper.getNuclearCellTimeLeft(rStack));
+				}
+			}
+			card.setInt("timeLeft", timeLeft * reactor.getTickRate() / 20);
+			return CardState.OK;
+		} else {
+			return CardState.NO_TARGET;
+		}
+	}
+
 
 	@Override
 	public UUID getCardType() {

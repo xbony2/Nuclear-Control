@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
@@ -37,8 +38,11 @@ public abstract class ItemCardBase extends Item implements IPanelDataSource {
 	 */
 
 	@Override
-	abstract public CardState update(TileEntity panel, ICardWrapper card,
-			int range);
+	abstract public CardState update(TileEntity panel, ICardWrapper card, int range);
+
+	@Override
+	abstract public CardState update(World world, ICardWrapper card, int range);
+
 
 	@Override
 	abstract public UUID getCardType();

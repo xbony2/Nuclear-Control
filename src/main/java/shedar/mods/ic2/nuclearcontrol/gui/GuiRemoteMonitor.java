@@ -41,6 +41,7 @@ public class GuiRemoteMonitor extends GuiContainer{
     private EntityPlayer e;
     private World world;
     public TileEntityInfoPanel panel;
+    int tick;
 
     public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel, World world){
         super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel, Minecraft.getMinecraft().theWorld));
@@ -64,25 +65,24 @@ public class GuiRemoteMonitor extends GuiContainer{
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         List<PanelString> joinedData = new LinkedList<PanelString>();
         boolean anyCardFound = true;
-        if (inv.getStackInSlot(0) != null) {
-            if(inv.getStackInSlot(0).getItem().equals(IC2NuclearControl.itemEnergySensorLocationCard)){
-                InventoryItem itemInv = new InventoryItem(e.getHeldItem());
+        InventoryItem itemInv = new InventoryItem(e.getHeldItem());
+            if (itemInv.getStackInSlot(0) != null) {
+                if (itemInv.getStackInSlot(0).getItem() instanceof IPanelDataSource) {
+                    IPanelDataSource card = (IPanelDataSource) itemInv.getStackInSlot(0).getItem();
+                    CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
+                    //ChunkCoordinates target = helper.getTarget();
+                    //joinedData.clear();
+                    //World world = MinecraftServer.getServer().worldServers[0];
+                    //TileEntity tile = world.getTileEntity(target.posX,target.posY, target.posZ);
+                    //tile.getDescriptionPacket();
+                    //tile.markDirty();
+                    //card.update(e.worldObj, helper, 8 * (int) Math.pow(2, 7));
 
-                ItemCardEnergySensorLocation card = (ItemCardEnergySensorLocation) inv.getStackInSlot(0).getItem();
-                CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
-                //ChunkCoordinates target = helper.getTarget();
-                //joinedData.clear();
-                //World world = MinecraftServer.getServer().worldServers[0];
-                //TileEntity tile = world.getTileEntity(target.posX,target.posY, target.posZ);
-                //tile.getDescriptionPacket();
-                //tile.markDirty();
-                //card.update(e.worldObj, helper, 8 * (int) Math.pow(2, 7));
+                    ChannelHandler.network.sendToServer(new PacketServerUpdate(inv.getStackInSlot(0)));
+                    // this.processCard(inv.getStackInSlot(0),7, 0, null);
+                    joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
 
-                ChannelHandler.network.sendToServer(new PacketServerUpdate(inv.getStackInSlot(0)));
-               // this.processCard(inv.getStackInSlot(0),7, 0, null);
-                joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
-                drawCardStuff(anyCardFound, joinedData);
-            }
+                }
             /*inv.markDirty();
             panel.updateEntity();
             ItemStack card = inv.getStackInSlot(0);
@@ -110,7 +110,8 @@ public class GuiRemoteMonitor extends GuiContainer{
             anyCardFound = true;
             drawCardStuff(anyCardFound, joinedData);
             */
-        }
+            }
+        drawCardStuff(anyCardFound, joinedData);
     }
     private void drawCardStuff(Boolean anyCardFound, List<PanelString> joinedData){
        // NCLog.error("wat?");
@@ -223,11 +224,7 @@ public class GuiRemoteMonitor extends GuiContainer{
             }
             if (needUpdate) {
                 CardState state = null;
-                if(item instanceof ItemCardEnergySensorLocation){
-                    state = ((ItemCardEnergySensorLocation) item).update(world, cardHelper, range);
-                }else {
-                    state = ((IPanelDataSource) item).update(panel, cardHelper, range);
-                }
+                    state = ((IPanelDataSource) item).update(world, cardHelper, range);
                 cardHelper.setInt("state", state.getIndex());
 
             }
