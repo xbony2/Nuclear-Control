@@ -66,14 +66,13 @@ public class GuiRemoteMonitor extends GuiContainer{
         List<PanelString> joinedData = new LinkedList<PanelString>();
         boolean anyCardFound = true;
         InventoryItem itemInv = new InventoryItem(e.getHeldItem());
-            if (itemInv.getStackInSlot(0) != null) {
-                if (itemInv.getStackInSlot(0).getItem() instanceof IPanelDataSource) {
-                    IPanelDataSource card = (IPanelDataSource) itemInv.getStackInSlot(0).getItem();
+            if (inv.getStackInSlot(0) != null) {
+                if (inv.getStackInSlot(0).getItem() instanceof IPanelDataSource) {
+                    IPanelDataSource card = (IPanelDataSource) inv.getStackInSlot(0).getItem();
                     CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
-
+                    joinedData.clear();
                     ChannelHandler.network.sendToServer(new PacketServerUpdate(inv.getStackInSlot(0)));
                     // this.processCard(inv.getStackInSlot(0),7, 0, null);
-                    joinedData.clear();
                     if(helper.getState() != CardState.OK){
                         joinedData = StringUtils.getStateMessage(helper.getState());
                     }else {
@@ -98,31 +97,7 @@ public class GuiRemoteMonitor extends GuiContainer{
                 String currentString = implodeArray(new String[] {panelString.textLeft, panelString.textCenter, panelString.textRight }, " ");
                 maxWidth = Math.max(fontRendererObj.getStringWidth(currentString), maxWidth);
             }
-            maxWidth += 4;
-            int x = ((width - xSize) / 2) - 50;
-            int y = ((height - ySize) / 2);
 
-            int lineHeight = fontRendererObj.FONT_HEIGHT + 2;
-            int requiredHeight = lineHeight * joinedData.size();
-            float scaleX = displayWidth / maxWidth;
-            float scaleY = displayHeight / requiredHeight;
-            float scale = Math.min(scaleX, scaleY);
-            //GL11.glScalef(scale, -scale, scale);
-            //GL11.glDepthMask(false);
-
-            int offsetX;
-            int offsetY;
-
-            int realHeight = (int) Math.floor(displayHeight / scale);
-            int realWidth = (int) Math.floor(displayWidth / scale);
-
-            if (scaleX < scaleY) {
-                offsetX = 2;
-                offsetY = (realHeight - requiredHeight) / 2;
-            } else {
-                offsetX = (realWidth - maxWidth) / 2 + 2;
-                offsetY = 0;
-            }
             //NCLog.fatal("HERE");
             //GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -134,7 +109,7 @@ public class GuiRemoteMonitor extends GuiContainer{
                 }
                 if (panelString.textCenter != null) {
                     //NCLog.fatal("HERE2");
-                    fontRendererObj.drawString(panelString.textCenter, (168 - fontRendererObj.getStringWidth(panelString.textCenter)) /2, (row * 10) + 20, 0x06aee4);
+                    fontRendererObj.drawString(panelString.textCenter,(168 - fontRendererObj.getStringWidth(panelString.textCenter)) /2,(row * 10) + 20, 0x06aee4);
                 }
                 if (panelString.textRight != null) {
                     //NCLog.fatal("HERE3");
