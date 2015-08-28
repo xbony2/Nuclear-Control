@@ -1,54 +1,37 @@
 package shedar.mods.ic2.nuclearcontrol.gui;
 
 
-import ic2.core.IC2;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.InventoryItem;
-import shedar.mods.ic2.nuclearcontrol.api.*;
+import shedar.mods.ic2.nuclearcontrol.api.CardState;
+import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
+import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossTE;
-import shedar.mods.ic2.nuclearcontrol.crossmod.RF.ItemCardRFEnergyLocation;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardBase;
-import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.network.message.PacketServerUpdate;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
-import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
+import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GuiRemoteMonitor extends GuiContainer{
 
     public static final int REMOTEMONITOR_GUI = 17;
     private InventoryItem inv;
     private EntityPlayer e;
-    private World world;
-    public TileEntityInfoPanel panel;
-    int tick;
 
-    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player, TileEntityInfoPanel panel, World world){
-        super(new ContainerRemoteMonitor(inv, stack, inventoryItem, panel, Minecraft.getMinecraft().theWorld));
+    public GuiRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player){
+        super(new ContainerRemoteMonitor(inv, stack, inventoryItem));
         this.inv = inventoryItem;
         this.e = player;
-        this.panel = panel;
-        this.world = world;
     }
 
     @Override
@@ -66,7 +49,7 @@ public class GuiRemoteMonitor extends GuiContainer{
         List<PanelString> joinedData = new LinkedList<PanelString>();
         boolean anyCardFound = true;
         InventoryItem itemInv = new InventoryItem(e.getHeldItem());
-            if (inv.getStackInSlot(0) != null) {
+            if (inv.getStackInSlot(0) != null && itemInv.getStackInSlot(0) != null) {
                 if (inv.getStackInSlot(0).getItem() instanceof IPanelDataSource) {
                     IPanelDataSource card = (IPanelDataSource) inv.getStackInSlot(0).getItem();
                     CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
@@ -74,7 +57,11 @@ public class GuiRemoteMonitor extends GuiContainer{
                     ChannelHandler.network.sendToServer(new PacketServerUpdate(inv.getStackInSlot(0)));
                     // this.processCard(inv.getStackInSlot(0),7, 0, null);
                     if(helper.getState() != CardState.OK){
-                        joinedData = StringUtils.getStateMessage(helper.getState());
+                        if(helper.getState().equals(CardState.CUSTOM_ERROR)){
+                            joinedData = this.getRemoteCustomMSG();
+                        }else {
+                            joinedData = StringUtils.getStateMessage(helper.getState());
+                        }
                     }else {
                         joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
                     }
@@ -82,20 +69,28 @@ public class GuiRemoteMonitor extends GuiContainer{
             }
         drawCardStuff(anyCardFound, joinedData);
     }
+
+    private List<PanelString> getRemoteCustomMSG(){
+        PanelString line = new PanelString();
+        List<PanelString> result = new LinkedList<PanelString>();
+        line.textCenter = LangHelper.translate("nc.msg.notValid");
+        result.add(line);
+        line = new PanelString();
+        line.textCenter = LangHelper.translate("nc.msg.notValid2");
+        result.add(line);
+        line = new PanelString();
+        line.textCenter = "";
+        result.add(line);
+        line = new PanelString();
+        line.textCenter = LangHelper.translate("nc.msg.notValid3");
+        result.add(line);
+        return result;
+    }
     private void drawCardStuff(Boolean anyCardFound, List<PanelString> joinedData){
        // NCLog.error("wat?");
             if (!anyCardFound) {
                 NCLog.fatal("This should never happen. If you see this report immediately to NC2 repo. Include GuiRemoteMonitorError-123 in the report!");
                 return;
-            }
-
-            //MIND THE COPYPASTA...
-            int maxWidth = 40;
-            float displayWidth = this.width;
-            float displayHeight = this.height;
-            for (PanelString panelString : joinedData) {
-                String currentString = implodeArray(new String[] {panelString.textLeft, panelString.textCenter, panelString.textRight }, " ");
-                maxWidth = Math.max(fontRendererObj.getStringWidth(currentString), maxWidth);
             }
 
             //NCLog.fatal("HERE");
@@ -123,7 +118,7 @@ public class GuiRemoteMonitor extends GuiContainer{
         }
 
 
-    private static String implodeArray(String[] inputArray, String glueString) {
+   /* private static String implodeArray(String[] inputArray, String glueString) {
         String output = "";
         if (inputArray.length > 0) {
             StringBuilder sb = new StringBuilder();
@@ -177,7 +172,7 @@ public class GuiRemoteMonitor extends GuiContainer{
             }
 
             //cardHelper.getUpdateSet();
-            /*for (Map.Entry<String, Object> entry : cardHelper.getUpdateSet().entrySet()) {
+            for (Map.Entry<String, Object> entry : cardHelper.getUpdateSet().entrySet()) {
                 String name = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof Long) {
@@ -202,11 +197,11 @@ public class GuiRemoteMonitor extends GuiContainer{
                     NCLog.fatal("Null: "+ name);
                     //helper.clearField(name);
                 }
-            }*/
+            }
             //cardHelper.commit(this);
         }
 
-    }
+    }*/
 }
 
 

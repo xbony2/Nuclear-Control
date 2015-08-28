@@ -34,7 +34,7 @@ public class CommonProxy implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if(ID == GuiRemoteMonitor.REMOTEMONITOR_GUI){
-            return new ContainerRemoteMonitor(player.inventory, player.getHeldItem(),  new InventoryItem(player.getHeldItem()), new TileEntityInfoPanel(), world);
+            return new ContainerRemoteMonitor(player.inventory, player.getHeldItem(),  new InventoryItem(player.getHeldItem()));
         }
 		Subblock block = IC2NuclearControl.blockNuclearControlMain.getSubblock(ID);
 		if (block == null)

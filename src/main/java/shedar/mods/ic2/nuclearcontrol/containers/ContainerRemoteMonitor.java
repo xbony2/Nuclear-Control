@@ -22,7 +22,7 @@ public class ContainerRemoteMonitor extends Container{
     protected ItemStack is;
     protected InventoryItem item;
 
-    public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem, TileEntityInfoPanel tile, World world){
+    public ContainerRemoteMonitor(InventoryPlayer inv, ItemStack stack, InventoryItem iItem){
         this.is = stack;
         this.item = iItem;
 
