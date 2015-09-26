@@ -127,7 +127,7 @@ public class RecipesNew {
 			"CCC", "IFI", 
 				'I', IC2Items.getItem("insulatedCopperCableItem"), 
 				'F', IC2Items.getItem("frequencyTransmitter"), 
-				'C', IC2Items.getItem("reactorCoolantSimple")});
+				'C', new ItemStack(IC2Items.getItem("reactorCoolantSimple").getItem(), 1, 1)});
 
 		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemUpgrade, 1, ItemUpgrade.DAMAGE_COLOR), new Object[] { 
 			"RYG", "WCM", "IAB", 

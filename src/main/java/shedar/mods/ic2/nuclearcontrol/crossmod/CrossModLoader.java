@@ -16,7 +16,7 @@ public class CrossModLoader {
         //Registers waila stuff
         FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
         CrossBigReactors.doStuff();
-        CrossAppeng.RegistrationCheck();
+        CrossAppeng.registrationCheck();
     }
 
     public static void postinit(){

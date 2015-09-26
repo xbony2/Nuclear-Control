@@ -1,6 +1,6 @@
 *.class
-\out
-\eclipse
+/out
+/eclipse
 *.iml
 *.ipr
 *.iws

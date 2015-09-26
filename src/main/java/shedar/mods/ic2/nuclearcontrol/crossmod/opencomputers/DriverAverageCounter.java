@@ -1,10 +1,8 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers;
 
 import li.cil.oc.api.machine.Callback;
-
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
-import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.DriverInfoPanel.Environment;
 import li.cil.oc.api.driver.NamedBlock;
 import li.cil.oc.integration.ManagedTileEntityEnvironment;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
@@ -19,7 +17,7 @@ import li.cil.oc.api.prefab.DriverTileEntity;
  * @author xbony2
  */
 public class DriverAverageCounter extends DriverTileEntity{
-	public static final String NAME = "info_panel";
+	public static final String NAME = "average_counter";
 
 	@Override
 	public ManagedEnvironment createEnvironment(World world, int x, int y, int z){
@@ -54,6 +52,11 @@ public class DriverAverageCounter extends DriverTileEntity{
 		@Callback(doc = "function():number -- gets the average of the counter.")
 		public Object[] getAverage(final Context context, final Arguments args){
 			return new Object[]{((int)tileEntity.getClientAverage())};
+		}
+		
+		@Callback(doc = "function():number -- gets the energy type (0 for EU, 1 for RF, -1 for unknown/nil)")
+		public Object[] getEnergyType(final Context context, final Arguments args){
+			return new Object[]{((int)tileEntity.powerType)};
 		}
 	}
 }

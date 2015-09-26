@@ -18,13 +18,13 @@ public class CrossBigReactors {
 	public static Item kitRFsensor;
 	
 	public static void doStuff(){
-		if(Loader.isModLoaded(ModLib.BigReactor)){
+		if(Loader.isModLoaded(ModLib.BIG_REACTORS)){
 			NCLog.fatal("We know that there is a foreign reactor installed...");
 			activateOtherModStuff();
 		}
 	}
 
-    @Optional.Method(modid = ModLib.BigReactor)
+    @Optional.Method(modid = ModLib.BIG_REACTORS)
 	private static void activateOtherModStuff(){
 		ReactorInfoFetch = new BlockActiveReactorInfoFetch();
 		reactorCard = new ItemCardRFSensor().setUnlocalizedName("RFreactorCard");
