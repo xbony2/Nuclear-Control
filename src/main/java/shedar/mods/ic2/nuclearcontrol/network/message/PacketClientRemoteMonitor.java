@@ -23,9 +23,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by David on 12/06/2015.
- */
+
 public class PacketClientRemoteMonitor implements IMessage {
 
     private Map<String, Object> fields;
@@ -147,14 +145,14 @@ public class PacketClientRemoteMonitor implements IMessage {
                     return null;
                 }
                 CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
-                NCLog.fatal("PACKET SIDE:" + message.fields.entrySet());
+                //NCLog.fatal("PACKET SIDE:" + message.fields.entrySet());
                 for (Map.Entry<String, Object> entry : message.fields.entrySet()) {
                     String name = entry.getKey();
                     Object value = entry.getValue();
                     if (value instanceof Long) {
                         helper.setLong(name, (Long) value);
                     } else if (value instanceof Double) {
-                        NCLog.fatal(name + " " + value);
+                        //NCLog.fatal(name + " " + value);
                         helper.setDouble(name, (Double) value);
                     } else if (value instanceof Integer) {
                         helper.setInt(name, (Integer) value);

@@ -12,6 +12,8 @@ import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.IPanelDataSource;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerRemoteMonitor;
+import shedar.mods.ic2.nuclearcontrol.items.ItemCardText;
+import shedar.mods.ic2.nuclearcontrol.items.ItemTimeCard;
 import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.network.message.PacketServerUpdate;
 import shedar.mods.ic2.nuclearcontrol.panel.CardWrapperImpl;
@@ -52,13 +54,17 @@ public class GuiRemoteMonitor extends GuiContainer{
             if (inv.getStackInSlot(0) != null && itemInv.getStackInSlot(0) != null) {
                 if (inv.getStackInSlot(0).getItem() instanceof IPanelDataSource) {
                     IPanelDataSource card = (IPanelDataSource) inv.getStackInSlot(0).getItem();
-                    CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
+                    CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), 0);
                     joinedData.clear();
                     ChannelHandler.network.sendToServer(new PacketServerUpdate(inv.getStackInSlot(0)));
                     // this.processCard(inv.getStackInSlot(0),7, 0, null);
                     if(helper.getState() != CardState.OK){
                         if(helper.getState().equals(CardState.CUSTOM_ERROR)){
-                            joinedData = this.getRemoteCustomMSG();
+                            if(card instanceof ItemCardText || card instanceof ItemTimeCard) {
+                                joinedData = card.getStringData(Integer.MAX_VALUE, helper, true);
+                            }else{
+                                joinedData = this.getRemoteCustomMSG();
+                            }
                         }else {
                             joinedData = StringUtils.getStateMessage(helper.getState());
                         }
