@@ -134,6 +134,9 @@ msg.nc.Reset=Reset
 msg.nc.ScreenColor=Screen Color
 msg.nc.TextColor=Text Color
 msg.nc.None=N/A
+nc.msg.notValid=This Card may not be compatible
+nc.msg.notValid2=with the Remote Monitor
+nc.msg.notValid3=Try reopening the GUI
 
 #Big Reactor Messages
 msg.nc.InfoPanelRF.Temp=Core Temp.: %s C

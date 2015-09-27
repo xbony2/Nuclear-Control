@@ -236,4 +236,7 @@ public class CardWrapperImpl implements ICardWrapper {
 		NBTTagCompound nbtTagCompound = ItemStackUtils.getTagCompound(card);
 		nbtTagCompound.removeTag(name);
 	}
+	public Map<String, Object> getUpdateSet(){
+		return this.updateSet;
+	}
 }
