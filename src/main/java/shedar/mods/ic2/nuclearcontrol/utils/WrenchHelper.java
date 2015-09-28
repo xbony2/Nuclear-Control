@@ -34,7 +34,7 @@ public class WrenchHelper {
 						side += side % 2 * -2 + 1;
 					}
 
-					if (wrenchable.wrenchCanSetFacing(player, side)) {
+					if (wrenchable.wrenchCanSetFacing(player, side)) {  //TODO: yo Xbony2, the thing with wrenches only working BC wise... right here!
 						IC2NuclearControl.instance.crossBC.useWrench(equipped, tileEntity, player);
 						if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
 							wrenchable.setFacing((short) side);

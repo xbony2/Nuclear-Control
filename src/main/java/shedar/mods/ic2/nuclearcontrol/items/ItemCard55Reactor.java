@@ -63,6 +63,28 @@ public class ItemCard55Reactor extends ItemCardEnergySensorLocation implements I
 			return CardState.NO_TARGET;
 		}
 	}
+
+	@Override
+	public CardState update(World world, ICardWrapper card, int range){
+		ChunkCoordinates target = card.getTarget();
+		//int targetType = card.getInt("targetType");
+		TileEntity check = world.getTileEntity(target.posX, target.posY, target.posZ);
+		if(isReactorPart(check) || world.getBlock(target.posX, target.posY, target.posZ) == Block.getBlockFromItem(IC2Items.getItem("reactorvessel").getItem())){
+			IReactor NR = this.getReactor(world, target.posX, target.posY, target.posZ);
+			if(NR != null){
+				card.setBoolean("Online", getMethode(Boolean.class, NR, "getActive"));
+				card.setInt("outputTank", getMethode(FluidTank.class, NR, "getoutputtank").getFluidAmount());
+				card.setInt("inputTank", getMethode(FluidTank.class, NR, "getinputtank").getFluidAmount());
+				card.setInt("HeatUnits", getField(Integer.class, NR, "EmitHeat"));
+				card.setInt("CoreTempurature", (NR.getHeat() *100) / NR.getMaxHeat());
+				return CardState.OK;
+			}else{
+				return CardState.INVALID_CARD;
+			}
+		}else{
+			return CardState.NO_TARGET;
+		}
+	}
 	
 	private <T> T getMethode(Class<T> par1, Object instance, String functionName)
 	{

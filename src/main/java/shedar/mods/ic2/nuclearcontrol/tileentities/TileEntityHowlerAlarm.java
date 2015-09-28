@@ -13,11 +13,14 @@ import java.util.Vector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.IRedstoneConsumer;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 
@@ -46,6 +49,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	private int updateTicker;
 	protected int tickRate;
 	private TileEntitySound sound;
+	private int color;
 
 	public TileEntityHowlerAlarm() {
 		facing = 0;
@@ -58,6 +62,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 		soundName = "";
 		range = IC2NuclearControl.instance.alarmRange;
 		soundReceived = false;
+		color = 16777215;
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			sound = new TileEntitySound();
 		}
@@ -249,6 +254,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
 		prevFacing = facing = nbttagcompound.getShort("facing");
+		color = nbttagcompound.getInteger("color");
 		if (nbttagcompound.hasKey("soundName")) {
 			prevSoundName = soundName = nbttagcompound.getString("soundName");
 			prevRange = range = nbttagcompound.getInteger("range");
@@ -261,6 +267,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 		nbttagcompound.setShort("facing", facing);
 		nbttagcompound.setString("soundName", soundName);
 		nbttagcompound.setInteger("range", range);
+		nbttagcompound.setInteger("color", color);
 	}
 
 	protected void checkStatus() {
@@ -275,5 +282,25 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_HOWLER_ALARM);
+	}
+
+	public int getColor(){
+		return color;
+	}
+	public void setColor(int Color){
+		this.color = Color;
+	}
+	@Override
+	public Packet getDescriptionPacket()
+	{
+		NBTTagCompound syncData = new NBTTagCompound();
+		syncData.setInteger("Color", color);
+		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+	}
+
+	@Override
+	public void onDataPacket(net.minecraft.network.NetworkManager net, S35PacketUpdateTileEntity pkt)
+	{
+		color = pkt.func_148857_g().getInteger("Color");
 	}
 }

@@ -1,10 +1,13 @@
 package shedar.mods.ic2.nuclearcontrol.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.tile.IWrenchable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -15,10 +18,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Facing;
@@ -36,10 +42,7 @@ import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRemoteThermo;
-import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
-import shedar.mods.ic2.nuclearcontrol.utils.NuclearHelper;
-import shedar.mods.ic2.nuclearcontrol.utils.RedstoneHelper;
-import shedar.mods.ic2.nuclearcontrol.utils.WrenchHelper;
+import shedar.mods.ic2.nuclearcontrol.utils.*;
 
 public class BlockNuclearControlMain extends BlockContainer {
 	public static Map<Integer, Subblock> subblocks;
@@ -197,7 +200,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 		dropBlockIfCantStay(world, x, y, z);
 	}
 
-	@Override
+	/*@Override
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metadata) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (tileEntity instanceof TileEntityHowlerAlarm) {
@@ -226,7 +229,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 			}
 		}
 		super.breakBlock(world, x, y, z, this, metadata);
-	}
+	}*/
 
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
@@ -398,7 +401,21 @@ public class BlockNuclearControlMain extends BlockContainer {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f1, float f2, float f3) {
 		int blockType = world.getBlockMetadata(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
-
+		if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemDye){
+			if(tileEntity instanceof TileEntityHowlerAlarm){
+				//NCLog.error(ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
+				((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
+				world.markBlockForUpdate(x,y,z);
+				if(!player.capabilities.isCreativeMode) {
+					if (player.inventory.getCurrentItem().stackSize == 1) {
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+					} else {
+						player.inventory.getCurrentItem().stackSize--;
+					}
+				}
+				return true;
+			}
+		}
 		if (WrenchHelper.isWrenchClicked(tileEntity, player, side)) {
 			return true;
 		}
@@ -561,6 +578,68 @@ public class BlockNuclearControlMain extends BlockContainer {
 		if (subblocks.containsKey(metadata))
 			return subblocks.get(metadata).getTileEntity();
 		return null;
+	}
+
+	 @Override
+	 public void breakBlock(World world, int x, int y, int z, Block par5, int par6) {
+		dropItems(world, x, y, z);
+		super.breakBlock(world, x, y, z, par5, par6);
+	 }
+	private void dropItems(World world, int x, int y, int z){
+		Random rand = new Random();
+
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		if (!(tileEntity instanceof IInventory)) {
+			return;
+		}
+		IInventory inventory = (IInventory) tileEntity;
+
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			ItemStack item = inventory.getStackInSlot(i);
+
+			if (item != null && item.stackSize > 0) {
+				float rx = rand.nextFloat() * 0.8F + 0.1F;
+				float ry = rand.nextFloat() * 0.8F + 0.1F;
+				float rz = rand.nextFloat() * 0.8F + 0.1F;
+
+				EntityItem entityItem = new EntityItem(world,
+						x + rx, y + ry, z + rz,
+						new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
+
+				if (item.hasTagCompound()) {
+					entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
+				}
+
+				float factor = 0.05F;
+				entityItem.motionX = rand.nextGaussian() * factor;
+				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+				entityItem.motionZ = rand.nextGaussian() * factor;
+				world.spawnEntityInWorld(entityItem);
+				item.stackSize = 0;
+			}
+		}
+		EntityItem e = new EntityItem(world, x, y, z, new ItemStack(this, 1, this.damageDropped(world.getBlockMetadata(x,y,z))));
+		world.spawnEntityInWorld(e);
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int colorMultiplier(IBlockAccess world, int x, int y, int z)
+	{
+		if(world.getBlock(x,y,z).equals(this) && world.getBlockMetadata(x,y,z) == BlockDamages.DAMAGE_HOWLER_ALARM && world.getTileEntity(x,y,z) instanceof TileEntityHowlerAlarm) {
+			return ((TileEntityHowlerAlarm) world.getTileEntity(x, y, z)).getColor();
+		}else{
+			return 16777215;
+		}
+	}
+	//Color testing code - Unused
+	private int RGBToInt(final int r, final int g, final int b) {
+		int color = 0;
+		color = color | b;
+		color = color | g << 8;
+		color = color | r << 16;
+
+		return color;
 	}
 
 }

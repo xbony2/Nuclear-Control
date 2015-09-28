@@ -75,6 +75,7 @@ public class IC2NuclearControl {
 	public static Item itemTextCard;
 	public static Item itemLiquidArrayLocationCard;
 	public static Item itemWindCard;
+    public static Item itemRemoteMonitor;
 	public static Item item55ReactorCard;
 	public static BlockNuclearControlMain blockNuclearControlMain;
 	public static BlockNuclearControlLight blockNuclearControlLight;
@@ -116,6 +117,7 @@ public class IC2NuclearControl {
 		itemRemoteSensorKit = new ItemKitReactorSensor().setUnlocalizedName("ItemRemoteSensorKit");
 		itemLiquidArrayLocationCard = new ItemCardLiquidArrayLocation().setUnlocalizedName("ItemLiquidArrayLocationCard");
 		item55ReactorCard = new ItemCard55Reactor().setUnlocalizedName("Item55ReactorCard");
+        itemRemoteMonitor = new ItemRemoteMonitor().setUnlocalizedName("remoteMonitor");
 	}
 
 	protected void registerBlocks() {
@@ -135,6 +137,7 @@ public class IC2NuclearControl {
 		GameRegistry.registerItem(itemTextCard, "ItemTextCard");
 		GameRegistry.registerItem(itemLiquidArrayLocationCard, "ItemLiquidArrayLocationCard");
 		GameRegistry.registerItem(item55ReactorCard, "Item55ReactorCard");
+        GameRegistry.registerItem(itemRemoteMonitor, "remoteMonitor");
 	}
 
 	@EventHandler

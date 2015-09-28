@@ -5,22 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import cpw.mods.fml.common.WorldAccessContainer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
-import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
-import shedar.mods.ic2.nuclearcontrol.utils.EnergyStorageHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
-import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
 
 public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
@@ -47,6 +40,24 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 		ChunkCoordinates target = card.getTarget();
 		//int targetType = card.getInt("targetType");
 		TileEntity check = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
+		if(check instanceof TileEntityBlockFetcher){
+			TileEntityBlockFetcher BF = (TileEntityBlockFetcher) check;
+			card.setBoolean("Online", BF.isReactorOnline());
+			card.setDouble("storedEnergy", (double) BF.getEnergyStored());
+			card.setDouble("createdEnergy", (double) BF.getEnergyGenerated());
+			card.setInt("Temp", BF.getTemp());
+			card.setDouble("FillPercent", (double) BF.getEnergyOutPercent());
+			return CardState.OK;
+		}else{
+			return CardState.NO_TARGET;
+		}
+	}
+
+	@Override
+	public CardState update(World world, ICardWrapper card, int range){
+		ChunkCoordinates target = card.getTarget();
+		//int targetType = card.getInt("targetType");
+		TileEntity check = world.getTileEntity(target.posX, target.posY, target.posZ);
 		if(check instanceof TileEntityBlockFetcher){
 			TileEntityBlockFetcher BF = (TileEntityBlockFetcher) check;
 			card.setBoolean("Online", BF.isReactorOnline());

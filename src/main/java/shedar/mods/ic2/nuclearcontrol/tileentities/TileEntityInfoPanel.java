@@ -68,8 +68,8 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	protected int updateTicker;
 	protected int dataTicker;
 	protected int tickRate;
-	protected boolean init;
-	protected ItemStack inventory[];
+	public boolean init;
+	public ItemStack inventory[];
 	public NBTTagCompound screenData;
 	protected Screen screen;
 	protected ItemStack card;
@@ -666,7 +666,7 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		return id;
 	}
 
-	private void processCard(ItemStack card, int upgradeCountRange, int slot) {
+	public void processCard(ItemStack card, int upgradeCountRange, int slot) {
 		if (card == null) {
 			return;
 		}
