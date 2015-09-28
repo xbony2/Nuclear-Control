@@ -2,6 +2,7 @@ package shedar.mods.ic2.nuclearcontrol.utils;
 
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
+import ic2.api.reactor.ISteamReactor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
@@ -26,9 +27,11 @@ public class NuclearHelper {
 	public static boolean isSteam(IReactor reactor) {
 		// no more steam reactors. Liquid container will be used for coolant
 		// liquids.
-		
-		//TODO Sooner or later Classic will have Steam Reactors
-		return false;// IC2NuclearControl.instance.crossBC.isTankContainer(reactor);
+		if(reactor instanceof ISteamReactor)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	public static int euToSteam(int eu) {

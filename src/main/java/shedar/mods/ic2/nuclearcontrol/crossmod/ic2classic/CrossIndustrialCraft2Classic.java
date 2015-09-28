@@ -1,14 +1,16 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic;
 
+import ic2.api.reactor.IReactor;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 public class CrossIndustrialCraft2Classic{
 	private IC2ClassicType type;
 	
-	public static final boolean isClassicSpeiger = IC2NuclearControl.instance.crossClassic.getClassicType() == IC2ClassicType.SPEIGER;
-	
+	public final boolean isClassicSpeiger;
+	public static CrossIndustrialCraft2Classic instance;
 	public CrossIndustrialCraft2Classic(){
+		instance = this;
 		try{
 			Class classicClass = Class.forName("ic2.api.info.IC2Classic");
 			type = IC2ClassicType.SPEIGER;
@@ -21,6 +23,14 @@ public class CrossIndustrialCraft2Classic{
 			}catch(ClassNotFoundException e1){
 				type = IC2ClassicType.NONE;
 			}
+		}
+		if(type == IC2ClassicType.SPEIGER)
+		{
+			isClassicSpeiger = true;
+		}
+		else
+		{
+			isClassicSpeiger = false;
 		}
 	}
 	
