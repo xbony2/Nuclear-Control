@@ -150,7 +150,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 			this.getAverage();
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
 
-			if(CrossIndustrialCraft2Classic.isClassicSpeiger){
+			if(CrossIndustrialCraft2Classic.instance.isClassicSpeiger){
 				double realTotal = total - lastReceivedPower;
 				lastReceivedPower = total;
 				data[index] = realTotal;

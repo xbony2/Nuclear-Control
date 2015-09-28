@@ -53,7 +53,8 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 					NuclearHelper.isProducing(reactor));
 			card.setInt("output",
 					(int) Math.round(reactor.getReactorEUEnergyOutput()));
-			card.setBoolean("isSteam", NuclearHelper.isSteam(reactor));
+			boolean isSteam = NuclearHelper.isSteam(reactor);
+			card.setBoolean("isSteam", isSteam);
 
 			IInventory inventory = (IInventory) reactor;
 			int slotCount = inventory.getSizeInventory();
@@ -65,7 +66,8 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 							NuclearHelper.getNuclearCellTimeLeft(rStack));
 				}
 			}
-			card.setInt("timeLeft", timeLeft * reactor.getTickRate() / 20);
+			//Classic has a Higher Tick rate for Steam generation but damage tick rate is still the same...
+			card.setInt("timeLeft", timeLeft * (isSteam ? 20 : reactor.getTickRate()) / 20);
 			return CardState.OK;
 		} else {
 			return CardState.NO_TARGET;

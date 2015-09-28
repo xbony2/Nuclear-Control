@@ -62,6 +62,7 @@ public class CrossIndustrialCraft2 {
 			_isApiAvailable = true;
 		} catch (Exception e) {
 			_isApiAvailable = false;
+			e.printStackTrace();
 		}
 	}
 
