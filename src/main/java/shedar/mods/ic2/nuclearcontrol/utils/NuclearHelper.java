@@ -2,7 +2,6 @@ package shedar.mods.ic2.nuclearcontrol.utils;
 
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
-import ic2.api.reactor.ISteamReactor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
@@ -13,6 +12,7 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 public class NuclearHelper {
 
 	private static final double STEAM_PER_EU = 3.2D;
+	private static final String ISTEAMREACTOR = "ic2.api.reactor.ISteamReactor";
 
 	public static IReactor getReactorAt(World world, int x, int y, int z) {
 		if (world == null)
@@ -25,12 +25,11 @@ public class NuclearHelper {
 	
 	
 	public static boolean isSteam(IReactor reactor) {
-		// no more steam reactors. Liquid container will be used for coolant
-		// liquids.
-		if(reactor instanceof ISteamReactor)
-		{
-			return true;
-		}
+		try{
+			if(IC2NuclearControl.instance.crossClassic.isClassicSpeiger && reactor.getClass().isInstance(Class.forName(ISTEAMREACTOR)))
+				return true;
+		}catch(ClassNotFoundException e){} // No biggie
+		
 		return false;
 	}
 
