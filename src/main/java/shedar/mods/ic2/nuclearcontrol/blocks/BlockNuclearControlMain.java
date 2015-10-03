@@ -401,10 +401,10 @@ public class BlockNuclearControlMain extends BlockContainer {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float f1, float f2, float f3) {
 		int blockType = world.getBlockMetadata(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemDye){
-			if(tileEntity instanceof TileEntityHowlerAlarm){
+		if(tileEntity instanceof TileEntityHowlerAlarm){
+			if(player.getCurrentEquippedItem() != null && DyeUtil.isADye(player.getCurrentEquippedItem())){
 				//NCLog.error(ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
-				((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
+				((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[DyeUtil.getDyeId(player.getCurrentEquippedItem())]);
 				world.markBlockForUpdate(x,y,z);
 				if(!player.capabilities.isCreativeMode) {
 					if (player.inventory.getCurrentItem().stackSize == 1) {
@@ -416,6 +416,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 				return true;
 			}
 		}
+		
 		if (WrenchHelper.isWrenchClicked(tileEntity, player, side)) {
 			return true;
 		}
