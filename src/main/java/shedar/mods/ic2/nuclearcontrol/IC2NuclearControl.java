@@ -201,13 +201,13 @@ public class IC2NuclearControl {
 			} else {
 				RecipesOld.addOldRecipes();
 			}
-		} else if (recipes.equalsIgnoreCase("normal")) {
-			RecipesNew.addRecipes();	
 		} else if (recipes.equalsIgnoreCase("old")) {
 			RecipesOld.addOldRecipes();
 		} else if (recipes.equalsIgnoreCase("gregtech") || recipes.equalsIgnoreCase("gregtech5")) {
 			GregtechRecipes.addRecipes();
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
+		} else {
+			RecipesNew.addRecipes();
 		}
 		/*
 		//I thought about doing this, but I didn't :P
