@@ -193,10 +193,10 @@ public class IC2NuclearControl {
 
 		if (crossClassic.doesIC2ClassicExist()) {
 			if (recipes.equalsIgnoreCase("normal-force")) {
-				logger.info("Loading normal recipes with IC2 Classic may prevent certain recipes working")
+				logger.info("Loading normal recipes with IC2 Classic may prevent certain recipes working");
 				RecipesNew.addRecipes();
 			} else if (recipes.equalsIgnoreCase("gregtech-force")) {
-				logger.info("Loading Gregtech recipes with IC2 Classic will prevent certain recipes working")
+				logger.info("Loading Gregtech recipes with IC2 Classic will prevent certain recipes working");
 				GregtechRecipes.addRecipes();
 			} else {
 				RecipesOld.addOldRecipes();
