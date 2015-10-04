@@ -75,7 +75,7 @@ public class IC2NuclearControl {
 	public static Item itemTextCard;
 	public static Item itemLiquidArrayLocationCard;
 	public static Item itemWindCard;
-    public static Item itemRemoteMonitor;
+	public static Item itemRemoteMonitor;
 	public static Item item55ReactorCard;
 	public static BlockNuclearControlMain blockNuclearControlMain;
 	public static BlockNuclearControlLight blockNuclearControlLight;
@@ -173,37 +173,32 @@ public class IC2NuclearControl {
 		initBlocks();
 		registerBlocks();
 		proxy.registerTileEntities();
-        CrossModLoader.init();
+		CrossModLoader.init();
 		if(Loader.isModLoaded("OpenComputers")) crossOC = new CrossOpenComputers();
 		//Registers waila stuff
 		//FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
 		//CrossBigReactors.doStuff();
-        //CrossAppeng.RegistrationCheck();
+		//CrossAppeng.RegistrationCheck();
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.cape();
-        CrossModLoader.postinit();
+		CrossModLoader.postinit();
 		crossBC = new CrossBuildcraft();
-        crossIC2 = new CrossIndustrialCraft2();
+		crossIC2 = new CrossIndustrialCraft2();
 		crossRailcraft = new CrossRailcraft();
 		crossRF = new CrossRF();
 		crossClassic = new CrossIndustrialCraft2Classic();
 
-		if (recipes.equalsIgnoreCase("normal"))
-			RecipesNew.addRecipes();
-
-		if (recipes.equalsIgnoreCase("old")) {
-			logger.error("Old recipes deprecated! Many recipes may be missing.");
+		if (recipes.equalsIgnoreCase("old") || crossClassic.doesIC2ClassicExist()) {
 			RecipesOld.addOldRecipes();
-		}
-
-		if (recipes.equalsIgnoreCase("gregtech") || recipes.equalsIgnoreCase("gregtech5")) {
+		} else if (recipes.equalsIgnoreCase("normal")) {
+			RecipesNew.addRecipes();
+		} else if (recipes.equalsIgnoreCase("gregtech") || recipes.equalsIgnoreCase("gregtech5")) {
 			GregtechRecipes.addRecipes();
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
 		}
-
 		/*
 		//I thought about doing this, but I didn't :P
 		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
