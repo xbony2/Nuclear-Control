@@ -191,10 +191,20 @@ public class IC2NuclearControl {
 		crossRF = new CrossRF();
 		crossClassic = new CrossIndustrialCraft2Classic();
 
-		if (recipes.equalsIgnoreCase("old") || crossClassic.doesIC2ClassicExist()) {
-			RecipesOld.addOldRecipes();
+		if (crossClassic.doesIC2ClassicExist()) {
+			if (recipes.equalsIgnoreCase("normal-force")) {
+				logger.info("Loading normal recipes with IC2 Classic may prevent certain recipes working")
+				RecipesNew.addRecipes();
+			} else if (recipes.equalsIgnoreCase("gregtech-force")) {
+				logger.info("Loading Gregtech recipes with IC2 Classic will prevent certain recipes working")
+				GregtechRecipes.addRecipes();
+			} else {
+				RecipesOld.addOldRecipes();
+			}
 		} else if (recipes.equalsIgnoreCase("normal")) {
-			RecipesNew.addRecipes();
+			RecipesNew.addRecipes();	
+		} else if (recipes.equalsIgnoreCase("old")) {
+			RecipesOld.addOldRecipes();
 		} else if (recipes.equalsIgnoreCase("gregtech") || recipes.equalsIgnoreCase("gregtech5")) {
 			GregtechRecipes.addRecipes();
 			logger.info("Hard... I mean, FUN recipes turned on! Have fun!");
