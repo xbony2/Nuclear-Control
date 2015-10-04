@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.blocks;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.tile.IWrenchable;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import ic2.core.item.tool.ItemToolPainter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -402,10 +404,14 @@ public class BlockNuclearControlMain extends BlockContainer {
 		int blockType = world.getBlockMetadata(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityHowlerAlarm){
+			//NCLog.error(DyeUtil.ALL_DYES_DYE[0]);
 			if(player.getCurrentEquippedItem() != null && DyeUtil.isADye(player.getCurrentEquippedItem())){
-				//NCLog.error(ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
+				//NCLog.error("NEW VERSION:"+ItemDye.field_150922_c[DyeUtil.getDyeId(player.getCurrentEquippedItem())]);
+				//NCLog.error("OLD VERSION:"+ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
+				//NCLog.error(((TileEntityHowlerAlarm) tileEntity).getColor());
 				((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[DyeUtil.getDyeId(player.getCurrentEquippedItem())]);
 				world.markBlockForUpdate(x,y,z);
+				//NCLog.error(((TileEntityHowlerAlarm) tileEntity).getColor());
 				if(!player.capabilities.isCreativeMode) {
 					if (player.inventory.getCurrentItem().stackSize == 1) {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
@@ -414,6 +420,14 @@ public class BlockNuclearControlMain extends BlockContainer {
 					}
 				}
 				return true;
+			} else if(player.getCurrentEquippedItem() != null && Loader.isModLoaded("IC2")){
+				if(player.getCurrentEquippedItem().getItem() instanceof ItemToolPainter){
+					ItemToolPainter p = (ItemToolPainter) player.getCurrentEquippedItem().getItem();
+					((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[p.color]);
+					world.markBlockForUpdate(x,y,z);
+					p.setDamage(player.getCurrentEquippedItem(), player.getCurrentEquippedItem().getItemDamage() - 1);
+					return true;
+				}
 			}
 		}
 		
