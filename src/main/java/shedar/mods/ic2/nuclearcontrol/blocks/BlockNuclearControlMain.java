@@ -425,7 +425,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 					ItemToolPainter p = (ItemToolPainter) player.getCurrentEquippedItem().getItem();
 					((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[p.color]);
 					world.markBlockForUpdate(x,y,z);
-					p.setDamage(player.getCurrentEquippedItem(), player.getCurrentEquippedItem().getItemDamage() - 1);
+					player.getCurrentEquippedItem().damageItem(1, player);
 					return true;
 				}
 			}
