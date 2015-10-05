@@ -37,6 +37,16 @@ public class GuiRemoteMonitor extends GuiContainer{
     }
 
     @Override
+    public void initGui()
+    {
+        super.initGui();
+        this.xSize += 50;
+        this.mc.thePlayer.openContainer = this.inventorySlots;
+        this.guiLeft = (this.width - this.xSize) / 2;
+        this.guiTop = (this.height - this.ySize) / 2;
+    }
+
+    @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.renderEngine.bindTexture(new ResourceLocation("nuclearcontrol", "textures/gui/GUIRemoteMonitor.png"));
