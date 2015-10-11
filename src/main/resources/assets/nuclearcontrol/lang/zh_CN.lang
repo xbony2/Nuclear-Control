@@ -21,7 +21,7 @@ item.ItemTextCard.name=文本卡片
 item.ItemGeneratorSensorKit.name=发电机传感工具
 item.ItemGeneratorSensorLocationCard.name=发电机传感定位卡片
 item.ItemLiquidArrayLocationCard.name=流体阵列定位卡片
-item.Item55ReactorCard.name=5x5反应堆传感定位卡片
+item.Item55ReactorCard.name=流体反应堆传感定位卡片
 item.remoteMonitor.name=便携式信息屏
 
 #Integration Items
@@ -59,11 +59,11 @@ msg.nc.ThermalMonitorSave=保存设置
 msg.nc.ThermalMonitorSignalAt=在热量为%s时发出信号
 msg.nc.Thermo=外壳热量：%s
 msg.nc.ThermoDigital=外壳热量：%s（水蒸发： %s／燃烧： %s）
-msg.nc.SensorKit=安装远程传感工具，得到对应的定位卡片
+msg.nc.SensorKit=远程传感工具已安装，得到对应的定位卡片
 
 msg.nc.InfoPanelOutOfRange=超出范围
 msg.nc.InfoPanelInvalidCard=无效卡片
-msg.nc.InfoPanelNoTarget=目标未发现
+msg.nc.InfoPanelNoTarget=没有找到目标
 
 msg.nc.InfoPanelOn=开启
 msg.nc.InfoPanelOff=关闭
@@ -140,7 +140,7 @@ nc.msg.notValid2=远程显示器
 nc.msg.notValid3=请重新打开显示器再试
 
 #Big Reactor Messages
-msg.nc.InfoPanelRF.Temp=核心温度：%s C
+msg.nc.InfoPanelRF.Temp=核心温度：%s°C
 msg.nc.InfoPanelRF.EnergyStored=能量：%s RF
 msg.nc.InfoPanelRF.CreatedEnergy=能量输出：%s RF/t
 msg.nc.InfoPanelRF.Percentage=缓存区已充满%s%%
@@ -158,17 +158,17 @@ msg.nc.InfoPanel55.BufferOut=热冷却液缓冲储罐
 
 #AE INTERGRATION
 msg.null.craft=无
-msg.nc.InfoPanelAE.CraftItemMake=当前在合成：%s
+msg.nc.InfoPanelAE.CraftItemMake=正在合成：%s
 msg.nc.InfoPanelAE.CraftAMT=合成数量：%s
-msg.nc.InfoPanelAE.Bytes=已使用字节／总字节
-msg.nc.InfoPanelAE.Items=已存储物品类型／总物品类型
-msg.nc.InfoPanelAE.CraftItem=当前正在合成的物品
-msg.nc.InfoPanelAE.CraftStack=当前正在合成的数量
-msg.nc.InfoPanelAE.DisplayBytes=%s／%s字节
-msg.nc.InfoPanelAE.DisplayItem=%s／%s物品种类
+msg.nc.InfoPanelAE.Bytes=已使用字节/总字节
+msg.nc.InfoPanelAE.Items=已存储物品类型/总物品类型
+msg.nc.InfoPanelAE.CraftItem=正在合成的物品
+msg.nc.InfoPanelAE.CraftStack=正在合成的数量
+msg.nc.InfoPanelAE.DisplayBytes=%s/%s已用字节
+msg.nc.InfoPanelAE.DisplayItem=%s/%s已用物品种类
 
 #WAILA Integration
-msg.nc.waila.getHeatLevel=Heat Maximum Set: 
+msg.nc.waila.getHeatLevel=警戒温度阈值：
 msg.nc.waila.ColorBackground=背景颜色：
 msg.nc.waila.ColorText=文本颜色：
 msg.nc.waila.Web=已安装网页升级
@@ -189,6 +189,6 @@ msg.nc.waila.ColorMagenta=品红
 msg.nc.waila.ColorOrange=橙
 msg.nc.waila.getSoundNames=音效： 
 msg.nc.waila.getRange=范围：
-msg.nc.waila.getEnergyCount=Energy Count: 
-msg.nc.waila.getEnergyAverage=Energy Average: 
-msg.nc.waila.getPeriod=Over period of: 
+msg.nc.waila.getEnergyCount=能量总计数：
+msg.nc.waila.getEnergyAverage=平均能量计数：
+msg.nc.waila.getPeriod=计数周期：
