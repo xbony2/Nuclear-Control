@@ -1,0 +1,42 @@
+https://www.dropbox.com/s/u8qvfzwya3q99eo/nc_banner.png?dl=0
+
+You've seen the craters that Nuclear Reactors can cause. How one slip up can desolate your base.
+Developing working technology was harder than anyone could have estimated. And yet, you are now
+able to monitor your entire base; shut down reactors before they overheat and save the world from yourself!
+
+Nuclear Control 2 is an addon mod to IC2, that allows for the monitoring of several block in the world.
+Originally designed by Shedar to monitor and control IC2 Nuclear Reactors, the current team (Xbony2, dmf444 and Pyrolusite) have integrated with several other popular mods.
+
+https://www.dropbox.com/s/hzh0gznucx9yd53/nc_Panels.png?dl=0
+
+Panels can display information from block/multiblock. Normal Panels can connect and display info from one block.
+The Advanced Info Panel has 3 card slots as well as can be angled and have the back colors changed. The remote monitor is capable of
+connecting to one block and displaying the info.
+
+
+https://www.dropbox.com/s/wl7l1dy9ig1l069/nc_Cards.png?dl=0
+
+Cards store location based data for the panels. Each card is created by right clicking a valid location with a kit of the same type.
+
+The current cards are:
+Nuclear Reactor Card - For use on IC2 Nuclear Reactors
+Energy Sensor Card - For use with RF or EU, can be put on batteries or Capacitors
+Time Card-Displays Server Time in Hours/Minutes
+Fluid Storage Card - For use with Fluid Tanks, displays capacity and fill level
+5x5 Reactor Card - For use with IC2's 5x5 Fluid Reactor, created from same kit as Nuclear Reactor Card
+Text Card - Displays preset text. Edited withing the Panels
+Applied Energistic Card - Should be place on network with drives, can display bytes and items left, if placed on craft monitor, can show current crafted item
+RF Reactor Card - For use on Big Reactors, can show on/off as well as heat and energy levels
+Counter Sensor Card - For use on Remote Thermo Monitors
+Generator Card - For use on IC2 generators
+Array Cards - Groups similar cards
+
+
+[spoiler]Videos[]
+https://www.youtube.com/watch?v=AwlsDRljr1M
+https://www.youtube.com/watch?v=N9jdAE2vX44
+https://www.youtube.com/watch?v=7TIyhbmz4Ug
+
+Nuclear Control was originally created by Shedar, and ported to 1.7+ by Zuxelus and Xbony2.
+It continues to be maintained by Xbony2 and DMF444, with Pyrolusite contributing textures and other assets.
+Other contributors are listed here.
