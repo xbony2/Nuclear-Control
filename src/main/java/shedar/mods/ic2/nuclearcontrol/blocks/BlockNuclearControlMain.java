@@ -633,8 +633,8 @@ public class BlockNuclearControlMain extends BlockContainer {
 				item.stackSize = 0;
 			}
 		}
-		EntityItem e = new EntityItem(world, x, y, z, new ItemStack(this, 1, this.damageDropped(world.getBlockMetadata(x,y,z))));
-		world.spawnEntityInWorld(e);
+		//EntityItem e = new EntityItem(world, x, y, z, new ItemStack(this, 1, this.damageDropped(world.getBlockMetadata(x,y,z))));
+		//world.spawnEntityInWorld(e);
 
 	}
 
