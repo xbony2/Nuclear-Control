@@ -20,6 +20,7 @@ item.ItemGeneratorSensorKit.name=Набор для генератора
 item.ItemGeneratorSensorLocationCard.name=Карта-датчик расположения генератора
 item.ItemLiquidArrayLocationCard.name=Карта-датчик расположения массива жидкости
 item.Item55ReactorCard.name=Карта-датчик расположения 5x5 реактора
+item.remoteMonitor.name=Переносная информационная панель
 
 tile.blockThermalMonitor.name=Датчик температуры
 tile.blockIndustrialAlarm.name=Промышленная сирена
