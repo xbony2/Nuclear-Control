@@ -451,11 +451,11 @@ public class ModelInfoPanel {
 			addPoint(7, dz, dy);
 			addPoint(6, 0, dy);
 		}
-        renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
 		Tessellator.instance.draw();
 		
 		//RETURN TO MC DRAWING
 		Tessellator.instance.startDrawingQuads();
+		renderer.minecraftRB.renderEngine.bindTexture(TEXTURE_LOCATION);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         Tessellator.instance.setColorOpaque_F(0.5F, 0.5F, 0.5F);
 		renderer.minecraftRB.renderEngine.bindTexture(TextureMap.locationBlocksTexture/* blocks texture atlas*/);
