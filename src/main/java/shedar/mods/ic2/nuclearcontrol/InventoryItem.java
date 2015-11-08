@@ -20,10 +20,12 @@ public class InventoryItem implements IInventory, ISlotItemFilter{
 
     public InventoryItem(ItemStack stack) {
         this.invItem = stack;
-        if (!stack.hasTagCompound()) {
-            stack.setTagCompound(new NBTTagCompound());
+        if (stack != null) {
+            if (!stack.hasTagCompound()) {
+                stack.setTagCompound(new NBTTagCompound());
+            }
+            readFromNBT(stack.getTagCompound());
         }
-        readFromNBT(stack.getTagCompound());
     }
 
     @Override
