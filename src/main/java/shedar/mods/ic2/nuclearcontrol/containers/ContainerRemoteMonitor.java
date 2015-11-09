@@ -1,11 +1,10 @@
 package shedar.mods.ic2.nuclearcontrol.containers;
 
 
-import buildcraft.robots.ItemRobot;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.server.FMLServerHandler;
-import li.cil.oc.api.driver.Item;
+import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
