@@ -138,6 +138,9 @@ msg.nc.Reset=Сброс
 msg.nc.ScreenColor=Цветной экран
 msg.nc.TextColor=Цветной текст
 msg.nc.None=Н/А
+nc.msg.notValid=Эта карта не может быть совместима
+nc.msg.notValid2=с дистанционным датчиком
+nc.msg.notValid3=Попробуйте открыть интерфейс заново
 
 msg.nc.waila.getHeatLevel=Максимальная температура: 
 
