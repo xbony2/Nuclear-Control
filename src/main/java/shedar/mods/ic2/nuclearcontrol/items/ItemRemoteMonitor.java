@@ -25,7 +25,9 @@ public class ItemRemoteMonitor extends Item{
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-        player.openGui(IC2NuclearControl.instance, GuiRemoteMonitor.REMOTEMONITOR_GUI, world, 0, 0, 0);
+        if(!player.isSneaking()) {
+            player.openGui(IC2NuclearControl.instance, GuiRemoteMonitor.REMOTEMONITOR_GUI, world, 0, 0, 0);
+        }
         return stack;
     }
     @Override
