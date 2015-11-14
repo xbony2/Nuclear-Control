@@ -133,6 +133,13 @@ public class GuiRemoteMonitor extends GuiContainer{
         //fontRendererObj.drawString("BHATODKK", 8, ySize - 96 + 2, 4210752);
         }
 
+    public void updateScreen() {
+        super.updateScreen();
+        if(this.e.getHeldItem() == null){
+            this.mc.thePlayer.closeScreen();
+        }
+    }
+
 
    /* private static String implodeArray(String[] inputArray, String glueString) {
         String output = "";

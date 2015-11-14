@@ -137,38 +137,39 @@ public class PacketClientRemoteMonitor implements IMessage {
         @SideOnly(Side.CLIENT)
         public IMessage onMessage(PacketClientRemoteMonitor message, MessageContext ctx) {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-            if(player.getHeldItem().getItem() == IC2NuclearControl.itemRemoteMonitor){
-                //ItemRemoteMonitor remote = (ItemRemoteMonitor) player.getHeldItem().getItem();
-                InventoryItem itemInv = new InventoryItem(player.getHeldItem());
-                //NCLog.fatal(itemInv.getStackInSlot(0));
-                if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IPanelDataSource)) {
-                    return null;
-                }
-                CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
-                //NCLog.fatal("PACKET SIDE:" + message.fields.entrySet());
-                for (Map.Entry<String, Object> entry : message.fields.entrySet()) {
-                    String name = entry.getKey();
-                    Object value = entry.getValue();
-                    if (value instanceof Long) {
-                        helper.setLong(name, (Long) value);
-                    } else if (value instanceof Double) {
-                        //NCLog.fatal(name + " " + value);
-                        helper.setDouble(name, (Double) value);
-                    } else if (value instanceof Integer) {
-                        helper.setInt(name, (Integer) value);
-                    } else if (value instanceof String) {
-                        helper.setString(name, (String) value);
-                    } else if (value instanceof Boolean) {
-                        helper.setBoolean(name, (Boolean) value);
-                    } else if (value instanceof NBTTagCompound) {
-                        helper.setTag(name, (NBTTagCompound) value);
-                    } else if (value == null) {
-                        helper.clearField(name);
+            if(player.getHeldItem() != null) {
+                if (player.getHeldItem().getItem() == IC2NuclearControl.itemRemoteMonitor) {
+                    //ItemRemoteMonitor remote = (ItemRemoteMonitor) player.getHeldItem().getItem();
+                    InventoryItem itemInv = new InventoryItem(player.getHeldItem());
+                    //NCLog.fatal(itemInv.getStackInSlot(0));
+                    if (itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IPanelDataSource)) {
+                        return null;
                     }
+                    CardWrapperImpl helper = new CardWrapperImpl(itemInv.getStackInSlot(0), -1);
+                    //NCLog.fatal("PACKET SIDE:" + message.fields.entrySet());
+                    for (Map.Entry<String, Object> entry : message.fields.entrySet()) {
+                        String name = entry.getKey();
+                        Object value = entry.getValue();
+                        if (value instanceof Long) {
+                            helper.setLong(name, (Long) value);
+                        } else if (value instanceof Double) {
+                            //NCLog.fatal(name + " " + value);
+                            helper.setDouble(name, (Double) value);
+                        } else if (value instanceof Integer) {
+                            helper.setInt(name, (Integer) value);
+                        } else if (value instanceof String) {
+                            helper.setString(name, (String) value);
+                        } else if (value instanceof Boolean) {
+                            helper.setBoolean(name, (Boolean) value);
+                        } else if (value instanceof NBTTagCompound) {
+                            helper.setTag(name, (NBTTagCompound) value);
+                        } else if (value == null) {
+                            helper.clearField(name);
+                        }
+                    }
+                    //NCLog.fatal("CLIENT RECIEVE: " + ItemStackUtils.getTagCompound(itemInv.getStackInSlot(0)).getInteger("energyL"));
                 }
-                //NCLog.fatal("CLIENT RECIEVE: " + ItemStackUtils.getTagCompound(itemInv.getStackInSlot(0)).getInteger("energyL"));
             }
-
             return null;
         }
     }
