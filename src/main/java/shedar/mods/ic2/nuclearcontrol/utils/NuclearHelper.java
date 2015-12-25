@@ -7,12 +7,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.IC2Cross;
 
 public class NuclearHelper {
 
 	private static final double STEAM_PER_EU = 3.2D;
-	private static final String ISTEAMREACTOR = "ic2.api.reactor.ISteamReactor";
 
 	public static IReactor getReactorAt(World world, int x, int y, int z) {
 		if (world == null)
@@ -25,12 +26,7 @@ public class NuclearHelper {
 	
 	
 	public static boolean isSteam(IReactor reactor) {
-		try{
-			if(IC2NuclearControl.instance.crossClassic.isClassicSpeiger && reactor.getClass().isInstance(Class.forName(ISTEAMREACTOR)))
-				return true;
-		}catch(ClassNotFoundException e){} // No biggie
-		
-		return false;
+		return IC2NuclearControl.instance.crossIc2.isSteamReactor((TileEntity) reactor);
 	}
 
 	public static int euToSteam(int eu) {
@@ -50,32 +46,30 @@ public class NuclearHelper {
 	public static IReactor getReactorAroundCoord(World world, int x, int y, int z) {
 		if (world == null)
 			return null;
-		ChunkPosition[] around = { new ChunkPosition(-1, 0, 0),
-				new ChunkPosition(1, 0, 0), new ChunkPosition(0, -1, 0),
-				new ChunkPosition(0, 1, 0), new ChunkPosition(0, 0, -1),
-				new ChunkPosition(0, 0, 1) };
-		IReactor ent = null;
-		for (int i = 0; i < 6 && ent == null; i++) {
-			ChunkPosition delta = around[i];
-			ent = getReactorAt(world, x + delta.chunkPosX, y + delta.chunkPosY, z + delta.chunkPosZ);
+		IReactor reactor = null;
+		for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+			reactor = getReactorAt(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+			if(reactor != null)
+			{
+				break;
+			}
 		}
-		return ent;
+		return reactor;
 	}
 
 	public static IReactorChamber getReactorChamberAroundCoord(World world, int x, int y, int z) {
 		if (world == null)
 			return null;
-		ChunkPosition[] around = { new ChunkPosition(-1, 0, 0),
-				new ChunkPosition(1, 0, 0), new ChunkPosition(0, -1, 0),
-				new ChunkPosition(0, 1, 0), new ChunkPosition(0, 0, -1),
-				new ChunkPosition(0, 0, 1) };
-		IReactorChamber ent = null;
-		for (int i = 0; i < 6 && ent == null; i++) {
-			ChunkPosition delta = around[i];
-			ent = getReactorChamberAt(world, x + delta.chunkPosX, y
-					+ delta.chunkPosY, z + delta.chunkPosZ);
+		IReactorChamber chamber = null;
+		for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+			chamber = getReactorChamberAt(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+			if(chamber != null)
+			{
+				break;
+			}
 		}
-		return ent;
+		
+		return chamber;
 	}
 
 	public static boolean isProducing(IReactor reactor) {
@@ -84,8 +78,7 @@ public class NuclearHelper {
 	}
 
 	public static int getNuclearCellTimeLeft(ItemStack rStack) {
-		int val = IC2NuclearControl.instance.crossIC2.getNuclearCellTimeLeft(rStack);
-		return val;
+		return IC2NuclearControl.instance.crossIc2.getNuclearCellTimeLeft(rStack);
 	}
 
 }
