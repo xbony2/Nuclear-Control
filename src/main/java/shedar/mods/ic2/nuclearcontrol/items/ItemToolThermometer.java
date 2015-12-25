@@ -36,21 +36,23 @@ public class ItemToolThermometer extends Item {
 		if (!canTakeDamage(itemstack, 2)) {
 			return false;
 		}
-		IReactor reactor = NuclearHelper.getReactorAt(world, x, y, z);
-		if (reactor == null) {
-			IReactorChamber chamber = NuclearHelper.getReactorChamberAt(world, x, y, z);
-			if (chamber != null) {
-				reactor = chamber.getReactor();
+		try {
+			IReactor reactor = NuclearHelper.getReactorAt(world, x, y, z);
+			if (reactor == null) {
+				IReactorChamber chamber = NuclearHelper.getReactorChamberAt(world, x, y, z);
+				if (chamber != null) {
+					reactor = chamber.getReactor();
+				}
+				if (reactor == null && chamber == null) {
+					reactor = ((ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(world, x, y, z)).getReactor();
+				}
 			}
-            if(reactor == null && chamber == null){
-            	reactor = ItemCard55Reactor.getReactor(world, x, y, z);
-            }
-		}
-		if (reactor != null) {
-			messagePlayer(player, reactor);
-			damage(itemstack, 1, player);
-			return true;
-		}
+			if (reactor != null) {
+				messagePlayer(player, reactor);
+				damage(itemstack, 1, player);
+				return true;
+			}
+		}catch(NullPointerException e){}
 		return false;
 
 	}

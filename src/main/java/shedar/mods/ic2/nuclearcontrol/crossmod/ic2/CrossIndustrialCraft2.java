@@ -58,7 +58,11 @@ public class CrossIndustrialCraft2 {
 			Class.forName("ic2.api.tile.IEnergyStorage", false, this.getClass().getClassLoader());
 			_gradItemInt = Class.forName("ic2.core.item.ItemGradualInt", false, this.getClass().getClassLoader());
 			_getMaxDamageEx = _gradItemInt.getMethod("getMaxCustomDamage", ItemStack.class);
-			_getDamageOfStack = _gradItemInt.getMethod("getControlTagOfStack", ItemStack.class);
+			try {
+				_getDamageOfStack = _gradItemInt.getMethod("getCustomDamage", ItemStack.class);
+			} catch (NoSuchMethodException e){ //Below: support for older IC2 versions
+				_getDamageOfStack = _gradItemInt.getMethod("getControlTagOfStack", ItemStack.class);
+			}
 			_isApiAvailable = true;
 		} catch (Exception e) {
 			_isApiAvailable = false;

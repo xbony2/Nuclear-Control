@@ -22,6 +22,7 @@ item.ItemGeneratorSensorKit.name=Generator Sensor Kit
 item.ItemGeneratorSensorLocationCard.name=Generator Sensor Location Card
 item.ItemLiquidArrayLocationCard.name=Liquid Array Location Card
 item.Item55ReactorCard.name=5x5 Reactor Sensor Location Card
+item.remoteMonitor.name=Portable Information Panel
 
 #Integration Items
 item.RFreactorKit.name=Remote RF Reactor Kit

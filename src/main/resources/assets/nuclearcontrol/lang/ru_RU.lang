@@ -4,8 +4,6 @@ item.ItemRemoteSensorKit.name=Набор с дистанционным датч�
 item.ItemEnergySensorKit.name=Набор для энергетического хранилища
 item.ItemCounterSensorKit.name=Набор для счётчика энергии
 item.ItemLiquidSensorKit.name=Набор для жидкостного хранилища
-item.RFreactorKit.name=Набор для для дистанционного RF-реактора
-item.RFreactorCard.name=Карта-датчик расположения RF-реактора
 item.ItemSensorLocationCard.name=Карта-датчик расположения реактора
 item.ItemEnergySensorLocationCard.name=Карта-датчик расположения энергии
 item.itemCounterSensorLocationCard.name=Карта-датчик расположения счётчика
@@ -20,6 +18,13 @@ item.ItemGeneratorSensorKit.name=Набор для генератора
 item.ItemGeneratorSensorLocationCard.name=Карта-датчик расположения генератора
 item.ItemLiquidArrayLocationCard.name=Карта-датчик расположения массива жидкости
 item.Item55ReactorCard.name=Карта-датчик расположения 5x5 реактора
+item.remoteMonitor.name=Переносная информационная панель
+
+item.RFreactorKit.name=Набор для дистанционного RF-реактора
+item.RFreactorCard.name=Карта-датчик расположения RF-реактора
+item.AppengCard.name=Карта для Applied Energistics
+item.AppengKit.name=Набор с датчиком для Applied Energistics
+item.RFenergyCard.name=Карта-датчик расположения RF энергии
 
 tile.blockThermalMonitor.name=Датчик температуры
 tile.blockIndustrialAlarm.name=Промышленная сирена
@@ -137,6 +142,9 @@ msg.nc.Reset=Сброс
 msg.nc.ScreenColor=Цветной экран
 msg.nc.TextColor=Цветной текст
 msg.nc.None=Н/А
+nc.msg.notValid=Эта карта не может быть совместима
+nc.msg.notValid2=с дистанционным датчиком
+nc.msg.notValid3=Попробуйте открыть интерфейс заново
 
 msg.nc.waila.getHeatLevel=Максимальная температура: 
 

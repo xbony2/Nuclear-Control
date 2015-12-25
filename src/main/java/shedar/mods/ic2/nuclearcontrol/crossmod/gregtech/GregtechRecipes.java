@@ -265,6 +265,14 @@ public class GregtechRecipes {
 				'F', IC2Items.getItem("frequencyTransmitter"), 
 				'L', "dyeLightBlue" });
 		
+		Recipes.advRecipes.addRecipe(new ItemStack(IC2NuclearControl.itemRemoteMonitor), new Object[]{
+			"A  ", "CMC", "RPP",
+			'A', "cableGt01Tin",
+			'C', IC2Items.getItem("frequencyTransmitter"),
+			'M', new ItemStack(IC2NuclearControl.blockNuclearControlMain, 1, BlockDamages.DAMAGE_INFO_PANEL_EXTENDER),
+			'R', IC2NuclearControl.itemUpgrade,
+			'P', "plateStainlessSteel"});
+		
 		CraftingManager.getInstance().getRecipeList().add(new StorageArrayRecipe());
 	}
 }
