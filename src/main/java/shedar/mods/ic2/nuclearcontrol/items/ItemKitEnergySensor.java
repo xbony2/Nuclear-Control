@@ -11,6 +11,7 @@ import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ModLib;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossTE;
+import shedar.mods.ic2.nuclearcontrol.crossmod.mekanism.CrossMekanism;
 import shedar.mods.ic2.nuclearcontrol.utils.EnergyStorageHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.ItemStackUtils;
 import shedar.mods.ic2.nuclearcontrol.utils.NuclearNetworkHelper;
@@ -27,6 +28,9 @@ public class ItemKitEnergySensor extends ItemSensorKitBase {
 	}
     protected ItemStack getItemStackbyType(EnergyStorageData storageData){
         if(storageData.type == EnergyStorageData.TARGET_TYPE_RF){
+			if(CrossMekanism.isMekanismPresent() && CrossMekanism.classExists){
+				return new ItemStack(CrossMekanism.mekCard);
+			}else
             if(Loader.isModLoaded(ModLib.TE)){
                 return new ItemStack(CrossTE.RFSensorCard);
             }

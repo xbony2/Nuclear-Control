@@ -57,6 +57,7 @@ dependencies {
 	compile files(aeVersion)
 	compile files(cofhCoreVersion)
 	compile files(brVersion)  
+	compile files(mekVersion)
 }
 
 

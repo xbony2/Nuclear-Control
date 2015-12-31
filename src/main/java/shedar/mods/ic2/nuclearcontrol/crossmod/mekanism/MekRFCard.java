@@ -1,4 +1,4 @@
-package shedar.mods.ic2.nuclearcontrol.crossmod.RF;
+package shedar.mods.ic2.nuclearcontrol.crossmod.mekanism;
 
 import cofh.api.energy.IEnergyHandler;
 import net.minecraft.tileentity.TileEntity;
@@ -9,7 +9,6 @@ import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
 import shedar.mods.ic2.nuclearcontrol.api.PanelString;
-import shedar.mods.ic2.nuclearcontrol.crossmod.mekanism.CrossMekanism;
 import shedar.mods.ic2.nuclearcontrol.items.ItemCardEnergySensorLocation;
 import shedar.mods.ic2.nuclearcontrol.utils.LangHelper;
 import shedar.mods.ic2.nuclearcontrol.utils.StringUtils;
@@ -19,30 +18,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-
-public class ItemCardRFEnergyLocation extends ItemCardEnergySensorLocation {
+public class MekRFCard extends ItemCardEnergySensorLocation {
 
     public static final UUID CARD_TYPE = new UUID(0, 3);
 
-    public ItemCardRFEnergyLocation() {
-        this.setUnlocalizedName("RFenergyCard");
+    public MekRFCard() {
+        this.setUnlocalizedName("MekRFenergyCard");
 
     }
 
     @Override
-         public CardState update(TileEntity panel, ICardWrapper card, int range) {
-        ChunkCoordinates target = card.getTarget();
-        TileEntity tile = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
-        //NCLog.fatal(tile instanceof IEnergyHandler);
-        if(tile instanceof IEnergyHandler) {
-            IEnergyHandler iEnergyStorage = (IEnergyHandler) tile;
-            card.setInt("energyL", iEnergyStorage.getEnergyStored(ForgeDirection.UNKNOWN));
-            card.setInt("maxStorageL", iEnergyStorage.getMaxEnergyStored(ForgeDirection.UNKNOWN));
-            card.setInt("range_trigger_amount", iEnergyStorage.getEnergyStored(ForgeDirection.UNKNOWN));
-            return CardState.OK;
-        } else {
-            return CardState.NO_TARGET;
-        }
+    public CardState update(TileEntity panel, ICardWrapper card, int range) {
+        return this.update(panel.getWorldObj(), card, range);
     }
 
     @Override
@@ -50,11 +37,10 @@ public class ItemCardRFEnergyLocation extends ItemCardEnergySensorLocation {
         ChunkCoordinates target = card.getTarget();
         TileEntity tile = world.getTileEntity(target.posX, target.posY, target.posZ);
         //NCLog.fatal(tile instanceof IEnergyHandler);
-        if(tile instanceof IEnergyHandler) {
-            IEnergyHandler iEnergyStorage = (IEnergyHandler) tile;
-            card.setInt("energyL", iEnergyStorage.getEnergyStored(ForgeDirection.UNKNOWN));
-            card.setInt("maxStorageL", iEnergyStorage.getMaxEnergyStored(ForgeDirection.UNKNOWN));
-            card.setInt("range_trigger_amount", iEnergyStorage.getEnergyStored(ForgeDirection.UNKNOWN));
+        if(tile instanceof mekanism.api.energy.IStrictEnergyStorage) {
+            mekanism.api.energy.IStrictEnergyStorage storage = (mekanism.api.energy.IStrictEnergyStorage) tile;
+            card.setDouble("energyL", storage.getEnergy());
+            card.setDouble("maxStorageL", storage.getMaxEnergy());
             return CardState.OK;
         } else {
             return CardState.NO_TARGET;
