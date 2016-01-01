@@ -21,7 +21,7 @@ import java.util.UUID;
 public class MekRFCard extends ItemCardEnergySensorLocation {
 
     public static final UUID CARD_TYPE = new UUID(0, 3);
-
+ 
     public MekRFCard() {
         this.setUnlocalizedName("MekRFenergyCard");
 

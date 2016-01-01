@@ -1,14 +1,17 @@
 package shedar.mods.ic2.nuclearcontrol.blocks.subblocks;
 
+import ic2.api.item.IC2Items;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import shedar.mods.ic2.nuclearcontrol.containers.ContainerInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.gui.GuiInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
+import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 
 public class InfoPanel extends Subblock {
 	private static final int DAMAGE = BlockDamages.DAMAGE_INFO_PANEL;
