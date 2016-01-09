@@ -95,7 +95,6 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
 		int fire;
 		if (energy >= IC2NuclearControl.instance.remoteThermalMonitorEnergyConsumption){
 			IReactor reactor = NuclearHelper.getReactorAt(worldObj, xCoord + deltaX, yCoord + deltaY, zCoord + deltaZ);
-			ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric NR = null;
             //UUID cardType = null;
             if(reactor == null){
                 if (inventory[SLOT_CARD] != null){
@@ -105,15 +104,12 @@ public class TileEntityRemoteThermo extends TileEntityThermo implements IEnergyS
                     	int x = target.posX;
                     	int y = target.posY;
                     	int z = target.posZ;
-                    	reactor = ((ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric)ItemCard55Reactor.getReactor(worldObj, x, y, z)).getReactor();
+                    	reactor = ItemCard55Reactor.getReactor(worldObj, x, y, z);
                     }
                 }
             }
 
-			if (reactor != null|| NR != null) {
-				if(NR != null){
-					reactor = NR.getReactor();
-				}
+			if (reactor != null){
 				if (tickRate == -1){
 					tickRate = reactor.getTickRate() / 2;
 					if (tickRate == 0)

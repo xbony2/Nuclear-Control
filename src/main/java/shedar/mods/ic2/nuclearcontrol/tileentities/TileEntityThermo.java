@@ -205,7 +205,6 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 		byte fire;
 		IReactorChamber chamber = NuclearHelper.getReactorChamberAroundCoord(worldObj, xCoord, yCoord, zCoord);
 		IReactor reactor = null;
-		ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric NR = null;
 		if (chamber != null) {
 			reactor = chamber.getReactor();
 		}
@@ -216,13 +215,10 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
             //NCLog.fatal("CALLED");
             //NCLog.error(this.getFacing());
             decodeSides(xCoord, yCoord, zCoord);
-            NR = ((ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric)ItemCard55Reactor.getReactor(worldObj, Coords[0], Coords[1], Coords[2]));
+            reactor = ItemCard55Reactor.getReactor(worldObj, Coords[0], Coords[1], Coords[2]);
         }
 
-		if (reactor != null || NR != null) {
-			if(NR != null){
-				reactor = NR.getReactor();
-			}
+		if (reactor != null) {
 
 			if (tickRate == -1) {
 				tickRate = reactor.getTickRate() / 2;

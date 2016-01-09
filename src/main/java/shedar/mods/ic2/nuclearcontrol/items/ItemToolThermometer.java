@@ -44,7 +44,7 @@ public class ItemToolThermometer extends Item {
 					reactor = chamber.getReactor();
 				}
 				if (reactor == null && chamber == null) {
-					reactor = ((ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric) ItemCard55Reactor.getReactor(world, x, y, z)).getReactor();
+					reactor = ItemCard55Reactor.getReactor(world, x, y, z);
 				}
 			}
 			if (reactor != null) {
