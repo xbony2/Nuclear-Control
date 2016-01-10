@@ -1,0 +1,194 @@
+#Tab Name
+nc.itemgroup.tab=Nuklearna Kontrola 2
+
+#Internal Items
+item.ItemToolThermometer.name=Termometar
+item.ItemToolDigitalThermometer.name=Digitalni Termometar
+item.ItemRemoteSensorKit.name=Daljinski Senzor Kit
+item.ItemEnergySensorKit.name=Energetski Senzor Kit
+item.ItemCounterSensorKit.name=Brojaƒçni Senzor Kit
+item.ItemLiquidSensorKit.name=Tekuƒái Senzor Kit
+item.ItemSensorLocationCard.name=Reaktor Senzor Kartica Lokacije
+item.ItemEnergySensorLocationCard.name=Energetski Senzor Kartica Lokacije
+item.itemCounterSensorLocationCard.name=Brojacni Senzor Kartica Lokacije
+item.ItemLiquidSensorLocationCard.name=Tekuƒái Senzor Kartica Lokacije
+item.ItemEnergyArrayLocationCard.name=Energetska Grupa Kartica Lokacije
+item.itemRangeUpgrade.name=Nadograda Daljine
+item.ItemColorUpgrade.name=Nadograda Boje
+item.ItemWebUpgrade.name=Nadogrda Mre≈æe
+item.ItemTimeCard.name=Vremenska Kartica
+item.ItemTextCard.name=Tekstna Kartica
+item.ItemGeneratorSensorKit.name=Generator Senzor Kit
+item.ItemGeneratorSensorLocationCard.name=Generator Senzor Kartica Lokacije
+item.ItemLiquidArrayLocationCard.name=Tekuƒáa Grupa Kartica Lokacije
+item.Item55ReactorCard.name=5x5 Reaktor Senzor Kartica Lokacije
+item.remoteMonitor.name=Noseƒái Informacijski Monitor
+
+#Integration Items
+item.RFreactorKit.name=Daljinski RF Reaktor Kit
+item.RFreactorCard.name=RF Reaktor Senzor Kartica Lokacije
+item.AppengCard.name=Applied Energistics Kartica
+item.AppengKit.name=Applied Energistics Monitor Kit
+item.RFenergyCard.name=RF Energetski Senzor Kartica Lokacije
+
+#Internal Blocks
+tile.blockThermalMonitor.name=Termalni Monitor
+tile.blockIndustrialAlarm.name=Industrijski Alarm
+tile.blockHowlerAlarm.name=Howler Alarm
+tile.blockRemoteThermo.name=Daljisnki Termalni Monitor
+tile.blockInfoPanel.name=Industrijski Informativni Monitor
+tile.blockInfoPanelExtender.name=Dodatak Informativnom Monitoru
+tile.blockAdvancedInfoPanel.name=Napredan Informativan Monitor
+tile.blockAdvancedInfoPanelExtender.name=Dodatak Naprednom Monitoru 
+tile.nclight0.name=Bijela Lampa
+tile.nclight1.name=Bijela Lampa
+tile.nclight2.name=Naranƒçasta Lampa
+tile.nclight3.name=Naranƒçasta Lampa
+tile.blockEnergyCounter.name=Energetski Brojaƒç
+tile.blockAverageCounter.name=Prosjecan Brojaƒç
+tile.blockRangeTrigger.name=Daljinski Kontroler
+
+#Integration Blocks
+tile.blockBRPart.name=Reaktor Monitor
+tile.NetworkLink.name=ME Mre≈æni Monitor
+
+#Original Screen Messages
+msg.nc.HowlerAlarmSoundRange=Daljina Zvuka: %s
+msg.nc.HowlerAlarmSound=Zvuk
+msg.nc.ThermalMonitorSave=Spremi Postavke
+msg.nc.ThermalMonitorSignalAt=Signal na Toplini %s
+msg.nc.Thermo=Hull heat: %s
+msg.nc.ThermoDigital=Toplina Trupa: %s (Voda Isparuje: %s / Rastopljivanje: %s)
+msg.nc.SensorKit=Daljinski Senzor Postavljen, Senzor Lokacijska Kartica Dobivena
+
+msg.nc.InfoPanelOutOfRange=Izvan Daljine
+msg.nc.InfoPanelInvalidCard=Kriva Kartica
+msg.nc.InfoPanelNoTarget=Meta Nije Pronadena
+
+msg.nc.InfoPanelOn=Upaljeno
+msg.nc.InfoPanelOff=Uga≈°eno
+msg.nc.InfoPanelHeat=T: %s
+msg.nc.InfoPanelMaxHeat=MaxToplina: %s
+msg.nc.InfoPanelMelting=Rastopljivanje: %s
+msg.nc.InfoPanelOutput=Proizvodnja: %s EU/t
+msg.nc.InfoPanelOutputMJ=Proizvodnja: %s RF/t
+msg.nc.InfoPanelOutputSteam=Proizvodnja: %s mB/t
+msg.nc.InfoPanelTimeRemaining=Preostalo: %s
+
+msg.nc.InfoPanelEnergyCounter=Energija: %s EU
+msg.nc.InfoPanelEnergyCounterMJ=Energija: %s RF
+
+msg.nc.InfoPanelEnergy=Energija: %s
+msg.nc.InfoPanelEnergyFree=Preostalo: %s
+msg.nc.InfoPanelEnergyStorage=Skladi≈°te: %s
+msg.nc.InfoPanelEnergyPercentage=Napunjeno: %s%%
+
+msg.nc.cbInfoPanelLiquidName=ime Tekuƒáine
+msg.nc.cbInfoPanelLiquidAmount=Iznos
+msg.nc.cbInfoPanelLiquidCapacity=Kapacitet
+msg.nc.cbInfoPanelLiquidFree=Preostalo
+msg.nc.cbInfoPanelLiquidPercentage=Postotak napunjeno
+
+msg.nc.InfoPanelLiquidName=Ime: %s
+msg.nc.InfoPanelLiquidAmount=Iznos: %s
+msg.nc.InfoPanelLiquidCapacity=Kapacitet: %s
+msg.nc.InfoPanelLiquidFree=Preostalo: %s
+msg.nc.InfoPanelLiquidPercentage=Napunjeno: %s%%
+
+msg.nc.InfoPanelNotFoundN=#%d Nepronadjeno
+msg.nc.InfoPanelOutOfRangeN=#%d Izvan Daljine
+msg.nc.InfoPanelEnergyN=#%d Energija: %s
+msg.nc.InfoPanelEnergyFreeN=#%d Preostalo: %s
+msg.nc.InfoPanelEnergyStorageN=#%d Sklati≈°te: %s
+msg.nc.InfoPanelEnergyPercentageN=#%d Napunjeno: %s%%
+msg.nc.InfoPanelLiquidNameN=#%d Ime: %s
+msg.nc.InfoPanelLiquidN=#%d Iznos: %s
+msg.nc.InfoPanelLiquidFreeN=#%d Preostalo: %s
+msg.nc.InfoPanelLiquidCapacityN=#%d Kapacitet: %s
+msg.nc.InfoPanelLiquidPercentageN=#%d Napunjeno: %s%%
+
+msg.nc.InfoPanelTime=Time: %s
+
+msg.nc.cbInfoPanelOnOff=Upaljen/Uga≈°en status
+msg.nc.cbInfoPanelHeat=Nivo Topline
+msg.nc.cbInfoPanelMaxHeat=Maksimalna Toplina
+msg.nc.cbInfoPanelMelting=Temperatura Rastopljivanja
+msg.nc.cbInfoPanelOutput=OProizvodnja (EU/t)
+msg.nc.cbInfoPanelTimeRemaining=Vrijeme Do Zavrsenja Kruga
+msg.nc.cb24h=24h mod
+
+msg.nc.cbInfoPanelEnergyCurrent=Energija
+msg.nc.cbInfoPanelEnergyStorage=Skladiste
+msg.nc.cbInfoPanelEnergyFree=Preostalo
+msg.nc.cbInfoPanelEnergyEach=Informacija Svake Kartice
+msg.nc.cbInfoPanelEnergyTotal=Sa≈æetak
+msg.nc.cbInfoPanelEnergyPercentage=Postotak Punjenja
+msg.nc.EnergyCardQuantity=Kvantiteta Kartice: %d
+msg.nc.AverageCounterPeriod=Period: %ssek
+
+msg.nc.LiquidCardQuantity=Kvantiteta Kartice: %d
+
+msg.nc.cbInfoPanelLiquidEach=Informacija Svake Kartice
+msg.nc.cbInfoPanelLiquidTotal=Sa≈æetak
+
+msg.nc.Reset=Resetirati
+msg.nc.ScreenColor=Boja Ekrana
+msg.nc.TextColor=Boja Teksta
+msg.nc.None=N/A
+nc.msg.notValid=Ova Kartica je Mozda Nekompatibilna
+nc.msg.notValid2=Sa Prenosnim Monitorom
+nc.msg.notValid3=Poku≈°aj Otvoriti GUI
+
+#Big Reactor Messages
+msg.nc.InfoPanelRF.Temp=Temperatura jezgre: %s C
+msg.nc.InfoPanelRF.EnergyStored=Energija: %s RF
+msg.nc.InfoPanelRF.CreatedEnergy=Proizodnja Energije: %s RF/t
+msg.nc.InfoPanelRF.Percentage=Skladiöte je %s%% Puno
+msg.nc.InfoPanelRF.Output=Proizvodnja (RF/t)
+msg.nc.InfoPanelRF.TempPROPER=Temperatura Jezgre
+
+#5x5 Reactor Messages
+msg.nc.InfoPanel55.Output=Proizvodnja: %s Hu/s
+msg.nc.InfoPanel55.Temp=Temperature Jezgre: %s%%
+msg.nc.InfoPanel55.tarkin=U Spremnik: %s / 10000 mB
+msg.nc.InfoPanel55.tankout=Van Spremnika: %s / 10000 mB
+msg.nc.InfoPanel55.Out=OutpuProizvodnja (Hu/s)
+msg.nc.InfoPanel55.BufferIn=Spremnik Hladne Tekuƒáine
+msg.nc.InfoPanel55.BufferOut=Spremnik Vruƒáe Tekuƒáine
+
+#AE INTERGRATION
+msg.null.craft=Nista
+msg.nc.InfoPanelAE.CraftItemMake=Trenutno se Pravi: %s
+msg.nc.InfoPanelAE.CraftAMT=Iznos Izradbe: %s
+msg.nc.InfoPanelAE.Bytes=Byteova Upotrebljeno/Ukupno
+msg.nc.InfoPanelAE.Items=Predmeta Upotrebljeno/Ukupno
+msg.nc.InfoPanelAE.CraftItem=Trenutaƒçan Predmet Pravljen
+msg.nc.InfoPanelAE.CraftStack=Broj Predmeta Pravljeno
+msg.nc.InfoPanelAE.DisplayBytes=%s / %s Byteovi
+msg.nc.InfoPanelAE.DisplayItem=%s / %s Vrsta Predmeta
+
+#WAILA Integration
+msg.nc.waila.getHeatLevel=Maximalna Toplina Postavljena: 
+msg.nc.waila.ColorBackground=Boja Pozadine: 
+msg.nc.waila.ColorText=Boja Teksta: 
+msg.nc.waila.Web=Mre≈æna Nadograda je Postavljena
+msg.nc.waila.Color=Bojna Nadograda je Postavljena
+msg.nc.waila.ColorBlack=Crna
+msg.nc.waila.ColorRed=Crvena
+msg.nc.waila.ColorGreen=Zelena
+msg.nc.waila.ColorBrown=Smeƒëa
+msg.nc.waila.ColorDarkBlue=Tamno Plava
+msg.nc.waila.ColorPurple=Ljubicasta
+msg.nc.waila.ColorLightBlue=Svijetlo Plava
+msg.nc.waila.ColorWhite=Bijela
+msg.nc.waila.ColorPink=Roza
+msg.nc.waila.ColorLimeGreen=Svijetlo Zelena
+msg.nc.waila.ColorYellow=≈Ωuta
+msg.nc.waila.ColorBlue=Plava
+msg.nc.waila.ColorMagenta=Purpurna
+msg.nc.waila.ColorOrange=Naranƒçasta
+msg.nc.waila.getSoundNames=Zvuk: 
+msg.nc.waila.getRange=Daljina: 
+msg.nc.waila.getEnergyCount=Broj Energije: 
+msg.nc.waila.getEnergyAverage=Prosjecna Energija: 
+msg.nc.waila.getPeriod=Preko Razdoblja Od: 
