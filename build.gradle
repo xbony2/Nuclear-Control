@@ -50,13 +50,13 @@ dependencies {
 	compile codeChickenCoreVersion
 	compile notEnoughItemsVersion
 	compile codeChickenLibVersion
-	compile buildcraftVersion
 	compile argoVersion
 	compile wailaVersion
 	compile openCVersion
 	compile files(aeVersion)
 	compile files(cofhCoreVersion)
 	compile files(brVersion)  
+	compile files(buildcraftVersion)
 }
 
 
