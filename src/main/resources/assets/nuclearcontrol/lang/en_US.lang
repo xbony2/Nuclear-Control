@@ -109,13 +109,13 @@ msg.nc.InfoPanelLiquidPercentageN=#%d Fill: %s%%
 
 msg.nc.InfoPanelTime=Time: %s
 
-msg.nc.cbInfoPanelOnOff=On/Off status
-msg.nc.cbInfoPanelHeat=Heat level
-msg.nc.cbInfoPanelMaxHeat=Max heat
-msg.nc.cbInfoPanelMelting=Melting temp
+msg.nc.cbInfoPanelOnOff=On/Off Status
+msg.nc.cbInfoPanelHeat=Heat Level
+msg.nc.cbInfoPanelMaxHeat=Max Heat
+msg.nc.cbInfoPanelMelting=Melting Temp
 msg.nc.cbInfoPanelOutput=Output (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Time to cycle end
-msg.nc.cb24h=24h mode
+msg.nc.cb24h=24h Mode
 
 msg.nc.cbInfoPanelEnergyCurrent=Energy
 msg.nc.cbInfoPanelEnergyStorage=Storage
@@ -149,7 +149,7 @@ msg.nc.InfoPanelRF.TempPROPER=Core Temperature
 
 #5x5 Reactor Messages
 msg.nc.InfoPanel55.Output=Output: %s Hu/s
-msg.nc.InfoPanel55.Temp=Core Tempurature: %s%%
+msg.nc.InfoPanel55.Temp=Core Temperature: %s%%
 msg.nc.InfoPanel55.tarkin=Tank In: %s / 10000 mB
 msg.nc.InfoPanel55.tankout=Tank Out: %s / 10000 mB
 msg.nc.InfoPanel55.Out=Output (Hu/s)
