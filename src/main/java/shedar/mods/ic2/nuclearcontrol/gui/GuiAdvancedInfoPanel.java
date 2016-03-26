@@ -84,8 +84,7 @@ public class GuiAdvancedInfoPanel extends GuiInfoPanel{
 		prevCard = card;
 
 		//labels
-		buttonList.add(new IconButton(ID_LABELS, guiLeft + 83 , guiTop + 42, 16, 16, TEXTURE_LOCATION, 192-16, 
-				getIconLabelsTopOffset(container.panel.getShowLabels())));
+		buttonList.add(new IconButton(ID_LABELS, guiLeft + 83 , guiTop + 42, 16, 16, TEXTURE_LOCATION, 192-16, getIconLabelsTopOffset(container.panel.getShowLabels())));
 		//slope
 		buttonList.add(new IconButton(ID_SLOPE, guiLeft + 83 + 17*1, guiTop + 42, 16, 16, TEXTURE_LOCATION, 192, 15));
 		//colors

@@ -1,5 +1,8 @@
 package shedar.mods.ic2.nuclearcontrol.gui.controls;
 
+import ic2.core.IC2;
+import ic2.core.network.NetworkManager;
+
 import java.lang.reflect.Method;
 
 import ic2.api.network.NetworkHelper;
@@ -7,9 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityRangeTrigger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -42,36 +43,22 @@ public class GuiRangeTriggerInvertRedstone extends GuiButton {
 	}
 
 	@Override
-	public int getHoverState(boolean flag) {
+	public int getHoverState(boolean flag){
 		return 0;
 	}
 
 	@Override
 	public boolean mousePressed(Minecraft minecraft, int i, int j) {
-		if (super.mousePressed(minecraft, i, j)) {
+		if(super.mousePressed(minecraft, i, j)){
 			checked = !checked;
 			int value = checked ? -2 : -1;
-			trigger.setInvertRedstone(checked);
-			NetworkHelper nh = new NetworkHelper();
-			try {
-				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
-				m1.setAccessible(true);
-				m1.invoke(trigger, value);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			/*System.out.println("DEBUG STUFF");
-			try { TODO: didn't work so well
-				Method m1 = nh.getClass().getMethod("initiateClientTileEntityEvent", TileEntity.class, int.class);
-				m1.setAccessible(true);
-				m1.invoke(nh, trigger, value);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}*/
+			//trigger.setInvertRedstone(checked);
+			
+			((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(trigger, value);
+
 			return true;
-		} else {
+		}else
 			return false;
-		}
 	}
 
 }

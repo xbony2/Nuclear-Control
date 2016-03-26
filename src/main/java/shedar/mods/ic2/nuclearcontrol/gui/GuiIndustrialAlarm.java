@@ -39,8 +39,7 @@ public class GuiIndustrialAlarm extends GuiContainer {
 		buttonList.clear();
 		slider = new GuiHowlerAlarmSlider(3, guiLeft + 12, guiTop + 33, StatCollector.translateToLocal("msg.nc.HowlerAlarmSoundRange"), alarm);
 		buttonList.add(slider);
-
-	};
+	}
 
 	@Override
 	public boolean doesGuiPauseGame() {

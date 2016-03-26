@@ -12,8 +12,7 @@ import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 
 public class GuiCardText extends GuiScreen implements ICardGui {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUITextCard.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private ICardSettingsWrapper wrapper;
 	private ICardWrapper helper;
@@ -26,32 +25,29 @@ public class GuiCardText extends GuiScreen implements ICardGui {
 
 	private static final int lineCount = 10;
 
-	public GuiCardText(ICardWrapper helper) {
+	public GuiCardText(ICardWrapper helper){
 		this.helper = helper;
 	}
 
 	@Override
-	public boolean doesGuiPauseGame() {
+	public boolean doesGuiPauseGame(){
 		return false;
 	}
 
 	@Override
-	public void setCardSettingsHelper(ICardSettingsWrapper wrapper) {
+	public void setCardSettingsHelper(ICardSettingsWrapper wrapper){
 		this.wrapper = wrapper;
 	}
 
 	@SuppressWarnings("unchecked")
-	private void initControls() {
+	private void initControls(){
 		buttonList.clear();
-		buttonList.add(new GuiButton(1, guiLeft + xSize - 60 - 8, guiTop + 120,
-				60, 20, "Ok"));
-		textArea = new GuiTextArea(fontRendererObj, guiLeft + 8, guiTop + 5,
-				xSize - 16, ySize - 35, lineCount);
+		buttonList.add(new GuiButton(1, guiLeft + xSize - 60 - 8, guiTop + 120, 60, 20, "Ok"));
+		textArea = new GuiTextArea(fontRendererObj, guiLeft + 8, guiTop + 5, xSize - 16, ySize - 35, lineCount);
 		textArea.setFocused(true);
 		String[] data = textArea.getText();
-		for (int i = 0; i < lineCount; i++) {
+		for (int i = 0; i < lineCount; i++)
 			data[i] = helper.getString("line_" + i);
-		}
 	}
 
 	@Override
@@ -65,11 +61,11 @@ public class GuiCardText extends GuiScreen implements ICardGui {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if (textArea != null && wrapper != null) {
 			String[] lines = textArea.getText();
-			if (lines != null) {
-				for (int i = 0; i < lines.length; i++) {
+			
+			if (lines != null)
+				for (int i = 0; i < lines.length; i++)
 					wrapper.setString("line_" + i, lines[i]);
-				}
-			}
+				
 		}
 		wrapper.commit();
 		wrapper.closeGui();
@@ -89,24 +85,19 @@ public class GuiCardText extends GuiScreen implements ICardGui {
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
-		if (par2 == 1
-				|| (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode() && (textArea == null || !textArea
-						.isFocused()))) {
+		if (par2 == 1 || (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode() && (textArea == null || !textArea.isFocused()))) 
 			actionPerformed(null);
-
-		} else if (textArea != null && textArea.isFocused()) {
+		else if(textArea != null && textArea.isFocused())
 			textArea.textAreaKeyTyped(par1, par2);
-		} else {
+		else
 			super.keyTyped(par1, par2);
-		}
 	}
 
 	@Override
-	public void initGui() {
+	public void initGui(){
 		super.initGui();
 		guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2;
 		initControls();
 	}
-
 }

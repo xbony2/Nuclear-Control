@@ -120,31 +120,23 @@ public class GuiInfoPanel extends GuiContainer {
 			itemRender.zLevel = 300.0F;
 			int l1 = -267386864;
 			this.drawGradientRect(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
-			this.drawGradientRect(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4,
-					l1, l1);
-			this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 + k1 + 3, l1,
-					l1);
+			this.drawGradientRect(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
+			this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 + k1 + 3, l1, l1);
 			this.drawGradientRect(i1 - 4, j1 - 3, i1 - 3, j1 + k1 + 3, l1, l1);
-			this.drawGradientRect(i1 + k + 3, j1 - 3, i1 + k + 4, j1 + k1 + 3,
-					l1, l1);
+			this.drawGradientRect(i1 + k + 3, j1 - 3, i1 + k + 4, j1 + k1 + 3, l1, l1);
 			int i2 = 1347420415;
 			int j2 = (i2 & 16711422) >> 1 | i2 & -16777216;
-			this.drawGradientRect(i1 - 3, j1 - 3 + 1, i1 - 3 + 1, j1 + k1 + 3
-					- 1, i2, j2);
-			this.drawGradientRect(i1 + k + 2, j1 - 3 + 1, i1 + k + 3, j1 + k1
-					+ 3 - 1, i2, j2);
-			this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2,
-					i2);
-			this.drawGradientRect(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3,
-					j2, j2);
+			this.drawGradientRect(i1 - 3, j1 - 3 + 1, i1 - 3 + 1, j1 + k1 + 3 - 1, i2, j2);
+			this.drawGradientRect(i1 + k + 2, j1 - 3 + 1, i1 + k + 3, j1 + k1 + 3 - 1, i2, j2);
+			this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2, i2);
+			this.drawGradientRect(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
 
 			for (int k2 = 0; k2 < par1List.size(); ++k2) {
 				String s1 = (String) par1List.get(k2);
 				font.drawStringWithShadow(s1, i1, j1, -1);
 
-				if (k2 == 0) {
+				if (k2 == 0)
 					j1 += 2;
-				}
 
 				j1 += 10;
 			}
@@ -161,9 +153,7 @@ public class GuiInfoPanel extends GuiContainer {
 	@SuppressWarnings("unchecked")
 	protected void initControls() {
 		ItemStack card = container.panel.getCards().get(0);
-		if (((card == null && prevCard == null) || (card != null && card
-				.equals(prevCard)))
-				&& this.container.panel.getColored() == isColored)
+		if (((card == null && prevCard == null) || (card != null && card.equals(prevCard))) && this.container.panel.getColored() == isColored)
 			return;
 		int h = fontRendererObj.FONT_HEIGHT + 1;
 		buttonList.clear();
@@ -173,31 +163,26 @@ public class GuiInfoPanel extends GuiContainer {
 				guiTop + 42, container.panel));
 		int delta = 0;
 		if (isColored) {
-			buttonList.add(new CompactButton(112, guiLeft + xSize - 25,
-					guiTop + 55, 18, 12, "T"));
+			buttonList.add(new CompactButton(112, guiLeft + xSize - 25, guiTop + 55, 18, 12, "T"));
 			delta = 15;
 		}
 		if (card != null && card.getItem() instanceof IPanelDataSource) {
 			byte slot = container.panel.getIndexOfCard(card);
 			IPanelDataSource source = (IPanelDataSource) card.getItem();
 			if (source instanceof IAdvancedCardSettings) {
-				buttonList.add(new CompactButton(111, guiLeft + xSize - 25,
-						guiTop + 55 + delta, 18, 12, "..."));
+				buttonList.add(new CompactButton(111, guiLeft + xSize - 25, guiTop + 55 + delta, 18, 12, "..."));
 			}
 			int row = 0;
 			List<PanelSetting> settingsList = null;
 			if (card.getItem() instanceof IPanelMultiCard) {
-				settingsList = ((IPanelMultiCard) source)
-						.getSettingsList(new CardWrapperImpl(card, (byte) 0));
+				settingsList = ((IPanelMultiCard) source).getSettingsList(new CardWrapperImpl(card, (byte) 0));
 			} else {
 				settingsList = source.getSettingsList();
 			}
 
 			if (settingsList != null)
 				for (PanelSetting panelSetting : settingsList) {
-					buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32,
-							guiTop + 40 + h * row, panelSetting,
-							container.panel, slot, fontRendererObj));
+					buttonList.add(new GuiInfoPanelCheckBox(0, guiLeft + 32, guiTop + 40 + h * row, panelSetting, container.panel, slot, fontRendererObj));
 					row++;
 				}
 			if (!modified) {
@@ -219,20 +204,14 @@ public class GuiInfoPanel extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj
-				.drawString(name,
-						(xSize - fontRendererObj.getStringWidth(name)) / 2, 6,
-						0x404040);
-		fontRendererObj.drawString(
-				StatCollector.translateToLocal("container.inventory"), 8,
-				(ySize - 96) + 2, 0x404040);
+		fontRendererObj.drawString(name,(xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
+		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
 		if (textboxTitle != null)
 			textboxTitle.drawTextBox();
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2,
-			int var3) {
+	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(TEXTURE_LOCATION);
 		int left = (width - xSize) / 2;
@@ -269,10 +248,7 @@ public class GuiInfoPanel extends GuiContainer {
 			return;
 		ItemStack card = getActiveCard();
 		if (container.panel.getWorldObj().isRemote) {
-			NuclearNetworkHelper.setNewAlarmSound(container.panel.xCoord,
-					container.panel.yCoord, container.panel.zCoord,
-					container.panel.getIndexOfCard(card),
-					textboxTitle.getText());
+			NuclearNetworkHelper.setNewAlarmSound(container.panel.xCoord, container.panel.yCoord, container.panel.zCoord, container.panel.getIndexOfCard(card), textboxTitle.getText());
 		}
 		if (card != null && card.getItem() instanceof IPanelDataSource) {
 			new CardWrapperImpl(card, 0).setTitle(textboxTitle.getText());
@@ -297,17 +273,13 @@ public class GuiInfoPanel extends GuiContainer {
 				return;
 			if (card != null && card.getItem() instanceof IAdvancedCardSettings) {
 				ICardWrapper helper = new CardWrapperImpl(card, 0);
-				Object guiObject = ((IAdvancedCardSettings) card.getItem())
-						.getSettingsScreen(helper);
+				Object guiObject = ((IAdvancedCardSettings) card.getItem()).getSettingsScreen(helper);
 				if (!(guiObject instanceof GuiScreen)) {
-					// FMLLog.warning("Invalid card, getSettingsScreen method should return GuiScreen object");
-					IC2NuclearControl.logger
-							.warn("Invalid card, getSettingsScreen method should return GuiScreen object");
+					IC2NuclearControl.logger.warn("Invalid card, getSettingsScreen method should return GuiScreen object");
 					return;
 				}
 				GuiScreen gui = (GuiScreen) guiObject;
-				ICardSettingsWrapper wrapper = new CardSettingsWrapperImpl(
-						card, container.panel, this, 0);
+				ICardSettingsWrapper wrapper = new CardSettingsWrapperImpl(card, container.panel, this, 0);
 				((ICardGui) gui).setCardSettingsHelper(wrapper);
 				mc.displayGuiScreen(gui);
 			}
@@ -316,18 +288,16 @@ public class GuiInfoPanel extends GuiContainer {
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
-		if (textboxTitle != null && textboxTitle.isFocused()) {
-			if (par2 == 1) {
+		if (textboxTitle != null && textboxTitle.isFocused())
+			if (par2 == 1)
 				mc.thePlayer.closeScreen();
-			} else if (par1 == 13) {
+			else if (par1 == 13)
 				updateTitle();
-			} else {
+			else{
 				modified = true;
 				textboxTitle.textboxKeyTyped(par1, par2);
 			}
-		} else {
+		else
 			super.keyTyped(par1, par2);
-		}
 	}
-
 }

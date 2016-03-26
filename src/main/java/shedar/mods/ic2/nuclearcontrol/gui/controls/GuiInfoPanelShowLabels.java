@@ -1,14 +1,15 @@
 package shedar.mods.ic2.nuclearcontrol.gui.controls;
 
+import ic2.core.IC2;
+import ic2.core.network.NetworkManager;
+
 import java.lang.reflect.Method;
 
 import ic2.api.network.NetworkHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,14 +17,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiInfoPanelShowLabels extends GuiButton {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIInfoPanel.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private TileEntityInfoPanel panel;
 	private boolean checked;
 
-	public GuiInfoPanelShowLabels(int id, int x, int y,
-			TileEntityInfoPanel panel) {
+	public GuiInfoPanelShowLabels(int id, int x, int y, TileEntityInfoPanel panel) {
 		super(id, x, y, 0, 0, "");
 		height = 9;
 		width = 18;
@@ -33,7 +32,7 @@ public class GuiInfoPanelShowLabels extends GuiButton {
 
 	@Override
 	public void drawButton(Minecraft minecraft, int par2, int par3) {
-		if (this.visible) {
+		if(this.visible){
 			minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			int delta = checked ? 12 : 21;
@@ -51,16 +50,9 @@ public class GuiInfoPanelShowLabels extends GuiButton {
 		if (super.mousePressed(minecraft, i, j)) {
 			checked = !checked;
 			int value = checked ? -1 : -2;
-			panel.setShowLabels(checked);
-			NetworkHelper nh = new NetworkHelper();
-			try {
-				Method m1 = nh.getClass().getDeclaredMethod("initiateClientTileEntityEvent");
-				m1.setAccessible(true);
-				m1.invoke(panel, value);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// NetworkHelper.initiateClientTileEntityEvent(panel, value);
+			//panel.setShowLabels(checked);
+
+			((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(panel, value);
 			return true;
 		} else {
 			return false;

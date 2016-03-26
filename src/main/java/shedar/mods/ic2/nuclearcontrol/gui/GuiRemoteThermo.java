@@ -76,10 +76,11 @@ public class GuiRemoteThermo extends GuiContainer {
                 heat = 0;
             if (heat >= 1000000)
                 heat = 1000000;
-            if (container.remoteThermo.getHeatLevel().intValue() != heat) {
-                container.remoteThermo.setHeatLevel(heat);
+            if (container.remoteThermo.getHeatLevel().intValue() != heat){
+                //container.remoteThermo.setHeatLevel(heat);
                 ((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.remoteThermo, heat);
             }
+            
             textboxHeat.setText(new Integer(heat).toString());
         }
     }
@@ -87,6 +88,7 @@ public class GuiRemoteThermo extends GuiContainer {
     @Override
     public void updateScreen() {
         super.updateScreen();
+        
         if (textboxHeat != null)
             textboxHeat.updateCursorCounter();
     }
@@ -100,22 +102,24 @@ public class GuiRemoteThermo extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
         fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
-        if (textboxHeat != null) textboxHeat.drawTextBox();
+        if(textboxHeat != null)
+        	textboxHeat.drawTextBox();
     }
 
     @Override
-    public void onGuiClosed() {
+    public void onGuiClosed(){
         updateHeat(0);
         super.onGuiClosed();
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(GuiButton button){
         if (button.id >= 10)
             return;
+        
         int delta = Integer.parseInt(button.displayString.replace("+", ""));
         updateHeat(delta);
-    };
+    }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
@@ -127,27 +131,20 @@ public class GuiRemoteThermo extends GuiContainer {
 
         // Charge level progress bar
         int chargeWidth = (int) (76F * container.remoteThermo.energy / container.remoteThermo.maxStorage);
-        if (chargeWidth > 76) {
+        if (chargeWidth > 76)
             chargeWidth = 76;
-        }
 
-        if (chargeWidth > 0) {
+        if (chargeWidth > 0)
             drawTexturedModalRect(left + 55 - 14, top + 54, 8, 166, chargeWidth, 14);
-        }
-
     }
 
     @Override
     protected void keyTyped(char par1, int par2) {
-        if (par2 == 1) {// Esc
-
+        if(par2 == 1)//Esc
             mc.thePlayer.closeScreen();
-        } else if (par1 == 13) {// Enter
+        else if(par1 == 13)//Enter
             updateHeat(0);
-        } else if (textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8)) {
+        else if(textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8))
             textboxHeat.textboxKeyTyped(par1, par2);
-        }
     }
-
 }
-

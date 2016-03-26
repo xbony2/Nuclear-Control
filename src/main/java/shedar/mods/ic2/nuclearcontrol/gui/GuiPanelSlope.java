@@ -72,11 +72,10 @@ public class GuiPanelSlope  extends GuiScreen{
 
 	@Override
 	protected void keyTyped(char par1, int par2){
-		if (par2 == 1){
+		if (par2 == 1)
 			FMLClientHandler.instance().getClient().displayGuiScreen(parentGui);
-		}else{
+		else
 			super.keyTyped(par1, par2);
-		}
 	}
 
 	@Override
