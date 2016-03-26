@@ -98,14 +98,14 @@ msg.nc.InfoPanelLiquidPercentageN=#%d Kullanılan: %s%%
 
 msg.nc.InfoPanelTime=Zaman: %s
 
-msg.nc.cbInfoPanelOnOff=Açık/Kapalı statüsü
+msg.nc.cbInfoPanelOnOff=Açık/Kapalı Statüsü
 msg.nc.cbInfoPanelHeat=Sıcaklığı
-msg.nc.cbInfoPanelMaxHeat=En yüksek sıcaklığı
+msg.nc.cbInfoPanelMaxHeat=En yüksek Sıcaklığı
 msg.nc.cbInfoPanelMelting=Çekirdek Erime Sıcaklığı
 msg.nc.cbInfoPanelOutput=Çıkış gücü (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Zamanla biticek
 
-msg.nc.cb24h=24 saat
+msg.nc.cb24h=24 Saat
 
 msg.nc.cbInfoPanelEnergyCurrent=Enerji
 msg.nc.cbInfoPanelEnergyStorage=Depolanan

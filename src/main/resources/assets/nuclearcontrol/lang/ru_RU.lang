@@ -100,10 +100,10 @@ msg.nc.InfoPanelLiquidPercentageN=#%d Заполнено: %s%%
 
 msg.nc.InfoPanelTime=Время: %s
 
-msg.nc.cbInfoPanelOnOff=Вкл./Выкл. состояние
-msg.nc.cbInfoPanelHeat=Уровень нагрева
-msg.nc.cbInfoPanelMaxHeat=Макс. нагрев
-msg.nc.cbInfoPanelMelting=Температура плавления
+msg.nc.cbInfoPanelOnOff=Вкл./Выкл. Состояние
+msg.nc.cbInfoPanelHeat=Уровень Нагрева
+msg.nc.cbInfoPanelMaxHeat=Макс. Нагрев
+msg.nc.cbInfoPanelMelting=Температура Плавления
 msg.nc.cbInfoPanelOutput=Выход (EU/т)
 msg.nc.cbInfoPanelTimeRemaining=Время до окончания цикла
 
@@ -122,7 +122,7 @@ msg.nc.InfoPanel55.Out=Выход (Hu/сек)
 msg.nc.InfoPanel55.BufferIn=Резервуар хладагента
 msg.nc.InfoPanel55.BufferOut=Резервуар горячего хладагента
 
-msg.nc.cb24h=24-часовой режим
+msg.nc.cb24h=24-часовой Режим
 
 msg.nc.cbInfoPanelEnergyCurrent=Энергия
 msg.nc.cbInfoPanelEnergyStorage=Хранилище

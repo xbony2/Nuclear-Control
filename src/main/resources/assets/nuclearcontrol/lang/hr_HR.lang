@@ -109,13 +109,13 @@ msg.nc.InfoPanelLiquidPercentageN=#%d Napunjeno: %s%%
 
 msg.nc.InfoPanelTime=Time: %s
 
-msg.nc.cbInfoPanelOnOff=Upaljen/Uga≈°en status
+msg.nc.cbInfoPanelOnOff=Upaljen/Uga≈°en Status
 msg.nc.cbInfoPanelHeat=Nivo Topline
 msg.nc.cbInfoPanelMaxHeat=Maksimalna Toplina
 msg.nc.cbInfoPanelMelting=Temperatura Rastopljivanja
 msg.nc.cbInfoPanelOutput=OProizvodnja (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Vrijeme Do Zavrsenja Kruga
-msg.nc.cb24h=24h mod
+msg.nc.cb24h=24h Mod
 
 msg.nc.cbInfoPanelEnergyCurrent=Energija
 msg.nc.cbInfoPanelEnergyStorage=Skladiste

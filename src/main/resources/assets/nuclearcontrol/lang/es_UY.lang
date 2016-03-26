@@ -92,14 +92,14 @@ msg.nc.InfoPanelLiquidPercentageN=#%d Lleno: %s%%
 
 msg.nc.InfoPanelTime=Tiempo: %s
 
-msg.nc.cbInfoPanelOnOff=On/Off estado
+msg.nc.cbInfoPanelOnOff=On/Off Estado
 msg.nc.cbInfoPanelHeat=Nivel de Calor
 msg.nc.cbInfoPanelMaxHeat=Max Calor
 msg.nc.cbInfoPanelMelting=Temp de Fusión
 msg.nc.cbInfoPanelOutput=Output (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Es hora de fin de ciclo
 
-msg.nc.cb24h=modo 24h
+msg.nc.cb24h=Modo 24h
 
 msg.nc.cbInfoPanelEnergyCurrent=Energía
 msg.nc.cbInfoPanelEnergyStorage=Almacén
