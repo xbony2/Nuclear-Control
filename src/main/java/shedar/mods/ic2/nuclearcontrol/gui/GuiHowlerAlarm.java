@@ -86,5 +86,4 @@ public class GuiHowlerAlarm extends GuiContainer {
 		int top = (height - ySize) / 2;
 		drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
 	}
-
 }

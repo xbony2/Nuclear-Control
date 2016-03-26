@@ -51,13 +51,13 @@ public class TileEntityInfoPanelExtender extends TileEntity implements
 
 	private void setSide(short f) {
 		facing = f;
-		if (prevFacing != f) {
+		if (init && prevFacing != f) {
 			if (FMLCommonHandler.instance().getEffectiveSide().isServer() && init) {
 				IC2NuclearControl.instance.screenManager.unregisterScreenPart(this);
 				IC2NuclearControl.instance.screenManager.registerInfoPanelExtender(this);
 			}
-			// NetworkHelper.updateTileEntityField(this, "facing");
-			IC2.network.get().updateTileEntityField(this, "facing");
+
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 		}
 
 		prevFacing = f;

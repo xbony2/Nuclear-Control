@@ -145,8 +145,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 			IWrenchable wrenchable = (IWrenchable) block;
 			wrenchable.setFacing((short) side);
 			if (player != null && !isSolidBlockRequired(metadata)) {
-				int rotationSegment = MathHelper
-						.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+				int rotationSegment = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 				if (player.rotationPitch >= 65) {
 					wrenchable.setFacing((short) 1);
 				} else if (player.rotationPitch <= -65) {
@@ -404,14 +403,9 @@ public class BlockNuclearControlMain extends BlockContainer {
 		int blockType = world.getBlockMetadata(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityHowlerAlarm){
-			//NCLog.error(DyeUtil.ALL_DYES_DYE[0]);
 			if(player.getCurrentEquippedItem() != null && DyeUtil.isADye(player.getCurrentEquippedItem())){
-				//NCLog.error("NEW VERSION:"+ItemDye.field_150922_c[DyeUtil.getDyeId(player.getCurrentEquippedItem())]);
-				//NCLog.error("OLD VERSION:"+ItemDye.field_150922_c[player.getCurrentEquippedItem().getItem().getDamage(player.getCurrentEquippedItem())]);
-				//NCLog.error(((TileEntityHowlerAlarm) tileEntity).getColor());
 				((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[DyeUtil.getDyeId(player.getCurrentEquippedItem())]);
 				world.markBlockForUpdate(x,y,z);
-				//NCLog.error(((TileEntityHowlerAlarm) tileEntity).getColor());
 				if(!player.capabilities.isCreativeMode) {
 					if (player.inventory.getCurrentItem().stackSize == 1) {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
@@ -420,7 +414,7 @@ public class BlockNuclearControlMain extends BlockContainer {
 					}
 				}
 				return true;
-			} else if(player.getCurrentEquippedItem() != null && Loader.isModLoaded("IC2")){
+			} else if(player.getCurrentEquippedItem() != null){
 				if(player.getCurrentEquippedItem().getItem() instanceof ItemToolPainter){
 					ItemToolPainter p = (ItemToolPainter) player.getCurrentEquippedItem().getItem();
 					((TileEntityHowlerAlarm) tileEntity).setColor(ItemDye.field_150922_c[p.color]);

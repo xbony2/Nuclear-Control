@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import ic2.core.network.NetworkManager;
+
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -106,9 +108,8 @@ public class TileEntityAverageCounter extends TileEntity implements
 	private void setSide(short f) {
 		facing = f;
 
-		if (prevFacing != f) {
-			IC2.network.get().updateTileEntityField(this, "facing");
-		}
+		if(init && prevFacing != f)
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 
 		prevFacing = f;
 	}

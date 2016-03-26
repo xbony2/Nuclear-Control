@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import ic2.core.network.NetworkManager;
+
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
@@ -72,7 +74,6 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 		
 		if(prevInvertRedstone != value){
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-			IC2.network.get().updateTileEntityField(this, "invertRedstone");
 		}
 		
 		prevInvertRedstone = value;
@@ -91,8 +92,8 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 	private void setSide(short f){
 		facing = f;
 
-		if(prevFacing != f)
-			IC2.network.get().updateTileEntityField(this, "facing");
+		if(init && prevFacing != f)
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 
 		prevFacing = f;
 	}

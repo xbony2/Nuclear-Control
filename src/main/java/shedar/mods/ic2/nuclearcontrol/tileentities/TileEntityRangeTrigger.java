@@ -101,9 +101,8 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	private void setSide(short f) {
 		facing = f;
 
-		if (prevFacing != f) {
-			IC2.network.get().updateTileEntityField(this, "facing");
-		}
+		if(init && prevFacing != f)
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 
 		prevFacing = f;
 	}

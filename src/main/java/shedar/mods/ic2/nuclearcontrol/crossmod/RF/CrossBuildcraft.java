@@ -19,33 +19,24 @@ public class CrossBuildcraft{
     }
     
     public CrossBuildcraft(){
-        try{
-            //Class.forName("buildcraft.api.power.IPowerReceptor", false, this.getClass().getClassLoader());
-            //Class.forName("buildcraft.api.power.IPowerEmitter", false, this.getClass().getClassLoader());
-            //Class.forName("buildcraft.api.power.PowerHandler", false, this.getClass().getClassLoader());
+        try {
             Class.forName("buildcraft.api.tools.IToolWrench", false, this.getClass().getClassLoader());
-            //Class.forName("buildcraft.api.transport.IPipeConnection", false, this.getClass().getClassLoader());
             _isApiAvailable = true;
-        } catch (ClassNotFoundException e){
+        }catch (ClassNotFoundException e){
             _isApiAvailable = false;
         }
     }
     
     public void useWrench(ItemStack itemStack, TileEntity target, EntityPlayer player){
-        if(_isApiAvailable){
+        if(_isApiAvailable)
             ((IToolWrench) itemStack.getItem()).wrenchUsed(player, target.xCoord, target.yCoord, target.zCoord);
-        }
     }
     
     public boolean isWrench(ItemStack itemStack, TileEntity target, EntityPlayer player){
-        return _isApiAvailable && 
-                itemStack.getItem() instanceof IToolWrench && 
-                ((IToolWrench)itemStack.getItem()).canWrench(player, target.xCoord, target.yCoord, target.zCoord);
+        return _isApiAvailable && itemStack.getItem() instanceof IToolWrench && ((IToolWrench)itemStack.getItem()).canWrench(player, target.xCoord, target.yCoord, target.zCoord);
     }
     
     public boolean isTankContainer(Object obj){
         return _isApiAvailable && obj instanceof IFluidHandler;
     }
-
-
 }
