@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import ic2.core.network.NetworkManager;
+
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
@@ -41,7 +43,7 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 	protected int updateTicker;
 	protected int tickRate;
 
-	public TileEntityThermo() {
+	public TileEntityThermo(){
 		init = false;
 		onFire = 0;
 		prevOnFire = 0;
@@ -56,43 +58,42 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 		invertRedstone = false;
 	}
 
-	protected void initData() {
-		if (!worldObj.isRemote) {
+	protected void initData(){
+		if (!worldObj.isRemote)
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-		}
+		
 		init = true;
 	}
 
-	public boolean isInvertRedstone() {
+	public boolean isInvertRedstone(){
 		return invertRedstone;
 	}
 
-	public void setInvertRedstone(boolean value) {
+	public void setInvertRedstone(boolean value){
 		invertRedstone = value;
-		if (prevInvertRedstone != value) {
+		
+		if(prevInvertRedstone != value){
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-			IC2.network.get().updateTileEntityField(this, "invertRedstone");
 		}
+		
 		prevInvertRedstone = value;
 	}
 
 	@Override
-	public short getFacing() {
+	public short getFacing(){
 		return (short) Facing.oppositeSide[facing];
 	}
 
 	@Override
-	public void setFacing(short f) {
+	public void setFacing(short f){
 		setSide((short) Facing.oppositeSide[f]);
 	}
 
-	private void setSide(short f) {
+	private void setSide(short f){
 		facing = f;
 
-		if (prevFacing != f) {
-			// NetworkHelper.updateTileEntityField(this, "facing");
-			IC2.network.get().updateTileEntityField(this, "facing");
-		}
+		if(init && prevFacing != f)
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 
 		prevFacing = f;
 	}
@@ -109,21 +110,24 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 
 	@Override
 	public void onNetworkUpdate(String field) {
-		if (field.equals("heatLevel") && prevHeatLevel != heatLevel) {
+		if(field.equals("heatLevel") && prevHeatLevel != heatLevel){
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevHeatLevel = heatLevel;
 		}
-		if (field.equals("facing") && prevFacing != facing) {
+		
+		if(field.equals("facing") && prevFacing != facing){
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			prevFacing = facing;
 		}
-		if (field.equals("onFire") && prevOnFire != onFire) {
+		
+		if(field.equals("onFire") && prevOnFire != onFire){
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevOnFire = onFire;
 		}
-		if (field.equals("invertRedstone") && prevInvertRedstone != invertRedstone) {
+		
+		if(field.equals("invertRedstone") && prevInvertRedstone != invertRedstone){
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			prevInvertRedstone = invertRedstone;
@@ -131,9 +135,9 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 	}
 
 	@Override
-	public void onNetworkEvent(EntityPlayer entityplayer, int i) {
-		if (i < 0) {
-			switch (i) {
+	public void onNetworkEvent(EntityPlayer entityplayer, int i){
+		if(i < 0)
+			switch(i){
 			case -1:
 				setInvertRedstone(false);
 				break;
@@ -143,17 +147,16 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 			default:
 				break;
 			}
-		} else {
+		else
 			setHeatLevel(i);
-		}
-
 	}
 
 	public void setOnFire(int f) {
 		onFire = f;
-		if (prevOnFire != f) {
+		
+		if (prevOnFire != f)
 			IC2.network.get().updateTileEntityField(this, "onFire");
-		}
+		
 		prevOnFire = onFire;
 	}
 
@@ -161,31 +164,33 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 		return onFire;
 	}
 
-	public void setHeatLevel(int h) {
+	public void setHeatLevel(int h){
 		heatLevel = h;
-		if (prevHeatLevel != h) {
+		
+		if(prevHeatLevel != h){
 			IC2.network.get().updateTileEntityField(this, "heatLevel");
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
+		
 		prevHeatLevel = heatLevel;
 		mappedHeatLevel = h;
 	}
 
-	public void setHeatLevelWithoutNotify(int h) {
+	public void setHeatLevelWithoutNotify(int h){
 		heatLevel = h;
 		prevHeatLevel = heatLevel;
 		mappedHeatLevel = h;
 	}
 
-	public Integer getHeatLevel() {
+	public Integer getHeatLevel(){
 		return heatLevel;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+	public void readFromNBT(NBTTagCompound nbttagcompound){
 		super.readFromNBT(nbttagcompound);
-		if (nbttagcompound.hasKey("heatLevel")) {
+		if(nbttagcompound.hasKey("heatLevel")){
 			int heat = nbttagcompound.getInteger("heatLevel");
 			setHeatLevelWithoutNotify(heat);
 			prevFacing = facing = nbttagcompound.getShort("facing");
@@ -205,52 +210,52 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 		byte fire;
 		IReactorChamber chamber = NuclearHelper.getReactorChamberAroundCoord(worldObj, xCoord, yCoord, zCoord);
 		IReactor reactor = null;
-		ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric NR = null;
-		if (chamber != null) {
+		
+		if(chamber != null)
 			reactor = chamber.getReactor();
-		}
-		if (reactor == null) {
+		
+		if(reactor == null) 
 			reactor = NuclearHelper.getReactorAroundCoord(worldObj, xCoord, yCoord, zCoord);
-		}
+		
         if(reactor == null && chamber == null){
-            //NCLog.fatal("CALLED");
-            //NCLog.error(this.getFacing());
             decodeSides(xCoord, yCoord, zCoord);
-            NR = ((ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric)ItemCard55Reactor.getReactor(worldObj, Coords[0], Coords[1], Coords[2]));
+            reactor = ItemCard55Reactor.getReactor(worldObj, Coords[0], Coords[1], Coords[2]);
         }
 
-		if (reactor != null || NR != null) {
-			if(NR != null){
-				reactor = NR.getReactor();
-			}
+		if (reactor != null) {
 
 			if (tickRate == -1) {
 				tickRate = reactor.getTickRate() / 2;
-				if (tickRate == 0) tickRate = 1;
+				
+				if (tickRate == 0)
+					tickRate = 1;
+				
 				updateTicker = tickRate;
 			}
+			
 			int reactorHeat = reactor.getHeat();
-			if (reactorHeat >= heatLevel) {//Normally mappedHeatLevel
+			
+			if (reactorHeat >= heatLevel)//Normally mappedHeatLevel
 				fire = 1;
-			} else {
+			else
 				fire = 0;
-			}
-		} else {
+			
+		}else
 			fire = -1;
-		}
-		if (fire != getOnFire()) {
+		
+		if(fire != getOnFire()){
 			setOnFire(fire);
 			worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
 	}
 
-    protected void decodeSides ( int x, int y, int z ) {
+    protected void decodeSides(int x, int y, int z){
         ForgeDirection facing;
-        if (this.getFacing () > 5) {
+        if (this.getFacing () > 5)
             facing = ForgeDirection.UNKNOWN;
-        } else {
-	    facing = ForgeDirection.VALID_DIRECTIONS[this.getFacing()].getOpposite();
-        }
+        else
+        	facing = ForgeDirection.VALID_DIRECTIONS[this.getFacing()].getOpposite();
+        
         Coords[0] = x + facing.offsetX;
         Coords[1] = y + facing.offsetY;
         Coords[2] = z + facing.offsetZ;
@@ -258,9 +263,9 @@ public class TileEntityThermo extends TileEntity implements INetworkDataProvider
 
 	@Override
 	public void updateEntity() {
-		if (!init) {
+		if (!init)
 			initData();
-		}
+		
 		if (!worldObj.isRemote) {
 			if (tickRate != -1 && updateTicker-- > 0)
 				return;

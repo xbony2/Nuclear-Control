@@ -48,14 +48,11 @@ public class GuiEnergyCounter extends GuiContainer {
 		fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
 		String value = StringUtils.getFormatted("", container.energyCounter.counter, false);
-		fontRendererObj.drawString(value,
-				(xSize - fontRendererObj.getStringWidth(value)) / 2, 22,
-				0x404040);
+		fontRendererObj.drawString(value, (xSize - fontRendererObj.getStringWidth(value)) / 2, 22, 0x404040);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2,
-			int var3) {
+	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(TEXTURE_LOCATION);
 		int left = (width - xSize) / 2;

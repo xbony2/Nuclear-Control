@@ -13,8 +13,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class GuiScreenColor extends GuiScreen {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIColors.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private GuiInfoPanel parentGui;
 
@@ -48,13 +47,11 @@ public class GuiScreenColor extends GuiScreen {
 			int shift = (x - 7) % 14;
 			if (y >= 32 && y <= 41 && shift <= 9) {// back
 				colorBack = index;
-				NuclearNetworkHelper.setScreenColor(panel.xCoord, panel.yCoord,
-						panel.zCoord, colorBack, colorText);
+				NuclearNetworkHelper.setScreenColor(panel.xCoord, panel.yCoord, panel.zCoord, colorBack, colorText);
 				panel.setColorBackground(colorBack);
 			} else if (y >= 63 && y <= 72 && shift <= 9) {// /text
 				colorText = index;
-				NuclearNetworkHelper.setScreenColor(panel.xCoord, panel.yCoord,
-						panel.zCoord, colorBack, colorText);
+				NuclearNetworkHelper.setScreenColor(panel.xCoord, panel.yCoord, panel.zCoord, colorBack, colorText);
 				panel.setColorText(colorText);
 			}
 		}
@@ -80,17 +77,15 @@ public class GuiScreenColor extends GuiScreen {
 		if (par2 == 1) {
 			parentGui.isColored = !panel.colored;
 			FMLClientHandler.instance().getClient().displayGuiScreen(parentGui);
-		} else {
+		} else
 			super.keyTyped(par1, par2);
-		}
 	}
 
 	@Override
-	public void initGui() {
+	public void initGui(){
 		super.initGui();
 		guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2;
 		buttonList.clear();
 	}
-
 }

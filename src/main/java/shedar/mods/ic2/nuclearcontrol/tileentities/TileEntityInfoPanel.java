@@ -1,5 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
+import ic2.core.network.NetworkManager;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkDataProvider;
@@ -114,17 +116,19 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 
 	private void setCard(ItemStack value) {
 		card = value;
-		IC2.network.get().updateTileEntityField(this, "card");
+		//IC2.network.get().updateTileEntityField(this, "card");
+		//((NetworkManager)IC2.network.get()).updateTileEntityField(this, "card");
 	}
 
 	private void setSide(short f) {
 		facing = f;
-		if (prevFacing != f) {
+		if (init && prevFacing != f) {
 			if (FMLCommonHandler.instance().getEffectiveSide().isServer() && !init) {
 				IC2NuclearControl.instance.screenManager.unregisterScreenPart(this);
 				IC2NuclearControl.instance.screenManager.registerInfoPanel(this);
 			}
-			IC2.network.get().updateTileEntityField(this, "facing");
+			
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 		}
 		prevFacing = f;
 	}

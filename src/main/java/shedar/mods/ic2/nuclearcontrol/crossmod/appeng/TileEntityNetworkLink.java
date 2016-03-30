@@ -40,7 +40,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
     private static int USEDITEMTYPE = 0;
 
     public TileEntityNetworkLink(){
-        this.gridProxy.setFlags( GridFlags.REQUIRE_CHANNEL );
+        this.getProxy().setFlags( GridFlags.REQUIRE_CHANNEL );
     }
 
 
@@ -126,7 +126,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
         //IGridNode gridNode = this.getGridNode(ForgeDirection.UNKNOWN);
         try {
             //IGrid grid = gridNode.getGrid();
-            IGrid grid = this.gridProxy.getNode().getGrid();
+            IGrid grid = this.getProxy().getNode().getGrid();
             for (Class<? extends IGridHost> clazz : grid.getMachinesClasses()) {
                 for (Class clazz2 : clazz.getInterfaces()) {
                     //NCLog.fatal("Passed Class 2");

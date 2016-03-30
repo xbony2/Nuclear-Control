@@ -22,8 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiIC2Thermo extends GuiContainer {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIThermalMonitor.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private TileEntityThermo thermo;
 	private GuiTextField textboxHeat = null;
@@ -53,7 +52,7 @@ public class GuiIC2Thermo extends GuiContainer {
 			if (heat >= 1000000)
 				heat = 1000000;
 			if (thermo.getHeatLevel().intValue() != heat) {
-				thermo.setHeatLevel(heat);
+				//thermo.setHeatLevel(heat);
 				((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(thermo, heat);
 			}
 			textboxHeat.setText(new Integer(heat).toString());
@@ -98,10 +97,8 @@ public class GuiIC2Thermo extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj
-				.drawString(name,
-						(xSize - fontRendererObj.getStringWidth(name)) / 2, 6,
-						0x404040);
+		fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
+		
 		if (textboxHeat != null)
 			textboxHeat.drawTextBox();
 	}
@@ -116,13 +113,13 @@ public class GuiIC2Thermo extends GuiContainer {
 	protected void actionPerformed(GuiButton button) {
 		if (button.id >= 10)
 			return;
+		
 		int delta = Integer.parseInt(button.displayString.replace("+", ""));
 		updateHeat(delta);
-	};
+	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2,
-			int var3) {
+	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(TEXTURE_LOCATION);
 		int left = (width - xSize) / 2;
@@ -132,15 +129,11 @@ public class GuiIC2Thermo extends GuiContainer {
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
-		if (par2 == 1)// Esc button
-		{
+		if(par2 == 1)// Esc button
 			mc.thePlayer.closeScreen();
-		} else if (par1 == 13)// Enter
-		{
+		else if(par1 == 13)// Enter
 			updateHeat(0);
-		} else if (textboxHeat != null && textboxHeat.isFocused()
-				&& (Character.isDigit(par1) || par1 == 0 || par1 == 8)) {
+		else if(textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8))
 			textboxHeat.textboxKeyTyped(par1, par2);
-		}
 	}
 }

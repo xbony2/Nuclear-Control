@@ -1,6 +1,7 @@
 package shedar.mods.ic2.nuclearcontrol.tileentities;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+import ic2.core.network.NetworkManager;
+
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -11,6 +12,10 @@ import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
+
+import java.util.List;
+import java.util.Vector;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -25,11 +30,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.ISlotItemFilter;
 import shedar.mods.ic2.nuclearcontrol.crossmod.EnergyStorageData;
-import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.CrossIndustrialCraft2Classic;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.IC2Type;
 import shedar.mods.ic2.nuclearcontrol.utils.BlockDamages;
-
-import java.util.List;
-import java.util.Vector;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEntityAverageCounter extends TileEntity implements
 		IEnergyConductor, IWrenchable, INetworkClientTileEntityEventListener,
@@ -105,9 +108,8 @@ public class TileEntityAverageCounter extends TileEntity implements
 	private void setSide(short f) {
 		facing = f;
 
-		if (prevFacing != f) {
-			IC2.network.get().updateTileEntityField(this, "facing");
-		}
+		if(init && prevFacing != f)
+			((NetworkManager)IC2.network.get()).updateTileEntityField(this, "facing");
 
 		prevFacing = f;
 	}
@@ -150,7 +152,7 @@ public class TileEntityAverageCounter extends TileEntity implements
 			this.getAverage();
 			double total = EnergyNet.instance.getTotalEnergyEmitted(this);
 
-			if(CrossIndustrialCraft2Classic.instance.isClassicSpeiger){
+			if(IC2NuclearControl.instance.crossIc2.getType() == IC2Type.SPEIGER){
 				double realTotal = total - lastReceivedPower;
 				lastReceivedPower = total;
 				data[index] = realTotal;

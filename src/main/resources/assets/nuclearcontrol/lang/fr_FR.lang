@@ -91,7 +91,7 @@ msg.nc.InfoPanelTime=Heure: %s
 
 msg.nc.cbInfoPanelOnOff=Marche/Arrêt
 msg.nc.cbInfoPanelHeat=Chaleur
-msg.nc.cbInfoPanelMaxHeat=Température max
+msg.nc.cbInfoPanelMaxHeat=Température Max
 msg.nc.cbInfoPanelMelting=Température de fusion
 msg.nc.cbInfoPanelOutput=Débit (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=Temps avant fin du cycle

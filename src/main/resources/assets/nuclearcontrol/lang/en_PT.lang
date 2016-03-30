@@ -17,6 +17,14 @@ item.ItemTextCard.name=Ye Worde Card
 item.ItemGeneratorSensorKit.name=Powe-Maka Sensor Kit
 item.ItemGeneratorSensorLocationCard.name=Powwa-maka Sensor Location Card
 item.ItemLiquidArrayLocationCard.name=Array Location Card Of The Seven Seas
+item.Item55ReactorCard.name=I ain't dividin' nuffin' Reactor Sensor Location Card
+item.remoteMonitor.name=Porrr-table Inferrr'-mation Panel
+
+#Integration Items
+item.RFreactorKit.name=Rrremote rrRF Rrreactor Kit
+item.RFreactorCard.name=rrRF Rrreactor Sensor Location Card
+item.AppengCard.name=Confusin' applied-sometherrrn' Card
+item.AppengKit.name=Confusin' applied-sometherrrn' Monitor Kitty
 
 tile.blockThermalMonitor.name=Thermal Magic Shower-thingy
 tile.blockIndustrialAlarm.name=HOWLER
@@ -28,10 +36,16 @@ tile.blockAdvancedInfoPanel.name=Fancy Newspaper-Worthy-Crap Panel
 tile.blockAdvancedInfoPanelExtender.name=Fancy Panel Extender
 tile.nclight0.name=Ain’t-yanky Lamp
 tile.nclight1.name=Ain’t-yanky Lamp
+tile.nclight2.name=Orrrange Lamp
+tile.nclight3.name=Orrrange Lamp
 
 tile.blockEnergyCounter.name=Powe Country Mens Tool
 tile.blockAverageCounter.name=Powe Country Mens Tool
 tile.blockRangeTrigger.name=Rrrrange Triggerrrr
+
+#Integration Blocks
+tile.blockBRPart.name=Rrreactor Monitor
+tile.NetworkLink.name=*MY* Network Monitor
 
 msg.nc.HowlerAlarmSoundRange=Loudes range: %s
 msg.nc.HowlerAlarmSound=Loudes
@@ -50,13 +64,13 @@ msg.nc.InfoPanelOff=Off
 msg.nc.InfoPanelHeat=T: %s
 msg.nc.InfoPanelMaxHeat=MostHeat: %s
 msg.nc.InfoPanelMelting=Meltin’: %s
-msg.nc.InfoPanelOutput=Output: %sEU/t
-msg.nc.InfoPanelOutputMJ=Output: %sMJ/t
-msg.nc.InfoPanelOutputSteam=Output: %smB/t
+msg.nc.InfoPanelOutput=Output: %s EU/t
+msg.nc.InfoPanelOutputMJ=Output: %s rrRF/t
+msg.nc.InfoPanelOutputSteam=Output: %s mB/t
 msg.nc.InfoPanelTimeRemaining=Remainin’: %s
 
-msg.nc.InfoPanelEnergyCounter=Powe: %sEU
-msg.nc.InfoPanelEnergyCounterMJ=Powe: %sMJ
+msg.nc.InfoPanelEnergyCounter=Powe: %s EU
+msg.nc.InfoPanelEnergyCounterMJ=Powe: %s rrRF
 
 msg.nc.InfoPanelEnergy=Powe: %s
 msg.nc.InfoPanelEnergyFree=Free: %s
@@ -89,14 +103,22 @@ msg.nc.InfoPanelLiquidPercentageN=#%d Fill: %s%%
 
 msg.nc.InfoPanelTime=The Hour: %s
 
-msg.nc.cbInfoPanelOnOff=On/Off status
-msg.nc.cbInfoPanelHeat=Heat level
-msg.nc.cbInfoPanelMaxHeat=Max heat
-msg.nc.cbInfoPanelMelting=Meltin’ temp
+msg.nc.cbInfoPanelOnOff=On/Off Status
+msg.nc.cbInfoPanelHeat=Heat Level
+msg.nc.cbInfoPanelMaxHeat=Max Heat
+msg.nc.cbInfoPanelMelting=Meltin’ Temp
 msg.nc.cbInfoPanelOutput=Output (EU/t)
 msg.nc.cbInfoPanelTimeRemaining=The Hour to cycle end
 
-msg.nc.cb24h=Full-moon mode
+msg.nc.InfoPanel55.Output=Output: %s Hu/s
+msg.nc.InfoPanel55.Temp=Core Tempurrrature: %s%%
+msg.nc.InfoPanel55.tarkin=Barrrel In: %s / 10000 mB
+msg.nc.InfoPanel55.tankout=Barrrel Out: %s / 10000 mB
+msg.nc.InfoPanel55.Out=Output (Hu/s)
+msg.nc.InfoPanel55.BufferIn=Cool-ants Storrrage Barrrel
+msg.nc.InfoPanel55.BufferOut=Hot-Cool-Who-Knows Bufferrr Barrrel
+
+msg.nc.cb24h=Full-moon Mode
 
 msg.nc.cbInfoPanelEnergyCurrent=Powe
 msg.nc.cbInfoPanelEnergyStorage=Storage
@@ -116,3 +138,30 @@ msg.nc.Reset=Rrrreset
 msg.nc.ScreenColor=Screen Colorrrrr
 msg.nc.TextColor=Worde Color
 msg.nc.None=Nay!
+nc.msg.notValid=This Card ain't be compatible
+nc.msg.notValid2=with the Remote Monitor
+nc.msg.notValid3=Try reopenin' t' GUI
+
+msg.nc.waila.getHeatLevel=Heat Maximum Set: 
+
+msg.nc.waila.ColorBackground=Background colorrr: 
+msg.nc.waila.ColorText=Text colorrr: 
+msg.nc.waila.Web=Web Upgrade be installed
+msg.nc.waila.Color=Colorrrr Upgrade be installed
+msg.nc.waila.ColorBlack=Black
+msg.nc.waila.ColorRed=Scarlet
+msg.nc.waila.ColorGreen=Green
+msg.nc.waila.ColorBrown=Brown
+msg.nc.waila.ColorDarkBlue=Dark Blue
+msg.nc.waila.ColorPurple=Purple
+msg.nc.waila.ColorLightBlue=Light Blue
+msg.nc.waila.ColorWhite=White
+msg.nc.waila.ColorPink=Pink
+msg.nc.waila.ColorLimeGreen=Lime Green
+msg.nc.waila.ColorYellow=Yellow
+msg.nc.waila.ColorBlue=Blue
+msg.nc.waila.ColorMagenta=Magenta
+msg.nc.waila.ColorOrange=Orange
+
+msg.nc.waila.getEnergyAverage=Energy Average: 
+msg.nc.waila.getPeriod=Orrer period of: 

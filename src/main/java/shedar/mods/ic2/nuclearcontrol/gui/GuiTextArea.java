@@ -24,8 +24,7 @@ public class GuiTextArea extends Gui {
 	private final int width;
 	private final int height;
 
-	public GuiTextArea(FontRenderer fontRenderer, int xPos, int yPos,
-			int width, int height, int lineCount) {
+	public GuiTextArea(FontRenderer fontRenderer, int xPos, int yPos, int width, int height, int lineCount) {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.width = width;
@@ -43,28 +42,22 @@ public class GuiTextArea extends Gui {
 	}
 
 	public void drawTextBox() {
-		drawRect(xPos - 1, yPos - 1, xPos + width + 1, yPos + height + 1,
-				0xFFA0A0A0);
+		drawRect(xPos - 1, yPos - 1, xPos + width + 1, yPos + height + 1, 0xFFA0A0A0);
 		drawRect(xPos, yPos, xPos + width, yPos + height, 0xFF000000);
 		int textColor = 0xE0E0E0;
 
 		int textLeft = xPos + 4;
-		int textTop = yPos
-				+ (height - lineCount * (fontRenderer.FONT_HEIGHT + 1)) / 2;
+		int textTop = yPos + (height - lineCount * (fontRenderer.FONT_HEIGHT + 1)) / 2;
 
 		for (int i = 0; i < lineCount; i++) {
 			fontRenderer.drawStringWithShadow(text[i], textLeft, textTop
 					+ (fontRenderer.FONT_HEIGHT + 1) * i, textColor);
 		}
 		textTop += (fontRenderer.FONT_HEIGHT + 1) * cursorLine;
-		int cursorPositionX = textLeft
-				+ fontRenderer.getStringWidth(text[cursorLine].substring(0,
-						Math.min(text[cursorLine].length(), cursorPosition)))
-				- 1;
+		int cursorPositionX = textLeft + fontRenderer.getStringWidth(text[cursorLine].substring(0, Math.min(text[cursorLine].length(), cursorPosition))) - 1;
 		boolean drawCursor = isFocused && cursorCounter / 6 % 2 == 0;
 		if (drawCursor)
-			drawCursorVertical(cursorPositionX, textTop - 1,
-					cursorPositionX + 1, textTop + 1 + fontRenderer.FONT_HEIGHT);
+			drawCursorVertical(cursorPositionX, textTop - 1, cursorPositionX + 1, textTop + 1 + fontRenderer.FONT_HEIGHT);
 	}
 
 	private void drawCursorVertical(int left, int top, int right, int bottom) {
@@ -104,63 +97,55 @@ public class GuiTextArea extends Gui {
 		cursorLine = y;
 		int lineLength = text[y].length();
 
-		if (cursorPosition < 0) {
+		if (cursorPosition < 0)
 			cursorPosition = 0;
-		}
 
-		if (this.cursorPosition > lineLength) {
+		if (this.cursorPosition > lineLength)
 			this.cursorPosition = lineLength;
-		}
 	}
 
-	public void deleteFromCursor(int count) {
-		if (text[cursorLine].length() != 0) {
+	public void deleteFromCursor(int count){
+		if(text[cursorLine].length() != 0){
 			boolean back = count < 0;
 			String curLine = text[cursorLine];
 			int left = back ? cursorPosition + count : cursorPosition;
 			int right = back ? cursorPosition : cursorPosition + count;
 			String newLine = "";
 
-			if (left >= 0) {
+			if (left >= 0)
 				newLine = curLine.substring(0, left);
-			}
 
-			if (right < curLine.length()) {
+			if (right < curLine.length())
 				newLine = newLine + curLine.substring(right);
-			}
+			
 			text[cursorLine] = newLine;
-			if (back) {
+			
+			if (back)
 				setCursorPosition(cursorPosition + count, cursorLine);
-			}
 		}
 	}
 
 	public void writeText(String additionalText) {
 		String newLine = "";
-		String filteredText = ChatAllowedCharacters
-				.filerAllowedCharacters(additionalText);
+		String filteredText = ChatAllowedCharacters.filerAllowedCharacters(additionalText);
 		int freeCharCount = this.maxStringLength - text[cursorLine].length();
 
-		if (text[cursorLine].length() > 0) {
+		if (text[cursorLine].length() > 0)
 			newLine = newLine + text[cursorLine].substring(0, cursorPosition);
-		}
 
-		if (freeCharCount < filteredText.length()) {
+		if (freeCharCount < filteredText.length())
 			newLine = newLine + filteredText.substring(0, freeCharCount);
-		} else {
+		else
 			newLine = newLine + filteredText;
-		}
 
-		if (text[cursorLine].length() > 0
-				&& cursorPosition < text[cursorLine].length()) {
+		if (text[cursorLine].length() > 0 && cursorPosition < text[cursorLine].length())
 			newLine = newLine + text[cursorLine].substring(cursorPosition);
-		}
 
 		text[cursorLine] = newLine;
 		setCursorPosition(cursorPosition + filteredText.length(), cursorLine);
 	}
 
-	private void setCursorLine(int delta) {
+	private void setCursorLine(int delta){
 		int newCursorLine = cursorLine + delta;
 		if (newCursorLine < 0)
 			newCursorLine = 0;
@@ -170,22 +155,21 @@ public class GuiTextArea extends Gui {
 		cursorLine = newCursorLine;
 	}
 
-	public void mouseClicked(int x, int y, int par3) {
-		isFocused = x >= xPos && x < xPos + width && y >= yPos
-				&& y < yPos + height;
+	public void mouseClicked(int x, int y, int par3){
+		isFocused = x >= xPos && x < xPos + width && y >= yPos && y < yPos + height;
 	}
 
-	public boolean isFocused() {
+	public boolean isFocused(){
 		return isFocused;
 	}
 
-	public void setFocused(boolean focused) {
+	public void setFocused(boolean focused){
 		isFocused = focused;
 	}
 
-	public boolean textAreaKeyTyped(char par1, int par2) {
-		if (this.isFocused) {
-			switch (par1) {
+	public boolean textAreaKeyTyped(char par1, int par2){
+		if (this.isFocused){
+			switch (par1){
 			case 1:
 				setCursorPosition(text[cursorLine].length(), cursorLine);
 				return true;
@@ -219,16 +203,14 @@ public class GuiTextArea extends Gui {
 					deleteFromCursor(1);
 					return true;
 				default:
-					if (ChatAllowedCharacters.isAllowedCharacter(par1)) {
+					if(ChatAllowedCharacters.isAllowedCharacter(par1)) {
 						this.writeText(Character.toString(par1));
 						return true;
-					} else {
+					}else
 						return false;
-					}
 				}
 			}
-		} else {
+		} else
 			return false;
-		}
 	}
 }

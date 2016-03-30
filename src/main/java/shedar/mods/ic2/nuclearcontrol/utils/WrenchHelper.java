@@ -9,12 +9,13 @@ import shedar.mods.ic2.nuclearcontrol.IRotation;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class WrenchHelper {
+	//TODO: DO nothing when IC2 Classic Wrench Plugin is installed...
 	public static boolean isWrenchClicked(TileEntity tileEntity, EntityPlayer player, int side) {
 		if (player != null && tileEntity != null) {
 			ItemStack equipped = player.getCurrentEquippedItem();
 
 			if (equipped != null) {
-				boolean ic2Wrench = IC2NuclearControl.instance.crossIC2.isWrench(equipped);
+				boolean ic2Wrench = IC2NuclearControl.instance.crossIc2.isWrench(equipped);
 				boolean bcWrench = IC2NuclearControl.instance.crossBC.isWrench(equipped, tileEntity, player);// TODO: DMF
 				if (player.isSneaking() && tileEntity instanceof IRotation) {
 					if (ic2Wrench || bcWrench) {

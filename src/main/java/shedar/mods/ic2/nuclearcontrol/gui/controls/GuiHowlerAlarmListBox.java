@@ -21,8 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiHowlerAlarmListBox extends GuiButton {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIHowlerAlarm.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private static final int BASIC_X_OFFSET = 2;
 	private static final int BASIC_Y_OFFSET = 2;
@@ -41,8 +40,7 @@ public class GuiHowlerAlarmListBox extends GuiButton {
 	private int sliderY;
 	private int dragDelta;
 
-	public GuiHowlerAlarmListBox(int id, int left, int top, int width,
-			int height, List<String> items, TileEntityHowlerAlarm alarm) {
+	public GuiHowlerAlarmListBox(int id, int left, int top, int width, int height, List<String> items, TileEntityHowlerAlarm alarm) {
 		super(id, left, top, width, height, "");
 		this.items = items;
 		this.alarm = alarm;
@@ -60,15 +58,19 @@ public class GuiHowlerAlarmListBox extends GuiButton {
 		scrollTop = pos;
 		if (scrollTop < 0)
 			scrollTop = 0;
+		
 		int max = lineHeight * items.size() + BASIC_Y_OFFSET - height;
+		
 		if (max < 0)
 			max = 0;
+		
 		if (scrollTop > max)
 			scrollTop = max;
 	}
 
 	public void scrollUp() {
 		scrollTop -= 8;
+		
 		if (scrollTop < 0)
 			scrollTop = 0;
 	}
@@ -76,8 +78,10 @@ public class GuiHowlerAlarmListBox extends GuiButton {
 	public void scrollDown() {
 		scrollTop += 8;
 		int max = lineHeight * items.size() + BASIC_Y_OFFSET - height;
+		
 		if (max < 0)
 			max = 0;
+		
 		if (scrollTop > max)
 			scrollTop = max;
 	}
@@ -85,10 +89,9 @@ public class GuiHowlerAlarmListBox extends GuiButton {
 	@Override
 	public void drawButton(Minecraft minecraft, int cursorX, int cursorY) {
 		if (dragging) {
-			int pos = (cursorY - yPosition - SCROLL_BUTTON_HEIGHT - dragDelta)
-					* (lineHeight * items.size() + BASIC_Y_OFFSET - height)
-					/ Math.max(
-							height - 2 * SCROLL_BUTTON_HEIGHT - sliderHeight, 1);
+			int pos = (cursorY - yPosition - SCROLL_BUTTON_HEIGHT - dragDelta) * (lineHeight * items.size() + BASIC_Y_OFFSET - height) / 
+					Math.max(height - 2 * SCROLL_BUTTON_HEIGHT - sliderHeight, 1);
+			
 			scrollTo(pos);
 		}
 
@@ -99,44 +102,36 @@ public class GuiHowlerAlarmListBox extends GuiButton {
 			if (scrollTop == 0) {
 				int rowsPerHeight = height / lineHeight;
 				int currentIndex = items.indexOf(currentItem);
-				if (currentIndex >= rowsPerHeight) {
-					scrollTop = (currentIndex + 1) * lineHeight
-							+ BASIC_Y_OFFSET - height;
-				}
+				if (currentIndex >= rowsPerHeight)
+					scrollTop = (currentIndex + 1) * lineHeight + BASIC_Y_OFFSET - height;
 			}
-			float scale = height
-					/ ((float) lineHeight * items.size() + BASIC_Y_OFFSET);
+			float scale = height / ((float) lineHeight * items.size() + BASIC_Y_OFFSET);
+			
 			if (scale > 1)
 				scale = 1;
-			sliderHeight = Math.round(scale
-					* (height - 2 * SCROLL_BUTTON_HEIGHT));
-			if (sliderHeight < 4) {
+			
+			sliderHeight = Math.round(scale * (height - 2 * SCROLL_BUTTON_HEIGHT));
+			
+			if (sliderHeight < 4)
 				sliderHeight = 4;
-			}
 		}
+		
 		int rowTop = BASIC_Y_OFFSET;
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
 		Minecraft mc = FMLClientHandler.instance().getClient();
-		ScaledResolution scaler = new ScaledResolution(mc, mc.displayWidth,
-				mc.displayHeight);
-		GL11.glScissor(xPosition * scaler.getScaleFactor(), mc.displayHeight
-				- (yPosition + height) * scaler.getScaleFactor(),
-				(width - SCROLL_WIDTH) * scaler.getScaleFactor(), height
-						* scaler.getScaleFactor());
+		ScaledResolution scaler = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+		GL11.glScissor(xPosition * scaler.getScaleFactor(), mc.displayHeight - (yPosition + height) * scaler.getScaleFactor(), (width - SCROLL_WIDTH) * scaler.getScaleFactor(), height * scaler.getScaleFactor());
 
 		for (String row : items) {
-			if (row.equals(currentItem)) {
-				drawRect(xPosition, yPosition + rowTop - scrollTop - 1,
-						xPosition + width - SCROLL_WIDTH, yPosition + rowTop
-								- scrollTop + lineHeight - 1, selectedColor);
-				fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET,
-						yPosition + rowTop - scrollTop, selectedFontColor);
-			} else {
-				fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET,
-						yPosition + rowTop - scrollTop, fontColor);
-			}
+			if(row.equals(currentItem)){
+				drawRect(xPosition, yPosition + rowTop - scrollTop - 1, xPosition + width - SCROLL_WIDTH, yPosition + rowTop - scrollTop + lineHeight - 1, selectedColor);
+				fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET, yPosition + rowTop - scrollTop, selectedFontColor);
+			}else
+				fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET, yPosition + rowTop - scrollTop, fontColor);
+			
 			rowTop += lineHeight;
 		}
+		
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
 		// Slider
@@ -177,41 +172,38 @@ public class GuiHowlerAlarmListBox extends GuiButton {
 		if (lineHeight == 0)
 			return;
 
-		int itemIndex = (targetY - BASIC_Y_OFFSET - yPosition + scrollTop)
-				/ lineHeight;
+		int itemIndex = (targetY - BASIC_Y_OFFSET - yPosition + scrollTop) / lineHeight;
 		if (itemIndex >= items.size())
 			itemIndex = items.size() - 1;
+		
 		String newSound = items.get(itemIndex);
 		if (!newSound.equals(alarm.getSoundName())) {
-			if (alarm.getWorldObj().isRemote) {
-				NuclearNetworkHelper.setNewAlarmSound(alarm.xCoord,
-						alarm.yCoord, alarm.zCoord, (byte) 0, newSound);
-			}
+			if (alarm.getWorldObj().isRemote)
+				NuclearNetworkHelper.setNewAlarmSound(alarm.xCoord, alarm.yCoord, alarm.zCoord, (byte) 0, newSound);
+			
 			alarm.setSoundName(newSound);
 		}
 	}
 
 	@Override
 	public boolean mousePressed(Minecraft minecraft, int targetX, int targetY) {
-		if (super.mousePressed(minecraft, targetX, targetY)) {
+		if(super.mousePressed(minecraft, targetX, targetY)){
 			if (targetX > xPosition + width - SCROLL_WIDTH)// scroll click
-			{
-				if (targetY - yPosition < SCROLL_BUTTON_HEIGHT) {
+			
+				if(targetY - yPosition < SCROLL_BUTTON_HEIGHT)
 					scrollUp();
-				} else if (height + yPosition - targetY < SCROLL_BUTTON_HEIGHT) {
+				else if(height + yPosition - targetY < SCROLL_BUTTON_HEIGHT)
 					scrollDown();
-				} else if (targetY >= sliderY
-						&& targetY <= sliderY + sliderHeight) {
+				else if(targetY >= sliderY && targetY <= sliderY + sliderHeight){
 					dragging = true;
 					dragDelta = targetY - sliderY;
 				}
-			} else {
+			else
 				setCurrent(targetY);
-			}
+			
 			return true;
-		} else {
+		}else
 			return false;
-		}
 	}
 
 	@Override

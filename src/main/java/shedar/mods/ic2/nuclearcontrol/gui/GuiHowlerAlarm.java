@@ -21,8 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiHowlerAlarm extends GuiContainer {
 	private static final String TEXTURE_FILE = "nuclearcontrol:textures/gui/GUIHowlerAlarm.png";
-	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(
-			TEXTURE_FILE);
+	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private TileEntityHowlerAlarm alarm;
 	private GuiHowlerAlarmSlider slider;
@@ -46,14 +45,14 @@ public class GuiHowlerAlarm extends GuiContainer {
 		buttonList.clear();
 		slider = new GuiHowlerAlarmSlider(3, guiLeft + 12, guiTop + 33, StatCollector.translateToLocal("msg.nc.HowlerAlarmSoundRange"), alarm);
 		List<String> items;
+		
 		if(alarm.getWorldObj().isRemote) {
 			items = new ArrayList<String>(IC2NuclearControl.instance.availableAlarms);
 			items.retainAll(IC2NuclearControl.instance.serverAllowedAlarms);
-		}else{
+		}else
 			items = IC2NuclearControl.instance.availableAlarms;
-		}
-		listBox = new GuiHowlerAlarmListBox(4, guiLeft + 13, guiTop + 63, 105,
-				65, items, alarm);
+		
+		listBox = new GuiHowlerAlarmListBox(4, guiLeft + 13, guiTop + 63, 105, 65, items, alarm);
 		buttonList.add(slider);
 		buttonList.add(listBox);
 
@@ -87,5 +86,4 @@ public class GuiHowlerAlarm extends GuiContainer {
 		int top = (height - ySize) / 2;
 		drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
 	}
-
 }

@@ -91,7 +91,6 @@ public class GuiAverageCounter extends GuiContainer{
 		case 4:
 			event = 10; break;
 		}
-		//NetworkHelper.initiateClientTileEntityEvent(container.averageCounter, event);
 		((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent(container.averageCounter, event);
 	}
 }
