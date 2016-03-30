@@ -92,7 +92,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
                     }
                 }
             } else if(tile instanceof TileChest){
-                TileChest chest = (TileChest) tile;
+               /* TileChest chest = (TileChest) tile;
                 ItemStack is = chest.getInternalInventory().getStackInSlot(0);
                 if(is != null){
                     IMEInventoryHandler inventory = AEApi.instance().registries().cell().getCellInventory( is, null, StorageChannel.ITEMS );
@@ -106,7 +106,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
                             CacheItem += cellInventory.getStoredItemTypes();
                         }
                     }
-                }
+                }*/
             }
         }
         if(CacheByteT != TOTALBYTES)

@@ -26,9 +26,6 @@ import shedar.mods.ic2.nuclearcontrol.crossmod.CrossModLoader;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
-import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.CrossIndustrialCraft2;
-import shedar.mods.ic2.nuclearcontrol.crossmod.ic2classic.CrossIndustrialCraft2Classic;
-import shedar.mods.ic2.nuclearcontrol.crossmod.mekanism.CrossMekanism;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.IC2Cross;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.IC2Type;
 import shedar.mods.ic2.nuclearcontrol.crossmod.opencomputers.CrossOpenComputers;
@@ -54,18 +51,6 @@ import shedar.mods.ic2.nuclearcontrol.network.ChannelHandler;
 import shedar.mods.ic2.nuclearcontrol.panel.ScreenManager;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesNew;
 import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 
 
