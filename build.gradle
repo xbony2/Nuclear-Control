@@ -56,9 +56,28 @@ dependencies {
 	compile files(aeVersion)
 	compile files(cofhCoreVersion)
 	compile files(brVersion)  
+	compile files(mekVersion)
 	compile files(buildcraftVersion)
 }
 
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+    version = "${project.minecraft.version}-${project.version}"
+}
+
+task libJar(type: Jar) {
+    from(sourceSets.main.java) {
+        include "shedar/mods/ic2/nuclearcontrol/api/**/*"
+    }
+    classifier = 'api'
+}
+
+// Tell the artifact system about our extra jars
+artifacts {
+    archives deobfJar, libJar
+}
 
 processResources {
     inputs.property "version", project.version
@@ -66,11 +85,13 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs){
         include 'mcmod.info'
-                
+
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs){
         exclude 'mcmod.info'
     }
+
+
 }
