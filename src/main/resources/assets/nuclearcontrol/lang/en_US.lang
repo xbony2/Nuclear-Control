@@ -139,6 +139,20 @@ nc.msg.notValid=This Card may not be compatible
 nc.msg.notValid2=with the Remote Monitor
 nc.msg.notValid3=Try reopening the GUI
 
+#Vanilla Intergration Messages
+msg.nc.Vanilla.Display=%s / %s Slots Used
+msg.nc.Vanilla.Name=Block Name
+msg.nc.Vanilla.StorageLVL=Storage Level
+msg.nc.Vanilla.brewstand=Current Brew Time: %s
+msg.nc.Vanilla.potionType1=1st Potion Type: %s
+msg.nc.Vanilla.potionType2=2st Potion Type: %s
+msg.nc.Vanilla.potionType3=3st Potion Type: %s
+msg.nc.Vanilla.brewing=Brewing
+msg.nc.Vanilla.notBrewing=Not Brewing
+msg.nc.Vanilla.dispBrewUse=Show Output Type #%s
+msg.nc.Vanilla.dispBrew=Show Block Brewing
+msg.nc.Vanilla.dispBrewTime=Display Brew Time
+
 #Big Reactor Messages
 msg.nc.InfoPanelRF.Temp=Core Temp.: %s C
 msg.nc.InfoPanelRF.EnergyStored=Energy: %s RF
