@@ -188,22 +188,25 @@ public class GuiHowlerAlarmListBox extends GuiButton {
 	@Override
 	public boolean mousePressed(Minecraft minecraft, int targetX, int targetY) {
 		if(super.mousePressed(minecraft, targetX, targetY)){
-			if (targetX > xPosition + width - SCROLL_WIDTH)// scroll click
-			
-				if(targetY - yPosition < SCROLL_BUTTON_HEIGHT)
+			if (targetX > xPosition + width - SCROLL_WIDTH) {// scroll click
+
+				if (targetY - yPosition < SCROLL_BUTTON_HEIGHT)
 					scrollUp();
-				else if(height + yPosition - targetY < SCROLL_BUTTON_HEIGHT)
+				else if (height + yPosition - targetY < SCROLL_BUTTON_HEIGHT)
 					scrollDown();
-				else if(targetY >= sliderY && targetY <= sliderY + sliderHeight){
+				else if (targetY >= sliderY && targetY <= sliderY + sliderHeight) {
 					dragging = true;
 					dragDelta = targetY - sliderY;
 				}
-			else
+			}else {
 				setCurrent(targetY);
-			
+
 			return true;
-		}else
+			}
+		}else {
 			return false;
+		}
+		return false;
 	}
 
 	@Override

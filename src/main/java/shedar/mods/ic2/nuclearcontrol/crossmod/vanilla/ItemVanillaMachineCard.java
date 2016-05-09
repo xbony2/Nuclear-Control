@@ -35,6 +35,9 @@ public class ItemVanillaMachineCard extends ItemCardBase{
     public static final int DISPLAY_SLOT_2 = 8;
     public static final int DISPLAY_SLOT_3 = 16;
 
+    private static final String BREW_STAND = "brewStand";
+    private static final String FURNACE = "furnace";
+
     public ItemVanillaMachineCard() {
         super("missingno");
     }
@@ -51,7 +54,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
 
         if(tile instanceof TileEntityBrewingStand){
             TileEntityBrewingStand brewingStand = (TileEntityBrewingStand)tile;
-            card.setString("entity", "brewStand");
+            card.setString("entity", BREW_STAND);
             card.setBoolean("brewing", brewingStand.getBrewTime() > 0);
             card.setInt("brewTime", brewingStand.getBrewTime());
             NBTTagCompound tag = new NBTTagCompound();
@@ -68,7 +71,24 @@ public class ItemVanillaMachineCard extends ItemCardBase{
             //brewingStand.getStackInSlot(3).getItem().isPotionIngredient(brewingStand.getStackInSlot(3));
         }else if(tile instanceof TileEntityFurnace){
             TileEntityFurnace furnace = (TileEntityFurnace)tile;
-            //furnace.
+            card.setString("entity", "furnace");
+            card.setBoolean("burning", furnace.isBurning());
+            card.setInt("burnTime", furnace.furnaceBurnTime);
+            NBTTagCompound tag = new NBTTagCompound();
+            if (furnace.getStackInSlot(0) != null) {
+                tag.setString("Cooking", furnace.getStackInSlot(0).getDisplayName());
+                tag.setInteger("Csize", furnace.getStackInSlot(0).stackSize);
+            }
+            if (furnace.getStackInSlot(1) != null) {
+                tag.setString("Fuel", furnace.getStackInSlot(1).getDisplayName());
+                tag.setInteger("Fsize", furnace.getStackInSlot(1).stackSize);
+            }
+            if (furnace.getStackInSlot(2) != null) {
+                tag.setString("Output", furnace.getStackInSlot(2).getDisplayName());
+                tag.setInteger("Osize", furnace.getStackInSlot(2).stackSize);
+            }
+            card.setTag("Info", tag);
+            return CardState.OK;
         }
         return CardState.INVALID_CARD;
     }
@@ -105,7 +125,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
     public List<PanelString> getStringData(int displaySettings, ICardWrapper card, boolean showLabels) {
         List<PanelString> result = new LinkedList<PanelString>();
         PanelString line;
-        if(card.getString("entity").equals("brewStand")) {
+        if(card.getString("entity").equals(BREW_STAND)) {
 
             Boolean isBrewing = card.getBoolean("brewing");
             int brewTime = card.getInt("brewTime");
@@ -166,6 +186,81 @@ public class ItemVanillaMachineCard extends ItemCardBase{
                 }
             }
             return result;
+
+        }else if(card.getString("entity").equals(FURNACE)){
+            boolean isBurning = card.getBoolean("burning");
+            int burnTime = card.getInt("burnTime");
+            NBTTagCompound tagCompound = card.getTag("Info");
+
+            if ((displaySettings & DISPLAY_TIME) > 0) {
+                line = new PanelString();
+                line.textLeft = StringUtils.getFormatted("msg.nc.Vanilla.brewstand", burnTime, showLabels);
+                result.add(line);
+            }
+            if ((displaySettings & DISPLAY_SLOT_1) > 0) {
+                String slot1pre = StatCollector.translateToLocal("msg.nc.None");
+                if(tagCompound.hasKey("Cooking")){
+                    slot1pre = tagCompound.getString("Cooking");
+                }
+                line = new PanelString();
+                line.textLeft = StringUtils.getFormatted("Currently Cooking: %s", slot1pre, showLabels);
+                result.add(line);
+            }
+            if ((displaySettings & DISPLAY_SLOT_2) > 0) {
+                String slot2pre = StatCollector.translateToLocal("msg.nc.None");
+                if(tagCompound.hasKey("Fuel")){
+                    slot2pre = tagCompound.getString("Fuel");
+                }
+                line = new PanelString();
+                line.textLeft = StringUtils.getFormatted("Current Fuel: %s", slot2pre, showLabels);
+                result.add(line);
+            }
+            if ((displaySettings & DISPLAY_SLOT_3) > 0) {
+                String slot3pre = StatCollector.translateToLocal("msg.nc.None");
+                if(tagCompound.hasKey("Output")){
+                    slot3pre = tagCompound.getString("Output");
+                }
+                line = new PanelString();
+                line.textLeft = StringUtils.getFormatted("Currently Stored Output: %s", slot3pre, showLabels);
+                result.add(line);
+            }
+            if ((displaySettings & DISPLAY_BREWING) > 0) {
+                int txtColour = 0;
+                String text;
+                if (isBurning){
+                    txtColour = 0x00ff00;
+                    text = LangHelper.translate("msg.nc.Vanilla.brewing");
+                } else{
+                    txtColour = 0xff0000;
+                    text = LangHelper.translate("msg.nc.Vanilla.notBrewing");
+                }
+                if (result.size() > 0) {
+                    PanelString firstLine = result.get(0);
+                    firstLine.textRight = text;
+                    firstLine.colorRight = txtColour;
+                } else {
+                    line = new PanelString();
+                    line.textLeft = text;
+                    line.colorLeft = txtColour;
+                    result.add(line);
+                }
+            }
+            /*
+    public static final int DISPLAY_BREWING = 1;
+    public static final int DISPLAY_TIME = 2;
+    public static final int DISPLAY_SLOT_1 = 4;
+    public static final int DISPLAY_SLOT_2 = 8;
+    public static final int DISPLAY_SLOT_3 = 16;
+            card.setBoolean("burning", furnace.isBurning());
+            card.setInt("burnTime", furnace.furnaceBurnTime);
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setString("Cooking", furnace.getStackInSlot(0).getDisplayName());
+            tag.setInteger("Csize", furnace.getStackInSlot(0).stackSize);
+            tag.setString("Fuel", furnace.getStackInSlot(1).getDisplayName());
+            tag.setInteger("Fsize", furnace.getStackInSlot(1).stackSize);
+            tag.setString("Output", furnace.getStackInSlot(2).getDisplayName());
+            tag.setInteger("Osize", furnace.getStackInSlot(2).stackSize);
+             */
 
         }
         return result;

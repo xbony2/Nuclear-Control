@@ -33,11 +33,13 @@ public class ItemVanillaKit extends ItemSensorKitBase{
 
     @Override
     protected ItemStack getItemStackByDamage(int damage) {
-        if(damage == 0){
-            return new ItemStack(Vanilla.inventoryCard);
-        }else if(damage == 1){
-            return new ItemStack(Vanilla.machineCard);
+        switch (damage){
+            case 0:
+                return new ItemStack(Vanilla.inventoryCard);
+            case 1:
+                return new ItemStack(Vanilla.machineCard);
+            default:
+                return null;
         }
-        return null;
     }
 }
