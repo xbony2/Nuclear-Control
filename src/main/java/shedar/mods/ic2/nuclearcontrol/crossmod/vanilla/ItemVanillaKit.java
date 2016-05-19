@@ -13,7 +13,7 @@ import shedar.mods.ic2.nuclearcontrol.items.ItemSensorKitBase;
 public class ItemVanillaKit extends ItemSensorKitBase{
 
     public ItemVanillaKit() {
-        super("missingno");
+        super("kitVanilla");
     }
 
     @Override

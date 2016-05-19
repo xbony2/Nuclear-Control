@@ -30,6 +30,9 @@ item.RFreactorCard.name=RF Reactor Sensor Location Card
 item.AppengCard.name=Applied Energistics Card
 item.AppengKit.name=Applied Energistics Monitor Kit
 item.RFenergyCard.name=RF Energy Sensor Location Card
+item.ItemVanillaMachineCard.name=Vanilla Machine Card
+item.ItemInventoryScannerCard.name=Inventory Tracking Card
+item.ItemVanillaKit.name=Vanilla Kit
 
 #Internal Blocks
 tile.blockThermalMonitor.name=Thermal Monitor

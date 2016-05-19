@@ -39,7 +39,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
     private static final String FURNACE = "furnace";
 
     public ItemVanillaMachineCard() {
-        super("missingno");
+        super("cardVanilla");
     }
 
     @Override

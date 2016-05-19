@@ -25,7 +25,7 @@ public class ItemCardInventoryScanner extends ItemCardBase{
     public static final int DISPLAY_TOTAL = 2;
 
     public ItemCardInventoryScanner() {
-        super("missingno");
+        super("cardVanilla");
     }
 
     @Override
