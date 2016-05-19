@@ -5,6 +5,7 @@ import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
+import ic2.core.network.ClientModifiable;
 import ic2.core.network.NetworkManager;
 
 import java.util.List;
@@ -43,7 +44,9 @@ public class TileEntityHowlerAlarm extends TileEntity implements
 	public boolean powered;
 	private boolean prevPowered;
 
+	@ClientModifiable
 	public String soundName;
+
 	private String prevSoundName;
 
 	private int updateTicker;

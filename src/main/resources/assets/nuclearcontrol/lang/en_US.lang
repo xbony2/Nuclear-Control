@@ -30,6 +30,9 @@ item.RFreactorCard.name=RF Reactor Sensor Location Card
 item.AppengCard.name=Applied Energistics Card
 item.AppengKit.name=Applied Energistics Monitor Kit
 item.RFenergyCard.name=RF Energy Sensor Location Card
+item.ItemVanillaMachineCard.name=Vanilla Machine Card
+item.ItemInventoryScannerCard.name=Inventory Tracking Card
+item.ItemVanilliaKit.name=Vanilla Kit
 
 #Internal Blocks
 tile.blockThermalMonitor.name=Thermal Monitor
@@ -138,6 +141,24 @@ msg.nc.None=N/A
 nc.msg.notValid=This Card may not be compatible
 nc.msg.notValid2=with the Remote Monitor
 nc.msg.notValid3=Try reopening the GUI
+
+#Vanilla Intergration Messages
+msg.nc.Vanilla.Display=%s / %s Slots Used
+msg.nc.Vanilla.Name=Block Name
+msg.nc.Vanilla.StorageLVL=Storage Level
+msg.nc.Vanilla.brewstand=Current Brew Time: %s
+msg.nc.Vanilla.potionType1=1st Potion Type: %s
+msg.nc.Vanilla.potionType2=2st Potion Type: %s
+msg.nc.Vanilla.potionType3=3st Potion Type: %s
+msg.nc.Vanilla.brewing=Brewing
+msg.nc.Vanilla.notBrewing=Not Brewing
+msg.nc.Vanilla.dispBrewUse=Show Output Type #%s
+msg.nc.Vanilla.dispBrew=Show Block Brewing
+msg.nc.Vanilla.dispBrewTime=Display Brew Time
+msg.nc.Vanilla.cooking=Cooking: %sx - %s
+msg.nc.Vanilla.fuel=Fuel: %sx - %s
+msg.nc.Vanilla.output=Output: %sx - %s
+msg.nc.Vanilla.burnTime=Burn Time: %s
 
 #Big Reactor Messages
 msg.nc.InfoPanelRF.Temp=Core Temp.: %s C

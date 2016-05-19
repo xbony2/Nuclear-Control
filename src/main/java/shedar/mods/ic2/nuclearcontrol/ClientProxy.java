@@ -21,6 +21,9 @@ import shedar.mods.ic2.nuclearcontrol.renderers.TileEntityInfoPanelRenderer;
 import shedar.mods.ic2.nuclearcontrol.renderers.TileEntityRemoteThermoRenderer;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class ClientProxy extends CommonProxy {
 
 	@Override
@@ -63,6 +66,10 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void cape(){
-		DevCapes.getInstance().registerConfig("http://xbony2.github.io/cape.json");
+		try {
+			DevCapes.getInstance().registerConfig(new URL("http://xbony2.github.io/cape.json"));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 	}
 }

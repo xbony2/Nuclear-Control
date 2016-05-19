@@ -7,6 +7,7 @@ import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossTE;
 import shedar.mods.ic2.nuclearcontrol.crossmod.appeng.CrossAppeng;
 import shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors.CrossBigReactors;
 import shedar.mods.ic2.nuclearcontrol.crossmod.mekanism.CrossMekanism;
+import shedar.mods.ic2.nuclearcontrol.crossmod.vanilla.Vanilla;
 
 public class CrossModLoader {
 
@@ -21,6 +22,7 @@ public class CrossModLoader {
         FMLInterModComms.sendMessage("Waila", "register", "shedar.mods.ic2.nuclearcontrol.crossmod.waila.CrossWaila.callbackRegister");
         CrossBigReactors.doStuff();
         CrossAppeng.registrationCheck();
+        Vanilla.initVanilla();
     }
 
     public static void postinit(){

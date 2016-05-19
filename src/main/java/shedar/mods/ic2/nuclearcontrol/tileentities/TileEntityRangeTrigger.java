@@ -5,6 +5,7 @@ import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
+import ic2.core.network.ClientModifiable;
 import ic2.core.network.NetworkManager;
 
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	protected int tickRate;
 	protected boolean init;
 	private ItemStack inventory[];
+
+	@ClientModifiable
 	private ItemStack card;
 
 	private int prevRotation;
@@ -60,12 +63,18 @@ public class TileEntityRangeTrigger extends TileEntity implements
 	private int onFire;
 
 	private boolean prevInvertRedstone;
+
+	@ClientModifiable
 	private boolean invertRedstone;
 
 	private double prevLevelStart;
+
+	@ClientModifiable
 	public double levelStart;
 
 	private double prevLevelEnd;
+
+	@ClientModifiable
 	public double levelEnd;
 
 	@Override

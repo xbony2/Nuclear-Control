@@ -103,7 +103,7 @@ public class ItemCardRFEnergyLocation extends ItemCardEnergySensorLocation {
 
     @Override
     public List<PanelSetting> getSettingsList() {
-        List<PanelSetting> result = new ArrayList<PanelSetting>(3);
+        List<PanelSetting> result = new ArrayList<PanelSetting>();
         result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelEnergyCurrent"), DISPLAY_ENERGY, CARD_TYPE));
         result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelEnergyStorage"), DISPLAY_STORAGE, CARD_TYPE));
         result.add(new PanelSetting(LangHelper.translate("msg.nc.cbInfoPanelEnergyFree"), DISPLAY_FREE, CARD_TYPE));
