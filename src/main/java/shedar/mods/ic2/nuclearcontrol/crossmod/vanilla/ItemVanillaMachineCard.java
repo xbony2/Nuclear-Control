@@ -194,7 +194,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
 
             if ((displaySettings & DISPLAY_TIME) > 0) {
                 line = new PanelString();
-                line.textLeft = StringUtils.getFormatted("msg.nc.Vanilla.brewstand", burnTime, showLabels);
+                line.textLeft = StringUtils.getFormatted("msg.nc.Vanilla.burnTime", burnTime, showLabels);
                 result.add(line);
             }
             if ((displaySettings & DISPLAY_SLOT_1) > 0) {
@@ -203,7 +203,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
                     slot1pre = tagCompound.getString("Cooking");
                 }
                 line = new PanelString();
-                line.textLeft = StringUtils.getFormatted("Currently Cooking: %s", slot1pre, showLabels);
+                line.textLeft = String.format(StatCollector.translateToLocal("msg.nc.Vanilla.cooking"), tagCompound.getInteger("Csize"), slot1pre);
                 result.add(line);
             }
             if ((displaySettings & DISPLAY_SLOT_2) > 0) {
@@ -212,7 +212,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
                     slot2pre = tagCompound.getString("Fuel");
                 }
                 line = new PanelString();
-                line.textLeft = StringUtils.getFormatted("Current Fuel: %s", slot2pre, showLabels);
+                line.textLeft = String.format(StatCollector.translateToLocal("msg.nc.Vanilla.fuel"),tagCompound.getInteger("Fsize"), slot2pre);
                 result.add(line);
             }
             if ((displaySettings & DISPLAY_SLOT_3) > 0) {
@@ -221,7 +221,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
                     slot3pre = tagCompound.getString("Output");
                 }
                 line = new PanelString();
-                line.textLeft = StringUtils.getFormatted("Currently Stored Output: %s", slot3pre, showLabels);
+                line.textLeft = String.format(StatCollector.translateToLocal("msg.nc.Vanilla.output"), tagCompound.getInteger("Osize"), slot3pre);
                 result.add(line);
             }
             if ((displaySettings & DISPLAY_BREWING) > 0) {
@@ -229,10 +229,10 @@ public class ItemVanillaMachineCard extends ItemCardBase{
                 String text;
                 if (isBurning){
                     txtColour = 0x00ff00;
-                    text = LangHelper.translate("msg.nc.Vanilla.brewing");
+                    text = LangHelper.translate("msg.nc.InfoPanelOn");
                 } else{
                     txtColour = 0xff0000;
-                    text = LangHelper.translate("msg.nc.Vanilla.notBrewing");
+                    text = LangHelper.translate("msg.nc.InfoPanelOff");
                 }
                 if (result.size() > 0) {
                     PanelString firstLine = result.get(0);

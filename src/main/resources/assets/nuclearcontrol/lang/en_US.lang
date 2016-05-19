@@ -32,7 +32,7 @@ item.AppengKit.name=Applied Energistics Monitor Kit
 item.RFenergyCard.name=RF Energy Sensor Location Card
 item.ItemVanillaMachineCard.name=Vanilla Machine Card
 item.ItemInventoryScannerCard.name=Inventory Tracking Card
-item.ItemVanillaKit.name=Vanilla Kit
+item.ItemVanilliaKit.name=Vanilla Kit
 
 #Internal Blocks
 tile.blockThermalMonitor.name=Thermal Monitor
@@ -155,6 +155,10 @@ msg.nc.Vanilla.notBrewing=Not Brewing
 msg.nc.Vanilla.dispBrewUse=Show Output Type #%s
 msg.nc.Vanilla.dispBrew=Show Block Brewing
 msg.nc.Vanilla.dispBrewTime=Display Brew Time
+msg.nc.Vanilla.cooking=Cooking: %sx - %s
+msg.nc.Vanilla.fuel=Fuel: %sx - %s
+msg.nc.Vanilla.output=Output: %sx - %s
+msg.nc.Vanilla.burnTime=Burn Time: %s
 
 #Big Reactor Messages
 msg.nc.InfoPanelRF.Temp=Core Temp.: %s C
