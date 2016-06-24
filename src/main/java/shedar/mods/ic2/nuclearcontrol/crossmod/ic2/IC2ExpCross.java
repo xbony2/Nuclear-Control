@@ -5,6 +5,7 @@ import ic2.core.block.reactor.tileentity.TileEntityNuclearReactorElectric;
 import ic2.core.block.reactor.tileentity.TileEntityReactorAccessHatch;
 import ic2.core.block.reactor.tileentity.TileEntityReactorRedstonePort;
 import ic2.core.item.reactor.ItemReactorLithiumCell;
+import ic2.core.item.reactor.ItemReactorMOX;
 import ic2.core.item.reactor.ItemReactorUranium;
 import ic2.core.item.tool.ItemToolWrench;
 import net.minecraft.item.ItemStack;
@@ -20,18 +21,15 @@ public class IC2ExpCross extends IC2Cross{
 	
 	@Override
 	public int getNuclearCellTimeLeft(ItemStack par1) {
-		if(par1 == null)
+		if (par1 == null)
 		{
 			return 0;
 		}
-		if(par1.getItem() instanceof ItemReactorUranium)
+		if (par1.getItem() instanceof ItemReactorUranium || par1.getItem() instanceof ItemReactorLithiumCell || par1.getItem() instanceof ItemReactorMOX)
 		{
-			return 20000 - par1.getItemDamage();
+			return par1.getMaxDamage() - par1.getItemDamage();
 		}
-		else if(par1.getItem() instanceof ItemReactorLithiumCell)
-		{
-			return 10000 - par1.getItemDamage();
-		}
+
 		return 0;
 	}
 

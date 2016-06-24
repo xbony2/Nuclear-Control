@@ -58,16 +58,26 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 
 			IInventory inventory = (IInventory) reactor;
 			int slotCount = inventory.getSizeInventory();
-			int timeLeft = 0;
+			int dmgLeft = 0;
 			for (int i = 0; i < slotCount; i++) {
 				ItemStack rStack = inventory.getStackInSlot(i);
 				if (rStack != null) {
-					timeLeft = Math.max(timeLeft,
+					dmgLeft = Math.max(dmgLeft,
 							NuclearHelper.getNuclearCellTimeLeft(rStack));
 				}
 			}
+
+
+			int timeLeft = 0;
+
 			//Classic has a Higher Tick rate for Steam generation but damage tick rate is still the same...
-			card.setInt("timeLeft", timeLeft * (isSteam ? 20 : reactor.getTickRate()) / 20);
+			if (isSteam) {
+				timeLeft = dmgLeft;
+			} else {
+				timeLeft = dmgLeft * reactor.getTickRate() / 10;
+			}
+
+			card.setInt("timeLeft", timeLeft);
 			return CardState.OK;
 		} else {
 			return CardState.NO_TARGET;
@@ -90,15 +100,16 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 
 			IInventory inventory = (IInventory) reactor;
 			int slotCount = inventory.getSizeInventory();
-			int timeLeft = 0;
+			int dmgLeft = 0;
 			for (int i = 0; i < slotCount; i++) {
 				ItemStack rStack = inventory.getStackInSlot(i);
 				if (rStack != null) {
-					timeLeft = Math.max(timeLeft,
+					dmgLeft = Math.max(dmgLeft,
 							NuclearHelper.getNuclearCellTimeLeft(rStack));
 				}
 			}
-			card.setInt("timeLeft", timeLeft * reactor.getTickRate() / 20);
+
+			card.setInt("timeLeft", dmgLeft * reactor.getTickRate() / 10);
 			return CardState.OK;
 		} else {
 			return CardState.NO_TARGET;
