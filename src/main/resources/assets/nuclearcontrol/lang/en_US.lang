@@ -33,6 +33,7 @@ item.RFenergyCard.name=RF Energy Sensor Location Card
 item.ItemVanillaMachineCard.name=Vanilla Machine Card
 item.ItemInventoryScannerCard.name=Inventory Tracking Card
 item.ItemVanilliaKit.name=Vanilla Kit
+item.MekRFenergyCard.name=Mekanism Energy Card
 
 #Internal Blocks
 tile.blockThermalMonitor.name=Thermal Monitor
