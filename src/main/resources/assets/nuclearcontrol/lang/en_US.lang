@@ -164,9 +164,12 @@ msg.nc.Vanilla.burnTime=Burn Time: %s
 msg.nc.InfoPanelRF.Temp=Core Temp.: %s C
 msg.nc.InfoPanelRF.EnergyStored=Energy: %s RF
 msg.nc.InfoPanelRF.CreatedEnergy=Output Energy: %s RF/t
+msg.nc.InfoPanelRF.SteamOutput=Output Steam: %s mB/t
 msg.nc.InfoPanelRF.Percentage=Storage Buffer is %s%% Full
 msg.nc.InfoPanelRF.Output=Output (RF/t)
 msg.nc.InfoPanelRF.TempPROPER=Core Temperature
+msg.nc.InfoPanelRF.CoolantTank=Coolant Tank: %s x%smB
+msg.nc.InfoPanelRF.OutputTank=Output Tank: %s x%smB
 
 #5x5 Reactor Messages
 msg.nc.InfoPanel55.Output=Output: %s Hu/s

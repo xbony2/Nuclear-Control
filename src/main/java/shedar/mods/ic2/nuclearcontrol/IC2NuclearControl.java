@@ -109,6 +109,7 @@ public class IC2NuclearControl {
 	public ScreenManager screenManager = new ScreenManager();
 	public int screenRefreshPeriod;
 	public int rangeTriggerRefreshPeriod;
+	public boolean disableCapes;
 	public String recipes;
 
 	public CrossBuildcraft crossBC;
@@ -200,7 +201,9 @@ public class IC2NuclearControl {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		proxy.cape();
+		if(!disableCapes) {
+			proxy.cape();
+		}
 		CrossModLoader.postinit();
 		crossBC = new CrossBuildcraft();
 		crossRailcraft = new CrossRailcraft();

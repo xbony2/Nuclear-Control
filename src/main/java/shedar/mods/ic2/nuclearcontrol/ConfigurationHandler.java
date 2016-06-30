@@ -26,6 +26,7 @@ public class ConfigurationHandler {
 			IC2NuclearControl.instance.screenRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "infoPanelRefreshPeriod",20).getInt();
 			IC2NuclearControl.instance.rangeTriggerRefreshPeriod = configuration.get(Configuration.CATEGORY_GENERAL, "rangeTriggerRefreshPeriod", 20).getInt();
 			IC2NuclearControl.instance.SMPMaxAlarmRange = configuration.get(Configuration.CATEGORY_GENERAL, "SMPMaxAlarmRange", 256).getInt();
+			IC2NuclearControl.instance.disableCapes = configuration.get(Configuration.CATEGORY_GENERAL, "disableCapes", false).getBoolean(false);
 			//IC2NuclearControl.isHttpSensorAvailableClient = configuration.getBoolean("isHttpSensorAvailableClient", Configuration.CATEGORY_GENERAL, false, "Turns on/off the recipes for the web upgrade client side");
 			//IC2NuclearControl.isHttpSensorAvailableServer = configuration.getBoolean("isHttpSensorAvailableServer", Configuration.CATEGORY_GENERAL, true, "Turns on/off the recipes for the web upgrade server side");
 			//IC2NuclearControl.instance.httpSensorKey = configuration.get(Configuration.CATEGORY_GENERAL, "httpSensorKey", UUID.randomUUID().toString().replace("-", "")).getString();

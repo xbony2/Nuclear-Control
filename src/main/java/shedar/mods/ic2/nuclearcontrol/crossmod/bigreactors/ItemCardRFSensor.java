@@ -8,6 +8,8 @@ import java.util.UUID;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import shedar.mods.ic2.nuclearcontrol.api.CardState;
 import shedar.mods.ic2.nuclearcontrol.api.ICardWrapper;
 import shedar.mods.ic2.nuclearcontrol.api.PanelSetting;
@@ -47,6 +49,23 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 			card.setDouble("createdEnergy", (double) BF.getEnergyGenerated());
 			card.setInt("Temp", BF.getTemp());
 			card.setDouble("FillPercent", (double) BF.getEnergyOutPercent());
+			card.setBoolean("isPassive", BF.getReactorController().isPassivelyCooled());
+			if(!BF.getReactorController().isPassivelyCooled()){
+				if(BF.getReactorController().getCoolantContainer().getVaporType() != null) {
+					card.setString("VaporType", BF.getReactorController().getCoolantContainer().getVaporType().getLocalizedName());
+					card.setInt("VaporAmount", BF.getReactorController().getCoolantContainer().getVaporAmount());
+				}else{
+					card.setString("VaporType", "Empty");
+					card.setInt("VaporAmount", 0);
+				}
+				if(BF.getReactorController().getCoolantContainer().getCoolantType() != null) {
+					card.setString("CoolantType", new FluidStack(BF.getReactorController().getCoolantContainer().getCoolantType(), 1).getLocalizedName());
+					card.setInt("CoolantAmount", BF.getReactorController().getCoolantContainer().getCoolantAmount());
+				}else{
+					card.setString("CoolantType", "Empty");
+					card.setInt("CoolantAmount", 0);
+				}
+			}
 			return CardState.OK;
 		}else{
 			return CardState.NO_TARGET;
@@ -65,6 +84,23 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 			card.setDouble("createdEnergy", (double) BF.getEnergyGenerated());
 			card.setInt("Temp", BF.getTemp());
 			card.setDouble("FillPercent", (double) BF.getEnergyOutPercent());
+			card.setBoolean("isPassive", BF.getReactorController().isPassivelyCooled());
+			if(!BF.getReactorController().isPassivelyCooled()){
+				if(BF.getReactorController().getCoolantContainer().getVaporType() != null) {
+					card.setString("VaporType", BF.getReactorController().getCoolantContainer().getVaporType().getLocalizedName());
+					card.setInt("VaporAmount", BF.getReactorController().getCoolantContainer().getVaporAmount());
+				}else{
+					card.setString("VaporType", "Empty");
+					card.setInt("VaporAmount", 0);
+				}
+				if(BF.getReactorController().getCoolantContainer().getCoolantType() != null) {
+					card.setString("CoolantType", new FluidStack(BF.getReactorController().getCoolantContainer().getCoolantType(), 1).getLocalizedName());
+					card.setInt("CoolantAmount", BF.getReactorController().getCoolantContainer().getCoolantAmount());
+				}else{
+					card.setString("CoolantType", "Empty");
+					card.setInt("CoolantAmount", 0);
+				}
+			}
 			return CardState.OK;
 		}else{
 			return CardState.NO_TARGET;
@@ -87,56 +123,108 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 		//NCLog.error(energyStored);
 		int ioutputlvl = (int) outputlvl;
 		int ienergyStored = (int) energyStored;
-		//Temperature
-		if ((displaySettings & DISPLAY_TEMP) > 0) {
-			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.Temp", coreTemp, showLabels);
-			result.add(line);
-		}
-		
-		//Stored Energy
-		if ((displaySettings & DISPLAY_ENERGY) > 0) {
-			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.EnergyStored", ienergyStored, showLabels);
-			result.add(line);
-		}
-
-		//Energy Created Frequency
-		if ((displaySettings & DISPLAY_OUTPUT) > 0) {
-			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.CreatedEnergy", ioutputlvl, showLabels);
-			result.add(line);
-		}	
-		
-		//Output Percentage
-		if ((displaySettings & DISPLAY_PERCENTAGE) > 0) {
-			line = new PanelString();
-			line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.Percentage", PerOut, showLabels);
-			result.add(line);
-		}
-		
-		//On or Off
-		int txtColor = 0;
-		String text;
-		if ((displaySettings & DISPLAY_ON) > 0) {
-			boolean reactorPowered = card.getBoolean("Online");
-			if (reactorPowered) {
-				txtColor = 0x00ff00;
-				text = LangHelper.translate("msg.nc.InfoPanelOn");
-			} else {
-				txtColor = 0xff0000;
-				text = LangHelper.translate("msg.nc.InfoPanelOff");
-			}
-			if (result.size() > 0) {
-				PanelString firstLine = result.get(0);
-				firstLine.textRight = text;
-				firstLine.colorRight = txtColor;
-			} else {
+		boolean passive = card.getBoolean("isPassive");
+		if(passive) {
+			//Temperature
+			if ((displaySettings & DISPLAY_TEMP) > 0) {
 				line = new PanelString();
-				line.textLeft = text;
-				line.colorLeft = txtColor;
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.Temp", coreTemp, showLabels);
 				result.add(line);
 			}
+
+			//Stored Energy
+			if ((displaySettings & DISPLAY_ENERGY) > 0) {
+				line = new PanelString();
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.EnergyStored", ienergyStored, showLabels);
+				result.add(line);
+			}
+
+			//Energy Created Frequency
+			if ((displaySettings & DISPLAY_OUTPUT) > 0) {
+				line = new PanelString();
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.CreatedEnergy", ioutputlvl, showLabels);
+				result.add(line);
+			}
+
+			//Output Percentage
+			if ((displaySettings & DISPLAY_PERCENTAGE) > 0) {
+				line = new PanelString();
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.Percentage", PerOut, showLabels);
+				result.add(line);
+			}
+
+			//On or Off
+			int txtColor = 0;
+			String text;
+			if ((displaySettings & DISPLAY_ON) > 0) {
+				boolean reactorPowered = card.getBoolean("Online");
+				if (reactorPowered) {
+					txtColor = 0x00ff00;
+					text = LangHelper.translate("msg.nc.InfoPanelOn");
+				} else {
+					txtColor = 0xff0000;
+					text = LangHelper.translate("msg.nc.InfoPanelOff");
+				}
+				if (result.size() > 0) {
+					PanelString firstLine = result.get(0);
+					firstLine.textRight = text;
+					firstLine.colorRight = txtColor;
+				} else {
+					line = new PanelString();
+					line.textLeft = text;
+					line.colorLeft = txtColor;
+					result.add(line);
+				}
+			}
+		}else{
+			//Temperature
+			if ((displaySettings & DISPLAY_TEMP) > 0) {
+				line = new PanelString();
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.Temp", coreTemp, showLabels);
+				result.add(line);
+			}
+			//Energy Created Frequency
+			if ((displaySettings & DISPLAY_OUTPUT) > 0) {
+				line = new PanelString();
+				line.textLeft = StringUtils.getFormatted("msg.nc.InfoPanelRF.SteamOutput", ioutputlvl, showLabels);
+				result.add(line);
+			}
+			//Stored Energy
+			if ((displaySettings & DISPLAY_ENERGY) > 0) {
+				line = new PanelString();
+				line.textLeft =  StringUtils.getFormattedKey("msg.nc.InfoPanelRF.CoolantTank", card.getString("CoolantType"), card.getInt("CoolantAmount"));
+				result.add(line);
+			}
+			//Vapor Tank
+			if ((displaySettings & DISPLAY_PERCENTAGE) > 0) {
+				line = new PanelString();
+				line.textLeft = StringUtils.getFormattedKey("msg.nc.InfoPanelRF.OutputTank", card.getString("VaporType") ,card.getInt("VaporAmount"));
+				result.add(line);
+			}
+			//On or Off
+			int txtColor = 0;
+			String text;
+			if ((displaySettings & DISPLAY_ON) > 0) {
+				boolean reactorPowered = card.getBoolean("Online");
+				if (reactorPowered) {
+					txtColor = 0x00ff00;
+					text = LangHelper.translate("msg.nc.InfoPanelOn");
+				} else {
+					txtColor = 0xff0000;
+					text = LangHelper.translate("msg.nc.InfoPanelOff");
+				}
+				if (result.size() > 0) {
+					PanelString firstLine = result.get(0);
+					firstLine.textRight = text;
+					firstLine.colorRight = txtColor;
+				} else {
+					line = new PanelString();
+					line.textLeft = text;
+					line.colorLeft = txtColor;
+					result.add(line);
+				}
+			}
+
 		}
 		return result;
 	}

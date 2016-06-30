@@ -68,7 +68,7 @@ public class ClientProxy extends CommonProxy {
 	public void cape(){
 		try {
 			DevCapes.getInstance().registerConfig(new URL("http://xbony2.github.io/cape.json"));
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

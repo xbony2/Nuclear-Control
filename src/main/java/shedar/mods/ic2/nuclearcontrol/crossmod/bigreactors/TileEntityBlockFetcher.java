@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.bigreactors;
 
+import erogenousbeef.bigreactors.common.multiblock.MultiblockReactor;
 import net.minecraft.nbt.NBTTagCompound;
 import shedar.mods.ic2.nuclearcontrol.utils.NCLog;
 import erogenousbeef.bigreactors.common.multiblock.interfaces.ITickableMultiblockPart;
@@ -95,4 +96,5 @@ public class TileEntityBlockFetcher extends TileEntityReactorPartBase implements
 	public int getTemp(){
 		return temp;
 	}
+	public MultiblockReactor getReactor(){return this.getReactorController();}
 }
