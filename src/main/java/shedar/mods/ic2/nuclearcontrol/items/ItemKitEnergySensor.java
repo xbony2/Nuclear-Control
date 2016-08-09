@@ -31,7 +31,7 @@ public class ItemKitEnergySensor extends ItemSensorKitBase {
 			if (tileEntity != null) {
 				if (CrossMekanism.isMekanismPresent() && CrossMekanism.classExists && tileEntity instanceof mekanism.api.energy.IStrictEnergyStorage) {
 					return new ItemStack(CrossMekanism.mekCard);
-				} else if (Loader.isModLoaded(ModLib.TE) || storageData.type == EnergyStorageData.TARGET_TYPE_RF) {
+				} else if (storageData.type == EnergyStorageData.TARGET_TYPE_RF) {
 					return new ItemStack(CrossTE.RFSensorCard);
 				}
 				return new ItemStack(IC2NuclearControl.itemEnergySensorLocationCard);
