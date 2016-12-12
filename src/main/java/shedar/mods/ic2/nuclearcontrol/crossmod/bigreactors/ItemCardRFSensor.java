@@ -40,6 +40,7 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 	@Override
 	public CardState update(TileEntity panel, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		//int targetType = card.getInt("targetType");
 		TileEntity check = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
 		if(check instanceof TileEntityBlockFetcher){
@@ -75,6 +76,7 @@ public class ItemCardRFSensor extends ItemCardEnergySensorLocation{
 	@Override
 	public CardState update(World world, ICardWrapper card, int range){
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		//int targetType = card.getInt("targetType");
 		TileEntity check = world.getTileEntity(target.posX, target.posY, target.posZ);
 		if(check instanceof TileEntityBlockFetcher){

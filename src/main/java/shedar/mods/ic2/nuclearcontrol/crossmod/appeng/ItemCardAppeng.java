@@ -43,6 +43,7 @@ public class ItemCardAppeng extends ItemCardEnergySensorLocation {
     @Override
     public CardState update(World world, ICardWrapper card, int range) {
         ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
         int targetType = card.getInt("targetType");
         if(targetType == 1) {
             TileEntity check = world.getTileEntity(target.posX, target.posY, target.posZ);
@@ -82,6 +83,7 @@ public class ItemCardAppeng extends ItemCardEnergySensorLocation {
     @Override
     public CardState update(TileEntity panel, ICardWrapper card, int range) {
         ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
         int targetType = card.getInt("targetType");
         if(targetType == 1) {
             TileEntity check = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);

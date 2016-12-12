@@ -117,6 +117,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 
 	public CardState updateLiquid(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		FluidTankInfo storage = LiquidStorageHelper.getStorageAt(world, target.posX, target.posY, target.posZ);
 		if (storage != null) {
 			int capacity = storage.capacity;
@@ -143,6 +144,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 
 	public CardState updateCounter(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		TileEntity tileEntity = world.getTileEntity(target.posX, target.posY, target.posZ);
 		if (tileEntity != null && tileEntity instanceof TileEntityEnergyCounter) {
 			TileEntityEnergyCounter counter = (TileEntityEnergyCounter) tileEntity;
@@ -163,6 +165,7 @@ public class ItemCardMultipleSensorLocation extends ItemCardBase implements IRem
 
 	public CardState updateGenerator(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		TileEntity entity = world.getTileEntity(target.posX, target.posY, target.posZ);
 		if (entity instanceof TileEntityBaseGenerator) {
 			// int production = ((TileEntityBaseGenerator)entity).production;

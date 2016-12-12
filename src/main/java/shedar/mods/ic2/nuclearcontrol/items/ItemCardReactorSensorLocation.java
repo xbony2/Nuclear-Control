@@ -44,6 +44,7 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 	@Override
 	public CardState update(TileEntity panel, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		IReactor reactor = NuclearHelper.getReactorAt(panel.getWorldObj(),
 				target.posX, target.posY, target.posZ);
 		if (reactor != null) {
@@ -87,6 +88,7 @@ public class ItemCardReactorSensorLocation extends ItemCardBase implements
 	@Override
 	public CardState update(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		IReactor reactor = NuclearHelper.getReactorAt(world,
 				target.posX, target.posY, target.posZ);
 		if (reactor != null) {

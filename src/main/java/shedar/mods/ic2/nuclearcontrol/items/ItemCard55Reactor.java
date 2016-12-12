@@ -44,6 +44,7 @@ public class ItemCard55Reactor extends ItemCardEnergySensorLocation implements I
 	@Override
 	public CardState update(TileEntity panel, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		//int targetType = card.getInt("targetType");
 		TileEntity check = panel.getWorldObj().getTileEntity(target.posX, target.posY, target.posZ);
 		if(isReactorPart(check) || panel.getWorldObj().getBlock(target.posX, target.posY, target.posZ) == Block.getBlockFromItem(IC2Items.getItem("reactorvessel").getItem())){
@@ -71,6 +72,7 @@ public class ItemCard55Reactor extends ItemCardEnergySensorLocation implements I
 	@Override
 	public CardState update(World world, ICardWrapper card, int range){
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		//int targetType = card.getInt("targetType");
 		TileEntity check = world.getTileEntity(target.posX, target.posY, target.posZ);
 		if(isReactorPart(check) || world.getBlock(target.posX, target.posY, target.posZ) == Block.getBlockFromItem(IC2Items.getItem("reactorvessel").getItem())){

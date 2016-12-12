@@ -36,6 +36,7 @@ public class ItemCardEnergySensorLocation extends ItemCardBase implements IRemot
 	@Override
 	public CardState update(TileEntity panel, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		int targetType = card.getInt("targetType");
 		EnergyStorageData storage = EnergyStorageHelper.getStorageAt(panel.getWorldObj(), target.posX, target.posY, target.posZ, targetType);
 		if (storage != null) {
@@ -51,6 +52,7 @@ public class ItemCardEnergySensorLocation extends ItemCardBase implements IRemot
 	@Override
 	public CardState update(World world, ICardWrapper card, int range) {
 		ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
 		int targetType = card.getInt("targetType");
 		EnergyStorageData storage = EnergyStorageHelper.getStorageAt(world, target.posX, target.posY, target.posZ, targetType);
 		if (storage != null) {
