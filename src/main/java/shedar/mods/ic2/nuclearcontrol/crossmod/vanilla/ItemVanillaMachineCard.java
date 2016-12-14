@@ -50,6 +50,7 @@ public class ItemVanillaMachineCard extends ItemCardBase{
     @Override
     public CardState update(World world, ICardWrapper card, int range) {
         ChunkCoordinates target = card.getTarget();
+		if(target == null) return CardState.NO_TARGET;
         TileEntity tile = world.getTileEntity(target.posX, target.posY, target.posZ);
 
         if(tile instanceof TileEntityBrewingStand){
