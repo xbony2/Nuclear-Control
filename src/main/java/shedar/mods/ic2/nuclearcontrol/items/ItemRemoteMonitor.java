@@ -19,13 +19,13 @@ public class ItemRemoteMonitor extends Item{
 
     public ItemRemoteMonitor(){
         this.setCreativeTab(IC2NuclearControl.tabIC2NC);
-
+        this.setMaxStackSize(1);
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-        if(!player.isSneaking()) {
+        if(!player.isSneaking() && !world.isRemote && stack.stackSize == 1) {
             player.openGui(IC2NuclearControl.instance, GuiRemoteMonitor.REMOTEMONITOR_GUI, world, 0, 0, 0);
         }
         return stack;
