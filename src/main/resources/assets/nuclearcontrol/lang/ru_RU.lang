@@ -1,3 +1,7 @@
+#Tab Name
+nc.itemgroup.tab=Nuclear Control 2
+
+#Internal Items
 item.ItemToolThermometer.name=Термометр
 item.ItemToolDigitalThermometer.name=Цифровой термометр
 item.ItemRemoteSensorKit.name=Набор с дистанционным датчиком
@@ -20,12 +24,18 @@ item.ItemLiquidArrayLocationCard.name=Карта-датчик расположе
 item.Item55ReactorCard.name=Карта-датчик расположения 5x5 реактора
 item.remoteMonitor.name=Переносная информационная панель
 
+#Integration Items
 item.RFreactorKit.name=Набор для дистанционного RF-реактора
 item.RFreactorCard.name=Карта-датчик расположения RF-реактора
 item.AppengCard.name=Карта для Applied Energistics
 item.AppengKit.name=Набор с датчиком для Applied Energistics
 item.RFenergyCard.name=Карта-датчик расположения RF энергии
+item.ItemVanillaMachineCard.name=Карта-датчик 'ванильных' механизмов
+item.ItemInventoryScannerCard.name=Карта-датчик для инвентаря
+item.ItemVanilliaKit.name=Набор с датчиком для 'ванили'
+item.MekRFenergyCard.name=Карта-датчик энергии Mekanism.
 
+#Internal Blocks
 tile.blockThermalMonitor.name=Датчик температуры
 tile.blockIndustrialAlarm.name=Промышленная сирена
 tile.blockHowlerAlarm.name=Сирена «Ревун»
@@ -38,12 +48,15 @@ tile.nclight0.name=Белый светильник
 tile.nclight1.name=Белый светильник
 tile.nclight2.name=Оранжевый светильник
 tile.nclight3.name=Оранжевый светильник
-
-tile.blockBRPart.name=Реакторный монитор
 tile.blockEnergyCounter.name=Энергосчётчик
 tile.blockAverageCounter.name=Стационарный энергосчётчик
 tile.blockRangeTrigger.name=Дистанционный триггер
 
+#Integration Blocks
+tile.blockBRPart.name=Реакторный монитор
+tile.NetworkLink.name=Монитор ME-сети
+
+#Original Screen Messages
 msg.nc.HowlerAlarmSoundRange=Дальность звука: %s
 msg.nc.HowlerAlarmSound=Звук
 msg.nc.ThermalMonitorSave=Сохранить настройки
@@ -106,14 +119,60 @@ msg.nc.cbInfoPanelMaxHeat=Макс. Нагрев
 msg.nc.cbInfoPanelMelting=Температура Плавления
 msg.nc.cbInfoPanelOutput=Выход (EU/т)
 msg.nc.cbInfoPanelTimeRemaining=Время до окончания цикла
+msg.nc.cb24h=24-часовой режим
 
+msg.nc.cbInfoPanelEnergyCurrent=Энергия
+msg.nc.cbInfoPanelEnergyStorage=Хранилище
+msg.nc.cbInfoPanelEnergyFree=Свободно
+msg.nc.cbInfoPanelEnergyEach=Each card info
+msg.nc.cbInfoPanelEnergyTotal=Суммарно
+msg.nc.cbInfoPanelEnergyPercentage=Процент заполнения
+msg.nc.EnergyCardQuantity=Количество карт: %d
+msg.nc.AverageCounterPeriod=Период: %sсек.
+
+msg.nc.LiquidCardQuantity=Количество карт: %d
+
+msg.nc.cbInfoPanelLiquidEach=Each card info
+msg.nc.cbInfoPanelLiquidTotal=Summary
+
+msg.nc.Reset=Перезагрузить
+msg.nc.ScreenColor=Цвет экрана
+msg.nc.TextColor=Цвет текста
+msg.nc.None=N/A
+nc.msg.notValid=Возможно, эта карта несовместима
+nc.msg.notValid2=с дистанционным монитором
+nc.msg.notValid3=Попробуйте открыть интерфейс заново
+
+#Vanilla Intergration Messages
+msg.nc.Vanilla.Display=%s / %s слотов использовано
+msg.nc.Vanilla.Name=Имя блока
+msg.nc.Vanilla.StorageLVL=Уровень хранилища
+msg.nc.Vanilla.brewstand=Текущее время жарки: %s
+msg.nc.Vanilla.potionType1=1st Potion Type: %s
+msg.nc.Vanilla.potionType2=2st Potion Type: %s
+msg.nc.Vanilla.potionType3=3st Potion Type: %s
+msg.nc.Vanilla.brewing=Жарится
+msg.nc.Vanilla.notBrewing=Не жарится
+msg.nc.Vanilla.dispBrewUse=Показать тип выхода #%s
+msg.nc.Vanilla.dispBrew=Показать жарящийся блок
+msg.nc.Vanilla.dispBrewTime=Показать время жарки
+msg.nc.Vanilla.cooking=Готовится: %sx - %s
+msg.nc.Vanilla.fuel=Топливо: %sx - %s
+msg.nc.Vanilla.output=Выход: %sx - %s
+msg.nc.Vanilla.burnTime=Время горения: %s
+
+#Big Reactor Messages
 msg.nc.InfoPanelRF.Temp=Темп. ядра: %s C
 msg.nc.InfoPanelRF.EnergyStored=Энергия: %s RF
 msg.nc.InfoPanelRF.CreatedEnergy=Выходная энергия: %s RF/т
+msg.nc.InfoPanelRF.SteamOutput=Выход пара: %s mB/t
 msg.nc.InfoPanelRF.Percentage=Энергохранилище заполнено на %s%%
 msg.nc.InfoPanelRF.Output=Выход (RF/т)
 msg.nc.InfoPanelRF.TempPROPER=Температура ядра
+msg.nc.InfoPanelRF.CoolantTank=Бак-охладитель: %s x%smB
+msg.nc.InfoPanelRF.OutputTank=Выходной бак: %s x%smB
 
+#5x5 Reactor Messages
 msg.nc.InfoPanel55.Output=Выход: %s Hu/сек
 msg.nc.InfoPanel55.Temp=Температура ядра: %s%%
 msg.nc.InfoPanel55.tarkin=Внутренний резервуар: %s / 10000 мВ
@@ -122,8 +181,7 @@ msg.nc.InfoPanel55.Out=Выход (Hu/сек)
 msg.nc.InfoPanel55.BufferIn=Резервуар хладагента
 msg.nc.InfoPanel55.BufferOut=Резервуар горячего хладагента
 
-msg.nc.cb24h=24-часовой Режим
-
+#AE INTERGRATION
 msg.nc.cbInfoPanelEnergyCurrent=Энергия
 msg.nc.cbInfoPanelEnergyStorage=Хранилище
 msg.nc.cbInfoPanelEnergyFree=Свободно
@@ -141,13 +199,13 @@ msg.nc.cbInfoPanelLiquidTotal=Суммарно
 msg.nc.Reset=Сброс
 msg.nc.ScreenColor=Цветной экран
 msg.nc.TextColor=Цветной текст
-msg.nc.None=Н/А
+msg.nc.None=N/A
 nc.msg.notValid=Эта карта не может быть совместима
 nc.msg.notValid2=с дистанционным датчиком
 nc.msg.notValid3=Попробуйте открыть интерфейс заново
 
+#WAILA Integration
 msg.nc.waila.getHeatLevel=Максимальная температура: 
-
 msg.nc.waila.ColorBackground=Фоновый цвет: 
 msg.nc.waila.ColorText=Цвет текста: 
 msg.nc.waila.Web=Улучшение «Сеть» установлено
@@ -166,11 +224,8 @@ msg.nc.waila.ColorYellow=Жёлтый
 msg.nc.waila.ColorBlue=Синий
 msg.nc.waila.ColorMagenta=Сиреневый
 msg.nc.waila.ColorOrange=Оранжевый
-
 msg.nc.waila.getSoundNames=Звук: 
 msg.nc.waila.getRange=Дальность: 
-
 msg.nc.waila.getEnergyCount=Энергосчётчик: 
-
 msg.nc.waila.getEnergyAverage=Средняя энергия: 
 msg.nc.waila.getPeriod=За период: 
