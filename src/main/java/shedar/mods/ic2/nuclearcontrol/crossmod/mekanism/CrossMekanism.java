@@ -16,7 +16,7 @@ public class CrossMekanism {
             Class.forName("mekanism.api.energy.IStrictEnergyStorage", false, this.getClass().getClassLoader());
             classExists = true;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace(); - Fix #163
         }
     }
 
