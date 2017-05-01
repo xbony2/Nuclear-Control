@@ -16,15 +16,12 @@ public class CrossMekanism {
             Class.forName("mekanism.api.energy.IStrictEnergyStorage", false, this.getClass().getClassLoader());
             classExists = true;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            // nothing
         }
     }
 
     public static boolean isMekanismPresent(){
-        if (Loader.isModLoaded(ModLib.MEKANISM)) {
-            return true;
-        }
-        return false;
+        return Loader.isModLoaded(ModLib.MEKANISM);
     }
 
     public static void LoadItems(){
