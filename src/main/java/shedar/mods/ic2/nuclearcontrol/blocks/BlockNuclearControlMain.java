@@ -34,7 +34,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.world.BlockEvent.PlaceEvent;
 import shedar.mods.ic2.nuclearcontrol.IC2NuclearControl;
 import shedar.mods.ic2.nuclearcontrol.blocks.subblocks.*;
 import shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityHowlerAlarm;
@@ -432,7 +435,13 @@ public class BlockNuclearControlMain extends BlockContainer {
 			return false;
 		}
 		if (subblocks.containsKey(blockType) && subblocks.get(blockType).hasGui()) {
-			if (player instanceof EntityPlayerMP) player.openGui(IC2NuclearControl.instance, blockType, world, x, y, z);
+			if (player instanceof EntityPlayerMP) {
+				BlockSnapshot blockSnapshot = new BlockSnapshot(world, x, y, z, Blocks.air, 0);
+				PlaceEvent e = ForgeEventFactory.onPlayerBlockPlace(player, blockSnapshot, ForgeDirection.getOrientation(side));
+				if (!e.isCanceled()) {
+					player.openGui(IC2NuclearControl.instance, blockType, world, x, y, z);
+				}
+			}
 			return true;
 		}
 		return false;
