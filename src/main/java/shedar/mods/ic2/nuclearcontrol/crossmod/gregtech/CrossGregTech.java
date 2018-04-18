@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.crossmod.gregtech;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.items.GT_RadioactiveCell_Item;
 import net.minecraft.item.ItemStack;
@@ -12,15 +13,12 @@ public class CrossGregTech {
     private boolean _isApiAvailable;
 
     public CrossGregTech() {
-        try
-        {
-            Class.forName("gregtechmod.api.items.GT_RadioactiveCell_Item", false, this.getClass().getClassLoader());
+        if(Loader.isModLoaded(ModLib.GT)) {
             _isApiAvailable = true;
-        } catch (ClassNotFoundException e)
-        {
+            IC2NuclearControl.logger.info("[IC2NuclearControl] find GregTech");
+        } else {
             _isApiAvailable = false;
         }
-
 
     }
     public boolean isApiAvailable()
@@ -39,13 +37,13 @@ public class CrossGregTech {
                 int maxDamage = rod.getMaxDamageEx();
                 int currentDmg = GT_RadioactiveCellIC_Item.getDurabilityOfStack(stack);
                 int dmg = maxDamage - currentDmg;
-                return dmg;
+                return (dmg > 0) ? dmg : 0;
             } else {
-                return 0;
+                return -1;
             }
         } catch (Exception e) {
             IC2NuclearControl.logger.error(e);
-            return 0;
+            return -1;
         }
     }
 }

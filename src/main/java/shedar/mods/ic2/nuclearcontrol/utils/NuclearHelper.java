@@ -79,11 +79,16 @@ public class NuclearHelper {
 	}
 
 	public static int getNuclearCellTimeLeft(ItemStack rStack) {
-		int val = IC2NuclearControl.instance.crossIc2.getNuclearCellTimeLeft(rStack);
-		if (val == -1 && IC2NuclearControl.instance.crossGT.isApiAvailable())
-		{
-			val = IC2NuclearControl.instance.crossGT.getNuclearCellTimeLeft(rStack);
-		}
+        int val;
+	    if (IC2NuclearControl.instance.crossGT.isApiAvailable()) {
+            val = IC2NuclearControl.instance.crossGT.getNuclearCellTimeLeft(rStack);
+            if (val == -1)
+            {
+                val = IC2NuclearControl.instance.crossIc2.getNuclearCellTimeLeft(rStack);
+            }
+        } else {
+            val = IC2NuclearControl.instance.crossIc2.getNuclearCellTimeLeft(rStack);
+        }
 		return val;
 	}
 }
