@@ -30,7 +30,7 @@ public class IC2ExpCross extends IC2Cross{
 			return par1.getMaxDamage() - par1.getItemDamage();
 		}
 
-		return 0;
+		return -1;
 	}
 
 	@Override
