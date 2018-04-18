@@ -55,6 +55,7 @@ dependencies {
 	compile files(brVersion)  
 	compile files(mekVersion)
 	compile files(buildcraftVersion)
+    compile files(gregtechVersion)
 }
 
 

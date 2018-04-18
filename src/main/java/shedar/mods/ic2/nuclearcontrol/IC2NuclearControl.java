@@ -23,8 +23,10 @@ import org.apache.logging.log4j.Logger;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlLight;
 import shedar.mods.ic2.nuclearcontrol.blocks.BlockNuclearControlMain;
 import shedar.mods.ic2.nuclearcontrol.crossmod.CrossModLoader;
+import shedar.mods.ic2.nuclearcontrol.crossmod.ModLib;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossBuildcraft;
 import shedar.mods.ic2.nuclearcontrol.crossmod.RF.CrossRF;
+import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.CrossGregTech;
 import shedar.mods.ic2.nuclearcontrol.crossmod.gregtech.GregtechRecipes;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.IC2Cross;
 import shedar.mods.ic2.nuclearcontrol.crossmod.ic2.IC2Type;
@@ -54,7 +56,7 @@ import shedar.mods.ic2.nuclearcontrol.recipes.RecipesOld;
 
 
 
-@Mod(modid = "IC2NuclearControl", name = "Nuclear Control 2", version = "@VERSION@", dependencies = "required-after:IC2", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
+@Mod(modid = "IC2NuclearControl", name = "Nuclear Control 2", version = "@VERSION@", dependencies = "required-after:IC2; after:gregtech;", guiFactory = "shedar.mods.ic2.nuclearcontrol.gui.GuiFactory")
 public class IC2NuclearControl {
 
 	// The instance of your mod forge uses
@@ -117,6 +119,7 @@ public class IC2NuclearControl {
 	public CrossRF crossRF;
 	public CrossOpenComputers crossOC;
 	public IC2Cross crossIc2;
+	public CrossGregTech crossGT;
 
 	protected void initBlocks() {
 		blockNuclearControlMain = new BlockNuclearControlMain();
@@ -227,6 +230,7 @@ public class IC2NuclearControl {
 		} else {
 			RecipesNew.addRecipes();
 		}
+		crossGT = new CrossGregTech();
 		/*
 		//I thought about doing this, but I didn't :P
 		ItemStack dBlock = new ItemStack(Blocks.diamond_block);
