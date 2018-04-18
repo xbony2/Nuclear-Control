@@ -110,6 +110,7 @@ public class IC2NuclearControl {
 	public int remoteThermalMonitorEnergyConsumption;
 	public ScreenManager screenManager = new ScreenManager();
 	public int screenRefreshPeriod;
+	public int dataRefreshPeriod;
 	public int rangeTriggerRefreshPeriod;
 	public boolean disableCapes;
 	public String recipes;
