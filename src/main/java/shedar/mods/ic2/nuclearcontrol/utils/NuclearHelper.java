@@ -1,5 +1,6 @@
 package shedar.mods.ic2.nuclearcontrol.utils;
 
+import cpw.mods.fml.common.Loader;
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
 import net.minecraft.item.ItemStack;
@@ -78,7 +79,16 @@ public class NuclearHelper {
 	}
 
 	public static int getNuclearCellTimeLeft(ItemStack rStack) {
-		return IC2NuclearControl.instance.crossIc2.getNuclearCellTimeLeft(rStack);
+        int val;
+	    if (IC2NuclearControl.instance.crossGT.isApiAvailable()) {
+            val = IC2NuclearControl.instance.crossGT.getNuclearCellTimeLeft(rStack);
+            if (val == -1)
+            {
+                val = IC2NuclearControl.instance.crossIc2.getNuclearCellTimeLeft(rStack);
+            }
+        } else {
+            val = IC2NuclearControl.instance.crossIc2.getNuclearCellTimeLeft(rStack);
+        }
+		return val;
 	}
-
 }

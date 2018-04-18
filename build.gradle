@@ -39,10 +39,6 @@ repositories {
         name "ProfMobius"
         url "http://mobiusstrip.eu/maven"
     }
-	maven {
-		name "OC"
-		url "http://maven.cil.li/"
-	}
 }
 
 dependencies {
@@ -52,12 +48,14 @@ dependencies {
 	compile codeChickenLibVersion
 	compile argoVersion
 	compile wailaVersion
-	compile openCVersion
+	compile files(openCVersion)
+    compile files(rcVersion)
 	compile files(aeVersion)
 	compile files(cofhCoreVersion)
 	compile files(brVersion)  
 	compile files(mekVersion)
 	compile files(buildcraftVersion)
+    compile files(gregtechVersion)
 }
 
 

@@ -27,10 +27,11 @@ public class IC2ExpCross extends IC2Cross{
 		}
 		if (par1.getItem() instanceof ItemReactorUranium || par1.getItem() instanceof ItemReactorLithiumCell || par1.getItem() instanceof ItemReactorMOX)
 		{
-			return par1.getMaxDamage() - par1.getItemDamage();
+			int dmg = par1.getMaxDamage() - par1.getItemDamage();
+			return (dmg > 0) ? dmg : 0;
 		}
 
-		return 0;
+		return -1;
 	}
 
 	@Override

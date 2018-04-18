@@ -70,6 +70,8 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 	protected int updateTicker;
 	protected int dataTicker;
 	protected int tickRate;
+	protected int dt;
+	protected int updatedataTicker;
 	public boolean init;
 	public ItemStack inventory[];
 	public NBTTagCompound screenData;
@@ -315,7 +317,9 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		cardData = new HashMap<Integer, List<PanelString>>();
 		tickRate = IC2NuclearControl.instance.screenRefreshPeriod;
 		updateTicker = tickRate;
-		dataTicker = 4;
+		dt = IC2NuclearControl.instance.dataRefreshPeriod;
+		dataTicker = (dt > tickRate) ? tickRate : dt;
+		updatedataTicker = dataTicker;
 		displaySettings = new HashMap<Byte, Map<UUID, Integer>>(1);
 		displaySettings.put((byte) 0, new HashMap<UUID, Integer>());
 		powered = false;
@@ -394,10 +398,10 @@ public class TileEntityInfoPanel extends TileEntity implements ISlotItemFilter,
 		if (!init) {
 			initData();
 		}
-		dataTicker--;
-		if (dataTicker <= 0) {
+		updatedataTicker--;
+		if (updatedataTicker <= 0) {
 			resetCardData();
-			dataTicker = 4;
+			updatedataTicker = dataTicker;
 		}
 		if (!worldObj.isRemote) {
 			if (updateTicker-- > 0)

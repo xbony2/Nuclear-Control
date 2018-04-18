@@ -23,7 +23,7 @@ public class IC2ClassicCross extends IC2Cross {
 		if (par1.getItem() instanceof ItemReactorUranium) {
 			return 10000 - par1.getItemDamage();
 		}
-		return 0;
+		return -1;
 	}
 
 	@Override
