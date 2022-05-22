@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://files.minecraftforge.net/maven"
         }
         maven {
             name = "sonatype"
@@ -37,7 +37,7 @@ repositories {
 	}
 	maven {
         name "ProfMobius"
-        url "http://mobiusstrip.eu/maven"
+        url "https://www.mobiusstrip.eu/maven/"
     }
 	maven {
 		name "OC"
@@ -46,6 +46,13 @@ repositories {
 }
 
 dependencies {
+	/*runtime 'org.apache.commons:commons-math3:3.2' // Needed for dev opis because it doesn't know how to specify dependencies properly
+	runtime 'org.jfree:jcommon:1.0.21'             // Needed for dev opis because it doesn't know how to specify dependencies properly
+	runtime 'org.jfree:jfreechart:1.0.17'          // Needed for dev opis because it doesn't know how to specify dependencies properly
+	runtime 'com.miglayout:miglayout-swing:4.2'    // Needed for dev opis because it doesn't know how to specify dependencies properly
+	runtime 'net.sf.opencsv:opencsv:2.3'           // Needed for dev opis because it doesn't know how to specify dependencies properly
+	runtime "io.netty-opis:Netty-opis:4.0.23"      // Needed for dev opis because it doesn't know how to specify dependencies properly*/
+
 	compile ic2Version
 	compile codeChickenCoreVersion
 	compile notEnoughItemsVersion
@@ -91,6 +98,4 @@ processResources {
     from(sourceSets.main.resources.srcDirs){
         exclude 'mcmod.info'
     }
-
-
 }

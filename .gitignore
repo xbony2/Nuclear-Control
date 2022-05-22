@@ -4,9 +4,8 @@
 *.iml
 *.ipr
 *.iws
-
-# If this doesn't work, everything will blow up :D
 .DS_Store
+.idea
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
