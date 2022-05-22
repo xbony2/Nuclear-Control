@@ -19,7 +19,7 @@ public class CrossBigReactors {
 	
 	public static void doStuff(){
 		if(Loader.isModLoaded(ModLib.BIG_REACTORS)){
-			NCLog.fatal("We know that there is a foreign reactor installed...");
+			NCLog.info("We know that there is a foreign reactor installed...");
 			activateOtherModStuff();
 		}
 	}
