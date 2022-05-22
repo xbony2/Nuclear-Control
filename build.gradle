@@ -9,9 +9,16 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            name 'thcentral'
+            url 'https://maven.thorfusion.com/artifactory/central/'
+        }
+
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath ('com.anatawa12.forge:ForgeGradle:1.2-1.0.+') {
+            changing = true
+        }
     }
 }
 
@@ -21,7 +28,7 @@ version = newNuclearControlVersion
 group= "com.shedar.IC2NuclearControl"
 archivesBaseName = "IC2NuclearControl"
 minecraft {
-    version = forgeVersion
+    version = mcVersion + "-" + forgeVersion
 	runDir = "eclipse"
 	replace "@VERSION@", project.version
 }
@@ -43,6 +50,10 @@ repositories {
 		name "OC"
 		url "http://maven.cil.li/"
 	}
+    maven {
+        name 'thcentral'
+        url 'https://maven.thorfusion.com/artifactory/central/'
+    }
 }
 
 dependencies {
@@ -54,11 +65,6 @@ dependencies {
 	compile argoVersion
 	compile wailaVersion
 	compile openCVersion
-	compile files(aeVersion)
-	compile files(cofhCoreVersion)
-	compile files(brVersion)  
-	compile files(mekVersion)
-	compile files(buildcraftVersion)
 }
 
 

@@ -93,8 +93,7 @@ public class TileEntityNetworkLink extends AENetworkTile {
                 }
             } else if(tile instanceof TileChest){
                 TileChest chest = (TileChest) tile;
-                // ItemStack is = chest.getInternalInventory().getStackInSlot(0);
-                ItemStack is = null; // FIXME
+                ItemStack is = chest.getInternalInventory().getStackInSlot(0);
                 if(is != null){
                     IMEInventoryHandler inventory = AEApi.instance().registries().cell().getCellInventory( is, null, StorageChannel.ITEMS );
                     if(inventory instanceof ICellInventoryHandler){
