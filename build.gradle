@@ -21,7 +21,7 @@ version = newNuclearControlVersion
 group= "com.shedar.IC2NuclearControl"
 archivesBaseName = "IC2NuclearControl"
 minecraft {
-    version = forgeVersion
+    version = mcVersion + "-" + forgeVersion
 	runDir = "eclipse"
 	replace "@VERSION@", project.version
 }
