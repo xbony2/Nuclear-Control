@@ -22,7 +22,9 @@ buildscript {
     }
 }
 
+apply plugin: 'java-library'
 apply plugin: 'forge'
+apply plugin: 'idea'
 
 version = newNuclearControlVersion
 group= "com.shedar.IC2NuclearControl"
