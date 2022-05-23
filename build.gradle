@@ -27,6 +27,9 @@ apply plugin: 'forge'
 version = newNuclearControlVersion
 group= "com.shedar.IC2NuclearControl"
 archivesBaseName = "IC2NuclearControl"
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
 minecraft {
     version = mcVersion + "-" + forgeVersion
 	runDir = "eclipse"
